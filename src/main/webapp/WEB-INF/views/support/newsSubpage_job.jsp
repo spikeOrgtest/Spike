@@ -10,9 +10,9 @@
 <link rel="stylesheet" href="assets/css/include.css">
 </head>
 <body class="subpage">
-	<%@ include file="include/header.jsp"%>
+	<%@ include file="../include/header.jsp"%>
 
-	<jsp:include page="include/subnav.jsp"/>
+	<jsp:include page="../include/subnav.jsp"/>
 
 	<div class="subpageWrapper">
 		<%-- 브레드크럼, 경로 표시 필요 없는 페이지면 지워도 됨 --%>
@@ -117,7 +117,7 @@
 	</div>
 	</div>
 	
-	<%@ include file="include/shortfooter.jsp"%>
+	<%@ include file="../include/shortfooter.jsp"%>
 	<script src="assets/js/job.js"></script>
 </body>
 </html>

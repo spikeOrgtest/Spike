@@ -13,7 +13,7 @@
 </head>
 <body>
     
-    <jsp:include page="include/header.jsp"/>
+    <jsp:include page="../include/header.jsp"/>
 
     <!-- 메인 콘텐츠 -->
     <main class="main">
@@ -50,7 +50,7 @@
             </div>
         </section>
     </main>
-        <jsp:include page="include/footer.jsp"/>
+        <jsp:include page="../include/footer.jsp"/>
     
 </body>
 </html>

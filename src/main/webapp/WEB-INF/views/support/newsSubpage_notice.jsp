@@ -10,9 +10,9 @@
 <link rel="stylesheet" href="assets/css/subpage_notice.css">
 </head>
 <body class="subpage">
-	<%@ include file="include/header.jsp"%>
+	<%@ include file="../include/header.jsp"%>
 
-	<jsp:include page="include/subnav.jsp" />
+	<jsp:include page="../include/subnav.jsp" />
 
 	<div class="subpageWrapper">
 		<!-- 브레드크럼(경로) -->
@@ -84,7 +84,7 @@
 		</div>
 	</div>
 
-	<%@ include file="include/shortfooter.jsp"%>
+	<%@ include file="../include/shortfooter.jsp"%>
 	<script src="assets/js/subpage.js"></script>
 </body>
 </html>

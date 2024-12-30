@@ -12,8 +12,8 @@
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body class="subpage">
-    <jsp:include page="include/header.jsp" />
-    <jsp:include page="include/subnav.jsp" />
+    <jsp:include page="../include/header.jsp" />
+    <jsp:include page="../include/subnav.jsp" />
 
     <div class="subpageWrapper">
         <div class="subpage-breadcrumbs">
@@ -49,7 +49,7 @@
         </div>
     </div>
 
-    <jsp:include page="include/shortfooter.jsp" />
+    <jsp:include page="../include/shortfooter.jsp" />
     <script src="./assets/js/subpage.js"></script>
     <script src="./assets/js/subpage_bank.js"></script>
     <script>

@@ -10,9 +10,9 @@
 <link rel="stylesheet" href="assets/css/supportsSubpage_sms.css">
 </head>
 <body class="subpage">
-	<%@ include file="include/header.jsp"%>
+	<%@ include file="../include/header.jsp"%>
 
-	<jsp:include page="include/subnav.jsp" />
+	<jsp:include page="../include/subnav.jsp" />
 
 	<div class="subpageWrapper">
 		<div class="subpage-breadcrumbs">
@@ -81,7 +81,7 @@
 		</div>
 	</div>
 
-	<%@ include file="include/shortfooter.jsp"%>
+	<%@ include file="../include/shortfooter.jsp"%>
 		<script src="./assets/js/subpage.js"></script>
 	
 </body>

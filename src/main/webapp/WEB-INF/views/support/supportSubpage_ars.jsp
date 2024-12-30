@@ -12,9 +12,9 @@
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body class="subpage">
-	<%@ include file="include/header.jsp"%>
+	<%@ include file="../include/header.jsp"%>
 
-	<jsp:include page="include/subnav.jsp" />
+	<jsp:include page="../include/subnav.jsp" />
 	<div class="subpageWrapper">
 		<div class="subpage-breadcrumbs">
 			<a href="#">고객센터</a> <span>></span> <a href="#">ARS 안내</a>
@@ -167,7 +167,7 @@
 		</div>
 	</div>
 
-	<%@ include file="include/shortfooter.jsp"%>
+	<%@ include file="../include/shortfooter.jsp"%>
 	<script src="subpage.js"></script>
 	<script src="assets/js/supportSubpage_ars.js"></script>
 	<script src="./assets/js/subpage.js"></script>

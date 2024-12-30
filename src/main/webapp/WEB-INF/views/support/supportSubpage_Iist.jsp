@@ -12,7 +12,7 @@
 <link rel="stylesheet" href="assets/css/include.css">
 </head>
 <body class="subpage">
-	<%@ include file="include/header.jsp"%>
+	<%@ include file="../include/header.jsp"%>
 
 	<div class="subpageWrapper">
 		<%-- 서브페이지 래퍼 --%>
@@ -98,7 +98,7 @@
 		</div>
 	</div>
 
-	<%@ include file="include/shortfooter.jsp"%>
+	<%@ include file="../include/shortfooter.jsp"%>
 	<script
 		src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
 	<script

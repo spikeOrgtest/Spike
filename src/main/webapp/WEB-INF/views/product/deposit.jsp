@@ -10,7 +10,7 @@
 </head>
 <body>
 	
-	<jsp:include page="include/pheader.jsp" />
+	<jsp:include page="../include/pheader.jsp" />
 		
 	<main>
         <section class="hero">

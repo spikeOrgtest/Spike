@@ -29,7 +29,7 @@
 </head>
 
 <body>
-	<%@ include file="include/header.jsp"%>
+	<%@ include file="../include/header.jsp"%>
 	<div class="d-flex" id="wrapper">
 		<!-- Page content wrapper-->
 		<div id="page-content-wrapper">
@@ -129,7 +129,7 @@
 			</div>
 		</div>
 	</div>
-	<%@ include file="include/footer.jsp"%>
+	<%@ include file="../include/footer.jsp"%>
 	<!-- Bootstrap core JS-->
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>

@@ -11,7 +11,7 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!-- jQuery 추가 -->
 </head>
 <body class="subpage">
-   <%@ include file="include/header.jsp"%>
+   <%@ include file="../include/header.jsp"%>
 
    <div class="subpageWrapper">
       <%-- 서브페이지 래퍼 --%>
@@ -92,7 +92,7 @@
       </div>
    </div>
 
-   <%@ include file="include/shortfooter.jsp"%>
+   <%@ include file="../include/shortfooter.jsp"%>
    <script src="assets/js/subpage.js"></script>
 
    <!-- jQuery를 이용한 더보기 기능 추가 -->
