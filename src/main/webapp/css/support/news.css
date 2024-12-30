@@ -1,0 +1,759 @@
+@charset "UTF-8";
+
+html,body{
+	min-width:1080px;
+	background-color: #ffffff;
+	margin: 0;                   /* 기본 여백 제거 */
+    padding: 0;                  /* 기본 패딩 제거 */
+    height: auto;                /* 페이지 전체를 100% 높이로 설정 */
+    /*box-sizing: border-box;      /* padding, border를 크기 계산에 포함시킴 */
+    height: 100%;       /* 전체 높이를 100%로 설정 */
+    width: 100%;  
+    overflow-x: hidden; /* 가로 스크롤바를 숨김 */
+    overflow-y: auto;   /* 세로 스크롤바는 필요에 따라 보이도록 설정 */
+}
+
+/* <header> 고정 */
+/*header {
+    position: sticky; /* 고정 위치 */
+    /*top: 0; /* 페이지 상단에 고정 */
+    /*left: 0; /* 왼쪽 끝에 고정 */
+    /*width: 100%; /* 전체 너비를 차지하도록 설정 */
+    /*z-index: 1000; /* 다른 요소들 위에 나타나도록 설정 */
+    /*background-color: #f4f8fd; /* 배경색 */
+    /*box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* 미세한 그림자 효과 */
+    /*padding: 10px 0; /* 필요한 경우 패딩 추가 */
+    /*min-width:1080px;
+    
+/*}*/
+
+
+main{
+	flex: 1; /* main 요소가 나머지 공간을 차지하도록 설정 */
+    margin:30px 200px 30px 200px;
+    min-width:1080px;*/
+}
+
+
+
+/* ------header------------*/
+
+/* 기본 네비게이션 스타일 */
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    gap: 20px!important;
+}
+
+nav ul li {
+    position: relative!important;
+}
+
+nav ul li a {
+    text-decoration: center !important;
+    padding: 10px 15px !important;
+    display: block !important;
+    color: #333 !important;
+}
+
+
+/* 드롭다운 메뉴 스타일 */
+nav ul li .dropdown-menu{
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    list-style: none;
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 10px 0;
+    margin: 0;
+    z-index: 1000;
+    
+}.
+
+nav ul li .dropdown-menu li{
+    padding: 5px 20px !important;
+}
+
+nav ul li .dropdown-menu li a{
+    color: #555;
+    display: inline-block !important; /* 글자가 세로로 나오지 않도록 설정 */
+    white-space: nowrap !important; /* 텍스트 줄바꿈 방지 */
+    margin: 5px 20px !important;
+}
+
+nav ul li .dropdown-menu li a:hover {
+    color: #000;
+    background-color: #f1f1f1;
+}
+
+/* 드롭다운 메뉴 표시 */
+nav ul li:hover .dropdown-menu {
+    display: block;
+}
+
+
+
+/* 헤더 스타일 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    /*min-width:1080px;*/
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.top-bar {
+    background-color: #f8f8f8;
+    padding: 5px 0;
+    font-size: 0.8rem;
+    
+    
+}
+
+.top-bar .container {
+    display: flex;
+    justify-content: flex-end;
+    gap: 20px;
+    padding-right: 20px;  /* 오른쪽에 약간의 패딩 추가 */
+}
+
+.top-bar a {
+    color: #666;
+    text-decoration: none;
+}
+
+.main-header {
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.main-header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 70px;
+}
+
+.main-header nav ul {
+    display: flex;
+    list-style: none;
+    gap: 30px;
+}
+
+.main-header nav ul li a {
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+    transition: color 0.3s;
+}
+
+.main-header nav ul li a:hover {
+    color: #4169e1;
+}
+
+.login-btn {
+    background-color: #3264C8;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.login-btn:hover {
+    background-color: #2750A0;
+}
+
+
+/* ------header------------*/
+/*맨위*/
+ul#id2 {
+    list-style-type: none;  /* 기본적인 리스트 점 제거 */
+    display: flex;           /* flexbox 사용하여 가로 배치 */
+    justify-content: flex-end; /* 항목들을 오른쪽으로 정렬 */
+    align-items: center;     /* 항목들을 세로로 가운데 정렬 */
+    /*margin-left:0px;*/
+    font-size:12px;
+    color: #808080;
+    background-color: #f4f8fd;
+    padding:5px 0px 30px 0px;
+    flex-wrap: nowrap;      /* 항목들이 한 줄로 유지되도록 설정 */
+    width: 100%;            /* 전체 너비를 차지하도록 설정 */
+}
+
+/* 메뉴 항목들만 아래로 이동 */
+ul#id2 li:not(.search-item) {
+    margin-top: 5px;  /* 검색창을 제외한 메뉴 항목만 아래로 5px 이동(중앙정렬을 위해) */
+}
+
+ul#id2 li {
+    margin-left: 20px;       /* 항목 간의 간격 */
+    width: 60px;
+}
+
+ul#id2 li a {
+    color: #808080;
+    text-decoration: none;
+}
+
+ul#id2 li a:hover {
+    text-decoration: underline;
+}
+
+/* 검색창을 오른쪽 정렬 */
+
+ul#id2 li.search-item {
+    margin-left: 20px;  /* 'FAQ'와 검색창 사이의 간격 */
+}
+
+.search {
+    display: flex;                  /* 검색 입력 필드와 버튼을 가로로 배치 */
+    align-items: center;            /* 세로로 가운데 정렬 */
+    margin-top: 5px;                 /* 로고와 검색 입력 사이의 간격 추가 */
+    /*margin-left: 20px;              /* 메뉴와 검색창 사이에 간격 추가 */
+    
+}
+
+.search input {
+    padding: 5px;
+    font-size: 14px;
+    border: 1px solid #ccc; /* 테두리 색상 */
+    border-radius: 25px; /* 더 둥근 테두리 */
+    margin-right: 10px; /* 검색어 입력 필드와 버튼 사이의 간격 조정 */
+    width: 140px; /* 입력 필드의 너비 조정 */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* 부드러운 그림자 추가 */
+    padding-left: 10px; /* 텍스트를 오른쪽으로 이동시키기 위한 여백 추가 */
+}
+
+.search button {
+    padding: 6.5px 10px;
+    font-size: 12px;
+    cursor: pointer;
+    width: 60px;
+}
+
+.search-button {
+    padding: 10px 15px; /* 버튼 패딩 */
+    font-size: 14px;
+    background-color: #1bb1dc; /* 버튼 배경색 */
+    color: white; /* 텍스트 색상 */
+    border: none; /* 테두리 없음 */
+    border-radius: 25px; /* 더 둥근 테두리 */
+    cursor: pointer; /* 커서 포인터로 변경 */
+    transition: background-color 0.3s; /* 배경색 전환 효과 */
+}
+
+.search-button:hover {
+    background-color: #b03c31; /* 호버 시 버튼 배경색 */
+}
+
+/* 검색창 placeholder 텍스트 크기 줄이기 */
+.search input::placeholder {
+    font-size: 12px;  /* 원하는 크기로 텍스트 크기 조정 */
+    padding:5px;
+}
+
+/* 검색창 클릭 시 테두리 색상 변경 */
+.search input:focus {
+    border-color: #D24D3A; /* 테두리 색상을 지정 */
+    outline: none;  /* 클릭 시 기본적으로 나타나는 파란색 외곽선 제거 */
+}
+
+/* 로고 */
+.logo {
+	display: flex;               /* 요소들을 가로로 배치 */
+    align-items: center;         /* 세로로 가운데 정렬 */
+    font-size: 30px;             /* 텍스트 크기 설정 */
+    
+    width: 120px;
+    height:60px;                  /* 이미지의 너비를 글씨 크기(em 단위로 설정) */
+    /*height: auto;                /* 이미지 비율에 맞게 자동으로 높이 설정 */
+    margin-right: 10px;           /* 글씨와 이미지 사이에 여백 추가 */
+}
+
+.logo span {
+    margin-left: -5px;           /* 글씨를 왼쪽으로 5px 정도 이동 */
+}
+
+
+/* 이미지 위의 텍스트 */
+.slide-text {
+  position: absolute;
+  top: 0;
+  width:100%;
+  /*top: 15%;*/
+  /*left: 35%;*/
+  /*transform: translate(-50%, -50%); /* 중앙 정렬 */
+  /*transform: translateX(-50%);*/
+  color: #ffffff;
+  text-align: center;
+  font-size: 30px;
+  font-weight: bold;
+  background-color: rgba(0, 0, 0, 0.5); /* 배경을 반투명 검정으로 설정 */
+  
+}
+
+.slide-text p {
+    font-size: 30px; /* 설명 텍스트 폰트 크기 */
+    margin-top: 10px; /* 위쪽에 여백 추가 */
+    margin: 0;  /* 텍스트 주변의 여백 제거 */
+    color: #ffffff;
+    font-weight: bold;  /* 글씨를 굵게 만듬 */
+    font-family: "Verdana", "Geneva", sans-serif; /* 산세리프 폰트 */
+    background-size:100%!important;
+    
+    /*font-family: 'Roboto', sans-serif;*/
+    /*-webkit-text-stroke: 0.2px #ffffff;  /* 텍스트 외곽선 색상과 두께 */
+    /*text-shadow: 1px 1px 0 #000000; /*0 0 25px #ffffff, 0 0 5px #ffffff; /* 다채로운 그림자 효과 */
+}
+
+/* footer*/
+
+<!-- 
+/*
+.socials-media a {
+    color: #000000;
+    margin: 0 10px;
+    text-decoration: none;
+}
+
+.socials-media a:hover {
+    text-decoration: underline;
+}
+
+.socials-media img {
+    border-radius: 50%;
+}
+*/
+-->
+/* 소식박스 */
+
+/* 소식 박스를 위한 스타일 */
+.news-container{
+	/*margin-left:400px;*/
+	display: flex; /* flexbox 레이아웃을 사용 */
+    flex-direction: column; /* 자식 요소들이 수직으로 쌓이게 함 */
+    gap: 20px; /* 두 박스 사이의 간격을 20px로 설정 */
+    width: 35%; /* 컨테이너의 너비를 설정 (필요에 따라 조정 가능) */
+    height: auto; /* 높이를 자동으로 설정 */
+    width: 50%;      /* 뉴스 박스 너비를 50%로 설정 */
+    height: 350px;   /* 뉴스 박스 높이를 500px로 설정 */
+    
+    /*margin: 0 auto;  /* 가운데 정렬 */
+}
+
+.news-box, .news-box2 {
+    width: 80%; /* 뉴스 박스가 100% 너비를 차지하도록 설정 */
+    /*height: 250px; /* 높이는 자동으로 설정 */
+    padding: 20px;
+    border: 1px solid black;
+    display: flex;
+    flex-direction: column; /* 항목들을 세로로 배치 */
+    box-sizing: border-box; /* padding을 포함한 크기 계산 */
+    overflow: hidden; /* 내용이 박스를 벗어나지 않도록 설정 */
+}
+
+
+/**/
+.news-link, .news-exchange  {
+	/*font-size: 24px; /* 제목 크기 */
+    /*font-weight: bold;
+    margin-bottom: 10px;*/
+    color: #1bb1dc; /* 텍스트 색상 변경 */
+    text-decoration: none; /* 밑줄 제거 */
+    display: flex;
+    align-items: center; /* 텍스트와 이미지가 수평 정렬되도록 */
+    justify-content: space-between; /* 텍스트와 이미지를 양 끝으로 배치 */
+    width: 100%; /* 링크의 너비를 100%로 설정하여 가로 공간을 꽉 채움 */
+    padding:0px 0px 30px 0px;
+}
+
+.news-text {
+  flex-grow: 1; /* 텍스트가 가능한 공간을 차지하도록 */
+  font-size: 36px; /* 뉴스 텍스트 크기 증가 */
+  font-weight: bold; /* 텍스트 굵게 */
+  margin-left:40px;
+}
+
+.news-image, .exchange-image{
+    /*margin:0px 0px 0px 200px; /* 텍스트와 이미지 간의 간격 */
+    /*vertical-align: middle;  /* 이미지가 텍스트와 수평으로 정렬되도록 설정 */
+    max-width: 100%; /* 이미지 크기 제한 */
+    height: auto; /* 이미지의 비율을 유지 */
+}
+
+.news-link:hover {
+    background-color: #ffffff;      /* 호버 시 배경색 */
+    color: #00377e;                  /* 호버 시 텍스트 색 변경 */
+}
+
+/* ul 목록 스타일 */
+.news-box ul, .news-box2 ul {
+    padding-left: 20px;
+    list-style-type: disc;
+    margin-left: 0;
+}
+
+/* ul 항목 스타일 */
+.news-box ul li, .news-box2 ul li {
+    color: #333;
+    margin: 5px 0;
+}
+
+/* 링크 스타일 */
+.news-box ul li a, .news-box2 ul li a {
+    color: #333;
+    text-decoration: none;
+    display: block;
+    padding: 5px;           /* 텍스트 주변 여백 */
+}
+
+.news-box ul li a:hover, .news-box2 ul li a:hover {
+    color: #00377e; /* 호버 시 텍스트 색상 변경 */
+}
+
+#news-content, #news-content2 {
+    list-style-type: disc;  /* 항목 앞에 점 표시 */
+    padding-left: 0;  /* 점과 항목 간 간격 */
+    margin-left: 10px;  /* 전체 목록의 왼쪽 여백 */
+    width:380px;
+}
+
+#news-content li a, #news-content2 li a {
+    text-decoration: none;  /* 링크 밑줄 제거 */
+    color: #333;  /* 링크 텍스트 색상 */
+    display: block;
+}
+
+#news-content li a:hover, #news-content2 li a:hover {
+    color: #00377e;;  /* 호버 시 색상 변경 */
+}
+
+/* 환율 박스 */
+
+/* 두 박스를 나란히 배치하기 위한 스타일 */
+.news-container {
+    display: flex; /* 뉴스와 환율 박스를 나란히 배치 */
+    flex-direction: column; /* 세로로 배치 */
+    gap: 20px; /* 뉴스 항목 간의 간격 */
+    width: 50%; /* 뉴스 박스가 화면의 35%를 차지하도록 설정 */
+    height: auto; /* 높이는 자동으로 설정 */
+    max-width: 680px;
+}
+
+
+/* news-content2에서 링크의 밑줄 없애기 */
+#news-content2 li a {
+    text-decoration: none;  /* 링크 밑줄 제거 */
+    color: #333;  /* 링크 텍스트 색상 */
+    display: block;
+}
+
+#news-content2 li a:hover {
+    color: #00377e;;  /* 호버 시 색상 변경 */
+}
+
+/* 리스트 앞의 점은 그대로 유지 */
+/*#news-content2 {
+    list-style-type: disc;  /* 항목 앞에 점 표시 */
+    /*padding-left: 0;  /* 점과 항목 간 간격 */
+    /*margin-left: 10px;  /* 전체 목록의 왼쪽 여백 */
+/*}*/
+
+/* 링크에 호버 시 색상 변경 */
+.news-link:hover, .news-exchange:hover {
+    background-color: #ffffff;
+    color: #00377e;
+}
+
+/* 환율 박스 항목 스타일 */
+.news-box2 ul {
+    padding-left: 20px;  /* 점과 항목 간 간격 */
+    margin-left: 0;   /* 전체 목록의 왼쪽 여백 */
+    list-style-type: disc;  /* 항목 앞에 점을 보이도록 설정 */
+}
+
+/* 슬라이드 이미지 및 텍스트 스타일 */
+.carousel-inner {
+    display: flex;
+    max-width: 1200px;           /* 원하는 크기로 슬라이드 최대 너비 설정 */
+    margin: 0 auto;*/             /* 슬라이드를 중앙에 배치 */
+    
+}
+
+/*.carousel{
+	max-width: 800px;           /* 원하는 크기로 슬라이드 최대 너비 설정 */
+    /*margin: 0 auto;*/             /* 슬라이드를 중앙에 배치 */
+/*}*/
+
+.carousel .slide-text p{
+	/*min-width:2000px!important;*/
+	margin: 0 auto!important;
+}
+
+.carousel-item img {
+    /*object-fit: cover;
+    width: 100%;
+    height: 100%;*/
+    
+    max-width: 100%;            /* 이미지가 슬라이드를 넘지 않도록 최대 너비 설정 */
+    height: auto;               /* 이미지 비율을 유지하면서 높이 자동 조정 */
+}
+}
+
+.cardmenu-item {
+  /*display: flex;
+  /*justify-content: center;
+  align-items: center;*/
+   display: flex;              /* Flexbox 활성화 */
+   justify-content: center;    /* 수평 중앙 정렬 */
+   align-items: center;        /* 수직 중앙 정렬 */
+   height: 300px;              /* 슬라이드의 높이를 설정 (원하는 값으로 조정) */
+  
+}
+
+.card {
+  margin:0 15px; /* 카드 간 간격 */
+}
+
+
+/* 첫 번째 슬라이드에서만 흐림 효과를 주기 */
+#carouselExampleAutoplaying1 .carousel-item img {
+    /*filter: blur(4px);  /* 이미지에 흐림 효과 적용 */
+    /*transition: filter 0.5s ease; /* 흐림 효과 전환 애니메이션 */
+    /*opacity : 45%;*/
+}
+
+/* 두 번째 슬라이드의 이미지에서는 흐림 효과를 없애기 */
+#carouselExampleAutoplaying2 .carousel-item img {
+    filter: none; /* 흐림 효과 제거 */
+   
+}
+
+#carouselExampleAutoplaying2{
+	/*flex: 1; /* 슬라이드 박스가 남은 공간을 차지하도록 설정 */
+    /*height: auto;*/
+    margin-left : 100px;
+    /*overflow: hidden;*/
+    position: relative;
+    width: 37%;   /* 고정된 너비 */
+    height: auto;  /* 고정된 높이 */
+    max-width: 680px;
+}
+
+/*-----------------------------------------*/
+
+
+.carousel-inner {
+    /*display: flex; /* 슬라이드 항목을 가로로 배치 */
+    /*flex-direction: row; /* 가로 배치 */
+    width: outo;    /* 슬라이드 박스 너비를 80%로 줄임 */
+    height: auto; /* 슬라이드 박스 높이를 300px로 줄임 */
+    /*margin: 0 auto; /* 가운데 정렬 */
+}
+
+.carousel-item {
+    width: 70%;  /* 슬라이드 항목의 너비 100% */
+    height: 70%; /* 슬라이드 항목의 높이 100% */
+    /*display: flex; /* 내부 내용들을 Flexbox로 배치 */
+    /*justify-content: center; /* 가운데 정렬 */
+    /*align-items: center; /* 가운데 정렬 */
+    /*overflow: hidden; /* 넘치는 콘텐츠 숨기기 */
+    /*object-fit: cover; /* 비율에 맞게 자르기 */
+}
+
+/* 이미지 크기 고정 */
+.carousel-item img {
+    width: 100%;  /* 이미지 너비를 슬라이드 너비에 맞추기 */
+    height: 70%; /* 이미지 높이를 슬라이드 높이에 맞추기 */
+    object-fit: cover; /* 이미지 비율 유지하면서 잘리도록 설정 */
+}
+
+/* 텍스트 영역 고정 */
+.carousel-caption {
+    position: absolute;
+    bottom: 20px;  /* 텍스트 위치 설정 */
+    left: 50%;
+    transform: translateX(-50%);
+    color: white;  /* 텍스트 색상 */
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5); /* 텍스트 가독성 높이기 위한 그림자 */
+    padding: 0 10px;
+    text-align: center;
+    width: 100%; /* 텍스트 박스 너비 100%로 고정 */
+    box-sizing: border-box; /* 박스 크기 계산에 padding 포함 */
+    height: 80%; /* 텍스트 높이는 자동으로 설정 */
+    max-height:80;
+}
+
+/* 텍스트 길이가 길어도 넘치지 않게 설정 */
+.carousel-caption p {
+    overflow: hidden;
+    text-overflow: ellipsis; /* 텍스트가 넘칠 경우 '...'으로 표시 */
+    white-space: nowrap; /* 텍스트가 한 줄로 표시되도록 설정 */
+    line-height: 1.5;  /* 줄 간격 */
+    font-size: 1.5rem; /* 텍스트 크기 */
+}
+
+/* 부모 컨테이너 설정 */
+.content-container {
+    display: flex; /* 가로 배치 */
+    justify-content: center; /* 항목들을 양쪽 끝으로 배치 */
+    align-items: flex-start; /* 항목들을 위쪽에 맞추기 */
+    /*gap: 20px; /* 항목 간 간격 설정 */
+    /*margin-left:25px;*/
+    
+}
+/*-----------------------------------------*/
+
+
+
+/* 이전, 다음 버튼의 위치 조정 */
+.carousel-control-prev, .carousel-control-next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-0%);
+    z-index: 10;
+}
+
+.carousel-control-prev {
+    left: 0;
+}
+
+.carousel-control-next {
+    right: 0;
+}
+
+@media (max-width: 768px) {
+    ul#id2 {
+        margin-left: 0; /* 왼쪽 여백을 없애서 메뉴 항목들이 더 잘 보이도록 함 */
+        justify-content: center; /* 항목들이 가운데 정렬되도록 설정 */
+    }
+
+    ul#id2 li {
+        font-size: 10px; /* 작은 화면에서 폰트 크기를 줄일 수 있음 */
+    }
+
+    .search input {
+        width: 120px; /* 검색 입력 필드 크기 조정 */
+    }
+}
+
+
+/*  --------  footer   */
+
+/* bgPhoto */
+.bgPhoto {
+    padding: 48px 24px 0 !important;
+    background-size: cover!important;
+    background-image: url(../img/news/bg_photo.jpg);
+}
+
+.bgPhoto .inner {
+    padding-bottom: 70px !important;
+    background-repeat: no-repeat!important;
+    background-position: center 0!important;    
+    color: #fff;
+    text-align: center!important;
+}
+
+.bgPhoto .copyArea .lg {
+    font-size: 24px;
+    font-weight: 500;
+}
+
+.bgPhoto .copyArea .mb {
+    margin: 8px 0 5px;
+    line-height: 1.8;
+    
+}
+
+
+/* Footer */
+footer {
+    background: #333!important;
+    color: #fff!important;
+    text-align: left!important; 
+    padding: 20px 50px!important; /* 충분한 패딩을 추가하여 내용과 테두리 간의 간격을 확보 */
+    display: flex!important;
+    
+    align-items: center!important; /* 수직 중앙 정렬 */
+}
+
+.footer-content p {
+    font-size: 12px; /* p 태그 글씨 크기 */
+}
+
+.p1 {
+    font-size: 12px; /* p 태그 글씨 크기 */
+    margin-right:240px;
+}
+
+.footer-content {
+    /* 왼쪽의 저작권 텍스트 및 사업자 정보 */
+    text-align: left;
+}
+
+
+.social-links {
+    display: flex;
+    justify-content: flex-end; /* 아이콘을 오른쪽으로 정렬 */
+    gap: 15px; /* 아이콘 간의 간격 */
+    margin-top: 60px;
+}
+
+.social-button {
+    display: flex;
+    align-items: right;
+    text-decoration: none; /* 링크 밑줄 제거 */
+    color: #000000; /* 텍스트 색상 */
+    font-size: 14px; /* 텍스트 크기 */
+}
+
+.social-button img {
+    border-radius: 50%; /* 아이콘을 둥글게 */
+    margin-right: 8px; /* 아이콘과 텍스트 간격 */
+}
+
+
+.social-links a {
+    color: #000000;
+    margin: 0 10px;
+    text-decoration: none;
+    border: none!important;
+    
+}
+
+.social-links a:hover {
+    text-decoration: underline;
+}
+
+.social-links img {
+    border-radius: 50%;
+}
+
+.card-body{
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* 수직 중앙 정렬 */
+  align-items: center; /* 수평 중앙 정렬 */
+  height: 100%; /* 카드 전체 높이에 맞추기 */
+} 

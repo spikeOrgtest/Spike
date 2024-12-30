@@ -1,0 +1,137 @@
+@charset "UTF-8";
+
+.quiz-wrapper{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.quiz-container {
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    width: 600px;
+    height: 500px;
+    padding: 20px;
+    text-align: center;
+}
+
+.quiz-title {
+    font-size: 2em;
+    color: #0078d7;
+}
+
+.quiz-instruction {
+    font-size: 1em;
+    color: #333333;
+    margin: 10px 0 20px;
+}
+
+.quiz-question h2 {
+    font-size: 1.5em;
+    color: #444444;
+    margin: 20px 0;
+}
+
+.quiz-options {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+    gap: 20px;
+}
+
+.quiz-option {
+    background-color: white;
+    border: 3px solid #0078d7; /* 기본 테두리 색상 */
+    border-radius: 10px;
+    width: 120px; /* 버튼 크기 */
+    height: 150px; /* 버튼 크기 */
+    display: flex;
+    flex-direction: column; /* 위아래로 정렬 */
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.quiz-option:hover {
+    background-color: #f0f0f0; /* 호버 시 배경색 */
+}
+
+.quiz-option:nth-child(1) { /* O 버튼 */
+    color: #0078d7; /* 파란색 글씨 */
+    border-color: #0078d7; /* 파란색 테두리 */
+}
+
+.quiz-option:nth-child(2) { /* X 버튼 */
+    color: #d32f2f; /* 빨간색 글씨 */
+    border-color: #d32f2f; /* 빨간색 테두리 */
+}
+
+/* O와 X 크게 강조 */
+.quiz-option .quiz-letter {
+    font-size: 50px; /* O와 X 글자 크기 */
+    margin-bottom: 5px; /* 아래 텍스트와 간격 */
+}
+
+/* 아래 텍스트 작게 */
+.quiz-option .quiz-text {
+    font-size: 15px; /* 작은 글자 크기 */
+    color: #555555; /* 연한 색상 */
+}
+
+.quiz-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px; /* 버튼 간격 */
+    margin-top: 20px; /* 버튼 상단 여백 */
+}
+
+.quiz-buttons button {
+    background-color: #0078d7;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 1em;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.quiz-buttons button:hover {
+    background-color: #005a9e;
+    transform: scale(1.05); /* 살짝 확대 효과 */
+}
+
+.quiz-check-answer {
+    background-color: #28a745; /* 정답확인 버튼 초록색 */
+}
+
+.quiz-check-answer:hover {
+    background-color: #218838; /* 초록색 버튼 호버 */
+}
+
+.quiz-next-question {
+    background-color: #0078d7; /* 다음문제 버튼 기본 파란색 */
+}
+
+.quiz-next-question:hover {
+    background-color: #005a9e; /* 파란색 버튼 호버 */
+}
+
+
+.quiz-result {
+    margin-top: 20px;
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+.quiz-result-correct {
+    color: green;
+}
+
+.quiz-result-wrong {
+    color: red;
+}

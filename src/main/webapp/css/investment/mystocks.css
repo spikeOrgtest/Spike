@@ -1,0 +1,125 @@
+/* 기본 스타일 */
+body {
+    font-family: Arial, sans-serif;
+    margin: 100;
+    padding: 100;
+    background-color: #f8f9fa;
+}
+
+.main {
+    padding: 200px; /* 전체 여백 줄임 */
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 2열 레이아웃 유지 */
+    gap: 15px; /* 카드 간격 줄임 */
+}
+
+/* 유명 주가지수 섹션 */
+.market-indices {
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px; /* 내부 패딩 줄임 */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.index-graph {
+    margin-top: 15px; /* 상단 여백 줄임 */
+}
+
+.index-graph h3 {
+    font-size: 18px; /* 텍스트 크기 축소 */
+    color: #333;
+}
+
+.index-graph h4 {
+    font-size: 16px; /* 텍스트 크기 축소 */
+    margin: 5px 0;
+    color: red; /* 기본 색상: 빨간색 */
+}
+
+/* 음수일 경우 파란색 */
+.index-graph h4.negative {
+    color: blue;
+    font-weight: bold;
+}
+
+/* 나의 주식 보유 현황 섹션 */
+.my-stocks {
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px; /* 내부 패딩 줄임 */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.stocks-summary {
+    margin-bottom: 15px;
+}
+
+.stock-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px; /* 간격 줄임 */
+}
+
+.stock-item img {
+    width: 50px; 
+    height: 50px;
+    margin-right: 8px;
+}
+
+.total-value p {
+    font-size: 18px; /* 텍스트 크기 축소 */
+    font-weight: bold;
+    color: #333;
+}
+
+/* 주식 시장 섹션 */
+.market-trends {
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px; /* 내부 패딩 줄임 */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.market-item {
+    margin-bottom: 15px;
+}
+
+.market-item img {
+    width: 50px; /* 이미지 크기 축소 */
+    height: 50px;
+    margin-right: 8px;
+}
+
+/* 관심 종목 섹션 */
+.items-of-interest {
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px; /* 내부 패딩 줄임 */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.items-of-interest .stock-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px; /* 간격 줄임 */
+}
+
+.items-of-interest .stock-item img {
+    width: 50px; 
+    height: 50px;
+    margin-right: 8px;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+    .grid-container {
+        grid-template-columns: 1fr; /* 모바일에서 1열로 전환 */
+    }
+}

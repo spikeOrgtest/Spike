@@ -1,0 +1,177 @@
+@charset "UTF-8";
+
+/*  #3264C8   */
+body.subpage {
+	margin: 0;
+	font-family: Arial, sans-serif;
+}
+
+.subpageWrapper {
+	display: flex;
+	justify-content: center;
+}
+
+.subpageWrapper-main {
+	display: flex;
+	justify-content: center;
+}
+
+.subpage-navigation-bar {
+	display: flex;
+	background-color: #3264C8;
+	padding: 10px 20px;
+	border-bottom: 1px solid #ddd;
+	min-width: 1200px;
+}
+
+.subpage-navigation-bar a {
+	margin-right: 20px;
+	text-decoration: none;
+	color: white; /* 네비게이션 텍스트 색상 */
+	font-weight: bold;
+	padding: 8px 12px;
+	border-radius: 3px;
+}
+
+.subpage-navigation-bar a:hover {
+	background-color: #2A54A4; /* 네비게이션 hover 효과 */
+}
+
+.subpage-navigation-bar .subpage-selected {
+	background-color: #26478F; /* 선택된 메뉴 배경색 */
+}
+
+.subpage-main-container {
+	display: flex;
+	min-width: 1200px;
+}
+
+.subpage-sidebar {
+	width: 200px;
+	border-right: 1px solid #ddd;
+	padding: 20px;
+}
+
+.subpage-sidebar-title {
+	font-size: 18px;
+	font-weight: bold;
+	margin-bottom: 15px;
+	color: #333;
+}
+
+.subpage-sidebar ul {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+.subpage-sidebar ul li {
+	border-bottom: 1px solid #ddd; /* 기본 구분선 */
+	background-color: #f9f9f9; /* 배경색 */
+}
+
+.subpage-sidebar ul li:first-child {
+	border-top: 2px solid #333; /* 맨 위 구분선 */
+}
+
+.subpage-sidebar ul li:last-child {
+	border-bottom: 2px solid #333; /* 맨 아래 구분선 */
+}
+
+.subpage-sidebar ul li a {
+	display: block;
+	text-decoration: none;
+	color: #333;
+	font-weight: bold;
+	padding: 10px 15px;
+	transition: background-color 0.3s;
+}
+
+.subpage-sidebar ul li a:hover {
+	background-color: #eaeaea; /* hover 효과 */
+}
+
+.subpage-sidebar ul li a.subpage-selected {
+	background-color: #dcdcdc; /* 현재 선택된 메뉴의 배경색 */
+}
+
+.subpage-content-wrap {
+	flex: 1;
+	padding: 20px;
+}
+
+.subpage-breadcrumbs {
+	margin: 10px 20px; /* 네비게이션 아래 여백 */
+	font-size: 14px; /* 텍스트 크기 */
+	color: #666; /* 텍스트 색상 */
+	display: flex;
+	justify-content: flex-end;
+	min-width: 1200px;
+}
+
+.subpage-breadcrumbs a {
+	text-decoration: none;
+	color: #333; /* 링크 색상 */
+	font-weight: bold;
+}
+
+.subpage-breadcrumbs a:hover {
+	text-decoration: underline;
+}
+
+.subpage-breadcrumbs span {
+	margin: 0 5px; /* '>' 기호 좌우 여백 */
+	color: #999; /* 구분자 색상 */
+}
+
+.subpage-content-wrap {
+	background-color: #f9f9f9;
+	padding: 40px;
+	border-radius: 8px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+	font-size: 24px;
+	font-weight: 600;
+	color: #333;
+}
+
+.form-label {
+	font-weight: 600;
+	color: #555;
+}
+
+.form-control {
+	border-radius: 5px;
+	padding: 12px;
+	font-size: 16px;
+}
+
+.btn-primary {
+	background-color: #007bff;
+	border-color: #007bff;
+	font-size: 16px;
+	font-weight: 600;
+	padding: 12px 30px;
+}
+
+.btn-primary:hover {
+	background-color: #0056b3;
+	border-color: #004085;
+}
+
+.invalid-feedback {
+	display: none;
+	color: #dc3545;
+	font-size: 14px;
+}
+
+.form-control.is-invalid, .form-select.is-invalid {
+	border-color: #dc3545;
+}
+
+.form-control.is-invalid+.invalid-feedback, .form-select.is-invalid+.invalid-feedback
+	{
+	display: block;
+}

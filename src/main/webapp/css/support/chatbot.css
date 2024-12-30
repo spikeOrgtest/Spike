@@ -1,0 +1,309 @@
+/* 공통 스타일 */
+.spike-wrapper {
+    width: 1000px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding-left: 10px;
+    box-sizing: border-box;
+}
+
+h1, h2, h3 {
+    margin: 0;
+    padding: 0;
+    font-family: 'Noto Sans', sans-serif;
+    color: #333;
+}
+
+h3.subpage-sidebar-title{
+		margin-top: 18px;
+}
+p {
+    font-size: 16px;
+    line-height: 1.6;
+    color: #555;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+button.cta-button {
+    background-color: #0077cc;
+    color: #fff;
+    border: none;
+    padding: 12px 24px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button.cta-button:hover {
+    background-color: #005fa3;
+}
+
+/* SPIKE 챗봇 소개 섹션 */
+.spike-introduce {
+    display: flex;              
+    justify-content: center;    
+    align-items: center;        
+    height: 300px;              
+    text-align: center;         
+    background-color: #f7fcff;  
+    /*border-bottom: 1px solid #ddd;*/
+}
+
+.spike-introduce h1 {
+    font-size: 36px;            
+    color: #333;                
+    font-weight: bold;          
+    margin: 0;                  
+    line-height: 1.5;           
+}
+
+
+/* 슬로건 배너 섹션 */
+.spike-banner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: linear-gradient(to right, #0077cc, #005fa3);
+    color: #fff;
+    padding: 40px 20px;
+    border-radius: 10px;
+    margin-bottom: 40px;
+}
+
+.spike-banner .banner-text {
+    width: 55%;
+}
+
+.spike-banner h1 {
+    font-size: 32px;
+    margin-bottom: 10px;
+    color: #fff;
+}
+
+.spike-banner p {
+    font-size: 16px;
+    margin-bottom: 20px;
+    color: #e0e0e0;
+}
+
+.spike-banner .banner-image img {
+    max-height: 300px;
+    border-radius: 10px;
+}
+
+/* 주요 기능 소개 섹션 */
+.spike-features {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.spike-features h2 {
+    font-size: 28px;
+    margin-bottom: 20px;
+}
+
+.feature-cards {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+
+.feature-card {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    transition: box-shadow 0.3s, transform 0.3s;
+}
+
+.feature-card img {
+    width: 80px;
+    height: 80px;
+    margin-bottom: 15px;
+}
+
+.feature-card h3 {
+    font-size: 20px;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.feature-card p {
+    font-size: 14px;
+    color: #666;
+}
+
+.feature-card:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transform: translateY(-5px);
+}
+
+/* 고객 후기 섹션 */
+.customer-reviews {
+    background-color: #f0f8ff; 
+    padding: 40px 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    margin: 40px 0;
+}
+
+.customer-reviews h3 {
+    font-size: 32px;
+    text-align: center;
+    color: #005fa3;
+    margin-bottom: 30px;
+    font-weight: bold;
+}
+
+.reviews-container {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    overflow-x: auto; 
+    padding-bottom: 10px;
+}
+
+.review-card {
+    position: relative;
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    padding: 20px 25px;
+    border-radius: 15px;
+    width: 300px; 
+    height: 200px; 
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+    text-align: left;
+    overflow: hidden; 
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.review-card::before {
+    content: "“"; 
+    font-size: 60px;
+    font-family: Georgia, serif;
+    color: #0077cc;
+    position: absolute;
+    top: 10px;
+    left: 15px;
+    opacity: 0.2;
+}
+
+.review-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.review-card p {
+    font-size: 16px;
+    color: #444;
+    line-height: 1.4;
+    margin-bottom: 10px;
+    max-height: 100px; 
+    overflow: hidden; 
+    text-overflow: ellipsis; 
+}
+
+.review-card span {
+    display: block;
+    font-size: 14px;
+    color: #666;
+    font-style: italic;
+    text-align: right;
+    margin-top: auto; 
+}
+
+/* FAQ 섹션 */
+.faq details {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    padding: 10px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.faq summary {
+    font-weight: bold;
+    font-size: 16px;
+    color: #0077cc;
+}
+
+.faq p {
+    margin: 10px 0 0;
+    color: #555;
+}
+
+/* 타임라인 컨테이너 */
+.faq-timeline {
+    position: relative;
+    padding-left: 20px;
+    margin: 20px 0;
+    /* faq-timeline 자체가 아이템을 모두 감싸며, 높이는 컨텐츠에 따라 자동 조정 */
+}
+
+/* 타임라인 전체 높이 커버를 위해 top:0; bottom:0; 사용 */
+.faq-timeline::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 7px;
+    width: 2px;
+    background-color: #0077cc;
+    bottom: 0; /* 위에서부터 아래까지 라인을 커버 */
+}
+
+/* 타임라인 아이템 */
+.timeline-item {
+    display: flex;
+    position: relative;
+    margin-bottom: 20px;
+    align-items: center; /* 수직 정렬 */
+}
+
+/* 타임라인 콘텐츠의 너비를 고정 */
+.timeline-content {
+    margin-left: 30px;
+    padding: 10px 15px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    flex: 1; /* 모든 타임라인 콘텐츠를 동일한 너비로 설정 */
+    min-width: 0; /* 텍스트 길이가 길어도 너비를 강제로 줄임 */
+    max-width: 100%; /* 부모 요소를 넘지 않도록 제한 */
+    box-sizing: border-box;
+}
+
+/* 타임라인 마커 */
+.timeline-marker {
+    width: 15px;
+    height: 15px;
+    background-color: #0077cc;
+    border-radius: 50%;
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%); /* 마커를 수직 중앙 정렬 */
+}
+
+.timeline-content h4 {
+    margin: 0 0 5px;
+    font-size: 18px;
+    color: #333;
+}
+
+.timeline-content p {
+    margin: 0;
+    font-size: 14px;
+    color: #555;
+}

@@ -1,0 +1,85 @@
+@charset "UTF-8";
+
+/* 공지사항 메인 컨테이너 */
+.notice-board {
+    margin-top: 20px;
+    /* 필요시 추가 여백 및 스타일 */
+}
+
+/* 공지사항 테이블 스타일 */
+.notice-table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+    font-size: 14px;
+    color: #333;
+}
+
+/* 테이블 헤더 스타일 */
+.notice-table thead th {
+    padding: 10px;
+    border-bottom: 2px solid #333;
+    background-color: #f7f7f7;
+    text-align: center;
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+/* 테이블 바디 스타일 */
+.notice-table tbody tr {
+    border-bottom: 1px solid #ddd;
+}
+
+.notice-table tbody td {
+    padding: 10px;
+    vertical-align: middle;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* 번호, 작성자, 작성일 컬럼 정렬 */
+.notice-table tbody td:nth-child(1),
+.notice-table tbody td:nth-child(3),
+.notice-table tbody td:nth-child(4) {
+    text-align: center;
+}
+
+/* 제목 링크 스타일 */
+.notice-table tbody td a {
+    color: #333;
+    text-decoration: none;
+}
+.notice-table tbody td a:hover {
+    color: #0077ff;
+    text-decoration: underline;
+}
+
+/* 페이징 영역 스타일 */
+.notice-pagination {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.notice-pagination a {
+    display: inline-block;
+    margin: 0 5px;
+    padding: 5px 8px;
+    color: #333;
+    text-decoration: none;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    font-size: 14px;
+}
+
+.notice-pagination a:hover {
+    border-color: #999;
+    background-color: #f0f0f0;
+}
+
+.notice-pagination a.active {
+    font-weight: bold;
+    text-decoration: underline;
+    border-color: #333;
+    background-color: #e0e0e0;
+}

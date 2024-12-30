@@ -1,0 +1,85 @@
+/* 카드 형태 디자인 */
+.news-list {
+   display: flex;
+   flex-wrap: wrap;
+   gap: 20px; /* 카드 사이 간격 */
+   justify-content: space-between;
+}
+
+.news-item {
+   background-color: #fff;
+   border-radius: 8px;
+   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+   width: 30%; /* 카드 크기 */
+   padding: 20px;
+   box-sizing: border-box;
+   transition: transform 0.3s ease, box-shadow 0.3s ease;
+   overflow: hidden;
+}
+
+.news-item:hover {
+   transform: translateY(-10px); /* 호버 시 카드 상승 효과 */
+   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* 호버 시 그림자 효과 강화 */
+}
+
+/* 이미지 스타일 */
+.news-item img.news-image {
+   max-width: 100%;
+   height: auto;
+   border-radius: 8px;
+   margin-bottom: 15px;
+}
+
+/* 제목 스타일 */
+.news-item h3 {
+   font-size: 20px;
+   font-weight: bold;
+   margin-bottom: 10px;
+   color: #333;
+}
+
+/* 날짜 스타일 */
+.news-item .news-date {
+   font-size: 14px;
+   color: #888;
+   margin-bottom: 10px;
+}
+
+/* 기사 요약 스타일 */
+.news-item p {
+   font-size: 16px;
+   color: #555;
+   line-height: 1.5;
+   margin-bottom: 15px;
+}
+
+/* "더 보기" 링크 스타일 */
+.news-item a.read-more {
+   font-size: 14px;
+   color: #007bff;
+   text-decoration: none;
+}
+
+.news-item a.read-more:hover {
+   text-decoration: underline;
+}
+
+/* 숨겨진 추가 내용 */
+.extra-content {
+   margin-top: 10px;
+   font-size: 16px;
+   color: #333;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+   .news-item {
+       width: 48%; /* 작은 화면에서 카드 크기를 2개씩 표시 */
+   }
+}
+
+@media (max-width: 480px) {
+   .news-item {
+       width: 100%; /* 모바일에서 카드를 1개씩 표시 */
+   }
+}

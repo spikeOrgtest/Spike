@@ -1,0 +1,152 @@
+.content {
+    min-height: calc(100vh - 140px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f8f9fa;
+}
+
+.login-wrapper {
+    width: 100%;
+    max-width: 460px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+.login-container {
+    background: white;
+    padding: 2.5rem;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.login-container h2 {
+    text-align: center;
+    margin-bottom: 2rem;
+    font-size: 24px;
+    color: #333;
+}
+
+.input-group {
+    margin-bottom: 1rem;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+.input-group input:focus {
+    outline: none;
+    border-color: #4384fc;
+}
+
+.login-options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    gap: 1.5rem; /* 아이디 저장과 아이디 찾기 간의 간격을 넓힘 */
+    flex-wrap: wrap; /* 여백이 좁을 경우 항목들이 줄 바꿈되도록 함 */
+}
+
+.remember-me {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #666;
+    font-size: 0.9rem;
+    white-space: nowrap;
+}
+
+.auth-links {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    white-space: nowrap;
+    flex-wrap: wrap; /* 링크들이 화면에 맞게 줄 바꿈될 수 있게 설정 */
+    justify-content: space-between;
+    width: 100%; /* 공간을 최대한 활용하도록 설정 */
+}
+
+.auth-links a {
+    color: #666;
+    text-decoration: none;
+}
+
+.auth-links span {
+    color: #ddd;
+}
+
+.login-btn {
+    width: 100%;
+    padding: 1rem;
+    background-color: #4384fc;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+    margin-bottom: 1.5rem;
+}
+
+.login-btn:hover {
+    background-color: #3367d6;
+}
+
+.social-login {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.social-login button {
+    width: 48px;
+    height: 48px;
+    border: 1px solid #ddd;
+    border-radius: 50%;
+    background: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s;
+}
+
+.social-login button:hover {
+    transform: translateY(-2px);
+}
+
+.social-login img {
+    width: 24px;
+    height: 24px;
+}
+
+.kakao-btn {
+    background-color: #FEE500 !important;
+}
+
+@media (max-width: 480px) {
+    .login-wrapper {
+        margin: 1rem auto;
+    }
+
+    .login-container {
+        padding: 1.5rem;
+    }
+
+    .login-options {
+        flex-direction: column;
+        gap: 1rem;
+        align-items: flex-start;
+    }
+
+    .auth-links {
+        justify-content: flex-start; /* 모바일에서는 왼쪽 정렬 */
+        gap: 0.8rem; /* 모바일에서는 링크 간격을 줄여서 표시 */
+    }
+}

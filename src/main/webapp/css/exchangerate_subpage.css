@@ -1,0 +1,84 @@
+@charset "UTF-8";
+/* Exchange Rate Subpage Specific Styles */
+
+.exchange-rate-table {
+    margin-top: 20px;
+    margin-bottom: 30px;
+}
+
+.exchange-rate-table table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.exchange-rate-table th, .exchange-rate-table td {
+    border: 1px solid #e0e0e0;
+    padding: 10px;
+    text-align: center;
+}
+
+.exchange-rate-table th {
+    background-color: #f8f9fa;
+    font-weight: bold;
+}
+
+.rate-up {
+    color: #28a745;
+}
+
+.rate-down {
+    color: #dc3545;
+}
+
+.exchange-info {
+    background-color: #f8f9fa;
+    padding: 15px;
+    border-radius: 5px;
+    margin-bottom: 30px;
+}
+
+.exchange-info h3 {
+    color: #007bff;
+    margin-bottom: 10px;
+}
+
+.exchange-calculator {
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+.exchange-calculator h3 {
+    color: #007bff;
+    margin-bottom: 15px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.form-group input, .form-group select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ced4da;
+    border-radius: 3px;
+}
+
+.btn-calculate {
+    display: inline-block;
+    padding: 8px 15px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.btn-calculate:hover {
+    background-color: #0056b3;
+}

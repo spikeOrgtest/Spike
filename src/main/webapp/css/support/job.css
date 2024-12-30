@@ -1,0 +1,140 @@
+@charset "UTF-8";
+
+
+/* 추가 css */
+
+.subpage-breadcrumbs img{
+	position: relative;
+    right: 5px; /* 이미지를 5px 오른쪽으로 이동 */
+    bottom:3px;
+}
+
+.post_table {
+    margin: auto;
+    width: 800px;
+    border-radius: 5px;
+    border-collapse: collapse;
+    border-top: none;
+    margin-bottom:30px;
+}
+.ps_headline {
+    background-color: rgb(218, 231, 255);
+    text-align: center;
+    
+}
+.post_table td, .post_table th {
+    border-bottom: 1px lightgray solid; 
+    height: 30px;
+    font-size: 14px;
+    padding:15px;
+    margin:15px;
+}
+.ps_num {
+    width: 90px;
+}
+.ps_title {
+    width: 420px;
+    max-width:420px;
+}
+.body {
+    text-align: center;
+}
+.body .ps_title {
+    text-align: left;
+}
+/*
+.post_bt button {
+    width: 100px;
+    height: 40px;
+    font-size: 15px;
+    border: 0;
+    outline: 1.5px rgb(68, 136, 244) solid;
+    border-radius: 5px;
+    padding-left: 10px;
+    background-color: #ffffff;
+}
+.post_bt button:active {
+    width: 100px;
+    height: 40px;
+    font-size: 15px;
+    border: 0;
+    border-radius: 5px;
+    outline: 1.5px rgb(27, 76, 155) solid;
+    padding-left: 10px;
+    background-color: rgb(68, 136, 244);
+}
+*/
+.postAll{
+	position: relative;
+	left:70px;
+	top:50px;
+	hi
+}
+
+.ps_count1{
+	width:150px;
+}
+
+.ps_count1 , .ps_count2 , .ps_hit{
+	text-align: center;
+}
+
+.ps_count2{
+	width:90px;
+}
+
+.ps_hit{
+	width:75px;
+}
+
+h1{
+	font-size: 30px;
+}
+
+.pages{
+	padding: 0 5px;
+    height: 19px;
+    text-align: center;
+    color: #000000;
+    border: 1px solid #0000ff;
+    line-height: 19px;
+    position:relative;
+	bottom:5px;
+}
+
+.ps_tap{
+	text-align: center;
+}
+
+/* 박스 */
+.ex-box {
+    background-color: #f1f1f1; /* 박스 배경색 */
+    border: 1px solid #ddd; /* 박스 테두리 */
+    padding: 20px;
+    margin-top: 20px; /* 위쪽 여백 */
+    border-radius: 5px; /* 테두리 둥글기 */
+}
+
+.ex-box h3 {
+    font-size: 22px;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.ex-box p {
+    font-size: 14px;
+    color: #666;
+}
+
+.ex-box button {
+    background-color: #3264C8;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.ex-box button:hover {
+    background-color: #2A54A4;
+}

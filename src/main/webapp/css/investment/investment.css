@@ -1,0 +1,217 @@
+/* 헤더 스타일 */
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 997;
+    transition: all 0.5s;
+    background-color: #fff;
+}
+
+.header .logo img {
+    max-height: 40px;
+}
+
+.header .logo h1 {
+    font-size: 28px;
+    margin: 0;
+    padding-left: 10px;
+    font-weight: 700;
+    color: #000;
+    text-transform: uppercase;
+}
+
+/* 네비게이션 스타일 */
+.navmenu ul {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.navmenu li {
+    position: relative;
+    white-space: nowrap;
+}
+
+.navmenu a {
+    display: block;
+    padding: 10px 15px;
+    color: var(--nav-color, #413e66);
+    font-size: 15px;
+    font-weight: 600;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.navmenu a:hover, .navmenu .active {
+    color: var(--nav-hover-color, #1bb1dc);
+}
+
+/* 드롭다운 스타일 */
+.navmenu .dropdown ul {
+    display: none;
+    position: absolute;
+    left: 0;
+    top: calc(100% + 2px);
+    list-style: none;
+    padding: 10px 0;
+    margin: 0;
+    box-shadow: 0px 5px 25px rgba(0, 0, 0, 0.1);
+    background: #fff;
+}
+
+.navmenu .dropdown:hover>ul {
+    display: block;
+}
+
+/* 버튼 스타일 */
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: uppercase;
+    border-radius: 25px;
+    transition: 0.3s;
+}
+
+.btn-dark {
+    background-color: #000;
+    color: #fff;
+}
+
+.btn-dark:hover {
+    background-color: #444;
+}
+
+/* 메인 컨테이너 */
+main {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: flex-start;
+    gap: 60px; /* 기존 40px에서 60px로 간격 증가 */
+    padding: 40px;
+    margin-top: 80px; /* 헤더 아래 콘텐츠 간격 */
+}
+
+/* 카드 스타일 */
+.card {
+    flex: 0 1 300px;
+    background: #fff;
+    border-radius: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border: 3px solid transparent;
+    overflow: hidden;
+    text-align: center;
+    padding: 60px;
+    margin-bottom: 20px; /* 각 카드 아래 간격 추가 */
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* 아이콘 스타일 */
+.card i {
+    font-size: 4em;
+    margin-bottom: 20px;
+    transition: color 0.3s ease;
+}
+
+/* 주식 카드 색상 */
+#stocks {
+    border-color: #007BFF;
+}
+#stocks i {
+    color: #007BFF;
+}
+#stocks:hover {
+    border-color: #0056b3;
+}
+#stocks:hover i {
+    color: #0056b3;
+}
+
+/* 금 카드 색상 */
+#gold {
+    border-color: #FFC107;
+}
+#gold i {
+    color: #FFC107;
+}
+#gold:hover {
+    border-color: #e0a800;
+}
+#gold:hover i {
+    color: #e0a800;
+}
+
+/* 암호화폐 카드 색상 */
+#cryptocurrency {
+    border-color: #FFA500;
+}
+#cryptocurrency i {
+    color: #FFA500;
+}
+#cryptocurrency:hover {
+    border-color: #FF8C00;
+}
+#cryptocurrency:hover i {
+    color: #FF8C00;
+}
+
+/* CTA 버튼 스타일 */
+.cta-button {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 1em;
+    font-weight: bold;
+    color: #fff;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+/* 주식 버튼 */
+#stocks .cta-button {
+    background: #007BFF;
+}
+#stocks:hover .cta-button {
+    background: #0056b3;
+}
+
+/* 금 버튼 */
+#gold .cta-button {
+    background: #FFC107;
+}
+#gold:hover .cta-button {
+    background: #e0a800;
+}
+
+/* 암호화폐 버튼 */
+#cryptocurrency .cta-button {
+    background: #FFA500;
+}
+#cryptocurrency:hover .cta-button {
+    background: #FF8C00;
+}
+
+/* AOS 애니메이션 */
+[data-aos] {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+[data-aos].aos-animate {
+    opacity: 1;
+    transform: translateY(0);
+}

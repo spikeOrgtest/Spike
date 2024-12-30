@@ -1,0 +1,342 @@
+body{
+	width-max:1200px;
+}
+
+.subMainTop{
+	background-color: #3264C8;
+	height: 350px;
+}
+
+
+.customSrchBox {
+	
+	text-align: center;
+	width: 100%;
+	
+}
+
+.customSrchBox .tit {
+	color: #f5f5f5;
+	font-size: 35px;
+	font-weight: 700;
+	margin-top: 20px;
+	margin-bottom: 50px;
+}
+
+.customSrchBox .btn_d {
+	margin: 0;
+}
+
+.customSrchBox .keyword {
+	margin-top: 25px;
+}
+
+.customSrchBox .keyword .tit {
+	display: inline-block;
+	margin: 0;
+	padding-right: 11px;
+	font-size: 20px !important;
+}
+
+.customSrchBox_text {
+	margin-top: 30px;
+}
+
+/* 검색창 스타일 */
+/* 검색창을 중앙에 정렬 */
+.search-bar-wrapper {
+    display: flex;            /* 플렉스박스 사용 */
+    justify-content: center;  /* 가로 중앙 정렬 */
+    align-items: center;      /* 세로 중앙 정렬 */
+    margin-top: 2rem;         /* 상단 여백 */
+}
+
+
+.search-bar {
+    display: flex;
+    align-items: center;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 0.5rem 1rem;
+    width: 50%;
+    justify-content: space-between;
+    
+    
+    
+}
+
+.search-bar input {
+    border: none;
+    outline: none;
+    padding: 0.5rem;
+    font-size: 1rem;
+    flex-grow: 1;
+}
+
+.search-bar button {
+    background-color: #005BAC;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    cursor: pointer;
+    margin-left: 0.5rem;
+    transition: background-color 0.3s ease;
+}
+
+.search-bar button:hover {
+    background-color: #003E75;
+}
+
+.customSrchBox .keyword .tit span {
+	display: inline-block;
+	padding-left: 11px;
+	color: #ffffff;
+	font-weight: bold;
+	vertical-align: middle;
+}
+
+.customSrchBox .keyword .links {
+	color: #f5f5f5;
+}
+
+.customSrchBox .keyword .links:after {
+	border-color: #b4b4b4;
+}
+
+.customSrchBox .keyword .links+.links {
+	margin-left: 10px !important;
+}
+
+.srchBar {
+	display: inline-block;
+	position: relative;
+	width: 50%;
+	height: 55px;
+	border: 1px solid #c8c8c8;
+	border-radius: 5px;
+	background-color: #fff;
+	text-align: left;
+}
+
+.srchBar .ipt {
+	width: 380px;
+	height: 44px;
+	border: none;
+}
+
+.srchBar .btnIco_srch {
+	background-image: url("../img/customer/btn_srch.png");
+	background-size: contain;
+	position: absolute;
+	top: 2px;
+	right: 5px;
+	width: 40px;
+	height: 40px;
+}
+
+/* 부모 section 요소에 flexbox 적용 */
+.subMenuLink1 {
+  display: flex;
+  justify-content: center; /* 가로 중앙 정렬 */
+  align-items: center;     /* 세로 중앙 정렬 */
+}
+
+/* 서브 메뉴 리스트 스타일 */
+.subMenuLink {
+  display: flex;           /* 아이템들을 가로로 나열 */
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  text-align: center; /* 텍스트 중앙 정렬 */
+}
+
+/* 각 메뉴 항목 스타일 */
+.subMenuLink li {
+  margin: 0 15px; /* 항목 간 간격 (좌우 30px) */
+  display: flex;
+  flex-direction: column;  /* 세로 방향으로 배치 */
+  align-items: center;     /* 텍스트와 이미지가 세로로 중앙 정렬 */
+}
+
+/* 메뉴 링크 스타일 */
+.subMenuLink li a {
+  display: flex;
+  flex-direction: column;  /* 이미지와 텍스트 세로 방향으로 배치 */
+  align-items: center;     /* 중앙 정렬 */
+  text-decoration: none;
+  color: inherit;
+  font-size: 16px;
+}
+
+/* 아이콘 이미지 크기 수정 */
+.subMenuLink li a .icoImg img {
+  width: 150px;  /* 가로 크기 150px */
+  height: 150px; /* 세로 크기 150px */
+  object-fit: cover; /* 이미지를 비율 맞추어 잘라서 채움 */
+}
+
+/* 아이콘과 텍스트 간 간격 */
+.subMenuLink li a .icoImg {
+  margin-bottom: 8px; /* 이미지와 텍스트 간의 간격 */
+}
+
+.subMenuLink li {
+    border-right: 1px solid rgba(169, 169, 169, 0.5); /* 항목들 사이에 회색 실선 추가 */
+    padding-right: 20px; /* 실선과 텍스트 간의 간격 추가 */
+}
+
+.subMenuLink li:last-child {
+    border-right: none; /* 마지막 항목에는 실선 제거 */
+}
+
+/* hover 효과  */
+.subMenuLink li a:hover {
+  color: #3264C8; /* 메뉴 항목에 hover 시 색상 변화 */
+}
+
+/* 소식 칸 */
+
+
+.news-summary {
+	display:flex;
+    background-color: #ffffff;
+    padding: 30px;
+    margin-bottom: 30px;
+    flex-direction: column;
+    align-items: center;
+}
+
+.news-summary h3 {
+    font-size: 1.6em;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.news-container {
+	width: 1200px;
+    display: flex;
+    gap: 20px;
+
+}
+
+.news-item {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    width: 18%;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+.news-item i {
+    font-size: 2em;
+    color: #0073e6;
+    margin-bottom: 10px;
+}
+
+.news-item h4 {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #3264C8;
+    margin-bottom: 10px;
+}
+
+.news-item p {
+    font-size: 1em;
+    color: #555;
+    line-height: 1.5;
+}
+
+
+
+
+/* FAQ 컨테이너 스타일 */
+.faq-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* FAQ 아이템 스타일 */
+.faq-item {
+    border-bottom: 1px solid #ddd;
+    padding: 15px 0;
+    background-color: #fff;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+/* FAQ 질문 스타일 */
+.faq-question {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+}
+
+/* 아이콘 스타일 */
+.faq-toggle-icon {
+    font-size: 20px;
+    color: #3264C8;
+    transition: transform 0.3s ease;
+}
+
+/* FAQ 답변 스타일 */
+.faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease, padding 0.4s ease;
+    padding: 0 0;
+    font-size: 16px;
+    line-height: 1.5;
+    color: #555;
+}
+
+/* 열려 있을 때 스타일 */
+.faq-item.active .faq-answer {
+    max-height: 150px;
+    padding: 10px 0;
+}
+
+.faq-item.active .faq-toggle-icon {
+    transform: rotate(45deg);
+}
+
+/* 제목 스타일 */
+.section-title h2 {
+    font-size: 50px;
+    font-weight: 700;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+/* 질문 설명 스타일 */
+.section-title p {
+    font-size: 18px;
+    color: #666;
+    margin-top: 10px;
+}
+
+footer {
+    background: #333 !important;
+    height: 150px;
+    color: #fff !important;
+    text-align: left !important;
+    padding: 20px 50px !important;
+    display: flex
+;
+    justify-content: center;
+    align-items: center;
+}

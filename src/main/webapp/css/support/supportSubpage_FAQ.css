@@ -1,0 +1,229 @@
+@charset "UTF-8";
+
+/*  #3264C8   */
+body.subpage {
+	margin: 0;
+	font-family: Arial, sans-serif;
+}
+
+.subpageWrapper {
+	display: flex;
+	justify-content: center;
+}
+
+.subpageWrapper-main {
+	display: flex;
+	justify-content: center;
+}
+
+.subpage-navigation-bar {
+	display: flex;
+	background-color: #3264C8;
+	padding: 10px 20px;
+	border-bottom: 1px solid #ddd;
+	min-width: 1200px;
+}
+
+.subpage-navigation-bar a {
+	margin-right: 20px;
+	text-decoration: none;
+	color: white; /* 네비게이션 텍스트 색상 */
+	font-weight: bold;
+	padding: 8px 12px;
+	border-radius: 3px;
+}
+
+.subpage-navigation-bar a:hover {
+	background-color: #2A54A4; /* 네비게이션 hover 효과 */
+}
+
+.subpage-navigation-bar .subpage-selected {
+	background-color: #26478F; /* 선택된 메뉴 배경색 */
+}
+
+.subpage-main-container {
+	display: flex;
+	min-width: 1200px;
+}
+
+.subpage-sidebar {
+	width: 200px;
+	border-right: 1px solid #ddd;
+	padding: 20px;
+}
+
+.subpage-sidebar-title {
+	font-size: 18px;
+	font-weight: bold;
+	margin-bottom: 15px;
+	color: #333;
+}
+
+.subpage-sidebar ul {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+.subpage-sidebar ul li {
+	border-bottom: 1px solid #ddd; /* 기본 구분선 */
+	background-color: #f9f9f9; /* 배경색 */
+}
+
+.subpage-sidebar ul li:first-child {
+	border-top: 2px solid #333; /* 맨 위 구분선 */
+}
+
+.subpage-sidebar ul li:last-child {
+	border-bottom: 2px solid #333; /* 맨 아래 구분선 */
+}
+
+.subpage-sidebar ul li a {
+	display: block;
+	text-decoration: none;
+	color: #333;
+	font-weight: bold;
+	padding: 10px 15px;
+	transition: background-color 0.3s;
+}
+
+.subpage-sidebar ul li a:hover {
+	background-color: #eaeaea; /* hover 효과 */
+}
+
+.subpage-sidebar ul li a.subpage-selected {
+	background-color: #dcdcdc; /* 현재 선택된 메뉴의 배경색 */
+}
+
+.subpage-content-wrap {
+	flex: 1;
+	padding: 20px;
+}
+
+.subpage-breadcrumbs {
+	margin: 10px 20px; /* 네비게이션 아래 여백 */
+	font-size: 14px; /* 텍스트 크기 */
+	color: #666; /* 텍스트 색상 */
+	display: flex;
+	justify-content: flex-end;
+	min-width: 1200px;
+}
+
+.subpage-breadcrumbs a {
+	text-decoration: none;
+	color: #333; /* 링크 색상 */
+	font-weight: bold;
+}
+
+.subpage-breadcrumbs a:hover {
+	text-decoration: underline;
+}
+
+.subpage-breadcrumbs span {
+	margin: 0 5px; /* '>' 기호 좌우 여백 */
+	color: #999; /* 구분자 색상 */
+}
+.faq-container {
+	max-width: 1200px;
+	margin: 50px auto;
+	padding: 20px;
+	background: #ffffff;
+	border-radius: 8px;
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.faq-header {
+	text-align: center;
+	margin-bottom: 30px;
+}
+
+.faq-header h1 {
+	font-size: 2rem;
+	font-weight: bold;
+	color: #333;
+}
+
+.faq-header p {
+	font-size: 1rem;
+	color: #666;
+}
+
+.faq-search {
+	margin-bottom: 30px;
+}
+
+.faq-search input {
+	width: 100%;
+	padding: 12px;
+	font-size: 1rem;
+	border: 1px solid #ddd;
+	border-radius: 4px;
+}
+
+.faq-category {
+	display: flex;
+	margin-bottom: 20px;
+}
+
+.faq-category button {
+	flex: 1 1 calc(25% - 10px);
+	margin: 5px;
+	padding: 10px;
+	border: none;
+	border-radius: 4px;
+	background: #007bff;
+	color: white;
+	cursor: pointer;
+	transition: background 0.3s;
+}
+
+.faq-category button:hover {
+	background: #0056b3;
+}
+
+.faq-table {
+	width: 100%;
+	border-collapse: collapse;
+}
+
+.faq-table thead {
+	background: #007bff;
+	color: white;
+}
+
+.faq-table th, .faq-table td {
+	padding: 12px;
+	text-align: left;
+	border: 1px solid #ddd;
+}
+
+.faq-table tr:hover {
+	background-color: #f1f1f1;
+}
+
+.pagination {
+	display: flex;
+	justify-content: center;
+	margin-top: 20px;
+}
+
+.pagination a {
+	padding: 8px 16px;
+	margin: 0 5px;
+	text-decoration: none;
+	border-radius: 4px;
+}
+
+.pagination a:hover {
+	background: #0056b3;
+}
+
+/* 테이블 내 링크의 스타일 변경 */
+#faqTable a {
+    text-decoration: none;  /* 밑줄 제거 */
+    color: black;  /* 텍스트 색상 검은색으로 변경 */
+}
+
+#faqTable a:hover {
+    text-decoration: none;  /* 마우스를 올렸을 때 밑줄 추가 (선택사항) */
+}

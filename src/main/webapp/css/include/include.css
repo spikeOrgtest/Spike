@@ -1,0 +1,243 @@
+@charset "UTF-8";
+/*==============헤더================*/
+/* 헤더 스타일 */
+
+
+#about.about{
+	padding-top: 0px;	
+}
+
+*{
+	box-sizing: border-box;
+}
+body{
+	min-width: 1200px;
+	margin: 0px;
+	box-sizing: border-box;
+}
+.main-header .header-container {
+    width: 1200px;
+    margin: 0 auto;
+    padding: 0px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 70px;
+}
+
+.top-bar {
+    background-color: #f8f8f8;
+    font-size: 0.8rem;
+    height: 30px;
+    transform: translateY(0);
+    transition: transform 1s ease;
+    display: flex;
+    justify-content: center;
+}
+
+.top-bar.scrolled {
+    transform: translateY(-100%);
+}
+
+.top-bar .header-container {
+    width: 1200px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 20px;
+    
+}
+
+.top-bar a {
+    color: #666;
+    text-decoration: none;
+}
+
+.main-header {
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    transform: translateY(0);
+    transition: transform 1s ease;
+    width: 100%;
+    height: 70px;
+    display: flex;
+    justify-content: center;
+    margin: 0px;
+    padding: 0px;
+    font-size: 16px;
+}
+
+.main-header nav ul {
+    display: flex;
+    list-style: none;
+    gap: 30px;
+    padding: 0px;
+}
+
+.main-header nav ul li a {
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+    transition: color 0.3s;
+    padding: 10px 0px;
+}
+
+.main-header nav ul li:last-child{
+	padding-right: 20px;
+}
+
+.main-header nav ul li a:hover {
+    color: #4169e1;
+}
+
+.main-header .header-container img {
+    width: 120px;
+    height: 60px;
+    padding-top: 10px;
+}
+
+.login-btn {
+    background-color: #3264C8;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.login-btn:hover {
+    background-color: #2750A0;
+}
+
+/* 드롭다운 메뉴 스타일 */
+nav ul li .header-dropdown-menu {
+    display: none;
+    position: absolute;
+    list-style: none;
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 10px 0;
+    margin: 0;
+    z-index: 1000;
+    border-radius: 10px;
+    border: 1px solid #ced4da;
+}
+
+nav ul li .header-dropdown-menu li {
+    padding: 5px 20px;
+    text-align: center;
+}
+
+nav ul li .header-dropdown-menu li a {
+    color: #555;
+    display: inline-block; /* 글자가 세로로 나오지 않도록 설정 */
+    white-space: nowrap; /* 텍스트 줄바꿈 방지 */
+}
+
+nav ul li .header-dropdown-menu li:hover {
+    color: #000;
+    background-color: #f1f1f1;
+}
+
+nav ul li:hover .header-dropdown-menu {
+    display: block;
+}
+
+/*=============푸터==========*/
+/* bgPhoto */
+.bgPhoto {
+    width: 100%;
+    height: 240px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 48px 24px 0 !important;
+    background-size: cover !important;
+    background-image: url(../../assets/img/product/bg_photo.jpg);
+}
+
+.bgPhoto .inner {
+    padding-bottom: 40px !important;
+    background-repeat: no-repeat !important;
+    background-position: center 0 !important;
+    color: #fff;
+    text-align: center !important;
+}
+
+.bgPhoto .copyArea .lg {
+    font-size: 24px !important;
+    font-weight: 500 !important;
+}
+
+.bgPhoto .copyArea .mb {
+    margin: 8px 0 5px !important;
+    line-height: 1.8 !important;
+}
+
+/* Footer */
+footer {
+    background: #333;
+    height: 150px;
+    color: #fff !important;
+    text-align: left !important;
+    padding: 20px 50px !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#footer-wrap{
+	min-width: 1200px;
+	height: 150px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.footer-content p,
+.p1 {
+    font-size: 12px !important;
+    color: #fff !important;
+}
+
+.p1 {
+    margin-right: 160px !important;
+}
+
+.footer-content {
+    text-align: left !important;
+}
+
+.social-links {
+    display: flex !important;
+    justify-content: flex-end !important;
+    gap: 15px !important;
+    margin-top: 60px !important;
+}
+
+.social-button {
+    display: flex;
+    align-items: right;
+    text-decoration: none;
+    color: #000000;
+    font-size: 14px;
+}
+
+.social-button img,
+.social-links img {
+    border-radius: 50%;
+}
+
+.social-links a {
+    color: #000000;
+    margin: 0 10px;
+    text-decoration: none;
+}
+
+.social-links a:hover {
+    text-decoration: underline;
+}

@@ -1,0 +1,117 @@
+@charset "UTF-8";
+/* 전체 화면 중앙 배치 */
+.auth-container {
+    min-height: 100vh; /* 화면 전체 높이를 차지 */
+    display: flex;
+    align-items: center; /* 수직 중앙 정렬 */
+    justify-content: center; /* 수평 중앙 정렬 */
+    background-color: #f8f9fa; /* 배경색 */
+}
+
+/* 카드 스타일 */
+.auth-card {
+    width: 100%;
+    max-width: 460px; /* 최대 너비 */
+    background-color: white;
+    padding: 2.5rem;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* 헤더 부분 스타일 */
+.auth-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.auth-header h1 {
+    font-size: 24px;
+    color: #333;
+}
+
+.auth-header p {
+    color: #666;
+}
+
+/* 폼 그룹 스타일 */
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    font-size: 1rem;
+    color: #333;
+    margin-bottom: 0.5rem;
+    display: block;
+}
+
+.form-group input {
+    width: 90%;
+    padding: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: #4384fc;
+}
+
+/* 오류 메시지 스타일 */
+.error-message {
+    color: red;
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
+}
+
+/* 제출 버튼 스타일 */
+.btn {
+    width: 100%;
+    padding: 1rem;
+    background-color: #4384fc;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background-color: #3367d6;
+}
+
+/* 하단 링크 부분 스타일 */
+.auth-links {
+    text-align: center;
+    margin-top: 1rem;
+    font-size: 0.9rem;
+}
+
+.auth-links a {
+    color: #4384fc;
+    text-decoration: none;
+}
+
+.auth-links a:hover {
+    text-decoration: underline;
+}
+
+@media (max-width: 480px) {
+    /* 모바일 화면에서 여백과 padding 조정 */
+    .auth-container {
+        padding: 1rem;
+    }
+
+    .auth-card {
+        padding: 1.5rem;
+    }
+
+    .form-group {
+        margin-bottom: 1rem;
+    }
+
+    .btn {
+        padding: 0.8rem;
+    }
+}
