@@ -10,7 +10,7 @@
  * Copyright 2011-2022 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  */
-:root {
+/*:root {
   --bs-blue: #0d6efd;
   --bs-indigo: #6610f2;
   --bs-purple: #6f42c1;
@@ -77,7 +77,7 @@
   --bs-link-hover-color: #0a58ca;
   --bs-code-color: #d63384;
   --bs-highlight-bg: #fff3cd;
-}
+}*/
 
 *,
 *::before,
@@ -93,7 +93,7 @@
 
 body {
   margin: 0;
-  font-family: var(--bs-body-font-family);
+  /*font-family: var(--bs-body-font-family);
   font-size: var(--bs-body-font-size);
   font-weight: var(--bs-body-font-weight);
   line-height: var(--bs-body-line-height);
@@ -101,15 +101,9 @@ body {
   text-align: var(--bs-body-text-align);
   background-color: var(--bs-body-bg);
   -webkit-text-size-adjust: 100%;
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-}
-
-hr {
-  margin: 1rem 0;
-  color: inherit;
-  border: 0;
-  border-top: 1px solid;
-  opacity: 0.25;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);*/
+  font-family: Arial, sans-serif;
+  min-width: 1200px;
 }
 
 h6, .h6, h5, .h5, h4, .h4, h3, .h3, h2, .h2, h1, .h1 {
@@ -185,7 +179,7 @@ address {
   line-height: inherit;
 }
 
-ol,
+/*ol,
 ul {
   padding-left: 2rem;
 }
@@ -202,7 +196,7 @@ ul ul,
 ol ul,
 ul ol {
   margin-bottom: 0;
-}
+}*/
 
 dt {
   font-weight: 700;
@@ -306,10 +300,6 @@ figure {
   margin: 0 0 1rem;
 }
 
-img,
-svg {
-  vertical-align: middle;
-}
 
 table {
   caption-side: bottom;
@@ -358,7 +348,6 @@ optgroup,
 textarea {
   margin: 0;
   font-family: inherit;
-  font-size: inherit;
   line-height: inherit;
 }
 
@@ -2208,10 +2197,11 @@ textarea.form-control-lg {
   min-height: 1.5rem;
   padding-left: 1.5em;
   margin-bottom: 0.125rem;
+  height: 40px;
 }
 .form-check .form-check-input {
-  float: left;
   margin-left: -1.5em;
+  margin-right: 0.5em;
 }
 
 .form-check-reverse {
@@ -3607,7 +3597,7 @@ textarea.form-control-lg {
   border-top-right-radius: 0;
 }
 
-.nav {
+/*.nav {
   --bs-nav-link-padding-x: 1rem;
   --bs-nav-link-padding-y: 0.5rem;
   --bs-nav-link-font-weight: ;
@@ -3619,7 +3609,7 @@ textarea.form-control-lg {
   padding-left: 0;
   margin-bottom: 0;
   list-style: none;
-}
+}*/
 
 .nav-link {
   display: block;
@@ -7159,9 +7149,6 @@ textarea.form-control-lg {
   border-right: 0 !important;
 }
 
-.border-bottom {
-  border-bottom: var(--bs-border-width) var(--bs-border-style) var(--bs-border-color) !important;
-}
 
 .border-bottom-0 {
   border-bottom: 0 !important;
@@ -7656,6 +7643,7 @@ textarea.form-control-lg {
 
 .mb-1 {
   margin-bottom: 0.25rem !important;
+  height: 160px;
 }
 
 .mb-2 {
@@ -8141,6 +8129,7 @@ textarea.form-control-lg {
 .bg-success {
   --bs-bg-opacity: 1;
   background-color: rgba(var(--bs-success-rgb), var(--bs-bg-opacity)) !important;
+  color: green;
 }
 
 .bg-info {
@@ -8156,6 +8145,7 @@ textarea.form-control-lg {
 .bg-danger {
   --bs-bg-opacity: 1;
   background-color: rgba(var(--bs-danger-rgb), var(--bs-bg-opacity)) !important;
+  color: red;
 }
 
 .bg-light {
@@ -10829,16 +10819,38 @@ textarea.form-control-lg {
   }
 }
 #page-content-wrapper {
-    min-width: 100vw;
-  }
-body.sb-sidenav-toggled #wrapper #sidebar-wrapper {
-  margin-left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin: 0 auto; /* 가로 중앙 정렬 */
+  width: 100%;
+  max-width: 1080px; /* Bootstrap의 container 최대 너비 */
+  padding: 15px; /* 기본 패딩 추가 */
+  box-sizing: border-box; /* 박스 크기 계산 방식 */
 }
 
-body, html {
+@media (max-width: 768px) { /* 브라우저가 작아질 때 조정 */
+  #page-content-wrapper {
+      margin-left: 10px;
+      padding: 10px;
+  }
+}
+
+#page-content-wrapper .container{
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px;
+}
+/*body.sb-sidenav-toggled #wrapper #sidebar-wrapper {
+  margin-left: 0;
+}*/
+
+
+/*body, html {
   height: 100%;
   font-family: Arial, sans-serif;
-}
+}*/
 
 /* 기본적으로 하위 메뉴 숨기기 */
 .submenu {
@@ -10859,34 +10871,10 @@ body {
     background-color: #f8f9fa;
 }
 
-.transfer-section {
-    margin-top: 30px;
-    padding: 30px;
-    background-color: #ffffff;
-    border-radius: 12px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.transfer-section h2 {
-    color: #007bff;
-    font-size: 2rem;
-    margin-bottom: 25px;
-    text-align: center;
-}
-
 .form-label {
     font-weight: 500;
 }
 
-.btn-primary {
-    background-color: #007bff;
-    border: none;
-    border-radius: 8px;
-    font-size: 1.1rem;
-    padding: 10px 20px;
-    width: 100%;
-    margin-top: 20px;
-}
 
 .btn-primary:hover {
     background-color: #0056b3;
@@ -10944,21 +10932,18 @@ body {
 .img-container {
   position: relative;
   width: 100%;
-  height: 300px; /* 이미지의 고정된 높이 설정 */
   overflow: hidden; /* 이미지를 넘지 않도록 처리 */
 }
 
 .img-container img {
   width: 100%; /* 이미지를 화면 크기에 맞게 반응형으로 만들기 */
-  max-width: 800px; /* 최대 크기 지정 */
-  height: 400px;
+  height: 100%;
   border-radius: 8px;
 }
 .opaque-image {
   width: 100%;
   height: 100%;
-  object-fit: cover; /* 이미지를 잘라서 영역에 맞추기 */
-  opacity: 0.5; /* 불투명도 적용 */
+  object-fit: contain; /* 비율을 유지하면서 컨테이너에 맞추기 */
 }
 
 .img-container2 {
@@ -10983,202 +10968,79 @@ body {
   text-align: center; /* 텍스트 가운데 정렬 */
 }
 
-/* 부제목을 위한 스타일 */
-.lead {
-  font-size: 1.25rem;
-  font-weight: bold;
-}
-.title{
-  font-weight: bold;
-}
-
-/* bgPhoto */
-.bgPhoto {
-  padding: 48px 24px 0 !important;
-  background-size: cover!important;
-  background-image: url(./bg_photo.jpg);
-}
-
-.bgPhoto .inner {
-  padding-bottom: 70px !important;
-  background-repeat: no-repeat!important;
-  background-position: center 0!important;    
-  color: #fff;
-  text-align: center!important;
-}
-
-.bgPhoto .copyArea .lg {
-  font-size: 24px;
-  font-weight: 500;
-}
-
-.bgPhoto .copyArea .mb {
-  margin: 8px 0 5px;
-  line-height: 1.8;
-  opacity: 0.7;
-}
-
-/* Footer */
-footer {
-  background: #333;
-  color: #fff;
-  text-align: left; 
-  padding: 20px 50px; /* 충분한 패딩을 추가하여 내용과 테두리 간의 간격을 확보 */
-  display: flex;
-  justify-content: space-between; /* 양쪽 끝으로 정렬 */
-  align-items: center; /* 수직 중앙 정렬 */
-}
-
-.footer-content p {
-  font-size: 12px; /* p 태그 글씨 크기 */
-}
-
-.p1 {
-  font-size: 12px; /* p 태그 글씨 크기 */
-  margin-right:240px;
-}
-
-.footer-content {
-  /* 왼쪽의 저작권 텍스트 및 사업자 정보 */
-  text-align: left;
-}
-
-
-.social-links {
-  display: flex;
-  justify-content: flex-end; /* 아이콘을 오른쪽으로 정렬 */
-  gap: 15px; /* 아이콘 간의 간격 */
-  margin-top: 60px;
-}
-
-.social-button {
-  display: flex;
-  align-items: right;
-  text-decoration: none; /* 링크 밑줄 제거 */
-  color: #000000; /* 텍스트 색상 */
-  font-size: 14px; /* 텍스트 크기 */
-}
-
-.social-button img {
-  border-radius: 50%; /* 아이콘을 둥글게 */
-  margin-right: 8px; /* 아이콘과 텍스트 간격 */
-}
-
-
-.social-links a {
-  color: #000000;
-  margin: 0 10px;
-  text-decoration: none;
-}
-
-.social-links a:hover {
-  text-decoration: underline;
-}
-
-.social-links img {
-  border-radius: 50%;
-}
-
-/* 헤더 스타일 */
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
 }
 
-body {
-  font-family: Arial, sans-serif;
-  line-height: 1.6;
-  color: #333;
+.sidebar {
+	background: white;
 }
 
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 20px;
+.test {
+	width: 1200px;
+	display: flex;
 }
-
-.top-bar {
-  background-color: #f8f8f8;
-  padding: 5px 0;
-  font-size: 0.8rem;
-  
-  
-}
-
-.top-bar .container {
-  display: flex;
-  justify-content: flex-end;
-  gap: 20px;
-  padding-right: 20px;  /* 오른쪽에 약간의 패딩 추가 */
-}
-
-.top-bar a {
-  color: #666;
-  text-decoration: none;
-}
-
-.main-header {
-  background-color: #fff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-}
-
-.main-header .container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  height: 70px;
-}
-
-.main-header nav ul {
-  display: flex;
-  list-style: none;
-  gap: 30px;
-}
-
-.main-header nav ul li a {
-  text-decoration: none;
-  color: #333;
-  font-weight: 500;
-  transition: color 0.3s;
-}
-
-.main-header nav ul li a:hover {
-  color: #4169e1;
-}
-
-.login-btn {
-  background-color: #3264C8;
-  color: white;
-  border: none;
-  padding: 8px 16px;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-.login-btn:hover {
-  background-color: #2750A0;
-}
-
-#viewButton {
-    width: 500px;
+.mm {
+	display: flex;
+	justify-content: center;
 }
 
 
-.row {
-  margin-left: 0;
-  margin-right: 0;
+/* 박스를 가운데 정렬 */
+.settings-container {
+    display: flex;
+    justify-content: center; /* 수평으로 가운데 정렬 */
+    align-items: center;     /* 세로로 가운데 정렬 */
+    border: 2px solid #ddd;  /* 전체 박스에 경계선 추가 */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+    margin-top: 50px;         /* 위쪽 여백 추가 */
 }
 
-
-.container {
-  margin-left: 50px;
+/* 각 박스의 스타일 */
+.setting-box {
+    width: 48%;  /* 두 박스를 48%로 설정하여 2개가 한 줄에 나란히 배치되도록 */
+    padding: 20px;
+    border: 2px solid #ddd;  /* 각 박스에 경계선 추가 */
+    border-radius: 10px;
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+    background-color: #fff;  /* 배경색을 흰색으로 설정 */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* 수직으로 가운데 정렬 */
+    align-items: center;     /* 수평으로 가운데 정렬 */
 }
 
-.container.header {
-  margin-left: 300px;
+/* 각 박스 안의 제목 */
+.setting-box h4 {
+    margin-bottom: 10px;
+    text-align: center; /* 제목 가운데 정렬 */
+}
+
+/* <p> 태그에 대한 가운데 정렬 추가 */
+.setting-box p {
+    text-align: center; /* 텍스트 가운데 정렬 */
+    margin-bottom: 20px; /* 줄 간격 */
+}
+
+/* 버튼 스타일 */
+.setting-box button {
+    margin-top: 10px;
+    display: block; /* 버튼을 block으로 설정하여 중앙에 정렬되도록 */
+    margin-left: auto;
+    margin-right: auto; /* 좌우 여백 자동으로 설정하여 가운데 정렬 */
+}
+
+/* 작은 화면에서 두 박스가 세로로 나열되게 하기 */
+@media (max-width: 768px) {
+    .settings-container {
+        flex-direction: column; /* 작은 화면에서 세로로 나열되게 설정 */
+    }
+    .setting-box {
+        width: 100%;  /* 화면 크기가 작을 경우 100% 너비로 설정 */
+        margin-bottom: 20px;
+    }
 }
