@@ -15,12 +15,12 @@
         <div class="login-wrapper">
             <div class="login-container">
                 <h2>로그인</h2>
-                <form action="loginProcess.jsp" method="post" class="login-form">
+                <form name ="s" action="login" method="post" class="login-form">
                     <div class="input-group">
-                        <input type="text" name="userId" placeholder="아이디를 입력하세요" required>
+                        <input type="text" name="login_id" id="login_id" placeholder="아이디를 입력하세요" required>
                     </div>
                     <div class="input-group">
-                        <input type="password" name="userPw" placeholder="비밀번호를 입력하세요" required>
+                        <input type="password" name="password" id="password" placeholder="비밀번호를 입력하세요" required>
                     </div>
                     <div class="login-options">
                         <label class="remember-me">
