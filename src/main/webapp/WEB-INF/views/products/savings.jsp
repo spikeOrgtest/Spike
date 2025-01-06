@@ -12,6 +12,19 @@
 <body>
 	
 	<jsp:include page="../include/pheader.jsp" />
+
+	<nav class="top-menu">
+		<div class="container">
+			<a href="products.jsp" class="logo">SPIKE</a>
+			<ul>
+				<li><a href="deposit.jsp">예금</a></li>
+				<li><a href="savings.jsp">적금</a></li>
+				<li><a href="loan.jsp">대출</a></li>
+				<li><a href="card.jsp">카드</a></li>
+				<li><a href="newmember.jsp">계좌 개설</a></li>
+			</ul>
+		</div>
+	</nav>
 	
 	<main>
 		<section class="hero">
@@ -34,13 +47,15 @@
 					<button class="prev">&lt;</button>
 					<button class="next">&gt;</button>
 				</div>
+				<p id="carouselDescription"></p>
+				<button class="btn">자세히 보기</button>
 			</div>
 		</section>
 		<section class="products">
 			<div class="container">
 				<h2>특별 적금 상품</h2>
 				<div class="product-grid" id="productGrid">
-					<a href="./sub/spike-savings.html" class="product-card">
+					<a href="Subpage_S1.jsp" class="product-card">
 						<div class="card-header"></div>
 						<div class="card-body">
 							<h3>SPIKE 적금</h3>
@@ -51,7 +66,7 @@
 								<li>만기 자동 연장</li>
 							</ul>
 						</div>
-					</a> <a href="#" class="product-card">
+					</a> <a href="Subpage_S2.jsp" class="product-card">
 						<div class="card-header"></div>
 						<div class="card-body">
 							<h3>청년 저축 적금</h3>
@@ -62,7 +77,7 @@
 								<li>자동 이체 기능 지원</li>
 							</ul>
 						</div>
-					</a> <a href="#" class="product-card">
+					</a> <a href="Subpage_S3.jsp" class="product-card">
 						<div class="card-header"></div>
 						<div class="card-body">
 							<h3>청년 주택드림</h3>
@@ -81,7 +96,7 @@
 			<div class="container">
 				<h2>적금 상품 목록</h2>
 				<div class="product-grid" id="productGrid">
-					<a href="#" class="product-card">
+					<a href="Subpage_S4.jsp" class="product-card">
 						<div class="card-header"></div>
 						<div class="card-body">
 							<h3>정기 적금</h3>
@@ -92,7 +107,7 @@
 								<li>만기 자동 연장</li>
 							</ul>
 						</div>
-					</a> <a href="#" class="product-card">
+					</a> <a href="Subpage_S5.jsp" class="product-card">
 						<div class="card-header"></div>
 						<div class="card-body">
 							<h3>드림 적금</h3>
@@ -103,7 +118,7 @@
 								<li>자동 이체 기능 지원</li>
 							</ul>
 						</div>
-					</a> <a href="#" class="product-card">
+					</a> <a href="Subpage_S6.jsp" class="product-card">
 						<div class="card-header"></div>
 						<div class="card-body">
 							<h3>플러스 적금</h3>
@@ -121,7 +136,7 @@
 		
 	</main>
 	<jsp:include page="../include/pfooter.jsp"/>
-	<script src="../assets/js/product.js"></script>
+	<script src="../assets/js/savings.js"></script>
 </body>
 </html>
 
