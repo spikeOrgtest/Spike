@@ -5,9 +5,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>공지사항</title>
-<link rel="stylesheet" href="assets/css/subpage.css">
-<link rel="stylesheet" href="assets/css/include.css">
-<link rel="stylesheet" href="assets/css/subpage_notice.css">
+<link rel="stylesheet" href="/css/support/subpage.css">
+<link rel="stylesheet" href="/css/include/include.css">
+<link rel="stylesheet" href="/css/support/subpage_notice.css">
 </head>
 <body class="subpage">
 	<%@ include file="../include/header.jsp"%>

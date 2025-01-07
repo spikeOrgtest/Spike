@@ -11,7 +11,7 @@
 	<div class="header-container">
 
 		<a href="index.jsp" class="logo"><img alt="로고"
-			src="assets/img/newlogo.png"></a>
+			src="/images/newlogo.png"></a>
 		<nav>
 			<ul>
 				<li class="dropdown"><a href="mypageMain.jsp">마이페이지</a>
