@@ -19,6 +19,11 @@ public class spikeController {
 	@Autowired 
 	private spikeSerivce spikeService;
 	
+	@GetMapping("/")
+	public String index() {
+		return "index";
+	}
+	
 	// 로그인
 	@GetMapping("/login")
 	public ModelAndView login() {

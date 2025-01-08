@@ -1,28 +1,33 @@
 package com.spike.security;  
 
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
-@Configuration  // 이 클래스를 설정 클래스로 인식하게 하는 애너테이션
-@EnableWebSecurity  // Spring Security를 활성화하는 애너테이션
+@Configuration
+@EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
             .authorizeRequests()
-                .antMatchers("/signup", "/login", "/resources/**").permitAll()  // 로그인, 회원가입 페이지 등 허용
-                .anyRequest().authenticated()  // 그 외의 경로는 인증이 필요함
+            	// 인증이 필요한 페이지만 지정
+            	.antMatchers("/profile", "/dashboard", "/admin").authenticated()  // 인증된 사용자만 접근할 수 있는 경로
+            
+            	// 그 외의 모든 페이지는 인증 없이 접근 가능
+            	.anyRequest().permitAll()  // 인증 없이 모든 경로에 접근 가능
             .and()
-                .formLogin()
-                .loginPage("/login")  // 커스텀 로그인 페이지 설정
-                .loginProcessingUrl("/login")  // 로그인 처리 경로 설정
-                .permitAll()  // 로그인 페이지는 누구나 접근할 수 있도록 허용
+            .formLogin()
+                .loginPage("/login")  // 로그인 페이지 URL 설정
+                .loginProcessingUrl("/login")  // 로그인 요청을 처리할 URL
+                .defaultSuccessUrl("/", true)  // 로그인 성공 후 이동할 URL
+                .permitAll()  // 로그인 페이지 접근은 모두 허용
             .and()
-                .logout()
-                .permitAll();  // 로그아웃 페이지는 누구나 접근할 수 있도록 허용
+            .logout()
+                .logoutUrl("/logout")  // 로그아웃 URL
+                .logoutSuccessUrl("/")  // 로그아웃 후 리디렉션할 URL
+                .permitAll();  // 로그아웃 페이지도 모두 허용
     }
 }
