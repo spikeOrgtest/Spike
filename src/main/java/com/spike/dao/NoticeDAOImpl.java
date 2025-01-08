@@ -13,7 +13,6 @@ public class NoticeDAOImpl implements NoticeDAO {
 	@Override
 	public void insertNotice(NoticeDTO notice) {
 		System.out.println(" Notice 시퀀스 저장");
-		
 		this.NoticeRepo.save(notice);
 	}
 

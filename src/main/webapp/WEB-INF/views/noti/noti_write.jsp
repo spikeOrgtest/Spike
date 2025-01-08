@@ -71,9 +71,10 @@
      </tr>
     </table>
     <div id="noti_menu">
+    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token }" />
      <button type="submit">입력</button>
-     <button type="Reset" onclick="$('#bbs_name').focus();">취소</button>
-     <button type="button" onclick="location='/bbs/bbs_list?page=${page}';">목록</button>
+     <button type="Reset" onclick="$('#notice_id').focus();">취소</button>
+     <button type="button" onclick="location='/notice/notice?page=${page}';">목록</button>
     </div>
     
   </form>

@@ -1,16 +1,16 @@
 package com.spike.dto;
 
 import java.security.Timestamp;
+import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import javax.validation.constraints.*;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.web.multipart.MultipartFile;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -25,6 +25,7 @@ import lombok.ToString;
 
 public class NoticeDTO {
 	
+	
 	@Id
 	private String notice_id;
 	
@@ -36,15 +37,19 @@ public class NoticeDTO {
 	@Column(length = 2000)
 	private String content;
 	
-	@NotNull
-	@Column(length = 100)
-	private String author;
+	//@NotNull
+	//@Column(length = 100)
+	//private String author;
 	
 	@UpdateTimestamp
 	private LocalDate updated_date;
 	
-	
 	@Column(name = "created_date", columnDefinition = "TIMESTAMP DEFAULT SYSDATE")
 	private Timestamp created_date;
+
+    @Column(length=4000)
+    private String notice_file; //첨부파일 경로와 파일명
+
+
 
 }
