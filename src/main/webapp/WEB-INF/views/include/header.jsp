@@ -3,7 +3,7 @@
 <%-- 헤더 시작 --%>
 <div class="top-bar">
 	<div class="header-container">
-		<a href="login.jsp">로그인</a> <a href="admin.jsp">공지사항</a> <a
+		<a href="javascript:location='/';">로그인</a> <a href="admin.jsp">공지사항</a> <a
 			href="transfer.html">FAQ</a> <a href="#board">게시판</a>
 	</div>
 </div>
@@ -11,7 +11,7 @@
 	<div class="header-container">
 
 		<a href="index.jsp" class="logo"><img alt="로고"
-			src="assets/img/product/spike.png"></a>
+			src="../../images/product/spike.png"></a>
 		<nav>
 			<ul>
 				<li class="dropdown"><a href="mypageMain.jsp">마이페이지</a>

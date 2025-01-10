@@ -12,9 +12,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.*;
 
 import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.web.multipart.MultipartFile;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -42,7 +45,7 @@ public class spikeDTO {
 			strategy = GenerationType.SEQUENCE,
 			generator = "user_no_seq_name"
 			)
-	private int user_id;
+	private Integer user_id;
 	
 	@NotNull(message = "필수 항목입니다.")
 	@Size(min = 2, max = 100, message = "최소 2자리에서 최대 100자리까지 입력하세요.")
@@ -68,21 +71,23 @@ public class spikeDTO {
 	private String email_domain;
 	
 	@NotNull(message = "필수 항목입니다.")
-	@Size(max = 4, message = "최대 4자리까지 가능합니다.")
 	@Column(length = 15)
-	private String phone1;
+	private String phone;
+	
+	@NotNull(message = "필수 항목입니다.")
+	@Column(length = 15)
+	private String phone01;
+	
+	@NotNull(message = "필수 항목입니다.")
+	@Column(length = 15)
+	private String phone02;
+	
+	@NotNull(message = "필수 항목입니다.")
+	@Column(length = 15)
+	private String phone03;
 
 	@NotNull(message = "필수 항목입니다.")
-	@Size(max = 4, message = "최대 4자리까지 가능합니다.")
-	@Column(length = 15)
-	private String phone2;
-	
-	@NotNull(message = "필수 항목입니다.")
-	@Size(max = 4, message = "최대 4자리까지 가능합니다.")
-	@Column(length = 15)
-	private String phone3;
-	
-	@NotNull(message = "필수 항목입니다.")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate birth_date;
 	
 	@NotNull(message = "필수 항목입니다.")
@@ -102,6 +107,9 @@ public class spikeDTO {
 	private String detailAddress;
 	
 	private String profile_image_uri;
+
+	@Transient // DB에 저장되지 않도록 처리해주는 에노테이션
+	private MultipartFile profileImage;
 	
 	private boolean is_minor; // 18세 미만 여부
 	

@@ -22,6 +22,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .formLogin()
                 .loginPage("/login")  // 로그인 페이지 URL 설정
                 .loginProcessingUrl("/login")  // 로그인 요청을 처리할 URL
+                .failureUrl("/login?error")  // 로그인 실패 시 리디렉션할 URL 설정
                 .defaultSuccessUrl("/", true)  // 로그인 성공 후 이동할 URL
                 .permitAll()  // 로그인 페이지 접근은 모두 허용
             .and()
@@ -29,5 +30,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutUrl("/logout")  // 로그아웃 URL
                 .logoutSuccessUrl("/")  // 로그아웃 후 리디렉션할 URL
                 .permitAll();  // 로그아웃 페이지도 모두 허용
+        
+        
     }
 }
