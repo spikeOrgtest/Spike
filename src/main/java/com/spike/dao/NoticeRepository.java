@@ -8,8 +8,6 @@ import com.spike.dto.NoticeDTO;
 
 public interface NoticeRepository extends JpaRepository<NoticeDTO, Long > {
     
-	@Query("select count(*) from NoticeDTO ")
-	int nCount(NoticeDTO notice, NotiPageDTO p);
 	
 
 }

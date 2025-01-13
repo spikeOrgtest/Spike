@@ -22,8 +22,8 @@ public class NoticeServiceImpl implements NoticeService {
 	}
 
 	@Override
-	public int getRowCount(NoticeDTO notice, NotiPageDTO p) {
-		return this.noticeDAO.getRowCount(notice,p);
+	public int getRowCount(NotiPageDTO p) {
+		return ;
 	}
 
 

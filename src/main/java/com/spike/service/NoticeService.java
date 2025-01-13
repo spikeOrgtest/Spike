@@ -7,6 +7,7 @@ public interface NoticeService {
 
 	void insertnotice(NoticeDTO notice);
 
-	int getRowCount(NoticeDTO notice, NotiPageDTO p);
+	int getRowCount(NotiPageDTO p);
+
 
 }

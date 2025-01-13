@@ -17,10 +17,6 @@ public class NoticeDAOImpl implements NoticeDAO {
 		this.NoticeRepo.save(notice);
 	}
 
-	@Override
-	public int getRowCount(NoticeDTO notice, NotiPageDTO p) {
-		return this.NoticeRepo.nCount(notice,p);
-	}
 
 
 

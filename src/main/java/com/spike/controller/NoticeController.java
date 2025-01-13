@@ -119,12 +119,12 @@ public class NoticeController {
 		p.setFind_field(find_field);
 		p.setFind_name("%"+find_name+"%");
 		
-		int totalCount = this.noticeService.getRowCount(notice, p);
+		int totalCount = this.noticeService.getRowCount(p);
 		
 		p.setStartrow((page-1)*5+1); //시작행 번호
 		p.setEndroe(p.getStartrow()+limit-1); //끝행 번호
 		
-		/*List<NoticeDTO> Nlist = this.noticeService.getNotiList(p);
+		List<NoticeDTO> Nlist = this.noticeService.getNotiList(p);
 		
 		int maxpage=(int)((double)totalCount/limit+0.95); // 총페이지수
 		int startpage=(((int)((double)page/5+0.9))-1)*5+1; // 시작페이지
@@ -145,7 +145,7 @@ public class NoticeController {
 		listP.setViewName("support/newsSubpage_notice"); 
 		return listP;
 		
-	}*/
+	}
 	
 }
 	

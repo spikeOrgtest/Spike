@@ -7,6 +7,5 @@ public interface NoticeDAO {
 
 	void insertNotice(NoticeDTO notice);
 
-	int getRowCount(NoticeDTO notice, NotiPageDTO p);
 
 }
