@@ -149,7 +149,7 @@ public class NoticeController {
 	}//notice_list
 	
  }
-}
+
 
 
 
