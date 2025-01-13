@@ -1,11 +1,13 @@
 package com.spike.dto;
 
+import javax.persistence.Entity;
 
 import lombok.Getter;
 import lombok.Setter;
 
 @Setter
 @Getter
+
 public class NotiPageDTO {
 
 	//페이징 (쪽나누기) 관련 변수

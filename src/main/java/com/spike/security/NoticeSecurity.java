@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 @Order(101)
 @Configuration
 @EnableWebSecurity
+@Order(101)
 public class NoticeSecurity extends WebSecurityConfigurerAdapter {
 
     @Override
