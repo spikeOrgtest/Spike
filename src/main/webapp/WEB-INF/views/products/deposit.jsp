@@ -11,6 +11,19 @@
 <body>
 	
 	<jsp:include page="../include/pheader.jsp" />
+
+	<nav class="top-menu">
+		<div class="container">
+			<a href="products.jsp" class="logo">SPIKE</a>
+			<ul>
+				<li><a href="deposit.jsp">예금</a></li>
+				<li><a href="savings.jsp">적금</a></li>
+				<li><a href="loan.jsp">대출</a></li>
+				<li><a href="card.jsp">카드</a></li>
+				<li><a href="newmember.jsp">계좌 개설</a></li>
+			</ul>
+		</div>
+	</nav>
 		
 	<main>
         <section class="hero">
@@ -33,13 +46,15 @@
                     <button class="prev">&lt;</button>
                     <button class="next">&gt;</button>
                 </div>
+				<p id="carouselDescription"></p>
+				<button class="btn">자세히 보기</button>
             </div>
         </section>
         <section class="products">
             <div class="container">
                 <h2>특별 예금 상품</h2>
                 <div class="product-grid" id="productGrid">
-                    <a href="#" class="product-card">
+                    <a href="Subpage_D1.jsp" class="product-card">
                         <div class="card-header"></div>
                         <div class="card-body">
                             <h3>SPIKE 예금</h3>
@@ -51,7 +66,7 @@
                             </ul>
                         </div>
                     </a>
-                    <a href="#" class="product-card">
+                    <a href="Subpage_D2.jsp" class="product-card">
                         <div class="card-header"></div>
                         <div class="card-body">
                             <h3>IRP (Individual Retirement Pension)</h3>
@@ -63,7 +78,7 @@
                             </ul>
                         </div>
                     </a>
-                    <a href="#" class="product-card">
+                    <a href="Subpage_D3.jsp" class="product-card">
                         <div class="card-header"></div>
                         <div class="card-body">
                             <h3>1+1 예금</h3>
@@ -82,7 +97,7 @@
             <div class="container">
                 <h2>예금 상품 목록</h2>
                 <div class="product-grid" id="productGrid">
-                    <a href="#" class="product-card">
+                    <a href="Subpage_D4.jsp" class="product-card">
                         <div class="card-header"></div>
                         <div class="card-body">
                             <h3>정기 예금</h3>
@@ -94,7 +109,7 @@
                             </ul>
                         </div>
                     </a>
-                    <a href="#" class="product-card">
+                    <a href="Subpage_D5.jsp" class="product-card">
                         <div class="card-header"></div>
                         <div class="card-body">
                             <h3>퇴직연금예금</h3>
@@ -106,7 +121,7 @@
                             </ul>
                         </div>
                     </a>
-                    <a href="#" class="product-card">
+                    <a href="Subpage_D6.jsp" class="product-card">
                         <div class="card-header"></div>
                         <div class="card-body">
                             <h3>평생가족 예금</h3>
