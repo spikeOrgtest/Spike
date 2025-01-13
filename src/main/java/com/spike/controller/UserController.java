@@ -24,7 +24,7 @@ import com.spike.service.spikeSerivce;
 import spikepwd.PwdChange;
 
 @Controller
-public class spikeController {
+public class UserController {
 
 	@Autowired 
 	private spikeSerivce spikeService;
