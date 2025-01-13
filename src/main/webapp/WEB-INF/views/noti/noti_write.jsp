@@ -1,4 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -25,7 +26,7 @@
 				href="supportSubpage_notice.jsp">공지사항</a>
 		</div>
 	</div>
-
+	
 	<div class="subpageWrapper">
 		<div class="subpage-main-container">
 			<!-- 사이드바 -->
@@ -50,7 +51,7 @@
      <tr>
       <th>글쓴이</th>
       <td>
-       <input name="notice_id" id="notice_id" size="50" style="height: 40px; font-size: 18px;"> <%-- type속성을 생략하면 기본값이 한줄 입력필드인 text이다. --%>
+       <input name="notice_name" id="notice_name" size="50" style="height: 40px; font-size: 18px;"> <%-- type속성을 생략하면 기본값이 한줄 입력필드인 text이다. --%>
       </td>
      </tr>
      <tr>

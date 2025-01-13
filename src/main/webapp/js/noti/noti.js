@@ -3,9 +3,9 @@
  */
 
 function write_check(){
-	if($.trim($('#notice_id').val()) == ''){
+	if($.trim($('#notice_name').val()) == ''){
 		alert('글쓴이를 입력하세요!');
-		$('#notice_id').val('').focus();
+		$('#notice_name').val('').focus();
 		return false;
 	}
 	

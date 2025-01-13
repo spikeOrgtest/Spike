@@ -2,6 +2,7 @@ package com.spike.controller;
 
 import java.io.File;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
@@ -11,9 +12,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.spike.dto.NotiPageDTO;
 import com.spike.dto.Notice2DTO;
 import com.spike.dto.NoticeDTO;
 import com.spike.service.NoticeService;
@@ -90,7 +93,7 @@ public class NoticeController {
 		
 		this.noticeService.insertnotice(notice);//자료실 저장
 		
-		return "redirect:/support/newsSubpage_notice";//새로운 매핑주소인 자료실 목록으로 이동
+		return "redirect:/notice/notice";//새로운 매핑주소인 자료실 목록으로 이동
 	}//bbs_write_ok()
 	  
 	/*연습페이지*/
@@ -101,7 +104,57 @@ public class NoticeController {
 		m.setViewName("/support/newsSubpage_notice");
 		return m;
 	}
+	
+	@RequestMapping(value="/newsSubpage_notice", method=RequestMethod.GET)
+	public ModelAndView notice_list(HttpServletRequest request, NoticeDTO notice, NotiPageDTO p ) {
+		int page=1;
+		int limit=5;
+		if(request.getParameter("page") != null) {
+			page = Integer.parseInt(request.getParameter("page"));
+			
+		}
+		
+		String find_name = request.getParameter("find_name"); //검색어
+		String find_field = request.getParameter("find_field"); // 검색필드
+		p.setFind_field(find_field);
+		p.setFind_name("%"+find_name+"%");
+		
+		int totalCount = this.noticeService.getRowCount(notice, p);
+		
+		p.setStartrow((page-1)*5+1); //시작행 번호
+		p.setEndroe(p.getStartrow()+limit-1); //끝행 번호
+		
+		/*List<NoticeDTO> Nlist = this.noticeService.getNotiList(p);
+		
+		int maxpage=(int)((double)totalCount/limit+0.95); // 총페이지수
+		int startpage=(((int)((double)page/5+0.9))-1)*5+1; // 시작페이지
+		int endpage=maxpage;//현재페이지에 보여질 마지막 페이지
+		if(endpage>startpage+5-1) endpage = startpage+5-1;
+		
+		ModelAndView listP = new ModelAndView();
+		
+		listP.addObject("page",page);
+		listP.addObject("Nlist",Nlist);
+		listP.addObject("startpage",startpage);
+		listP.addObject("endpage",endpage);
+		listP.addObject("maxpage",maxpage);
+		listP.addObject("totalCount",totalCount);
+		listP.addObject("find_field",find_field);
+		listP.addObject("find_name",find_name);
+		
+		listP.setViewName("support/newsSubpage_notice"); 
+		return listP;
+		
+	}*/
+	
 }
 	
+
+
+
+
+
+
+
 	
 

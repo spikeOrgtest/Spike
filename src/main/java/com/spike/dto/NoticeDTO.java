@@ -1,16 +1,20 @@
 package com.spike.dto;
 
-import java.security.Timestamp;
+
+import java.sql.Timestamp;
 import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-import org.springframework.web.multipart.MultipartFile;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -21,13 +25,24 @@ import lombok.ToString;
 @ToString
 @Entity
 @Table(name="Notice")
-
+@SequenceGenerator(//시퀀스 생성기
+		name = "notice_no_seq", //시퀀스 제네레이터 이름
+		sequenceName = "notice_seq", // 시퀀스 이름
+		initialValue =  1,//시작값
+		allocationSize = 1 //증가값
+		)
 
 public class NoticeDTO {
 	
 	
 	@Id
-	private String notice_id;
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, //사용할 전략을 시퀀스로 선택
+	                generator ="notice_no_seq") //시퀀스 생성기에서 설정한 시퀀스 제너레이터 이름
+	private Long notice_id;
+	
+	
+	@Column(length = 50)
+	private String notice_name;
 	
 	@NotNull(message = "필수 항목입니다.")
 	@Column(length = 255)
@@ -44,12 +59,11 @@ public class NoticeDTO {
 	@UpdateTimestamp
 	private LocalDate updated_date;
 	
-	@Column(name = "created_date", columnDefinition = "TIMESTAMP DEFAULT SYSDATE")
-	private Timestamp created_date;
-
+	@CreationTimestamp  // 하이버네이트의 특별한 기능으로 등록시점의 날짜값을 기록
+	private Timestamp created_date; // 등록날짜
+	
     @Column(length=4000)
     private String notice_file; //첨부파일 경로와 파일명
-
-
+    
 
 }
