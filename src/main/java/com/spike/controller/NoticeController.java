@@ -147,8 +147,8 @@ public class NoticeController {
 		
 	}
 	
+ }
 }
-	
 
 
 
