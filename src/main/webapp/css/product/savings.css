@@ -22,14 +22,12 @@ body {
 .container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 0 20px;
 }
 
 /* Navigation */
 .top-menu {
     background: #fff;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    position: fixed;
     width: 100%;
     top: 0;
     z-index: 1000;
@@ -164,13 +162,10 @@ nav ul li:hover .dropdown-menu {
 }
 
 .carousel-controls {
-    position: absolute;
-    bottom: 20px;
-    left: 0;
-    right: 0;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     gap: 10px;
+    position: relative;
 }
 
 .carousel-controls button {
@@ -179,10 +174,10 @@ nav ul li:hover .dropdown-menu {
     color: #333;
     padding: 5px 10px;
     cursor: pointer;
-    font-size: 18px;
+    font-size: 38px;
     border-radius: 50%;
-    width: 30px;
-    height: 30px;
+    width: 50px;
+    height: 50px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -190,6 +185,23 @@ nav ul li:hover .dropdown-menu {
 
 .carousel-controls button:hover {
     background: rgba(255, 255, 255, 0.8);
+}
+
+.btn {
+    background-color: white;
+    color: #3264C8;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 9999px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    position: relative;
+    margin-top: 50px;
+}
+
+.btn:hover {
+    background-color: #E6F0FF;
 }
 
 /* Products Section */
@@ -371,9 +383,3 @@ footer {
         grid-template-columns: 1fr;
     }
 }
-
-/* Main content padding (for fixed navigation) */
-main {
-    padding-top: 70px;
-}
-
