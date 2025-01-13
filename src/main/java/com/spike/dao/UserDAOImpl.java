@@ -5,23 +5,23 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.spike.dto.spikeDTO;
+import com.spike.dto.UserDTO;
 
 @Repository
-public class spikeDAOImpl implements spikeDAO {
+public class UserDAOImpl implements UserDAO {
 
 	@Autowired
-	private spikeRepository spikeRepo;
+	private UserRepository spikeRepo;
 
 	@Override
-	public void insetMember(spikeDTO s) {
+	public void insetMember(UserDTO s) {
 		this.spikeRepo.save(s);
 	}
 	
 	@Override
-	public spikeDTO idCheck(String id) {
-		Optional<spikeDTO> result = this.spikeRepo.findid(id);
-		spikeDTO member;
+	public UserDTO idCheck(String id) {
+		Optional<UserDTO> result = this.spikeRepo.findid(id);
+		UserDTO member;
 		if(result.isPresent()) {
 			member = result.get();
 		} else {
@@ -31,31 +31,31 @@ public class spikeDAOImpl implements spikeDAO {
 	}
 
 	@Override
-	public spikeDTO loginCheck(String login_id) {
-		spikeDTO s =  this.spikeRepo.loginCheck(login_id);
+	public UserDTO loginCheck(String login_id) {
+		UserDTO s =  this.spikeRepo.loginCheck(login_id);
 		return s;
 	}
 
 	@Override
-	public spikeDTO findId(spikeDTO s) {
-		spikeDTO is = this.spikeRepo.findUserid(s.getName(), s.getPhone());
+	public UserDTO findId(UserDTO s) {
+		UserDTO is = this.spikeRepo.findUserid(s.getName(), s.getPhone());
 		return is;
 	}
 
 	@Override
-	public spikeDTO findPwd(spikeDTO s) {
-		spikeDTO ps = this.spikeRepo.findUserpwd(s.getLogin_id(), s.getName());
+	public UserDTO findPwd(UserDTO s) {
+		UserDTO ps = this.spikeRepo.findUserpwd(s.getLogin_id(), s.getName());
 		return ps;
 	}
 
 	@Override
-	public spikeDTO findMember(spikeDTO s) {
-		spikeDTO fm = this.spikeRepo.findMember(s.getLogin_id(), s.getName());
+	public UserDTO findMember(UserDTO s) {
+		UserDTO fm = this.spikeRepo.findMember(s.getLogin_id(), s.getName());
 		return null;
 	}
 	
 	@Override
-	public spikeDTO changePwd(spikeDTO s) {
+	public UserDTO changePwd(UserDTO s) {
 	    // 로그인 아이디와 이름으로 사용자를 조회하고 비밀번호를 업데이트
 	    int updateCount = this.spikeRepo.changePwd(s.getPassword(), s.getLogin_id(), s.getName());
 	    

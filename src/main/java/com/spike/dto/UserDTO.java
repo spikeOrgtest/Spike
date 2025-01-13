@@ -38,7 +38,7 @@ import lombok.ToString;
 		)
 @Table(name="UserInfo")
 @EqualsAndHashCode(of="user_id")
-public class spikeDTO {
+public class UserDTO {
 	
 	@Id
 	@GeneratedValue(
@@ -124,22 +124,22 @@ public class spikeDTO {
 	private Timestamp registration_date;
 	
     // 생성자
-    public spikeDTO(LocalDate birth_date) {
+    public UserDTO(LocalDate birth_date) {
         this.birth_date = birth_date;
         this.is_minor = calculateIsMinor();  // is_minor 값을 계산하여 설정
     }
 
-    // 나이를 계산하고 18세 미만이면 false, 18세 이상이면 true를 반환
+    // 나이 계산
     private Boolean calculateIsMinor() {
         if (birth_date == null) {
             return false; // null 값 처리
         }
 
-        // 현재 날짜와 생년월일 차이 계산
-        LocalDate eighteenYearsAgo = LocalDate.now().minusYears(18);
+        // 현재 년도에서 18년을 뺀 값을 변수에 저장(1월 1일로 고정)
+        LocalDate eighteenYearsAgo = LocalDate.now().minusYears(18).withMonth(1).withDayOfMonth(1);
 
-        // 생년월일이 18년 전 날짜보다 과거일 경우 18세 미만
-        return !birth_date.isAfter(eighteenYearsAgo); // 18세 이상이면 true, 미만이면 false
+        // 현재 년도에서 뺀 값을 입력한 생년월일과 비교하여 생년월일이 과거면 true, 현재거나 미래면 false 
+        return !birth_date.isAfter(eighteenYearsAgo);
     }
     
     public enum Status {

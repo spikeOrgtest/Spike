@@ -18,8 +18,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.spike.dto.spikeDTO;
-import com.spike.service.spikeSerivce;
+import com.spike.dto.UserDTO;
+import com.spike.service.UserSerivce;
 
 import spikepwd.PwdChange;
 
@@ -27,7 +27,7 @@ import spikepwd.PwdChange;
 public class UserController {
 
 	@Autowired 
-	private spikeSerivce spikeService;
+	private UserSerivce spikeService;
 
 	// 메인 페이지
 	@GetMapping("/")
@@ -63,7 +63,7 @@ public class UserController {
 		response.setContentType("text/html; charset=UTF-8");
 		PrintWriter out = response.getWriter();
 
-		spikeDTO ds = this.spikeService.idCheck(id);
+		UserDTO ds = this.spikeService.idCheck(id);
 
 		int re = -1;
 
@@ -76,7 +76,7 @@ public class UserController {
 
 	// 회원 저장
 	@PostMapping("/signup_ok")
-	public ModelAndView signup_ok(spikeDTO s, HttpServletRequest request, BindingResult result) throws IOException {
+	public ModelAndView signup_ok(UserDTO s, HttpServletRequest request, BindingResult result) throws IOException {
 
 		// 이메일 도메인 처리
 		String email = s.getEmail_id() + "@" + s.getEmail_domain(); // 이메일 ID와 도메인을 합침
@@ -157,7 +157,7 @@ public class UserController {
 		response.setContentType("text/html; charset=UTF-8");
 		PrintWriter out = response.getWriter();
 
-		spikeDTO s = this.spikeService.loginCheck(login_id);
+		UserDTO s = this.spikeService.loginCheck(login_id);
 
 		if( s == null) {
 			out.println("<script>");
@@ -192,7 +192,7 @@ public class UserController {
 
 	// 아이디 찾기
 	@PostMapping("findId_ok")
-	public ModelAndView findId_ok(String name, String phone, HttpServletResponse response, spikeDTO s) throws Exception {
+	public ModelAndView findId_ok(String name, String phone, HttpServletResponse response, UserDTO s) throws Exception {
 
 		response.setContentType("text/html;charset=UTF-8");
 		PrintWriter out = response.getWriter();
@@ -201,7 +201,7 @@ public class UserController {
 		phone = s.getPhone01() + "-" + s.getPhone02() + "-" + s.getPhone03();
 		s.setPhone(phone);
 
-		spikeDTO is = this.spikeService.findId(s);
+		UserDTO is = this.spikeService.findId(s);
 
 		if(is == null) {
 			out.println("<script>");
@@ -230,13 +230,13 @@ public class UserController {
 
 	// 비밀번호 찾기
 	@PostMapping("findPwd_ok")
-	public ModelAndView findPwd_ok(String id, String name, HttpServletResponse response, spikeDTO s) throws Exception {
+	public ModelAndView findPwd_ok(String id, String name, HttpServletResponse response, UserDTO s) throws Exception {
 	    response.setContentType("text/html;charset=UTF-8");
 	    PrintWriter out = response.getWriter();
 
 	    s.setLogin_id(id);
 	    s.setName(name);
-	    spikeDTO ps = this.spikeService.findPwd(s);
+	    UserDTO ps = this.spikeService.findPwd(s);
 
 	    if (ps == null) {
 	        out.println("<script>");
@@ -270,12 +270,12 @@ public class UserController {
 	    }
 
 	    // 현재 사용자 정보 조회 (로그인 ID와 이름을 통해 조회)
-	    spikeDTO s = new spikeDTO();
+	    UserDTO s = new UserDTO();
 	    s.setLogin_id(login_id);
 	    s.setName(name);
 	    
 	    // 현재 사용자의 기존 비밀번호를 DB에서 조회
-	    spikeDTO existingUser = this.spikeService.findPwd(s);  // 비밀번호 조회 서비스 호출
+	    UserDTO existingUser = this.spikeService.findPwd(s);  // 비밀번호 조회 서비스 호출
 
 	    // 만약 사용자가 존재하지 않거나 기존 비밀번호가 없다면 처리
 	    if (existingUser == null) {
@@ -305,7 +305,7 @@ public class UserController {
 
 	    // 새 비밀번호를 암호화한 후 비밀번호 변경
 	    s.setPassword(encryptedNewPassword); // 새 비밀번호 설정
-	    spikeDTO updatedUser = this.spikeService.changePwd(s); // 비밀번호 수정 서비스 호출
+	    UserDTO updatedUser = this.spikeService.changePwd(s); // 비밀번호 수정 서비스 호출
 
 	    if (updatedUser != null) {
 	        // 수정이 성공하면 성공 메시지 및 리다이렉트
