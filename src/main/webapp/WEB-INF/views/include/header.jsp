@@ -27,7 +27,7 @@
 				
 				<li class="dropdown"><a href="products.jsp">금융/투자</a>
 					<ul class="header-dropdown-menu">
-						<li><a href="deposit.html">예금</a></li>
+						<li><a href="deposit">예금</a></li>
 						<li><a href="savings.html">적금</a></li>
 						<li><a href="#loans">대출</a></li>
 						<li><a href="#cards">카드</a></li>
