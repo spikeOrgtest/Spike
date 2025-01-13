@@ -18,8 +18,8 @@
 </head>
 
 <body class="subpage">
-	<%@ include file="../include/header.jsp"%>
-	<%@ include file="../include/subnav.jsp"%>
+	<%@ include file="include/header.jsp"%>
+	<%@ include file="include/subnav.jsp"%>
 	<%-- /wrap --%>
 
 	<div class="subpageWrapper">
@@ -147,7 +147,7 @@
 
 	</div>
 
-	<%@ include file="../include/shortfooter.jsp"%>
+	<%@ include file="include/shortfooter.jsp"%>
 	<script
 		src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
 	<script

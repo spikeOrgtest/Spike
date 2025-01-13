@@ -4,14 +4,14 @@
 <div class="top-bar">
 	<div class="header-container">
 		<a href="login.jsp">로그인</a> <a href="admin.jsp">공지사항</a> <a
-			href="supportSubpage_FAQ.jsp">FAQ</a> <a href="#board">게시판</a>
+			href="transfer.html">FAQ</a> <a href="#board">게시판</a>
 	</div>
 </div>
 <header class="main-header">
 	<div class="header-container">
 
 		<a href="index.jsp" class="logo"><img alt="로고"
-			src="assets/img/newlogo.png"></a>
+			src="assets/img/product/spike.png"></a>
 		<nav>
 			<ul>
 				<li class="dropdown"><a href="mypageMain.jsp">마이페이지</a>
@@ -36,7 +36,7 @@
 
 				<li class="dropdown"><a href="support.jsp">고객센터</a>
 					<ul class="header-dropdown-menu">
-						<li><a href="newsSubpage_bank.jsp">Spike소식</a></li>
+						<li><a href="newsSubpage_bank.jsp">소식</a></li>
 						<li><a href="supportSubpage_ars.jsp">고객지원</a></li>
 					</ul></li>
 				<%--
