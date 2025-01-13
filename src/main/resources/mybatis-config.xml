@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
+<!--
 <!DOCTYPE configuration
 PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
-"http://mybatis.org/dtd/mybatis-3-config.dtd" > <!-- mybatis dtd 문서정의 태그 -->
+"http://mybatis.org/dtd/mybatis-3-config.dtd" > 원본
+-->
+  
+<!DOCTYPE configuration
+PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"C:/Users/S/git/Spike/src/main/resources/mybatis-3-config.dtd"> <!--  직접 파일 다운 -->
+
 
 <configuration>
 

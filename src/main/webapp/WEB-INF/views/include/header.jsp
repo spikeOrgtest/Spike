@@ -11,11 +11,9 @@
 	<div class="header-container">
 
 		<a href="index.jsp" class="logo"><img alt="로고"
-<<<<<<< HEAD
-			src="/images/newlogo.png"></a>
-=======
+
 			src="../../images/product/spike.png"></a>
->>>>>>> refs/heads/develop
+
 		<nav>
 			<ul>
 				<li class="dropdown"><a href="mypageMain.jsp">마이페이지</a>

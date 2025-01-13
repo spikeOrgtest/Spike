@@ -42,7 +42,7 @@ public class NoticeDTO {
 	
 	
 	@Column(length = 50)
-	private String notice_name;
+	private String notice_name; // 새로생긴 제목 컬럼 
 	
 	@NotNull(message = "필수 항목입니다.")
 	@Column(length = 255)

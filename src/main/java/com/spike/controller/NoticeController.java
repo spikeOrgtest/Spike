@@ -124,6 +124,7 @@ public class NoticeController {
 		p.setStartrow((page-1)*5+1); //시작행 번호
 		p.setEndroe(p.getStartrow()+limit-1); //끝행 번호
 		
+		
 		List<NoticeDTO> Nlist = this.noticeService.getNotiList(p);
 		
 		int maxpage=(int)((double)totalCount/limit+0.95); // 총페이지수
@@ -148,7 +149,7 @@ public class NoticeController {
 	}
 	
  }
-}
+
 
 
 
