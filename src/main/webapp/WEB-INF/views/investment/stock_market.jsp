@@ -96,7 +96,7 @@
                         <tr>
                             <td>${stock.stockId}</td>
                             <td>${stock.companyName} (${stock.tickerSymbol})</td>
-                            <td>${stock.currentPrice} 원</td>
+                            <td>${stock.currentPrice} $</td>
                             <td>${stock.totalShares}</td>
                             <td>${stock.availableShares}</td>
                         </tr>

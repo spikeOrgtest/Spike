@@ -7,6 +7,9 @@ public interface StockService {
     // 모든 주식 데이터를 가져오는 메서드
     List<StockDTO> getAllStocks();
 
-    // 주식 ID로 특정 주식 데이터를 가져오는 메서드
+    // stock ID로 특정 주식 데이터를 가져오는 메서드
     StockDTO getStockById(int stockId);
+    
+    // stockCode 기반 조회
+    StockDTO getStockByCode(String stockCode); 
 }

@@ -17,7 +17,7 @@ public class StockController {
     @Autowired
     private StockService stockService;
 
-    // 주식 시장 페이지
+    // 1.주식 시장 페이지
     @GetMapping("/spike/stock/home")
     public String stockMarket(Model model) {
         try {

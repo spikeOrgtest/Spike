@@ -31,11 +31,20 @@ public class StockServiceImpl implements StockService {
                 .map(this::convertToDTO) // 엔티티를 DTO로 변환
                 .orElseThrow(() -> new RuntimeException("Stock not found with ID: " + stockId));
     }
+    
+    // stock_code 로 특정 주식 데이터를 가져오는 메서드
+    @Override
+    public StockDTO getStockByCode(String stockCode) {
+        return stockRepository.findByStockCode(stockCode)
+                .map(this::convertToDTO)
+                .orElseThrow(() -> new RuntimeException("Stock not found with Code: " + stockCode));
+    }
 
     // 엔티티를 DTO로 변환하는 메서드
     private StockDTO convertToDTO(Stock stock) {
         StockDTO dto = new StockDTO();
         dto.setStockId(stock.getStockId());
+        dto.setStockCode(stock.getStockCode());
         dto.setCompanyName(stock.getCompanyName());
         dto.setTickerSymbol(stock.getTickerSymbol());
         dto.setSector(stock.getSector());
