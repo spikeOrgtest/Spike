@@ -9,7 +9,7 @@
 <body>
 	<div class="container">
 		<h2>비밀번호 찾기</h2>
-		<form action="/findPwd_ok" method="POST">
+		<form action="findPwd_ok" method="POST">
 			<input type="hidden" name="${_csrf.parameterName}"
 				value="${_csrf.token}" />
 			<div class="form-group">
