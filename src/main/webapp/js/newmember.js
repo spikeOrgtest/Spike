@@ -11,7 +11,42 @@ document.addEventListener('DOMContentLoaded', function() {
             const newAccountNumber = generateAccountNumber();
             accountNumberSpan.textContent = newAccountNumber;
             accountInfo.classList.remove('hidden');
-            form.reset();
+
+            const formData = new FormData(form);
+            const accountType = document.getElementById('accountType').value;  // accountType 추가
+            const balance = 0;  // 잔액 기본값 설정
+            const userId = 1;  // 실제 사용자 ID 값으로 변경 필요
+            const createdDate = new Date();
+
+            // 계좌 정보를 JSON 형식으로 준비
+            const accountData = {
+                accountNumber: newAccountNumber,
+                accountType: accountType,
+                balance: balance,
+                userId: userId,
+                createdDate: createdDate
+            };
+
+            // fetch 요청 보내기 (JSON 형식)
+            fetch('/products/newmember', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(accountData)
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    alert('계좌가 성공적으로 개설되었습니다!');
+                } else {
+                    alert('계좌 개설에 실패했습니다.');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('계좌 개설 중 오류가 발생했습니다.');
+            });
         }
     });
 

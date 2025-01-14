@@ -6,6 +6,12 @@ CREATE TABLE Account (
     balance NUMBER(15) DEFAULT 0,
     created_date DATE DEFAULT SYSDATE
 );
+
+CREATE SEQUENCE account_seq
+START WITH 1
+INCREMENT BY 1
+NOCACHE;
+
 	
 CREATE TABLE Savings (
     savings_id NUMBER PRIMARY KEY,

@@ -5,7 +5,7 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>SPIKE 계좌 개설</title>
-        <link rel="stylesheet" href="../assets/css/newmember.css" />
+        <link rel="stylesheet" href="/css/newmember.css" />
     </head>
     <body>
         <div class="container">
@@ -80,6 +80,6 @@
                 사용을 자제해 주시기 바랍니다.
             </p>
         </div>
-        <script src="newmember.js"></script>
+        <script src="/js/newmember.js"></script>
     </body>
 </html>
