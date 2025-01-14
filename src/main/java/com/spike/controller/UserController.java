@@ -3,6 +3,7 @@ package com.spike.controller;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.Random;
 
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -24,6 +26,7 @@ import com.spike.service.UserSerivce;
 import spikepwd.PwdChange;
 
 @Controller
+@RequestMapping("/spike.com")
 public class UserController {
 
 	@Autowired 
@@ -78,6 +81,8 @@ public class UserController {
 	@PostMapping("/signup_ok")
 	public ModelAndView signup_ok(UserDTO s, HttpServletRequest request, BindingResult result) throws IOException {
 
+		s.setStatus("ACTIVE"); // 계정 상태 ACTIVE로 설정
+		
 		// 이메일 도메인 처리
 		String email = s.getEmail_id() + "@" + s.getEmail_domain(); // 이메일 ID와 도메인을 합침
 		if (email != null && !email.isEmpty()) {
@@ -95,7 +100,15 @@ public class UserController {
 			mv.addObject("error", "전화번호는 필수 항목입니다.");
 			return mv;
 		}
-
+		
+		// 미성년자 여부 검증
+		if(s.getBirth_date().isAfter(LocalDate.of(2007, 1, 1))) { // 생년월일을 가져와 2007년 1월 1일과 비교 이후면 true 아니면 false
+			s.setIs_minor("minor");
+		} else {
+			s.setIs_minor("adult");
+		}
+		
+		
 		// 전화번호 합치기 (phone01 + phone02 + phone03)
 		String phone = s.getPhone01() + "-" + s.getPhone02() + "-" + s.getPhone03();
 		s.setPhone(phone); // spikeDTO에 합친 전화번호 저장
@@ -147,7 +160,7 @@ public class UserController {
 		this.spikeService.insertMember(s);
 
 		// 로그인 페이지로 리다이렉트
-		return new ModelAndView("redirect:/login");
+		return new ModelAndView("redirect:/spike.com/login");
 	}
 
 	// 로그인
@@ -171,14 +184,15 @@ public class UserController {
 				out.println("history.back();");
 				out.println("</script>");
 			} else {
-				session.setAttribute("id", login_id);
+				session.setAttribute("login_id", login_id); // login_id에 세션 생성
 
 				ModelAndView loginS = new ModelAndView();
-				loginS.setViewName("redirect:/");
+				loginS.setViewName("redirect:/spike.com/");
 				return loginS;
 			}
 		}
-		return new ModelAndView("redirect:/login?error=true");
+		
+		return null;
 	}
 
 	// 아이디 찾기 폼
@@ -245,7 +259,7 @@ public class UserController {
 	        out.println("</script>");
 	    } else {
 	        // 찾은 아이디와 이름을 수정 페이지로 전달
-	        ModelAndView fp = new ModelAndView("findPwd_change");
+	    	ModelAndView fp = new ModelAndView("findPwd_change");
 	        fp.addObject("find_id", ps.getLogin_id());
 	        fp.addObject("find_name", ps.getName());
 
@@ -298,7 +312,7 @@ public class UserController {
 	        PrintWriter out = response.getWriter();
 	        out.println("<script>");
 	        out.println("alert('기존 비밀번호와 새 비밀번호가 동일합니다!');");
-	        out.println("window.location.href = '/findPwd';");
+	        out.println("window.location.href = '/spike.com/findPwd';");
 	        out.println("</script>");
 	        return null;
 	    }

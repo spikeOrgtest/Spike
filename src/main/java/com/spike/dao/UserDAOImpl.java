@@ -1,5 +1,6 @@
 package com.spike.dao;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +33,14 @@ public class UserDAOImpl implements UserDAO {
 
 	@Override
 	public UserDTO loginCheck(String login_id) {
-		UserDTO s =  this.spikeRepo.loginCheck(login_id);
+		UserDTO s =  this.spikeRepo.loginCheck(login_id); // 입력한 ID와 DB에 저장되있는 ID 비교
+		
+	    if (s == null) {
+	        return null; // 사용자 없음
+	    }
+		
+		s.setLast_login(LocalDateTime.now()); // 로그인시점 현재시간으로 대입
+		this.spikeRepo.save(s); // DB에 저장
 		return s;
 	}
 

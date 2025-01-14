@@ -1,12 +1,10 @@
 package com.spike.dto;
 
-import java.sql.Timestamp;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -15,7 +13,7 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.constraints.*;
 
-import org.hibernate.annotations.UpdateTimestamp;
+import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -47,62 +45,58 @@ public class UserDTO {
 			)
 	private Integer user_id;
 	
-	@NotNull(message = "필수 항목입니다.")
-	@Size(min = 2, max = 100, message = "최소 2자리에서 최대 100자리까지 입력하세요.")
+	@NotNull
 	@Column(length = 100)
 	private String login_id;
 	
-	@NotNull(message = "필수 항목입니다.")
-	@Size(min = 8, message = "최소 8자리 이상이여야 합니다.")
+	@NotNull
 	@Column(length = 255)
 	private String password;
 	
-	@NotNull(message = "필수 항목입니다.")
-	@Size(min = 2, message = "최소 2자리 이상이여야 합니다.")
+	@NotNull
 	@Column(length = 100)
 	private String name;
 	
-	@NotNull(message = "필수 항목입니다.")
+	@NotNull
 	@Column(length = 255)
 	private String email_id;
 	
-	@NotNull(message = "필수 항목입니다.")
+	@NotNull
 	@Column(length = 255)
 	private String email_domain;
 	
-	@NotNull(message = "필수 항목입니다.")
+	@NotNull
 	@Column(length = 15)
 	private String phone;
 	
-	@NotNull(message = "필수 항목입니다.")
+	@NotNull
 	@Column(length = 15)
 	private String phone01;
 	
-	@NotNull(message = "필수 항목입니다.")
+	@NotNull
 	@Column(length = 15)
 	private String phone02;
 	
-	@NotNull(message = "필수 항목입니다.")
+	@NotNull
 	@Column(length = 15)
 	private String phone03;
 
-	@NotNull(message = "필수 항목입니다.")
+	@NotNull
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate birth_date;
 	
-	@NotNull(message = "필수 항목입니다.")
+	@NotNull
 	@Column(length = 255)
 	private String postcode;
 	
-	@NotNull(message = "필수 항목입니다.")
+	@NotNull
 	@Column(length = 255)
 	private String roadAddress;
 	
-	@NotNull(message = "필수 항목입니다.")
 	@Column(length = 255)
 	private String jibunAddress;
 	
-	@NotNull(message = "필수 항목입니다.")
+	@NotNull
 	@Column(length = 100)
 	private String detailAddress;
 	
@@ -111,47 +105,15 @@ public class UserDTO {
 	@Transient // DB에 저장되지 않도록 처리해주는 에노테이션
 	private MultipartFile profileImage;
 	
-	private boolean is_minor; // 18세 미만 여부
+	private String is_minor;
 	
-    @Enumerated(EnumType.STRING)
-    @Column(name = "status", columnDefinition = "varchar(20) default 'ACTIVE'")
-    private Status status = Status.ACTIVE;
+    private String status;
 	
-	@UpdateTimestamp
-	private Timestamp last_login;
+	private LocalDateTime last_login; // 마지막 로그인
 	
+	@CreationTimestamp
 	@Column(name = "registration_date", columnDefinition = "TIMESTAMP DEFAULT SYSDATE")
-	private Timestamp registration_date;
+	private LocalDateTime registration_date;
 	
-    // 생성자
-    public UserDTO(LocalDate birth_date) {
-        this.birth_date = birth_date;
-        this.is_minor = calculateIsMinor();  // is_minor 값을 계산하여 설정
-    }
-
-    // 나이 계산
-    private Boolean calculateIsMinor() {
-        if (birth_date == null) {
-            return false; // null 값 처리
-        }
-
-        // 현재 년도에서 18년을 뺀 값을 변수에 저장(1월 1일로 고정)
-        LocalDate eighteenYearsAgo = LocalDate.now().minusYears(18).withMonth(1).withDayOfMonth(1);
-
-        // 현재 년도에서 뺀 값을 입력한 생년월일과 비교하여 생년월일이 과거면 true, 현재거나 미래면 false 
-        return !birth_date.isAfter(eighteenYearsAgo);
-    }
     
-    public enum Status {
-        ACTIVE,    // 활성
-        INACTIVE,  // 비활성
-        LOCKED,    // 잠금
-        SUSPENDED  // 정지
-    }
-    
-    @AssertTrue(message = "생년월일은 현재 날짜 이전이어야 합니다.")
-    public boolean isBirthDateValid() {
-        return birth_date == null || !birth_date.isAfter(LocalDate.now());
-    }
-
 }
