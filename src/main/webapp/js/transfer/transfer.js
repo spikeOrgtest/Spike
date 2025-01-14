@@ -66,31 +66,44 @@ function completeTransfer() {
   const availableAmount = parseInt(selectedOption.getAttribute("data-available"), 10);
   const balanceAmount = parseInt(selectedOption.getAttribute("data-balance"), 10);
   const note = document.getElementById("note").value.trim(); // 이체 메모 값 가져오기
+  const accountPassword = document.getElementById("accountPassword").value.trim(); // 계좌 비밀번호 값 가져오기
 
   // 각 항목별로 입력값 검증
   if (!fromAccount) {
     alert("출금계좌를 선택해주세요!");
+    accountSelect.focus(); // 출금계좌 선택 필드로 포커스
     return;
   }
 
   if (!depositBank) {
     alert("입금은행을 선택해주세요!");
+    document.getElementById("depositBank").focus(); // 입금은행 필드로 포커스
     return;
   }
 
   if (!toAccount) {
     alert("계좌번호를 입력해주세요!");
+    document.getElementById("toAccount").focus(); // 계좌번호 필드로 포커스
     return;
   }
 
   if (isNaN(transferAmount) || transferAmount <= 0) {
     alert("이체금액을 올바르게 입력해주세요!");
+    document.getElementById("amount").focus(); // 이체금액 필드로 포커스
+    return;
+  }
+
+  // 계좌 비밀번호 확인
+  if (!accountPassword) {
+    alert("계좌 비밀번호를 입력해주세요!");
+    document.getElementById("accountPassword").focus(); // 계좌 비밀번호 필드로 포커스
     return;
   }
 
   // 잔액 부족 여부 확인
   if (transferAmount > availableAmount) {
     alert("일일한도 금액이 부족합니다!");
+    document.getElementById("amount").focus(); // 이체금액 필드로 포커스
     return;
   }
 
@@ -106,7 +119,7 @@ function completeTransfer() {
   selectedOption.setAttribute("data-available", newAvailableAmount);
   selectedOption.setAttribute("data-balance", newBalanceAmount);
 
- // 송금 완료 알림 메시지
+  // 송금 완료 알림 메시지
   alert(`송금이 완료되었습니다! \n\n출금계좌: ${fromAccount}\n입금은행: ${depositBank}\n입금계좌: ${toAccount}\n이체금액: ${formatCurrency(transferAmount)} 원\n${note ? '메모: ' + note : ''}`);
 
   // 송금 내역에 추가
@@ -131,4 +144,6 @@ function completeTransfer() {
   document.getElementById("amount").value = "";
   document.getElementById("amount").dataset.raw = ""; // 초기화
   document.getElementById("note").value = ""; // 메모 초기화
+  document.getElementById("accountPassword").value = ""; // 계좌 비밀번호 초기화
 }
+

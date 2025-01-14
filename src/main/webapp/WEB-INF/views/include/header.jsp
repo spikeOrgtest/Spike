@@ -3,15 +3,19 @@
 <%-- 헤더 시작 --%>
 <div class="top-bar">
 	<div class="header-container">
-		<a href="login.jsp">로그인</a> <a href="admin.jsp">공지사항</a> <a
-			href="supportSubpage_FAQ.jsp">FAQ</a> <a href="#board">게시판</a>
+		<a href="javascript:location='/';">로그인</a> <a href="admin.jsp">공지사항</a> <a
+			href="transfer.html">FAQ</a> <a href="#board">게시판</a>
 	</div>
 </div>
 <header class="main-header">
 	<div class="header-container">
 
 		<a href="index.jsp" class="logo"><img alt="로고"
-			src="assets/img/newlogo.png"></a>
+<<<<<<< HEAD
+			src="/images/newlogo.png"></a>
+=======
+			src="../../images/product/spike.png"></a>
+>>>>>>> refs/heads/develop
 		<nav>
 			<ul>
 				<li class="dropdown"><a href="mypageMain.jsp">마이페이지</a>
@@ -27,7 +31,7 @@
 				
 				<li class="dropdown"><a href="products.jsp">금융/투자</a>
 					<ul class="header-dropdown-menu">
-						<li><a href="deposit.html">예금</a></li>
+						<li><a href="deposit">예금</a></li>
 						<li><a href="savings.html">적금</a></li>
 						<li><a href="#loans">대출</a></li>
 						<li><a href="#cards">카드</a></li>
@@ -36,7 +40,7 @@
 
 				<li class="dropdown"><a href="support.jsp">고객센터</a>
 					<ul class="header-dropdown-menu">
-						<li><a href="newsSubpage_bank.jsp">Spike소식</a></li>
+						<li><a href="newsSubpage_bank.jsp">소식</a></li>
 						<li><a href="supportSubpage_ars.jsp">고객지원</a></li>
 					</ul></li>
 				<%--
