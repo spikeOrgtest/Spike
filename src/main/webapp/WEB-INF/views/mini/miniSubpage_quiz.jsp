@@ -5,9 +5,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title></title>
-<link rel="stylesheet" href="assets/css/subpage.css">
-<link rel="stylesheet" href="assets/css/include.css">
-<link rel="stylesheet" href="assets/css/quiz.css">
+<link rel="stylesheet" href="../css/support/subpage.css">
+<link rel="stylesheet" href="../css/include/include.css">
+<link rel="stylesheet" href="../css/mini/quiz.css">
 
 </head>
 <body class="subpage">
@@ -43,7 +43,7 @@
 			<div class="subpage-content-wrap">
 			
 			<div class="subpageWrapper">
-			<img alt="gif" src="assets/img/gif/quiz.gif" width="480" height="270">
+			<img alt="gif" src="../images/mini/quiz.gif" width="480" height="270">
 			</div>
 			
 			
