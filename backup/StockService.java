@@ -3,7 +3,6 @@ package com.spike.service;
 import com.spike.dto.StockDTO;
 import com.spike.model.Stock;
 import com.spike.repository.StockRepository;
-import com.spike.service.StockService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,32 +10,21 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class StockServiceImpl implements StockService {
-
+public class StockService {
     @Autowired
     private StockRepository stockRepository;
 
-    // 모든 주식 데이터를 가져오는 메서드
-    @Override
     public List<StockDTO> getAllStocks() {
-        return stockRepository.findAll().stream()
-                .map(this::convertToDTO) // 엔티티를 DTO로 변환
-                .collect(Collectors.toList());
+        // Repository에서 엔티티 가져오기
+        List<Stock> stocks = stockRepository.findAll();
+        // 엔티티를 DTO로 변환
+        return stocks.stream().map(this::convertToDTO).collect(Collectors.toList());
     }
 
-    // 주식 ID로 특정 주식 데이터를 가져오는 메서드
-    @Override
-    public StockDTO getStockById(int stockId) {
-        return stockRepository.findById(stockId)
-                .map(this::convertToDTO) // 엔티티를 DTO로 변환
-                .orElseThrow(() -> new RuntimeException("Stock not found with ID: " + stockId));
-    }
-
-    // 엔티티를 DTO로 변환하는 메서드
     private StockDTO convertToDTO(Stock stock) {
         StockDTO dto = new StockDTO();
         dto.setStockId(stock.getStockId());
-        dto.setCompanyName(stock.getCompanyName());
+        dto.setCompanyName(stock.getName());
         dto.setTickerSymbol(stock.getTickerSymbol());
         dto.setSector(stock.getSector());
         dto.setInitialPrice(stock.getInitialPrice());
