@@ -7,7 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.spike.model.Stock;
+import com.spike.dto.StockDTO;
 
 @Controller
 public class StockController {
@@ -46,7 +46,7 @@ public class StockController {
         model.addAttribute("profit", 2000000); // 수익
 
         // 주식 데이터 리스트 (예시)
-        List<Stock> stockList = List.of(
+        List<StockDTO> stockList = List.of(
             new Stock("삼성전자", 10, 70000, 700000, 10.5),
             new Stock("LG화학", 5, 800000, 4000000, - 8.2)
         );
