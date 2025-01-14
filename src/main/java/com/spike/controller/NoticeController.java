@@ -144,8 +144,9 @@ public class NoticeController {
 		
 		listP.setViewName("support/newsSubpage_notice"); 
 		return listP;
-		
-	}*/
+		*/
+		return null;
+	}//notice_list
 	
 }
 	
