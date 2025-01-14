@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" > <!-- 원본 -->
+
+<mapper namespace="notice">
+
+ 
+<!--  <insert id="noti_i">  parameterType은 전달인자 타입으로 생략가능함. 
+        insert into notice (notice_id,notice_name,title,content,updated_date,created_date,notice_file,notice_ref
+        ) values(notice_no_seq.nextval, #{notice_name}, #{title},#{content},
+        #{updated_date},#{created_date},0,notice_no_seq.nextval,0,0,sysdate)
+    </insert>--> 
+    
+
+  <!-- 검색전후 레코드 개수 -->
+<select id="noti_count" parameterType="page" resultType="int">
+ select count(notice_id) from Notice
+ <where>
+  <if test="find_field == ''"></if>
+  <if test="find_field == 'notice_name'">
+  notice_name like #{find_name}
+  </if>
+  <if test="find_field == 'title'">
+  title like #{find_name}
+  </if>
+ </where>
+</select>
+
+<!-- 검색전후 페이징 목록 -->
+    <select id="noti_list" resultType="Notice">
+     select * from Notice order by created_date desc
+     
+    </select>
+
+</mapper>

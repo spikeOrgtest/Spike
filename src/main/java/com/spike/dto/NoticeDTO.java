@@ -56,6 +56,11 @@ public class NoticeDTO {
 	//@Column(length = 100)
 	//private String author;
 	
+	//private int notice_hit;
+	
+	//답변글과 관련된 부분
+	//private int notice_ref; // 글그룹번호
+	
 	@UpdateTimestamp
 	private LocalDate updated_date;
 	

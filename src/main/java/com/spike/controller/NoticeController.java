@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -97,15 +98,17 @@ public class NoticeController {
 	}//bbs_write_ok()
 	  
 	/*연습페이지*/
-	@GetMapping("/notice")
+	/*@GetMapping("/notice")
 	public ModelAndView notice(HttpServletRequest request) {
 		
 		ModelAndView m = new ModelAndView();
 		m.setViewName("/support/newsSubpage_notice");
 		return m;
-	}
+	}*/
 	
-	@RequestMapping(value="/newsSubpage_notice", method=RequestMethod.GET)
+	
+	//검색기능 자료실 페이지목록
+	@RequestMapping(value="/notice/notice", method=RequestMethod.GET)
 	public ModelAndView notice_list(HttpServletRequest request, NoticeDTO notice, NotiPageDTO p ) {
 		int page=1;
 		int limit=5;
@@ -119,12 +122,12 @@ public class NoticeController {
 		p.setFind_field(find_field);
 		p.setFind_name("%"+find_name+"%");
 		
-		int totalCount = this.noticeService.getRowCount(notice, p);
+		int totalCount = this.noticeService.getRowCount(p);
 		
 		p.setStartrow((page-1)*5+1); //시작행 번호
 		p.setEndroe(p.getStartrow()+limit-1); //끝행 번호
 		
-		/*List<NoticeDTO> Nlist = this.noticeService.getNotiList(p);
+		List<NoticeDTO> Nlist = this.noticeService.getNotiList(p);
 		
 		int maxpage=(int)((double)totalCount/limit+0.95); // 총페이지수
 		int startpage=(((int)((double)page/5+0.9))-1)*5+1; // 시작페이지
@@ -144,9 +147,9 @@ public class NoticeController {
 		
 		listP.setViewName("support/newsSubpage_notice"); 
 		return listP;
-		*/
-		return null;
+		
 	}//notice_list
+	
 	
  }
 

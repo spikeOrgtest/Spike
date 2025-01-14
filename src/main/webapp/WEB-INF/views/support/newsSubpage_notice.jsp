@@ -53,13 +53,24 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr>
+							<!-- <tr>
 								<td>1</td>
 								<td><a href="noticeDetail.jsp?noticeId=1">[필독] 시스템 점검
 										안내 (12/25)</a></td>
 								<td>관리자</td>
 								<td>2024-12-18</td>
-							</tr>
+							</tr>-->
+							<c:if test="${!empty Nlist }">
+							  <c:forEach var="n" items="${Nlist }">
+							   <tr>
+							     <td>${n.notice_id }</td>
+							     <td>${n.notice_name }</td>
+							     <td>${n.title }</td>
+							     
+							   </tr>
+							  </c:forEach>
+							</c:if>
+							
 							<tr>
 								<td>2</td>
 								<td><a href="noticeDetail.jsp?noticeId=2">신규 서비스 출시 안내</a></td>
@@ -88,6 +99,6 @@
 	</div>
 
 	<%@ include file="../include/shortfooter.jsp"%>
-	<script src="assets/js/subpage.js"></script>
+	<script src="/js/subpage.js"></script>
 </body>
 </html>
