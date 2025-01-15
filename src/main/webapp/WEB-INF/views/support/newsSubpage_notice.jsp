@@ -1,13 +1,16 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>공지사항</title>
-<link rel="stylesheet" href="assets/css/subpage.css">
-<link rel="stylesheet" href="assets/css/include.css">
-<link rel="stylesheet" href="assets/css/subpage_notice.css">
+<link rel="stylesheet" href="/css/support/subpage.css">
+<link rel="stylesheet" href="/css/include/include.css">
+<link rel="stylesheet" href="/css/support/subpage_notice.css">
 </head>
 <body class="subpage">
 	<%@ include file="../include/header.jsp"%>
