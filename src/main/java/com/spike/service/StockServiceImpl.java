@@ -3,7 +3,6 @@ package com.spike.service;
 import com.spike.dto.StockDTO;
 import com.spike.model.Stock;
 import com.spike.repository.StockRepository;
-import com.spike.service.StockService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +19,7 @@ public class StockServiceImpl implements StockService {
     @Override
     public List<StockDTO> getAllStocks() {
         return stockRepository.findAll().stream()
-                .map(this::convertToDTO) // 엔티티를 DTO로 변환
+                .map(this::convertToDTO)
                 .collect(Collectors.toList());
     }
 
@@ -28,10 +27,10 @@ public class StockServiceImpl implements StockService {
     @Override
     public StockDTO getStockById(int stockId) {
         return stockRepository.findById(stockId)
-                .map(this::convertToDTO) // 엔티티를 DTO로 변환
+                .map(this::convertToDTO)
                 .orElseThrow(() -> new RuntimeException("Stock not found with ID: " + stockId));
     }
-    
+
     // stock_code 로 특정 주식 데이터를 가져오는 메서드
     @Override
     public StockDTO getStockByCode(String stockCode) {
@@ -39,6 +38,16 @@ public class StockServiceImpl implements StockService {
                 .map(this::convertToDTO)
                 .orElseThrow(() -> new RuntimeException("Stock not found with Code: " + stockCode));
     }
+
+    // 상위 10개 주식 데이터를 가져오는 메서드
+    @Override
+    public List<StockDTO> getTopStocks(int limit) {
+        List<Stock> topStocks = stockRepository.findTopStocks(limit);
+        return topStocks.stream()
+                .map(this::convertToDTO)
+                .collect(Collectors.toList());
+    }
+   
 
     // 엔티티를 DTO로 변환하는 메서드
     private StockDTO convertToDTO(Stock stock) {
@@ -54,4 +63,7 @@ public class StockServiceImpl implements StockService {
         dto.setAvailableShares(stock.getAvailableShares());
         return dto;
     }
+    
+   
+
 }
