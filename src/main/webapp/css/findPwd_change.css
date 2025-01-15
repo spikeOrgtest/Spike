@@ -40,7 +40,7 @@ input[type="password"] {
 	border: 1px solid #ccc;
 	border-radius: 5px;
 	box-sizing: border-box;
-	margin-bottom: 15px;
+	margin-bottom: 5px;
 }
 
 input[type="password"]:focus {
@@ -58,6 +58,7 @@ button {
 	font-size: 16px;
 	cursor: pointer;
 	transition: background-color 0.3s ease;
+	margin-top: 10px;
 }
 
 button:hover {
@@ -79,4 +80,10 @@ button:active {
 
 .form-group button {
 	margin-top: 10px;
+}
+
+.error-message {
+    display: block; 
+    color: red;     
+    font-size: 0.9em; 
 }

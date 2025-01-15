@@ -22,7 +22,8 @@
 			</div>
 			<form name="s" action="signup_ok" method="post" class="auth-form"
 				id="signupForm" enctype="multipart/form-data">
-				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+				<input type="hidden" name="${_csrf.parameterName}"
+					value="${_csrf.token}" />
 				<div class="form-group">
 					<label for="login_id">아이디</label>
 					<div class="id-container">
@@ -68,6 +69,7 @@
 					<label for="birth_date">생년월일</label> <input type="date"
 						id="birth_date" name="birth_date" required>
 				</div>
+				<span class="error-message" id="birthError"></span>
 
 				<div class="form-group">
 					<label for="phone">핸드폰번호</label>
@@ -188,7 +190,6 @@
 					}).open(); // 우편번호 검색 팝업 열기
 		}
 
-		// 폼 제출 시 검증 추가
 		document
 				.getElementById('signupForm')
 				.addEventListener(
@@ -196,16 +197,26 @@
 						function(e) {
 							let isValid = true;
 
+							// 모든 에러 메시지 초기화
+							document.getElementById('emailError').textContent = '';
+							document.getElementById('passwordError').textContent = '';
+							document.getElementById('confirmError').textContent = '';
+							document.getElementById('phoneError').textContent = '';
+							document.getElementById('birthError').textContent = '';
+							document.getElementById('idcheck').textContent = '';
+
 							// 이메일 검증
-							const email = document.getElementById('email').value;
+							const email = document.getElementById('email_id').value;
+							const emailDomain = document
+									.getElementById('email_domain').value;
+							const emailFull = email + '@' + emailDomain;
+
 							const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-							if (!emailRegex.test(email)) {
+
+							if (!emailFull || !emailRegex.test(emailFull)) {
 								document.getElementById('emailError').textContent = '올바른 이메일 형식이 아닙니다';
 								isValid = false;
-							} else {
-								document.getElementById('emailError').textContent = '';
 							}
-
 
 							// 비밀번호 검증
 							const password = document
@@ -213,31 +224,44 @@
 							if (password.length < 8) {
 								document.getElementById('passwordError').textContent = '비밀번호는 8자 이상이어야 합니다';
 								isValid = false;
-							} else {
-								document.getElementById('passwordError').textContent = '';
 							}
 
-							// 비밀번호 확인
+							// 비밀번호 확인 검증
 							const confirmPassword = document
-									.getElementById('confirmPassword').value;
+									.getElementById('password2').value;
 							if (password !== confirmPassword) {
 								document.getElementById('confirmError').textContent = '비밀번호가 일치하지 않습니다';
 								isValid = false;
-							} else {
-								document.getElementById('confirmError').textContent = '';
 							}
 
-							// 핸드폰 번호 검증
-							const phoneNumber = document
-									.getElementById('phone').value;
-							const phoneRegex = /^[0-9]{10,11}$/;
-							if (!phoneRegex.test(phoneNumber)) {
-								document.getElementById('phoneError').textContent = '올바른 핸드폰 번호를 입력하세요';
+							// 핸드폰 검증
+							const phone01 = document.getElementById('phone01').value; // 선택된 값
+							const phone02 = document.getElementById('phone02').value;
+							const phone03 = document.getElementById('phone03').value;
+							const phoneRegex = /^[0-9]{4}$/;
+
+							if (phone02 === '' || phone03 === '') {
+								document.getElementById('phoneError').textContent = '핸드폰 번호를 모두 입력해주세요';
 								isValid = false;
-							} else {
-								document.getElementById('phoneError').textContent = '';
+							} else if (!phoneRegex.test(phone02)
+									|| !phoneRegex.test(phone03)) {
+								document.getElementById('phoneError').textContent = '핸드폰 번호가 올바르지 않습니다';
+								isValid = false;
 							}
 
+							// 생년월일 검증
+							const birthDate = document
+									.getElementById('birth_date').value;
+							const birthDateObj = new Date(birthDate);
+							const today = new Date();
+							today.setHours(0, 0, 0, 0); // 현재 날짜의 시간을 00:00:00으로 설정
+
+							if (birthDateObj > today) {
+								document.getElementById('birthError').textContent = '생년월일은 현재 날짜보다 미래일 수 없습니다.';
+								isValid = false;
+							}
+
+							// 폼 검증에 실패한 경우 제출을 막고, 에러 메시지를 표시한 필드에만 에러 메시지를 추가
 							if (!isValid) {
 								e.preventDefault();
 							}
@@ -287,14 +311,17 @@
 			$
 					.ajax({
 						type : "POST",
-						url : "signup_idcheck", 
+						url : "signup_idcheck",
 						data : {
 							"id" : $login_id
-						}, 
+						},
 						datatype : "int",
-				        headers: {
-				            'X-CSRF-TOKEN': $('input[name="${_csrf.parameterName}"]').val()  // CSRF 토큰을 헤더에 포함
-				        },
+						headers : {
+							'X-CSRF-TOKEN' : $(
+									'input[name="${_csrf.parameterName}"]')
+									.val()
+						// CSRF 토큰을 헤더에 포함
+						},
 						success : function(data) {
 							if (data == 1) {
 								$newtext = '<font color="red" size="3"><b>중복 아이디입니다.</b></font>';
@@ -317,12 +344,11 @@
 						}
 					});
 		}
-		
-		function validate_userid($login_id)
-		{
-		  var pattern= new RegExp(/^[a-z0-9_]+$/);//아이디를 영문소문
-		  //자와 숫자 와 _조합으로 처리
-		  return pattern.test($login_id);
+
+		function validate_userid($login_id) {
+			var pattern = new RegExp(/^[a-z0-9_]+$/);//아이디를 영문소문
+			//자와 숫자 와 _조합으로 처리
+			return pattern.test($login_id);
 		};
 
 		function domain_list() {
