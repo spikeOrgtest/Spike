@@ -20,9 +20,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
             // 서버로 전송할 데이터 생성
             const accountData = {
-                name: formData.get('name'),
-                ssn: formData.get('ssn'),
-                email: formData.get('email'),
                 password: formData.get('password'),
                 accountNumber: newAccountNumber,
                 accountType: formData.get('accountType') || 'basic',  // 기본 계좌 유형
@@ -59,11 +56,11 @@ document.addEventListener('DOMContentLoaded', function() {
     confirmPassword.addEventListener('input', validatePasswordMatch);
 
     function validateForm() {
-        return validatePassword() && validatePasswordMatch() && validateSSN();
+        return validatePassword() && validatePasswordMatch();
     }
 
     function validatePassword() {
-        const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}$/;
+        const passwordRegex = /^[0-9]{6}$/;
         const isValid = passwordRegex.test(password.value);
         password.setCustomValidity(isValid ? '' : '비밀번호 요구사항을 충족하지 않습니다.');
         return isValid;
@@ -72,14 +69,6 @@ document.addEventListener('DOMContentLoaded', function() {
     function validatePasswordMatch() {
         const isValid = password.value === confirmPassword.value;
         confirmPassword.setCustomValidity(isValid ? '' : '비밀번호가 일치하지 않습니다.');
-        return isValid;
-    }
-
-    function validateSSN() {
-        const ssnInput = document.getElementById('ssn');
-        const ssnRegex = /^\d{6}-\d{7}$/;
-        const isValid = ssnRegex.test(ssnInput.value);
-        ssnInput.setCustomValidity(isValid ? '' : '올바른 주민등록번호 형식이 아닙니다.');
         return isValid;
     }
 

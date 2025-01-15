@@ -12,25 +12,6 @@
             <h1>SPIKE 계좌 개설</h1>
             <form id="signupForm" action="/products/newmember" method="POST">
                 <div class="form-group">
-                    <label for="name">이름</label>
-                    <input type="text" id="name" name="name" required />
-                </div>
-                <div class="form-group">
-                    <label for="ssn">주민등록번호</label>
-                    <input
-                        type="text"
-                        id="ssn"
-                        name="ssn"
-                        required
-                        pattern="\d{6}-\d{7}"
-                        placeholder="123456-1234567"
-                    />
-                </div>
-                <div class="form-group">
-                    <label for="email">이메일</label>
-                    <input type="email" id="email" name="email" required />
-                </div>
-                <div class="form-group">
                     <label for="password">비밀번호</label>
                     <input
                         type="password"
@@ -39,8 +20,7 @@
                         required
                     />
                     <p class="password-requirements">
-                        비밀번호는 8자 이상, 대소문자, 숫자, 특수문자를 포함해야
-                        합니다.
+                        비밀번호는 6자 숫자를 사용해야 합니다.
                     </p>
                 </div>
                 <div class="form-group">
