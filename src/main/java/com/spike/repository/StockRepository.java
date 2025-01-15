@@ -10,8 +10,9 @@ import org.springframework.data.repository.query.Param;
 import com.spike.model.Stock;
 
 public interface StockRepository extends JpaRepository<Stock, Integer> {
-    // stockCode를 기반으로 주식 조회
-    Optional<Stock> findByStockCode(String stockCode);
+    
+	// stockCode를 기반으로 주식 조회
+	Optional<Stock> findByStockCode(String stockCode);
 
     // 상위 N개의 주식을 가져오는 네이티브 쿼리
     @Query(value = """

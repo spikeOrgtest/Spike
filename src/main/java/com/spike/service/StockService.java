@@ -16,4 +16,5 @@ public interface StockService {
     
     // 상위 N개 주식 데이터를 가져오는 메서드
     List<StockDTO> getTopStocks(int limit);
+    
 }
