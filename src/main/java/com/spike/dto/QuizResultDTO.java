@@ -37,7 +37,7 @@ public class QuizResultDTO {
     )
     private int result_id; // 퀴즈 결과 고유 ID
     
-    private int user_id; // 사용자 ID
+    //private int user_id; // 사용자 ID
     private int quiz_id; // 퀴즈 ID
     
     private char answered_correctly; // 정답 여부 (Y/N)

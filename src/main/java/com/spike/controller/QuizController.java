@@ -2,7 +2,7 @@ package com.spike.controller;
 
 import com.spike.service.QuizResultService; // 퀴즈 결과 관련 비즈니스 로직을 처리하는 서비스
 import com.spike.dto.QuizResultDTO; // 퀴즈 결과를 저장할 데이터 전송 객체 (DTO)
-
+import com.spike.dto.UserDTO;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -26,7 +26,7 @@ public class QuizController {
     // 사용자가 퀴즈를 시도할 때 호출되는 메소드
     @PostMapping("/quiz/attempt")  // '/mini/quiz/attempt' 경로에 대한 POST 요청을 처리
     @ResponseBody  // JSON이나 텍스트 형식으로 응답을 반환하기 위한 어노테이션
-    public String attemptQuiz(@RequestParam int userId, @RequestParam int quizId, @RequestParam String userAnswer) {
+    public String attemptQuiz(@RequestParam int userId, @RequestParam int quizId, @RequestParam String userAnswer, UserDTO u) {
         /*
             사용자가 퀴즈를 시도할 때 호출되는 메서드
             userId: 사용자의 ID
@@ -39,7 +39,7 @@ public class QuizController {
 
      // 퀴즈 결과를 DTO 객체에 저장
         QuizResultDTO quizResult = new QuizResultDTO();
-        quizResult.setUser_id(userId); // 사용자 ID 설정
+        u.getUser_id(); // 사용자 ID 설정
         quizResult.setQuiz_id(quizId); // 퀴즈 ID 설정
         quizResult.setAnswered_correctly(isCorrect ? 'Y' : 'N'); // 정답 여부 설정
         quizResult.setEarned_points(isCorrect ? 10 : 0); // 정답이면 10포인트 적립, 틀리면 0포인트
@@ -95,6 +95,23 @@ public class QuizController {
         // 조회된 퀴즈 결과 반환
         return result;
     }
+    
+    //test
+    @GetMapping("/test/attemptQuiz")  // '/spike.com/test/attemptQuiz' 경로로 GET 요청
+    @ResponseBody
+    public String testAttemptQuiz(UserDTO u) {
+    	u.getUser_id();
+        int userId = 1;  // 'qwer' 사용자 ID
+        int quizId = 1;  // 첫 번째 퀴즈
+        String userAnswer = "O";  // 정답을 맞췄다고 가정
+
+        // 퀴즈 시도
+        String resultMessage = attemptQuiz(userId, quizId, userAnswer, u);
+
+        // 결과 반환
+        return resultMessage;  // 정답 여부 메시지 반환
+    }
+
     
 
 }

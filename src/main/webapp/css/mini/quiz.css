@@ -115,10 +115,20 @@
 
 .quiz-next-question {
     background-color: #0078d7; /* 다음문제 버튼 기본 파란색 */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 1em;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    margin-top: 20px; /* 버튼 상단 여백 */
 }
 
 .quiz-next-question:hover {
     background-color: #005a9e; /* 파란색 버튼 호버 */
+    transform: scale(1.05); /* 살짝 확대 효과 */
 }
 
 
@@ -135,3 +145,13 @@
 .quiz-result-wrong {
     color: red;
 }
+/* 문제를 숨기기 위한 기본 스타일 */
+.quiz-question {
+    display: none; /* 기본적으로 문제는 숨김 */
+}
+
+/* 'active' 클래스가 추가된 문제만 표시 */
+.quiz-question.active {
+    display: block; /* active 클래스를 가진 문제만 표시 */
+}
+
