@@ -1,12 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd" id="WebApp_ID">
-	<display-name>Spike</display-name>
-	<welcome-file-list>
-		<welcome-file>index.html</welcome-file>
-		<welcome-file>index.htm</welcome-file>
-		<welcome-file>index.jsp</welcome-file>
-		<welcome-file>default.html</welcome-file>
-		<welcome-file>default.htm</welcome-file>
-		<welcome-file>default.jsp</welcome-file>
-	</welcome-file-list>
+<web-app xmlns="http://java.sun.com/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+             http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+         version="3.0">
+    <!-- JSP 서블릿 설정 -->
+    <servlet>
+        <servlet-name>JspServlet</servlet-name>
+        <servlet-class>org.apache.jasper.servlet.JspServlet</servlet-class>
+        <init-param>
+            <param-name>configFile</param-name>
+            <param-value>/WEB-INF/web.xml</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
+    <!-- 서블릿 매핑 -->
+    <servlet-mapping>
+        <servlet-name>JspServlet</servlet-name>
+        <url-pattern>/views/products/*</url-pattern>
+    </servlet-mapping>
 </web-app>
+

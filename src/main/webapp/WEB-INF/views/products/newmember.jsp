@@ -5,31 +5,12 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>SPIKE 계좌 개설</title>
-        <link rel="stylesheet" href="../assets/css/newmember.css" />
+        <link rel="stylesheet" href="/css/newmember.css" />
     </head>
     <body>
         <div class="container">
             <h1>SPIKE 계좌 개설</h1>
-            <form id="signupForm">
-                <div class="form-group">
-                    <label for="name">이름</label>
-                    <input type="text" id="name" name="name" required />
-                </div>
-                <div class="form-group">
-                    <label for="ssn">주민등록번호</label>
-                    <input
-                        type="text"
-                        id="ssn"
-                        name="ssn"
-                        required
-                        pattern="\d{6}-\d{7}"
-                        placeholder="123456-1234567"
-                    />
-                </div>
-                <div class="form-group">
-                    <label for="email">이메일</label>
-                    <input type="email" id="email" name="email" required />
-                </div>
+            <form id="signupForm" action="/products/newmember" method="POST">
                 <div class="form-group">
                     <label for="password">비밀번호</label>
                     <input
@@ -39,8 +20,7 @@
                         required
                     />
                     <p class="password-requirements">
-                        비밀번호는 8자 이상, 대소문자, 숫자, 특수문자를 포함해야
-                        합니다.
+                        비밀번호는 6자 숫자를 사용해야 합니다.
                     </p>
                 </div>
                 <div class="form-group">
@@ -68,7 +48,7 @@
                 </div>
                 <div>
                     <button type="submit">계좌 개설</button>
-                    <button type="button" onclick="location.href='../products.jsp'">취소</button>
+                    <button type="button" onclick="location.href='../products'">취소</button>
                 </div>
             </form>
             <div id="accountInfo" class="hidden">
@@ -80,6 +60,6 @@
                 사용을 자제해 주시기 바랍니다.
             </p>
         </div>
-        <script src="newmember.js"></script>
+        <script src="/js/newmember.js"></script>
     </body>
 </html>
