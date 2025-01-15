@@ -2,7 +2,7 @@ package com.spike.controller;
 
 import com.spike.service.QuizResultService; // 퀴즈 결과 관련 비즈니스 로직을 처리하는 서비스
 import com.spike.dto.QuizResultDTO; // 퀴즈 결과를 저장할 데이터 전송 객체 (DTO)
-import com.spike.dto.hshtest;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Date; // 날짜와 시간을 다루기 위한 클래스
 
 @Controller // 이 클래스는 Spring MVC의 Controller 역할을 하며, HTTP 요청을 처리합니다.
-@RequestMapping("/mini") // '/mini' 경로에 대한 요청을 처리하도록 설정
+@RequestMapping("/spike.com") // '/mini' 경로에 대한 요청을 처리하도록 설정
 public class QuizController {
 
     @Autowired
@@ -76,6 +76,8 @@ public class QuizController {
             return "오늘은 이미 5개 이상의 퀴즈를 푼 경우입니다.";  // 이미 5개 이상 푼 경우
         }
     }
+    
+    
 
     // 사용자가 푼 퀴즈 결과를 조회하는 메소드
     @GetMapping("/quiz/result") // /mini/quiz/result?userId=1&quizId=2
@@ -94,14 +96,8 @@ public class QuizController {
         return result;
     }
     
-    public String test(hshtest t) {
-    	
-    	t.setUserid("hsh");
-    	t.getUserid();
-    	
-    	
-    	
-    	return null;
-    }
-    
+
 }
+    
+    
+
