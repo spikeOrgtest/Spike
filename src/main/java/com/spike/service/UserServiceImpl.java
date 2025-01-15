@@ -3,48 +3,48 @@ package com.spike.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.spike.dao.spikeDAO;
-import com.spike.dto.spikeDTO;
+import com.spike.dao.UserDAO;
+import com.spike.dto.UserDTO;
 
 @Service
-public class spikeServiceImpl implements spikeSerivce {
+public class UserServiceImpl implements UserSerivce {
 
 	@Autowired
-	private spikeDAO spikeDao;
+	private UserDAO spikeDao;
 
     @Override
-    public void insertMember(spikeDTO s) {
+    public void insertMember(UserDTO s) {
     	
         this.spikeDao.insetMember(s);
     }
 
 	@Override
-	public spikeDTO idCheck(String id) {
+	public UserDTO idCheck(String id) {
 		return this.spikeDao.idCheck(id);
 	}
 
 	@Override
-	public spikeDTO loginCheck(String login_id) {
+	public UserDTO loginCheck(String login_id) {
 		return this.spikeDao.loginCheck(login_id);
 	}
 
 	@Override
-	public spikeDTO findId(spikeDTO s) {
+	public UserDTO findId(UserDTO s) {
 		return this.spikeDao.findId(s);
 	}
 
 	@Override
-	public spikeDTO findPwd(spikeDTO s) {
+	public UserDTO findPwd(UserDTO s) {
 		return this.spikeDao.findPwd(s);
 	}
 
 	@Override
-	public spikeDTO changePwd(spikeDTO s) {
+	public UserDTO changePwd(UserDTO s) {
 		return this.spikeDao.changePwd(s);
 	}
 
 	@Override
-	public spikeDTO findMember(spikeDTO s) {
+	public UserDTO findMember(UserDTO s) {
 		return this.spikeDao.findMember(s);
 	}
 	
