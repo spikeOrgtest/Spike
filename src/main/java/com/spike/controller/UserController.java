@@ -32,12 +32,6 @@ public class UserController {
 	@Autowired 
 	private UserSerivce spikeService;
 
-	// 메인 페이지
-	@GetMapping("/")
-	public String index() {
-		return "index";
-	}
-
 	// 로그인 폼
 	@GetMapping("/login")
 	public ModelAndView login() {
