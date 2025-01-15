@@ -15,8 +15,8 @@
 </head>
 
 <body class="subpage">
-	<%@ include file="include/header.jsp"%>
-	<%@ include file="include/subnav.jsp"%>
+	<%@ include file="../include/header.jsp"%>
+	<%@ include file="../include/subnav.jsp"%>
 	<div class="subpageWrapper">
 		<%-- 브레드크럼, 경로 표시 필요 없는 페이지면 지워도 됨 --%>
 		<div class="subpage-breadcrumbs">
@@ -95,7 +95,7 @@
 	</div>
 	</div>
 
-	<%@ include file="include/shortfooter.jsp"%>
+	<%@ include file="../include/shortfooter.jsp"%>
 	<script
 		src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
 	<script

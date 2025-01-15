@@ -17,7 +17,7 @@
 
 <body>
 
-	<jsp:include page="include/header.jsp" />
+	<jsp:include page="../include/header.jsp" />
 	<div class="mm">
 		<div class="test" id="wrapper">
 			<!-- 사이드바 -->
@@ -273,7 +273,7 @@
 	</div>
 	<br />
 
-	<jsp:include page="include/footer.jsp" />
+	<jsp:include page="../include/footer.jsp" />
 
 	<!-- Bootstrap JS, Chart.js -->
 	<script
