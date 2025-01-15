@@ -156,7 +156,7 @@ nav ul li:hover .header-dropdown-menu {
     justify-content: center;
     padding: 48px 24px 0 !important;
     background-size: cover !important;
-    background-image: url(../../assets/img/product/bg_photo.jpg);
+    background-image: url(/images/product/bg_photo.jpg);
 }
 
 .bgPhoto .inner {
