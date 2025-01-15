@@ -23,7 +23,7 @@ public class AccountController {
     }
 	
     // 계좌 개설 페이지로 이동
-    @GetMapping("/newmember")
+    @GetMapping("products/newmember")
     public String showNewMemberPage() {
         return "/products/newmember";  // newmember.jsp 파일을 반환
     }

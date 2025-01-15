@@ -92,7 +92,7 @@ public class UserController {
 				s.setEmail_domain(emailParts[1]); // email_domain 필드에 도메인 부분을 설정
 			}
 		}
-
+		
 		// 전화번호 필수값 체크
 		if (s.getPhone01() == null || s.getPhone02() == null || s.getPhone03() == null ||
 				s.getPhone01().isEmpty() || s.getPhone02().isEmpty() || s.getPhone03().isEmpty()) {
@@ -112,9 +112,9 @@ public class UserController {
 		// 전화번호 합치기 (phone01 + phone02 + phone03)
 		String phone = s.getPhone01() + "-" + s.getPhone02() + "-" + s.getPhone03();
 		s.setPhone(phone); // spikeDTO에 합친 전화번호 저장
-
+		
 		MultipartFile file = s.getProfileImage(); // 업로드된 프로필 이미지
-
+		
 		if (file != null && !file.isEmpty()) {
 			System.out.println("Upload File Name: "+ file.getOriginalFilename());//업로드 된 원본파일명
 			System.out.println("Upload File Size: "+ file.getSize());//업로드 파일크기
