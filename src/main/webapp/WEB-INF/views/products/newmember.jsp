@@ -10,7 +10,7 @@
     <body>
         <div class="container">
             <h1>SPIKE 계좌 개설</h1>
-            <form id="signupForm">
+            <form id="signupForm" action="/products/newmember" method="POST">
                 <div class="form-group">
                     <label for="name">이름</label>
                     <input type="text" id="name" name="name" required />
@@ -68,7 +68,7 @@
                 </div>
                 <div>
                     <button type="submit">계좌 개설</button>
-                    <button type="button" onclick="location.href='../products.jsp'">취소</button>
+                    <button type="button" onclick="location.href='../products'">취소</button>
                 </div>
             </form>
             <div id="accountInfo" class="hidden">

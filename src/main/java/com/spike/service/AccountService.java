@@ -2,29 +2,36 @@ package com.spike.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.spike.dto.AccountDTO;
 import com.spike.model.Account;
 import com.spike.repository.AccountRepository;
-import com.spike.dto.AccountDTO;
-
-import java.util.Date;
 
 @Service
 public class AccountService {
 
-    @Autowired
-    private AccountRepository accountRepository;
+	private final AccountRepository accountRepository;
+	
+	@Autowired
+	public AccountService(AccountRepository accountRepository) {
+		this.accountRepository = accountRepository;
+	}
 
-    // 계좌 저장 메서드
-    public void createAccount(AccountDTO accountDTO) {
-        // AccountDTO를 Account 엔티티로 변환
-        Account account = new Account(
-                accountDTO.getAccountNumber(), 
-                accountDTO.getAccountType(), 
-                accountDTO.getBalance(),
-                accountDTO.getUserId(),
-                accountDTO.getCreatedDate()
-        );
-        
-        accountRepository.save(account);  // DB에 계좌 저장
-    }
+	@Transactional
+	public void createAccount(AccountDTO accountDTO) {
+		try {
+	        Account account = new Account();
+	        account.setName(accountDTO.getName());
+	        account.setSsn(accountDTO.getSsn());
+	        account.setEmail(accountDTO.getEmail());
+	        account.setPassword(accountDTO.getPassword());
+	        
+	        accountRepository.save(account);
+	        System.out.println("계좌가 성공적으로 저장되었습니다.");
+	    } catch (Exception e) {
+	        System.out.println("계좌 저장 실패: " + e.getMessage());
+	        throw e;
+	    }
+	}
 }

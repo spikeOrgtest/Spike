@@ -1,39 +1,42 @@
 package com.spike.controller;
 
-import java.util.Date;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 import com.spike.dto.AccountDTO;
 import com.spike.service.AccountService;
 
-@RestController
-@RequestMapping("/products")
+@Controller
+@RequestMapping("/spike.com")
 public class AccountController {
 
+	private final AccountService accountService;
+
+    // 생성자 주입
     @Autowired
-    private AccountService accountService;
-
-    // 계좌 생성 요청 처리
+    public AccountController(AccountService accountService) {
+        this.accountService = accountService;
+    }
+	
+    // 계좌 개설 페이지로 이동
+    @GetMapping("/newmember")
+    public String showNewMemberPage() {
+        return "/products/newmember";  // newmember.jsp 파일을 반환
+    }
+    
     @PostMapping("/newmember")
-    public ResponseEntity<?> createAccount(@RequestBody AccountDTO accountDTO) {
-        // 계좌 생성 시 createdDate는 서버에서 현재 날짜로 설정
-        accountDTO.setCreatedDate(new Date());
-
+    public String createAccount(@ModelAttribute AccountDTO accountDTO) {
         try {
-            accountService.createAccount(accountDTO);  // 계좌 저장
-
-            // 계좌 생성 성공 응답
-            return ResponseEntity.ok().body("{\"status\":\"success\", \"accountNumber\":\"" + accountDTO.getAccountNumber() + "\"}");
+            // 서비스 계층에 전달하여 DB에 저장
+            accountService.createAccount(accountDTO);
+            return "redirect:/products";  // 성공 페이지로 리다이렉트
         } catch (Exception e) {
-            e.printStackTrace();
-            return ResponseEntity.status(500).body("{\"status\":\"error\", \"message\":\"계좌 생성 실패\"}");
+            // 예외 처리
+            return "redirect:/products/failure";  // 실패 페이지로 리다이렉트
         }
     }
-
 }
