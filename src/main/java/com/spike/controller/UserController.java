@@ -53,7 +53,7 @@ public class UserController {
 		ss.addObject("email", email);
 		return ss;
 	}
-
+	
 	//아이디 중복 검색
 	@PostMapping("/signup_idcheck")
 	public ModelAndView signup_idcheck(String id, HttpServletResponse response) throws Exception {
@@ -284,7 +284,7 @@ public class UserController {
 	    
 	    // 현재 사용자의 기존 비밀번호를 DB에서 조회
 	    UserDTO existingUser = this.spikeService.findPwd(s);  // 비밀번호 조회 서비스 호출
-
+	    
 	    // 만약 사용자가 존재하지 않거나 기존 비밀번호가 없다면 처리
 	    if (existingUser == null) {
 	        response.setContentType("text/html;charset=UTF-8");
@@ -295,11 +295,11 @@ public class UserController {
 	        out.println("</script>");
 	        return null;
 	    }
-
+	    
 	    // 기존 비밀번호와 새 비밀번호가 동일한지 확인
 	    String existingPassword = existingUser.getPassword();  // DB에서 가져온 기존 비밀번호
 	    String encryptedNewPassword = PwdChange.getPassWordToXEMD5String(newPassword); // 새 비밀번호를 암호화
-
+	    
 	    if (existingPassword.equals(encryptedNewPassword)) {
 	        // 새 비밀번호가 기존 비밀번호와 동일하면 실패 처리
 	        response.setContentType("text/html;charset=UTF-8");
@@ -310,11 +310,11 @@ public class UserController {
 	        out.println("</script>");
 	        return null;
 	    }
-
+	    
 	    // 새 비밀번호를 암호화한 후 비밀번호 변경
 	    s.setPassword(encryptedNewPassword); // 새 비밀번호 설정
 	    UserDTO updatedUser = this.spikeService.changePwd(s); // 비밀번호 수정 서비스 호출
-
+	    
 	    if (updatedUser != null) {
 	        // 수정이 성공하면 성공 메시지 및 리다이렉트
 	        response.setContentType("text/html;charset=UTF-8");
@@ -335,8 +335,6 @@ public class UserController {
 	        return null;  // 실패 시 다시 돌아가도록 처리
 	    }
 	}
-
-
 }
 
 
