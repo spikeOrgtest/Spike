@@ -89,4 +89,6 @@ VALUES ('Walmart', 'WMT', 'Retail', 150.0, 150.0, 2000000, 1800000);
 select * from stock ;
 
 
+--증권 게좌 생성
+
 

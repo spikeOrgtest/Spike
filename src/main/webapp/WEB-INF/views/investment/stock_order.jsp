@@ -13,7 +13,7 @@
         <div class="chart-section">
             <div class="chart-header">
                 <h3>${stock.companyName} (${stock.tickerSymbol})</h3>
-                <p>시작가: ${stock.initialPrice} | 현재가: ${stock.currentPrice}</p>
+                <p>시작가: ${stock.initialPrice}$ | 현재가: ${stock.currentPrice}$</p>
             </div>
             <div class="chart-box">
                 <canvas id="candleChart" width="800" height="400"></canvas>
@@ -51,7 +51,6 @@
             <div class="order-type">
                 <button class="active">구매</button>
                 <button>판매</button>
-                <button>대기</button>
             </div>
             <div class="order-options">
                 <label>주문 유형</label>
@@ -70,8 +69,8 @@
             </div>
             <div class="summary">
                 <p>미수거래 (현금 30%)</p>
-                <p>구매 가능 금액: 0원</p>
-                <p>총 주문 금액: 0원</p>
+                <p>구매 가능 금액: 0$</p>
+                <p>총 주문 금액: 0$</p>
             </div>
             <button class="buy-btn">구매하기</button>
         </div>
