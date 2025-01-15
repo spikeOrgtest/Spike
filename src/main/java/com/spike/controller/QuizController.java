@@ -2,6 +2,8 @@ package com.spike.controller;
 
 import com.spike.service.QuizResultService; // 퀴즈 결과 관련 비즈니스 로직을 처리하는 서비스
 import com.spike.dto.QuizResultDTO; // 퀴즈 결과를 저장할 데이터 전송 객체 (DTO)
+import com.spike.dto.hshtest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -91,4 +93,15 @@ public class QuizController {
         // 조회된 퀴즈 결과 반환
         return result;
     }
+    
+    public String test(hshtest t) {
+    	
+    	t.setUserid("hsh");
+    	t.getUserid();
+    	
+    	
+    	
+    	return null;
+    }
+    
 }
