@@ -5,7 +5,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SPIKE! 번개처럼 빠른 송금</title>
-<link rel="stylesheet" href="/css/include.css">
+<link rel="stylesheet" href="/css/include/include.css">
 <link rel="stylesheet" href="/css/index.css">
 
 <link rel="stylesheet"
