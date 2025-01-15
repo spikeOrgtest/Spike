@@ -66,7 +66,7 @@
 							     <td>${n.notice_id }</td>
 							     <td>${n.notice_name }</td>
 							     <td>${n.title }</td>
-							     
+							     <td>${n.created_date }</td>
 							   </tr>
 							  </c:forEach>
 							</c:if>

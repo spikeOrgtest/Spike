@@ -16,14 +16,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
   <!-- 검색전후 레코드 개수 -->
 <select id="noti_count" parameterType="page" resultType="int">
- select count(notice_id) from Notice
+ select count(notice_no) from Notice
  <where>
   <if test="find_field == ''"></if>
   <if test="find_field == 'notice_name'">
-  notice_name like #{find_name}
+  notice_title like #{find_name}
   </if>
-  <if test="find_field == 'title'">
-  title like #{find_name}
+  <if test="find_field == 'notice_title'">
+  notice_cont like #{find_name}
   </if>
  </where>
 </select>

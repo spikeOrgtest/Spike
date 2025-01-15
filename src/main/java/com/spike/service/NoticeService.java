@@ -13,5 +13,13 @@ public interface NoticeService {
 
 	List<NoticeDTO> getNotiList(NotiPageDTO p);
 
+	NoticeDTO getNoticeCont(Long notice_no);
+
+	NoticeDTO getNoticeCont2(Long notice_no);
+
+	void editNoti(NoticeDTO notice);
+
+	void delNoti(Long notice_no);
+
 
 }

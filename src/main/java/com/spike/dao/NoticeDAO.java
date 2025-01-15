@@ -13,5 +13,13 @@ public interface NoticeDAO {
 
 	List<NoticeDTO> getNotiList(NotiPageDTO p);
 
+	void updateHit(Long notice_no);
+
+	NoticeDTO getNoti_cont(Long notice_no);
+
+	void editNoti(NoticeDTO notice);
+
+	void delNoti(Long notice_no);
+
 
 }
