@@ -5,8 +5,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SPIKE! 번개처럼 빠른 송금</title>
-<link rel="stylesheet" href="assets/css/include.css">
-<link rel="stylesheet" href="assets/css/index.css">
+<link rel="stylesheet" href="/css/include.css">
+<link rel="stylesheet" href="/css/index.css">
 
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
@@ -36,15 +36,15 @@
 				<div class="tri-wrapper">
 					<div class="triangle-container">
 						<div class="triangle-item">
-							<img src="assets/img/main/gold.png" alt="금 투자"
+							<img src="/images/main/gold.png" alt="금 투자"
 								class="triangle-image" id="trimage1">
 						</div>
 						<div class="triangle-item">
-							<img src="assets/img/main/stockimg.png" alt="주식 투자"
+							<img src="/images/main/stockimg.png" alt="주식 투자"
 								class="triangle-image" id="trimage2">
 						</div>
 						<div class="triangle-item">
-							<img src="assets/img/main/bitcoinimg.png" alt="가상화폐 투자"
+							<img src="/images/main/bitcoinimg.png" alt="가상화폐 투자"
 								class="triangle-image" id="trimage3">
 						</div>
 					</div>
@@ -72,10 +72,10 @@
 				</div>
 
 				<div id="section2-img-wrapper" class="section2-img-wrapper">
-					<img src="assets/img/main/youth.png" alt="아이콘 1" class="n1">
-					<img src="assets/img/main/saving.png" alt="아이콘 2" class="n2">
-					<img src="assets/img/main/vacation.png" alt="아이콘 3" class="n3">
-					<img src="assets/img/main/premium.png" alt="아이콘 4" class="n4">
+					<img src="/images/main/youth.png" alt="아이콘 1" class="n1">
+					<img src="/images/main/saving.png" alt="아이콘 2" class="n2">
+					<img src="/images/main/vacation.png" alt="아이콘 3" class="n3">
+					<img src="/images/main/premium.png" alt="아이콘 4" class="n4">
 				</div>
 
 				<div id="section2-text-wrapper">
@@ -116,22 +116,22 @@
 				</div>
 				<
 				<div class="imgslides" id="cheat-div1">
-					<img alt="사기1" src="assets/img/main/cheat1.jpg" width="300"
+					<img alt="사기1" src="/images/main/cheat1.jpg" width="300"
 						height="150">
 				</div>
  
 				<div class="imgslides" id="cheat-div2">
-					<img alt="사기2" src="assets/img/main/cheat2.jpg" width="300"
+					<img alt="사기2" src="/images/main/cheat2.jpg" width="300"
 						height="150">
 
 				</div>
 				<div class="imgslides" id="cheat-div3">
-					<img alt="사기3" src="assets/img/main/cheat3.jpg" width="300"
+					<img alt="사기3" src="/images/main/cheat3.jpg" width="300"
 						height="150">
 
 				</div>
 				<div class="imgslides" id="cheat-div4">
-					<img alt="사기4" src="assets/img/main/cheat4.jpg" width="300"
+					<img alt="사기4" src="/images/main/cheat4.jpg" width="300"
 						height="150">
 
 				</div>
@@ -150,13 +150,13 @@
 				</div>
 
 				<div class="imgslides" id="mini-div1">
-					<img alt="미니1" src="assets/img/main/mini1.jpg">
+					<img alt="미니1" src="/images/main/mini1.jpg">
 				</div>
 				<div class="imgslides" id="mini-div2">
-					<img alt="미니2" src="assets/img/main/mini2.jpg">
+					<img alt="미니2" src="/images/main/mini2.jpg">
 				</div>
 				<div class="imgslides" id="mini-div3">
-					<img alt="미니3" src="assets/img/main/mini3.jpg">
+					<img alt="미니3" src="/images/main/mini3.jpg">
 				</div>
 
 
@@ -171,12 +171,12 @@
 		<div class="idx-slides">
 
 			<div class="idx-slide">
-				<img alt="사기1" src="assets/img/main/cheat1.jpg" class="slide-image">
+				<img alt="사기1" src="/images/main/cheat1.jpg" class="slide-image">
 			</div>
 
 
 			<div class="idx-slide">
-				<img alt="사기1" src="assets/img/main/cheat2.jpg" class="slide-image">
+				<img alt="사기1" src="/images/main/cheat2.jpg" class="slide-image">
 			</div>
 
 			<div class="idx-slide">Slide 3</div>
@@ -191,10 +191,10 @@
  <br><br><br><br><br>
  <div class="idx-slider">
   <div class="idx-slides">
-    <img class="idx-slide" src="assets/img/main/cheat1.jpg" alt="Slide 1">
-    <img class="idx-slide" src="assets/img/main/cheat2.jpg" alt="Slide 2">
-    <img class="idx-slide" src="assets/img/main/cheat3.jpg" alt="Slide 3">
-    <img class="idx-slide" src="assets/img/main/cheat4.jpg" alt="Slide 4">
+    <img class="idx-slide" src="/images/main/cheat1.jpg" alt="Slide 1">
+    <img class="idx-slide" src="/images/main/cheat2.jpg" alt="Slide 2">
+    <img class="idx-slide" src="/images/main/cheat3.jpg" alt="Slide 3">
+    <img class="idx-slide" src="/images/main/cheat4.jpg" alt="Slide 4">
   </div>
   <button class="prev-btn">◀</button>
   <button class="next-btn">▶</button>
@@ -241,6 +241,6 @@
 
 </script>
 	 --%>
-	<script src="assets/js/index.js"></script>
+	<script src="/js/index.js"></script>
 </body>
 </html>
