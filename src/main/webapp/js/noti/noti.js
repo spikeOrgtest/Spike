@@ -9,7 +9,7 @@ function write_check(){
 		return false;
 	}
 	
-	if($.trim($('#title').val()).length == 0){
+	if($.trim($('#notice_title').val()).length == 0){
 		alert('글제목을 입력하세요!');
 		$('#title').val('').focus();
 		return false;
@@ -21,7 +21,7 @@ function write_check(){
 	//	return false;
 	//}
 	
-	if($.trim($('#content').val()) == ''){
+	if($.trim($('#notice_cont').val()) == ''){
 		alert('글내용을 입력하세요!');
 		$('#content').val('').focus();
 		return false;

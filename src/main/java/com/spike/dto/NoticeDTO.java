@@ -57,7 +57,7 @@ public class NoticeDTO {
 	//@Column(length = 100)
 	//private String author;
 	
-	@NotNull
+	
 	private int notice_hit; // 조회수
 	
 	//답변글과 관련된 부분

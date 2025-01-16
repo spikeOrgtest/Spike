@@ -25,7 +25,7 @@ import com.spike.dto.NoticeDTO;
 import com.spike.service.NoticeService;
 
 @Controller
-@RequestMapping("/spike.com/*")
+@RequestMapping("/spike.com")
 public class NoticeController {
 
 	@Autowired
@@ -110,7 +110,7 @@ public class NoticeController {
 	
 	
 	//검색기능 자료실 페이지목록
-	@RequestMapping(value="/spike.com/notice", method=RequestMethod.GET)
+	@RequestMapping(value="/notice", method=RequestMethod.GET)
 	public ModelAndView notice_list(HttpServletRequest request, NoticeDTO notice, NotiPageDTO p ) {
 		int page=1;
 		int limit=5;
@@ -127,7 +127,7 @@ public class NoticeController {
 		int totalCount = this.noticeService.getRowCount(p);
 		
 		p.setStartrow((page-1)*5+1); //시작행 번호
-		p.setEndroe(p.getStartrow()+limit-1); //끝행 번호
+		p.setEndrow(p.getStartrow()+limit-1); //끝행 번호
 		
 		List<NoticeDTO> Nlist = this.noticeService.getNotiList(p);
 		
@@ -156,35 +156,45 @@ public class NoticeController {
 	
 	//내용보기(조회수증가)+답변폼+수정폼+삭제폼
 		@RequestMapping("/noti_cont")
-		public ModelAndView bbs_cont(Long notice_no, String state, int page, NoticeDTO notice) {
+		public ModelAndView notice_cont(Long notice_no, String state, Integer page, NoticeDTO n)  {
 			
 			if(state.equals("cont")) {//내용보기 일때만 조회수 증가
-				notice = this.noticeService.getNoticeCont(notice_no);
+				n = this.noticeService.getNoticeCont(notice_no);
 			}else {//내용보기가 아닌 경우 답변폼,수정폼,삭제폼일때는 조회수 증가 안함.
-				notice = this.noticeService.getNoticeCont2(notice_no);
+				n = this.noticeService.getNoticeCont2(notice_no);
 			}
-			
-			String noti_cont = notice.getNotice_cont().replace("\n", "<br/>");
+			String noti_cont = n.getNotice_cont().replace("\n", "<br/>");
 			//textarea에서 엔터키를 친 부분을 줄바꿈 한다.
+			System.out.println("테스트<=======================================");
+			System.out.println(n.getNotice_cont());
 			
 			ModelAndView co = new ModelAndView();
-			co.addObject("notice", notice);
+			co.addObject("n", n);
 			co.addObject("noti_cont", noti_cont);
 			co.addObject("page", page);//책갈피 기능때문에 page키이름에 쪽번호 저장
+			//co.setViewName("support/newSubpage_noticeDetail");
+			//ModelAndView sk = new ModelAndView();
+			//sk.addObject("notice",notice);
+			//sk.addObject("noti_cont", noti_cont);
+			//sk.setViewName("/support/newSubpage_noticeDetail");
+			//sk.addObject("page",page);
+			
+			
 			
 			if(state.equals("cont")) {//내용보기 일때
-				co.setViewName("notice/noti_cont");//뷰페이지 경로=>/WEB-INF/views/bbs/bbs_cont.jsp
-			}else if(state.equals("reply")) {//답변폼일때
-				co.setViewName("notice/noti_reply");
-			}else if(state.equals("edit")) {//수정폼일때
-				co.setViewName("notice/noti_edit");
-			}else {//state=del일때 즉 삭제폼일때
-				co.setViewName("notice/noti_del");
+				co.setViewName("/support/newSubpage_noticeDetail");//뷰페이지 경로=>/WEB-INF/views/bbs/bbs_cont.jsp
+			//}else if(state.equals("reply")) {//답변폼일때
+				//co.setViewName("notice/noti_reply");
+			//} /*else if(state.equals("edit")) {//수정폼일때
+				//co.setViewName("notice/noti_edit");
+			//}else {//state=del일때 즉 삭제폼일때
+				//co.setViewName("notice/noti_del");
 			}
 			
 			return co;
+			//return sk;
 		}//bbs_cont()
-		
+
 		/*
 		//답변 저장
 		@PostMapping("/bbs_reply_ok")
@@ -202,7 +212,7 @@ public class NoticeController {
 		public ModelAndView noti_edit_ok(NoticeDTO notice,Notice2DTO notice2, HttpServletRequest request,HttpServletResponse response)
 		throws Exception{
 			response.setContentType("text/html;charset=UTF-8");//웹브라우저 출력되는 문자와태그,언어코딩 타입을 UTF-8로 지정
-			PrintWriter out = response.getWriter();
+			PrintWriter out =response.getWriter();
 			String uploadFolder = request.getSession().getServletContext().getRealPath("upload");
 			//수정 첨부된 파일이 업로드 될 upload 폴더 실제 경로를 반환
 			
@@ -270,7 +280,7 @@ public class NoticeController {
 				
 				this.noticeService.editNoti(notice);//자료실 수정
 				
-				ModelAndView em = new ModelAndView("redirect:/notice/noti_cont");
+				ModelAndView em = new ModelAndView("redirect:/spike.com/noti_cont");
 				em.addObject("notice_no", notice.getNotice_no());
 				em.addObject("page", page);
 				em.addObject("state", "cont");
@@ -299,10 +309,12 @@ public class NoticeController {
 					delFile.delete();//폴더는 삭제 안되고, 기존 첨부파일만 삭제된다.
 				}
 				
-				return "redirect:/bbs/bbs_list?page="+page;
+				return "redirect:/spike/newsSubpage_notice?page="+page;
 			
 				//return null;
 		}//noti_del_ok()
+		
+		
 		
 	}
 	

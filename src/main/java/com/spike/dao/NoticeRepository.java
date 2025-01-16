@@ -8,6 +8,9 @@ import com.spike.dto.NoticeDTO;
 
 public interface NoticeRepository extends JpaRepository<NoticeDTO, Long > {
     
+	@Query(value="select notice_seq.nextval from dual", nativeQuery = true)
+	public int getNextSequenceValue();
+	
 	@Modifying
 	@Query("update NoticeDTO n set n.notice_level=n.notice_level+1 where n.notice_ref=?1 and n.notice_level > ?2")
 	public void updateLevel(int ref, int level);

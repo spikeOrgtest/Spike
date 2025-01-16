@@ -56,7 +56,7 @@
      </tr>
      <tr>
       <th>제목</th>
-      <td><input name="title" id="title" size="50" style="height: 40px; font-size: 18px;" ></td>
+      <td><input name="notice_title" id="notice_title" size="50" style="height: 40px; font-size: 18px;" ></td>
      </tr>
      <!-- <tr>
       <th>비밀번호</th>
@@ -64,7 +64,7 @@
      </tr> -->
      <tr>
       <th>글내용</th>
-      <td><textarea name="content" id="content" rows="20" cols="50" style="font-size: 18px;"></textarea></td>
+      <td><textarea name="notice_cont" id="notice_cont" rows="20" cols="50" style="font-size: 18px;"></textarea></td>
      </tr>
      <tr>
       <th>파일첨부</th>
@@ -74,8 +74,8 @@
     <div id="noti_menu">
     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token }" />
      <button type="submit">입력</button>
-     <button type="Reset" onclick="$('#notice_id').focus();">취소</button>
-     <button type="button" onclick="location='/notice/notice?page=${page}';">목록</button>
+     <button type="Reset" onclick="$('#notice_no').focus();">취소</button>
+     <button type="button" onclick="location='/spike.com/notice?page=${page}';">목록</button>
     </div>
     
   </form>

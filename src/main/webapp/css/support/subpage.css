@@ -90,7 +90,6 @@ body.subpage {
 
 .subpage-main-container {
     display: flex;
-    
     width: 1200px;
     min-height: 1000px;
 }
