@@ -14,7 +14,7 @@ public interface StockService {
     // stockCode 기반 조회
     StockDTO getStockByCode(String stockCode); 
     
-    // 상위 N개 주식 데이터를 가져오는 메서드
+ // 상위 N개의 주식을 가져오는 메서드 정의
     List<StockDTO> getTopStocks(int limit);
     
 }

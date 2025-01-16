@@ -8,30 +8,13 @@ END;
 /
 
 -- [2] 기존 시퀀스 삭제
-BEGIN
-    EXECUTE IMMEDIATE 'DROP SEQUENCE Stock_Id_Seq';
-EXCEPTION
-    WHEN OTHERS THEN
-        DBMS_OUTPUT.PUT_LINE('Sequence Stock_Id_Seq does not exist or could not be dropped.');
-END;
-/
+DROP SEQUENCE Stock_Id_Seq;
 
-BEGIN
-    EXECUTE IMMEDIATE 'DROP SEQUENCE Stock_Code_Seq';
-EXCEPTION
-    WHEN OTHERS THEN
-        DBMS_OUTPUT.PUT_LINE('Sequence Stock_Code_Seq does not exist or could not be dropped.');
-END;
-/
+DROP SEQUENCE Stock_Code_Seq;
 
 -- [3] 기존 트리거 삭제
-BEGIN
-    EXECUTE IMMEDIATE 'DROP TRIGGER trg_generate_stock_code';
-EXCEPTION
-    WHEN OTHERS THEN
-        DBMS_OUTPUT.PUT_LINE('Trigger trg_generate_stock_code does not exist or could not be dropped.');
-END;
-/
+DROP TRIGGER trg_generate_stock_code;
+
 
 -- [4] 테이블 생성
 CREATE TABLE Stock (
