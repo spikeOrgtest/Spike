@@ -1,6 +1,39 @@
-drop table stock;
+-- [1] 기존 테이블 삭제
+BEGIN
+    EXECUTE IMMEDIATE 'DROP TABLE Stock CASCADE CONSTRAINTS';
+EXCEPTION
+    WHEN OTHERS THEN
+        DBMS_OUTPUT.PUT_LINE('Table Stock does not exist or could not be dropped.');
+END;
+/
 
--- 1. 테이블 생성
+-- [2] 기존 시퀀스 삭제
+BEGIN
+    EXECUTE IMMEDIATE 'DROP SEQUENCE Stock_Id_Seq';
+EXCEPTION
+    WHEN OTHERS THEN
+        DBMS_OUTPUT.PUT_LINE('Sequence Stock_Id_Seq does not exist or could not be dropped.');
+END;
+/
+
+BEGIN
+    EXECUTE IMMEDIATE 'DROP SEQUENCE Stock_Code_Seq';
+EXCEPTION
+    WHEN OTHERS THEN
+        DBMS_OUTPUT.PUT_LINE('Sequence Stock_Code_Seq does not exist or could not be dropped.');
+END;
+/
+
+-- [3] 기존 트리거 삭제
+BEGIN
+    EXECUTE IMMEDIATE 'DROP TRIGGER trg_generate_stock_code';
+EXCEPTION
+    WHEN OTHERS THEN
+        DBMS_OUTPUT.PUT_LINE('Trigger trg_generate_stock_code does not exist or could not be dropped.');
+END;
+/
+
+-- [4] 테이블 생성
 CREATE TABLE Stock (
     stock_id NUMBER PRIMARY KEY,                   -- 자동 증가 기본 키
     stock_code VARCHAR2(8) UNIQUE NOT NULL,        -- 8자리 고유 코드
@@ -15,19 +48,18 @@ CREATE TABLE Stock (
     created_date DATE DEFAULT SYSDATE NOT NULL     -- 생성 날짜
 );
 
--- stock_id 자동 증가용 시퀀스
+-- [5] 시퀀스 생성
 CREATE SEQUENCE Stock_Id_Seq 
 START WITH 1 
 INCREMENT BY 1 
 NOCACHE;
 
--- stock_code 자동 증가용 시퀀스
 CREATE SEQUENCE Stock_Code_Seq 
 START WITH 1 
 INCREMENT BY 1 
 NOCACHE;
 
---stock_id와 stock_code를 자동으로 할당하는 트리거를 생성
+-- [6] 트리거 생성
 CREATE OR REPLACE TRIGGER trg_generate_stock_code
 BEFORE INSERT ON Stock
 FOR EACH ROW
@@ -44,7 +76,13 @@ BEGIN
 END;
 /
 
---technology 분야
+-- [7] 트리거 상태 확인
+SELECT TRIGGER_NAME, TABLE_NAME, STATUS
+FROM USER_TRIGGERS
+WHERE TRIGGER_NAME = 'TRG_GENERATE_STOCK_CODE';
+
+-- [8] 데이터 삽입
+-- Technology 분야
 INSERT INTO Stock (company_name, ticker_symbol, sector, initial_price, current_price, total_shares, available_shares)
 VALUES ('Apple Inc.', 'AAPL', 'Technology', 150.0, 150.0, 1000000, 800000);
 
@@ -53,7 +91,7 @@ VALUES ('Microsoft Corp.', 'MSFT', 'Technology', 250.0, 250.0, 1200000, 950000);
 
 -- Consumer Goods 분야
 INSERT INTO Stock (company_name, ticker_symbol, sector, initial_price, current_price, total_shares, available_shares)
-VALUES ('Procter & Gamble', 'PG', 'Consumer Goods', 140.0, 140.0, 1500000, 1200000);
+VALUES ('Procter Gamble', 'PG', 'Consumer Goods', 140.0, 140.0, 1500000, 1200000);
 
 INSERT INTO Stock (company_name, ticker_symbol, sector, initial_price, current_price, total_shares, available_shares)
 VALUES ('Coca-Cola', 'KO', 'Consumer Goods', 60.0, 60.0, 1800000, 1500000);
@@ -70,7 +108,7 @@ INSERT INTO Stock (company_name, ticker_symbol, sector, initial_price, current_p
 VALUES ('Pfizer', 'PFE', 'HealthCare', 50.0, 50.0, 3000000, 2500000);
 
 INSERT INTO Stock (company_name, ticker_symbol, sector, initial_price, current_price, total_shares, available_shares)
-VALUES ('Johnson & Johnson', 'JNJ', 'HealthCare', 180.0, 180.0, 2000000, 1700000);
+VALUES ('Johnson Johnson', 'JNJ', 'HealthCare', 180.0, 180.0, 2000000, 1700000);
 
 -- Energy 분야
 INSERT INTO Stock (company_name, ticker_symbol, sector, initial_price, current_price, total_shares, available_shares)
@@ -86,9 +124,9 @@ VALUES ('Amazon', 'AMZN', 'Retail', 3400.0, 3400.0, 1000000, 800000);
 INSERT INTO Stock (company_name, ticker_symbol, sector, initial_price, current_price, total_shares, available_shares)
 VALUES ('Walmart', 'WMT', 'Retail', 150.0, 150.0, 2000000, 1800000);
 
-select * from stock ;
+-- [9] 데이터 확인
+SELECT * FROM Stock;
 
-
---증권 게좌 생성
+commit;
 
 
