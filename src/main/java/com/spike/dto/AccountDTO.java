@@ -45,4 +45,5 @@ public class AccountDTO {
 	private Timestamp created_date;
 	
 	private LocalDate update_date;
+	
 }
