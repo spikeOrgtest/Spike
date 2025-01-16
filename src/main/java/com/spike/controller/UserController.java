@@ -339,6 +339,7 @@ public class UserController {
 	        out.println("history.go(-1);");
 	        out.println("</script>");
 	        return null;  // 실패 시 다시 돌아가도록 처리
+	        //
 	    }
 	}
 
