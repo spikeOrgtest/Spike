@@ -8,6 +8,10 @@
 <link rel="stylesheet" href="../css/support/subpage.css">
 <link rel="stylesheet" href="../css/include/include.css">
 <link rel="stylesheet" href="../css/mini/shop.css">
+<link
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+	rel="stylesheet">
+
 </head>
 
 
@@ -41,13 +45,18 @@
 			<div class="subpage-content-wrap">
 				<!-- 퀴즈 풀고 얻은 포인트로 기프티콘 구매 -->
 				<div class="shop">
-					<h1>Point Shop</h1>
+					<div class="shop-header">
+						<i class="fas fa-coins coin-icon"></i>
+						<!-- 동전 아이콘 -->
+						<h1>Point Shop</h1>
+					</div>
 					<div class="user-info">
 						<span>현재 포인트: <strong id="userPoints">100000</strong>P
 						</span>
-						<!-- 현재 포인트 -->
 					</div>
 				</div>
+
+
 				<main>
 					<section class="gift-cards">
 						<div class="gift-card" data-name="배스킨라빈스" data-price="10000">
