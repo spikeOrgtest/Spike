@@ -13,10 +13,10 @@
         <div class="header-container">
             <c:choose>
                 <c:when test="${sessionScope.User.name == null}">
-                    <a href="javascript:location='login';">로그인</a>
+                    <a href="javascript:location='/spike.com/login';">로그인</a>
                 </c:when>
                 <c:otherwise>
-                    <a href="javascript:location='logout';">로그아웃</a>
+                    <a href="javascript:location='/spike.com/logout';">로그아웃</a>
                 </c:otherwise>
             </c:choose>
 
@@ -38,11 +38,11 @@
 
                         <c:if test="${not empty sessionScope.remainingTime}">
                             <div>
-                                <p>세션 남은 시간:
+                                <h5>세션 남은 시간:
                                     <span id="timeDisplay"> 
                                         <!-- 여기에 실시간으로 갱신되는 시간이 표시됨 -->
                                     </span>
-                                </p>
+                                </h5>
                             </div>
                         </c:if>
                     </c:otherwise>
@@ -85,26 +85,32 @@
 <%-- 헤더 끝 --%>
 
 <script type="text/javascript">
-    // JSP에서 전달받은 remainingTime을 초 단위로 변수에 저장
-    var remainingTime = ${sessionScope.remainingTime}; 
-    console.log("Initial Remaining Time (초): " + remainingTime);
+// 세션에서 전달받은 remainingTime을 가져오는데, 값이 없으면 기본값 0 설정
+var remainingTime = ${sessionScope.remainingTime != null ? sessionScope.remainingTime : -1}; 
+console.log("Initial Remaining Time (초): " + remainingTime);
 
-    // timeDisplay 요소에 남은 시간을 표시
+// 세션 값이 없으면 타이머를 시작하지 않음
+if (remainingTime >= 0) {
+    // 시간 업데이트 함수
     function updateTimeDisplay() {
         var minutes = Math.floor(remainingTime / 60);  // 분 계산
         var seconds = remainingTime % 60;  // 초 계산
-        document.getElementById("timeDisplay").innerText = minutes + "분 " + seconds + "초"; // 실시간으로 업데이트
+        document.getElementById("timeDisplay").innerText = minutes + "분 " + seconds + "초";  // 실시간으로 업데이트
     }
 
-    // 1초마다 remainingTime을 갱신하고 화면에 업데이트
+    // 타이머 실행 (1초마다 1초씩 감소)
     var timer = setInterval(function() {
         if (remainingTime > 0) {
             remainingTime--;  // 1초씩 감소
             updateTimeDisplay();  // 화면에 갱신된 시간 표시
         } else {
             clearInterval(timer);  // 남은 시간이 0이 되면 타이머를 멈춤
-            alert("세션 시간이 만료되었습니다.");  // 시간 만료 알림
-            // 여기서 세션 만료 처리(로그아웃 등)을 할 수 있음
+            alert("장시간 사용하지 않아 자동으로 로그아웃됩니다..");  // 시간 만료 알림
+            location.href = '/spike.com/logout';  // 세션 종료 후 로그아웃 페이지로 리다이렉트
+            // 세션 만료 처리 (예: 자동 로그아웃)
         }
     }, 1000);  // 1초마다 실행
+} else {
+    console.log("세션 값이 없으므로 타이머를 시작하지 않습니다.");
+}
 </script>
