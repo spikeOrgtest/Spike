@@ -111,6 +111,13 @@ public class QuizController {
         // 결과 반환
         return resultMessage;  // 정답 여부 메시지 반환
     }
+    
+    //퀴즈 포인트샵
+    @GetMapping("/shop")  
+    public String minishop() {
+        // 사용자에게 보여줄 퀴즈 페이지의 뷰 이름을 반환 (여기서는 Thymeleaf 템플릿을 사용한 예시)
+        return "mini/miniSubpage_quiz_shop";  
+    }
 
     
 
