@@ -14,8 +14,6 @@ public class AccountDAOImpl implements AccountDAO {
 	
 	@Override
 	public void createAccount(AccountDTO s) {
-		System.out.println("잘되냐");
 		this.accountrepo.save(s);
 	}
-
 }

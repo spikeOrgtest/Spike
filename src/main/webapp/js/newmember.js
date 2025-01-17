@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 		if (validateForm()) {
 			const newAccountNumber = generateAccountNumber();
+			document.getElementById('account_number').value = newAccountNumber;
 			accountNumberSpan.textContent = newAccountNumber;
 			accountInfo.classList.remove('hidden');
 			form.submit();

@@ -25,7 +25,7 @@ public class AccountController {
 	
 	// 계좌개설 폼
 	@GetMapping("/products/newmember")
-    public ModelAndView newmem() {
+    public ModelAndView newmember() {
         String[] account_type = {"예금", "적금"};
         
         ModelAndView ss = new ModelAndView("/products/newmember");
@@ -41,7 +41,7 @@ public class AccountController {
 		
     	return new ModelAndView("redirect:/spike.com/login");
     }
-	
+	/*
 	@PostMapping("/save")
     public String accountList(@RequestParam("account_password") String account_password,
                                @RequestParam("account_type")String account_type) {
@@ -56,5 +56,5 @@ public class AccountController {
     public String showSuccessPage() {
         return "/products/accountList";
     }
-    
+    */
 }
