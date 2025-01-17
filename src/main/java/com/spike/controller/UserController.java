@@ -56,7 +56,7 @@ public class UserController {
 
 	//아이디 중복 검색
 	@PostMapping("/signup_idcheck")
-	public ModelAndView signup_idcheck(String id, HttpServletResponse response) throws Exception {
+	public void signup_idcheck(String id, HttpServletResponse response) throws Exception {
 		response.setContentType("text/html; charset=UTF-8");
 		PrintWriter out = response.getWriter();
 
@@ -68,7 +68,6 @@ public class UserController {
 			re = 1;
 		}
 		out.println(re);
-		return null;
 	}
 
 	// 회원 저장
@@ -186,7 +185,6 @@ public class UserController {
 
 	            // 남은 시간을 모델에 추가
 	            ModelAndView loginS = new ModelAndView();
-	            loginS.addObject("remainingTime", session.getMaxInactiveInterval());
 	            loginS.setViewName("redirect:/spike.com/");
 	            return loginS;
 	        }
@@ -345,7 +343,7 @@ public class UserController {
 
 	// 로그아웃
 	@GetMapping("logout")
-	public ModelAndView logout(HttpServletResponse response, HttpSession session) throws Exception {
+	public void logout(HttpServletResponse response, HttpSession session) throws Exception {
 		response.setContentType("text/html; charset=UTF-8");
 		PrintWriter out = response.getWriter();
 		
@@ -357,7 +355,6 @@ public class UserController {
 		out.println("</script>");
 		
 		out.close();
-		return null;
 	}
 	
 }
