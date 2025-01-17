@@ -15,6 +15,12 @@ public class QuizController {
 
     @Autowired
     private QuizResultService quizResultService; // 퀴즈 결과를 처리하는 서비스 주입
+    
+ // 미니 메인 페이지를 사용자에게 보여주는 메소드
+    @GetMapping("/mini")  
+    public String mini() {
+        return "mini/mini";  
+    }
 
     // 퀴즈 페이지를 사용자에게 보여주는 메소드
     @GetMapping("/quiz")  // '/mini/quiz' 경로에 대한 GET 요청을 처리

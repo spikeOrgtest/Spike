@@ -43,7 +43,7 @@
 				<div class="shop">
 					<h1>Point Shop</h1>
 					<div class="user-info">
-						<span>현재 포인트: <strong id="userPoints">1500</strong>P
+						<span>현재 포인트: <strong id="userPoints">100000</strong>P
 						</span>
 						<!-- 현재 포인트 -->
 					</div>
