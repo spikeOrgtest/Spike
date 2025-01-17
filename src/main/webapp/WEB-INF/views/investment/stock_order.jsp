@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>${stock.companyName} - 주식 거래</title>
-    <link href="/css/investment/stock_trade.css" rel="stylesheet">
+    <link href="/css/investment/stock_order.css" rel="stylesheet">
 </head>
 <body>
     <div class="container">
