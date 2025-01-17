@@ -159,34 +159,40 @@ public class UserController {
 
 	// 로그인
 	@PostMapping("/login_ok")
-	public ModelAndView login_ok(String login_id, String password, HttpServletResponse response,
-			HttpSession session) throws Exception {
-		response.setContentType("text/html; charset=UTF-8");
-		PrintWriter out = response.getWriter();
+	public ModelAndView login_ok(String login_id, String password, HttpServletResponse response, HttpSession session) throws Exception {
+	    response.setContentType("text/html; charset=UTF-8");
+	    PrintWriter out = response.getWriter();
 
-		UserDTO s = this.spikeService.loginCheck(login_id);
+	    UserDTO s = this.spikeService.loginCheck(login_id);
 
-		if( s == null) {
-			out.println("<script>");
-			out.println("alert('존재하지않는 아이디입니다.');");
-			out.println("history.back();");
-			out.println("</script>");
-		} else {
-			if(!s.getPassword().equals(PwdChange.getPassWordToXEMD5String(password))) {
-				out.println("<script>");
-				out.println("alert('비밀번호가 틀립니다.');");
-				out.println("history.back();");
-				out.println("</script>");
-			} else {
-				session.setAttribute("login_id", login_id); // login_id에 세션 생성
+	    if (s == null) { 
+	        out.println("<script>");
+	        out.println("alert('존재하지않는 아이디입니다.');");
+	        out.println("history.back();");
+	        out.println("</script>");
+	    } else {
+	        if (!s.getPassword().equals(PwdChange.getPassWordToXEMD5String(password))) {
+	            out.println("<script>");
+	            out.println("alert('비밀번호가 틀립니다.');");
+	            out.println("history.back();");
+	            out.println("</script>");
+	        } else {
+	            session.setAttribute("User", s);
 
-				ModelAndView loginS = new ModelAndView();
-				loginS.setViewName("redirect:/spike.com/");
-				return loginS;
-			}
-		}
-		
-		return null;
+	            // 세션 만료 시간을 1시간으로 설정 (단위: 초)
+	            session.setMaxInactiveInterval(60 * 60);  // 1시간
+	            session.setAttribute("remainingTime", session.getMaxInactiveInterval());
+
+
+	            // 남은 시간을 모델에 추가
+	            ModelAndView loginS = new ModelAndView();
+	            loginS.addObject("remainingTime", session.getMaxInactiveInterval());
+	            loginS.setViewName("redirect:/spike.com/");
+	            return loginS;
+	        }
+	    }
+
+	    return null;
 	}
 
 	// 아이디 찾기 폼
@@ -333,10 +339,27 @@ public class UserController {
 	        out.println("history.go(-1);");
 	        out.println("</script>");
 	        return null;  // 실패 시 다시 돌아가도록 처리
+	        
 	    }
 	}
 
-
+	// 로그아웃
+	@GetMapping("logout")
+	public ModelAndView logout(HttpServletResponse response, HttpSession session) throws Exception {
+		response.setContentType("text/html; charset=UTF-8");
+		PrintWriter out = response.getWriter();
+		
+		session.invalidate(); // 세션만료
+		
+		out.println("<script>");
+		out.println("alert('로그아웃 되었습니다.');");
+		out.println("location='/spike.com';");
+		out.println("</script>");
+		
+		out.close();
+		return null;
+	}
+	
 }
 
 
