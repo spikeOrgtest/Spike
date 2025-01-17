@@ -13,7 +13,7 @@
 <body>
 	<div class="container">
 		<h1>SPIKE 계좌 개설</h1>
-		<form name="s" id="signupForm" action="account_ok" method="POST">
+		<form name="s" id="signupForm" action="/spike.com/account_ok" method="POST">
 			<input type="hidden" name="${_csrf.parameterName}"
 				value="${_csrf.token}" />
 
@@ -29,7 +29,7 @@
 			</div>
 			<div class="form-group">
 				<label for="password">비밀번호</label> <input type="password"
-					id="password" name="password" required />
+					id="account_password" name="account_password" required />
 				<p class="password-requirements">비밀번호는 6자 숫자를 사용해야 합니다.</p>
 			</div>
 			<div class="form-group">

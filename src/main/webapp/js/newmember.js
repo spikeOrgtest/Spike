@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
 	const form = document.getElementById('signupForm');
-	const password = document.getElementById('password');
+	const account_password = document.getElementById('account_password');
 	const confirmPassword = document.getElementById('confirmPassword');
 	const accountInfo = document.getElementById('accountInfo');
 	const accountNumberSpan = document.getElementById('accountNumber');
@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	});
 
 	// 비밀번호 검증
-	password.addEventListener('input', validatePassword);
+	account_password.addEventListener('input', validatePassword);
 	confirmPassword.addEventListener('input', validatePasswordMatch);
 
 	function validateForm() {
@@ -26,13 +26,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
 	function validatePassword() {
 		const passwordRegex = /^[0-9]{6}$/; // 6자리 숫자
-		const isValid = passwordRegex.test(password.value);
-		password.setCustomValidity(isValid ? '' : '비밀번호는 6자리 숫자여야 합니다.');
+		const isValid = passwordRegex.test(account_password.value);
+		account_password.setCustomValidity(isValid ? '' : '비밀번호는 6자리 숫자여야 합니다.');
 		return isValid;
 	}
 
 	function validatePasswordMatch() {
-		const isValid = password.value === confirmPassword.value;
+		const isValid = account_password.value === confirmPassword.value;
 		confirmPassword.setCustomValidity(isValid ? '' : '비밀번호가 일치하지 않습니다.');
 		return isValid;
 	}
