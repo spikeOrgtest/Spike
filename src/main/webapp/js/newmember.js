@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', function() {
 			const newAccountNumber = generateAccountNumber();
 			accountNumberSpan.textContent = newAccountNumber;
 			accountInfo.classList.remove('hidden');
-			form.reset();
+			form.submit();
 		}
 	});
 
