@@ -1,6 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="sec"
+	uri="http://www.springframework.org/security/tags"%>
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -13,17 +14,26 @@
 <body>
 	<div class="container">
 		<h1>SPIKE 계좌 개설</h1>
-		<form name="s" id="signupForm" action="/spike.com/account_ok" method="POST">
+		<form name="s" id="signupForm" action="/spike.com/account_ok"
+			method="POST">
 			<input type="hidden" name="${_csrf.parameterName}"
 				value="${_csrf.token}" />
 
 			<div class="form-group">
-				<label for="account_type">계좌종류</label> 
+				<label for="account_type">계좌종류</label>
 				<div class="account_container">
-				<select id="account_type" name="account_type">
-					<c:forEach var="type" items="${account_type}">
-						<option value="${type}">${type}</option>
-					</c:forEach>
+					<select id="account_type" name="account_type">
+						<c:forEach var="type" items="${account_type}">
+							<option value="${type}">${type}</option>
+						</c:forEach>
+					</select>
+				</div>
+			</div>
+			<div class="form-group" id="product_select" class="hidden">
+				<label for="product_type">세부상품</label>
+				<div class="product_container">
+				<select id="product_type"
+					name="product_type">
 				</select>
 				</div>
 			</div>

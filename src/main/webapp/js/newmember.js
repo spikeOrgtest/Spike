@@ -38,8 +38,44 @@ document.addEventListener('DOMContentLoaded', function() {
 		return isValid;
 	}
 
+	// 계좌번호 랜덤 생성
 	function generateAccountNumber() {
 		const numbers = Array.from({ length: 13 }, () => Math.floor(Math.random() * 10));
 		return `${numbers.slice(0, 3).join('')}-${numbers.slice(3, 7).join('')}-${numbers.slice(7, 11).join('')}-${numbers.slice(11).join('')}`;
 	}
+});
+
+// 세부상품선택
+document.getElementById('account_type').addEventListener('change', function() {
+	const selectedType = this.value;
+	const productSelect = document.getElementById('product_type');
+	const productSelectContainer = document.getElementById('product_select');
+
+	// 기존 옵션 초기화
+	productSelect.innerHTML = '';
+
+	let options = [];
+
+	if (selectedType === '예금') {
+		options = [
+			{ value: 'spike_savings', text: 'SPIKE 예금' },
+			{ value: 'housing_savings', text: '주택청약' }
+		];
+	} else if (selectedType === '적금') {
+		options = [
+			{ value: 'spike_installment', text: 'SPIKE 적금' },
+			{ value: 'regular_installment', text: '정기적금' }
+		];
+	}
+
+	// 옵션 추가
+	options.forEach(option => {
+		const newOption = document.createElement('option');
+		newOption.value = option.value;
+		newOption.textContent = option.text;
+		productSelect.appendChild(newOption);
+	});
+
+	// 세부 상품 선택 영역 보여주기
+	productSelectContainer.style.display = options.length > 0 ? 'block' : 'none';
 });
