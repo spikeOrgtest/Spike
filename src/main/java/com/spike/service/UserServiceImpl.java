@@ -47,6 +47,8 @@ public class UserServiceImpl implements UserSerivce {
 	public UserDTO findMember(UserDTO s) {
 		return this.spikeDao.findMember(s);
 	}
+
+
 	
 
 }
