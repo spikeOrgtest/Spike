@@ -9,98 +9,116 @@
 <link rel="stylesheet" href="../css/include/include.css">
 <link rel="stylesheet" href="../css/mini/shop.css">
 </head>
- 
+
 
 <body class="subpage">
 	<%@ include file="../include/header.jsp"%>
 	<%@ include file="../include/subnav.jsp"%>
+
 	<div class="subpageWrapper">
+		<%-- 서브페이지 래퍼 --%>
+
+		<%-- 서브네비바 --%>
+	</div>
+	<%-- /wrap --%>
+
+	<div class="subpageWrapper">
+		<%-- 메인 컨테이너(사이드바, 컨텐츠 포함하는 큰 틀) --%>
 		<div class="subpage-main-container">
+
+			<%-- 사이드바 --%>
 			<div class="subpage-sidebar">
-				<h3 class="subpage-sidebar-title">Spike Mini-Point Shop</h3>
+				<h3 class="subpage-sidebar-title">Spike Mini Quiz</h3>
+				<ul>
+					<li><a href="minisubpage_Quiz.jsp">OX Quiz</a></li>
+					<li><a href="miniSubpage_quiz_shop.jsp">Point Shop</a></li>
+					<li><a href=".jsp">My Point</a></li>
+				</ul>
 			</div>
 
-     
+
 
 			<div class="subpage-content-wrap">
 				<!-- 퀴즈 풀고 얻은 포인트로 기프티콘 구매 -->
 				<div class="shop">
-				   <h1>Point Shop</h1>
-        <div class="user-info">
-            <span>현재 포인트: <strong id="userPoints">1500</strong>P</span> <!-- 현재 포인트 -->
-        </div>
-        </div>
+					<h1>Point Shop</h1>
+					<div class="user-info">
+						<span>현재 포인트: <strong id="userPoints">1500</strong>P
+						</span>
+						<!-- 현재 포인트 -->
+					</div>
+				</div>
 				<main>
 					<section class="gift-cards">
-    <div class="gift-card" data-name="배스킨라빈스" data-price="10000">
-        <img src="../images/mini/gift1.jpg" alt="기프티콘 1">
-        <div class="gift-info">
-            <h3>배스킨라빈스</h3>
-            <p>가격: 10,000P</p>
-            <button class="buy-btn">구매</button>
-        </div>
-    </div>
-    <div class="gift-card" data-name="공차" data-price="4000">
-        <img src="../images/mini/gift2.jpg" alt="기프티콘 2">
-        <div class="gift-info">
-            <h3>공차</h3>
-            <p>가격: 4,000P</p>
-            <button class="buy-btn">구매</button>
-        </div>
-    </div>
-    <div class="gift-card" data-name="파리바게뜨" data-price="32000">
-        <img src="../images/mini/gift3.jpg" alt="기프티콘 3">
-        <div class="gift-info">
-            <h3>파리바게뜨</h3>
-            <p>가격: 32,000P</p>
-            <button class="buy-btn">구매</button>
-        </div>
-    </div>
-    <div class="gift-card" data-name="버거킹" data-price="9900">
-        <img src="../images/mini/gift4.jpg" alt="기프티콘 4">
-        <div class="gift-info">
-            <h3>버거킹</h3>
-            <p>가격: 9,900P</p>
-            <button class="buy-btn">구매</button>
-        </div>
-    </div>
-    <div class="gift-card" data-name="도미노피자" data-price="35000">
-        <img src="../images/mini/gift5.jpg" alt="기프티콘 5">
-        <div class="gift-info">
-            <h3>도미노피자</h3>
-            <p>가격: 35,000P</p>
-            <button class="buy-btn">구매</button>
-        </div>
-    </div>
-    <div class="gift-card" data-name="bhc 치킨" data-price="25000">
-        <img src="../images/mini/gift6.jpg" alt="기프티콘 6">
-        <div class="gift-info">
-            <h3>bhc 치킨</h3>
-            <p>가격: 25,000P</p>
-            <button class="buy-btn">구매</button>
-        </div>
-    </div>
-</section>
+						<div class="gift-card" data-name="배스킨라빈스" data-price="10000">
+							<img src="../images/mini/gift1.jpg" alt="기프티콘 1">
+							<div class="gift-info">
+								<h3>배스킨라빈스</h3>
+								<p>가격: 10,000P</p>
+								<button class="buy-btn">구매</button>
+							</div>
+						</div>
+						<div class="gift-card" data-name="공차" data-price="4000">
+							<img src="../images/mini/gift2.jpg" alt="기프티콘 2">
+							<div class="gift-info">
+								<h3>공차</h3>
+								<p>가격: 4,000P</p>
+								<button class="buy-btn">구매</button>
+							</div>
+						</div>
+						<div class="gift-card" data-name="파리바게뜨" data-price="32000">
+							<img src="../images/mini/gift3.jpg" alt="기프티콘 3">
+							<div class="gift-info">
+								<h3>파리바게뜨</h3>
+								<p>가격: 32,000P</p>
+								<button class="buy-btn">구매</button>
+							</div>
+						</div>
+						<div class="gift-card" data-name="버거킹" data-price="9900">
+							<img src="../images/mini/gift4.jpg" alt="기프티콘 4">
+							<div class="gift-info">
+								<h3>버거킹</h3>
+								<p>가격: 9,900P</p>
+								<button class="buy-btn">구매</button>
+							</div>
+						</div>
+						<div class="gift-card" data-name="도미노피자" data-price="35000">
+							<img src="../images/mini/gift5.jpg" alt="기프티콘 5">
+							<div class="gift-info">
+								<h3>도미노피자</h3>
+								<p>가격: 35,000P</p>
+								<button class="buy-btn">구매</button>
+							</div>
+						</div>
+						<div class="gift-card" data-name="bhc 치킨" data-price="25000">
+							<img src="../images/mini/gift6.jpg" alt="기프티콘 6">
+							<div class="gift-info">
+								<h3>bhc 치킨</h3>
+								<p>가격: 25,000P</p>
+								<button class="buy-btn">구매</button>
+							</div>
+						</div>
+					</section>
 
 				</main>
-				
-				 <!-- 포인트로 구매하는 모달 창 -->
-    <div id="purchaseModal" class="modal">
-        <div class="modal-content">
-            <h2>구매 확인</h2>
-            <p id="modalMessage"></p>
-            <div class="modal-buttons">
-                <button id="confirmPurchaseBtn">구매</button>
-                <button id="cancelPurchaseBtn">취소</button>
-            </div>
-        </div>
-    </div>
+
+				<!-- 포인트로 구매하는 모달 창 -->
+				<div id="purchaseModal" class="modal">
+					<div class="modal-content">
+						<h2>구매 확인</h2>
+						<p id="modalMessage"></p>
+						<div class="modal-buttons">
+							<button id="confirmPurchaseBtn">구매</button>
+							<button id="cancelPurchaseBtn">취소</button>
+						</div>
+					</div>
+				</div>
 
 			</div>
 		</div>
 	</div>
 
-<script>
+	<script>
 document.addEventListener("DOMContentLoaded", function() {
     // 구매 버튼 클릭 시 모달 창 열기
     const buyButtons = document.querySelectorAll(".buy-btn");

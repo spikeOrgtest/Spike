@@ -118,6 +118,14 @@ public class QuizController {
         // 사용자에게 보여줄 퀴즈 페이지의 뷰 이름을 반환 (여기서는 Thymeleaf 템플릿을 사용한 예시)
         return "mini/miniSubpage_quiz_shop";  
     }
+    
+  //포인트 확인
+    @GetMapping("/point")  
+    public String mypoint() {
+        // 사용자에게 보여줄 퀴즈 페이지의 뷰 이름을 반환 (여기서는 Thymeleaf 템플릿을 사용한 예시)
+        return "mini/miniSubpage_quiz_point";  
+    }
+
 
     
 

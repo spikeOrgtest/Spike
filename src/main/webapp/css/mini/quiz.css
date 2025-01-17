@@ -155,3 +155,8 @@
     display: block; /* active 클래스를 가진 문제만 표시 */
 }
 
+.subpageWrapper img{
+	margin-top: 20px;
+	margin-bottom: 50px;
+}
+
