@@ -1,7 +1,10 @@
 package com.spike.controller;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.URLEncoder;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Random;
@@ -10,7 +13,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,6 +32,7 @@ import com.spike.dto.NoticeDTO;
 import com.spike.service.NoticeService;
 
 @Controller
+@ControllerAdvice
 @RequestMapping("/spike.com")
 public class NoticeController {
 
@@ -118,7 +126,7 @@ public class NoticeController {
 			page = Integer.parseInt(request.getParameter("page"));
 			
 		}
-		
+		// 검색 조건 설정
 		String find_name = request.getParameter("find_name"); //검색어
 		String find_field = request.getParameter("find_field"); // 검색필드
 		p.setFind_field(find_field);
@@ -126,6 +134,7 @@ public class NoticeController {
 		
 		int totalCount = this.noticeService.getRowCount(p);
 		
+		//시작페이지와 끝페이지 계산
 		p.setStartrow((page-1)*5+1); //시작행 번호
 		p.setEndrow(p.getStartrow()+limit-1); //끝행 번호
 		
@@ -134,6 +143,11 @@ public class NoticeController {
 		int maxpage=(int)((double)totalCount/limit+0.95); // 총페이지수
 		int startpage=(((int)((double)page/5+0.9))-1)*5+1; // 시작페이지
 		int endpage=maxpage;//현재페이지에 보여질 마지막 페이지
+		//int startpage = ((page - 1) / 5) * 5 + 1;  // 시작 페이지 번호 계산
+		//int endpage = startpage + 4;  // 끝 페이지 번호는 시작 페이지 + 4 (5개씩 보이게 하니까)
+		//if (endpage > maxpage) {
+		//    endpage = maxpage;  // 만약 끝 페이지가 총 페이지 수보다 크면 끝 페이지를 maxpage로 설정
+		//}
 		if(endpage>startpage+5-1) endpage = startpage+5-1;
 		
 		ModelAndView listP = new ModelAndView();
@@ -314,6 +328,39 @@ public class NoticeController {
 				//return null;
 		}//noti_del_ok()
 		
+		// 파일 다운로드 메서드 추가
+	    @GetMapping("/downloadFile")
+	    public ResponseEntity<byte[]> downloadFile(@RequestParam("fileName") String fileName, HttpServletRequest request) throws IOException {
+
+	        // 업로드 폴더 경로 지정 (이미 정의된 경로로 설정)
+	        String uploadFolder = request.getSession().getServletContext().getRealPath("/upload");
+
+	        // 파일 경로 지정 (uploads 폴더 내의 파일을 지정)
+	        File file = new File(uploadFolder + fileName);
+
+	        // 파일이 존재하는지 확인
+	        if (file.exists()) {
+	            // 파일을 바이트 배열로 읽기
+	            byte[] fileContent = new byte[(int) file.length()];
+	            try (FileInputStream fileInputStream = new FileInputStream(file)) {
+	                fileInputStream.read(fileContent);
+	            }
+
+	            // 파일 이름을 URL 인코딩하여 처리
+	            String encodedFileName = URLEncoder.encode(file.getName(), "UTF-8").replaceAll("\\+", "%20");
+
+	            // 응답 헤더 설정
+	            HttpHeaders headers = new HttpHeaders();
+	            headers.add("Content-Disposition", "attachment; filename=" + encodedFileName);
+	            headers.add("Content-Length", String.valueOf(file.length()));
+
+	            // 응답 객체 반환
+	            return new ResponseEntity<>(fileContent, headers, HttpStatus.OK);
+	        } else {
+	            // 파일이 존재하지 않으면 404 에러 처리
+	            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+	        }
+	    }
 		
 		
 	}

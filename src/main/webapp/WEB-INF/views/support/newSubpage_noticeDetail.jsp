@@ -1,4 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -39,28 +41,25 @@
 
 			<!-- 공지사항 상세 페이지 내용 -->
 			<div class="notice-container">
-				<h2>[공지] 중국건설은행과의 금융거래 일시중단 안내 (12/21)</h2>
+				<h2>${n.notice_title}</h2>
 
 				<div class="notice-info">
-					<span><strong>등록일:</strong> 2024.12.20</span>
-
+					<span><strong>등록일:</strong> 
+					<fmt:formatDate value="${n.created_date}" pattern="yyyy-MM-dd" /></span>
+				</div>
+				
+				<div class="notice-hit">
+				<span><strong>조회수:</strong>${n.notice_hit }</span>
 				</div>
 
 				<div class="notice-content">
-					항상 우리은행을 이용해 주시는 고객님께 감사드립니다. 
-					중국건설은행 서울지점의 시스템 작업에 따라 해당 기관과의 
-					금융거래가 일시 중단될 예정입니다. <br>
-					<strong>■ 중단 일시</strong> 
-					2024.12.21(토) 10:00~17:00 (총 7시간)<br>
-					<strong>■ 중단 업무</strong>
-					중국건설은행으로의 이체 등 금융거래 이용에 유의해 주시기 바랍니다. 
-					감사합니다.
+					${n.notice_cont}
 				</div>
 
 				<div class="attachments">
 					<strong>첨부파일</strong>
 					<ul>
-						<li>없음</li>
+						<li><a href="/spike.com/downloadFile?fileName=${n.notice_file}">${n.notice_file}</a></li>
 					</ul>
 				</div>
 
@@ -71,7 +70,7 @@
 				</div>
 
 				  <div class="button-container" style="text-align: center; margin-top: 20px;">
-        <a href="newsSubpage_notice.jsp">목록</a>
+        <a href="/spike.com/notice">목록</a>
     </div>
 				
 			</div>

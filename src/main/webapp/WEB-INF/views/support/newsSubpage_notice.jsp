@@ -167,9 +167,9 @@
 				</div>
 				
 				<div id="Nlist_menu">
-					<button type="button" onclick="location='notice?page=${page}';">글쓰기</button>
+					<button type="button" onclick="location='/spike.com/noti_write?page=${page}';">글쓰기</button>
 					<c:if test="${(!empty find_field) && (!empty find_name)}">
-						<button type="button" onclick="location='notice?page=${page}';">전체목록</button>
+						<button type="button" onclick="location='/spike.com/notice?page=${page}';">전체목록</button>
 					</c:if>
 				</div>
 				
