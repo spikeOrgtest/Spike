@@ -55,7 +55,7 @@
 					<label for="email_id">이메일</label>
 					<div class="email-container">
 						<input name="email_id" id="email_id" /> @ <input
-							name="email_domain" id="email_domain" readonly /> <select
+							name="email_domain" id="email_domain" value="gmail.com" readonly /> <select
 							name="mail_list" onchange="domain_list();">
 							<c:forEach var="mail" items="${email}">
 								<option value="${mail}">${mail}</option>
@@ -67,7 +67,7 @@
 
 				<div class="form-group">
 					<label for="birth_date">생년월일</label> <input type="date"
-						id="birth_date" name="birth_date" required>
+						id="birth_date" name="birth_date" max="2099-12-31" required>
 				</div>
 				<span class="error-message" id="birthError"></span>
 
