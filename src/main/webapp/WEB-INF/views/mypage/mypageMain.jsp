@@ -78,19 +78,12 @@
 									<div class="col-md-8">
 										<h2>개인정보</h2>
 										<ul class="list-group">
-											<li class="list-group-item"><strong>사용자 이름:</strong> 사용자
-												이름</li>
-											<li class="list-group-item"><strong>이메일:</strong>
-												user@example.com</li>
-											<li class="list-group-item"><strong>가입일:</strong>
-												2022-03-15</li>
-											<li class="list-group-item"><strong>전화번호:</strong>
-												010-1234-5678</li>
-											<li class="list-group-item"><strong>주소:</strong> 서울시 강남구
-												테헤란로 123</li>
-											<li class="list-group-item"><strong>생년월일:</strong>
-												1990-01-01</li>
-											<li class="list-group-item"><strong>성별:</strong> 남성</li>
+											<li class="list-group-item"><strong>사용자 이름:</strong> ${name}</li>
+											<li class="list-group-item"><strong>이메일:</strong> ${e_mail}@${e_mail2}</li>
+											<li class="list-group-item"><strong>가입일:</strong> ${Registrationdate}</li>
+											<li class="list-group-item"><strong>전화번호:</strong> ${phone}</li>
+											<li class="list-group-item"><strong>주소:</strong> ${roadaddress} ${detailaddress}</li>
+											<li class="list-group-item"><strong>생년월일:</strong> ${birthdate}</li>
 										</ul>
 									</div>
 
