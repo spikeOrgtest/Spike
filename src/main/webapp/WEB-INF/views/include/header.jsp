@@ -87,7 +87,6 @@
 <script type="text/javascript">
 // 세션에서 전달받은 remainingTime을 가져오는데, 값이 없으면 기본값 0 설정
 var remainingTime = ${sessionScope.remainingTime != null ? sessionScope.remainingTime : -1}; 
-console.log("Initial Remaining Time (초): " + remainingTime);
 
 // 세션 값이 없으면 타이머를 시작하지 않음
 if (remainingTime >= 0) {
@@ -97,6 +96,8 @@ if (remainingTime >= 0) {
         var seconds = remainingTime % 60;  // 초 계산
         document.getElementById("timeDisplay").innerText = minutes + "분 " + seconds + "초";  // 실시간으로 업데이트
     }
+	
+	updateTimeDisplay();
 
     // 타이머 실행 (1초마다 1초씩 감소)
     var timer = setInterval(function() {
@@ -110,7 +111,5 @@ if (remainingTime >= 0) {
             // 세션 만료 처리 (예: 자동 로그아웃)
         }
     }, 1000);  // 1초마다 실행
-} else {
-    console.log("세션 값이 없으므로 타이머를 시작하지 않습니다.");
-}
+} 
 </script>
