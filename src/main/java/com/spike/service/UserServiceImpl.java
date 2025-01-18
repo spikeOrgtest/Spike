@@ -12,11 +12,11 @@ public class UserServiceImpl implements UserSerivce {
 	@Autowired
 	private UserDAO spikeDao;
 
-    @Override
-    public void insertMember(UserDTO s) {
-    	
-        this.spikeDao.insetMember(s);
-    }
+	@Override
+	public void insertMember(UserDTO s) {
+
+		this.spikeDao.insetMember(s);
+	}
 
 	@Override
 	public UserDTO idCheck(String id) {
@@ -48,7 +48,9 @@ public class UserServiceImpl implements UserSerivce {
 		return this.spikeDao.findMember(s);
 	}
 
-
-	
+	@Override
+	public void profileEdit(UserDTO s) {
+		this.spikeDao.profileEdit(s);
+	}
 
 }

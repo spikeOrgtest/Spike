@@ -18,5 +18,6 @@ public interface UserSerivce {
 
 	UserDTO findMember(UserDTO s);
 
+	void profileEdit(UserDTO s);
 
 }

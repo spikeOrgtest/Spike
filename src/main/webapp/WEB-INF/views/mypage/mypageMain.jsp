@@ -1,4 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -253,38 +255,62 @@
 						</div>
 
 						<!-- 프로필 수정 모달 -->
-						<div class="modal fade" id="editProfileModal" tabindex="-1"
-							aria-labelledby="editProfileModalLabel" aria-hidden="true">
-							<div class="modal-dialog">
-								<div class="modal-content">
-									<div class="modal-header">
-										<h5 class="modal-title" id="editProfileModalLabel">프로필 수정</h5>
-										<button type="button" class="btn-close"
-											data-bs-dismiss="modal" aria-label="Close"></button>
-									</div>
-									<div class="modal-body">
-										<form id="editProfileForm">
-											<div class="mb-3">
-												<label for="userName" class="form-label">사용자 이름</label> <input
-													type="text" class="form-control" id="userName"
-													value="사용자 이름">
-											</div>
-											<div class="mb-3">
-												<label for="userEmail" class="form-label">이메일</label> <input
-													type="email" class="form-control" id="userEmail"
-													value="user@example.com">
-											</div>
-											<div class="mb-3">
-												<label for="userPassword" class="form-label">비밀번호</label> <input
-													type="password" class="form-control" id="userPassword"
-													value="********">
-											</div>
-											<button type="submit" class="btn btn-primary">저장</button>
-										</form>
-									</div>
-								</div>
-							</div>
+						<div class="modal fade" id="editProfileModal" tabindex="-1" aria-labelledby="editProfileModalLabel" aria-hidden="true">
+						    <div class="modal-dialog">
+						        <div class="modal-content">
+						            <!-- 모달 헤더 -->
+						            <div class="modal-header">
+						                <h5 class="modal-title" id="editProfileModalLabel">프로필 수정</h5>
+						                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+						            </div>
+						            <!-- 모달 본문 -->
+						            <div class="modal-body">
+						                <form name="s" action="profileEdit" method="post" id="editProfileForm">
+											<input type="hidden" name="${_csrf.parameterName}"
+																value="${_csrf.token}" />
+						                    <!-- 사용자 이름 -->
+						                    <div class="form-group mb-3">
+						                        <label for="userName" class="form-label">사용자 이름</label>
+						                        <input type="text" class="form-control" id="name" name="name" placeholder="사용자 이름">
+						                    </div>
+											
+						                    <!-- 이메일 -->
+						                    <div class="form-group mb-3">
+						                        <label for="userEmail" class="form-label">이메일</label>
+						                        <div class="input-group">
+						                            <input type="text" class="form-control" id="email_id" name="email_id" placeholder="이메일">
+						                            <span class="email-at-symbol">@</span>
+						                            <input type="text" class="form-control" id="email_domain" name="email_domain" value="gmail.com" readonly />
+						                            <select name="mail_list" onchange="domain_list();" style="margin-left: 10px;">
+						                                <c:forEach var="mail" items="${email}">
+						                                    <option value="${mail}">${mail}</option>
+						                                </c:forEach>
+						                            </select>
+						                        </div>
+						                    </div>
+											
+						                    <!-- 비밀번호 -->
+						                    <div class="form-group mb-3">
+						                        <label for="userPassword" class="form-label">비밀번호</label>
+						                        <input type="password" class="form-control" id="password" name="password" placeholder="비밀번호를 입력하세요" required>
+						                    </div>
+											
+						                    <!-- 비밀번호 확인 -->
+						                    <div class="form-group mb-3">
+						                        <label for="userPassword" class="form-label">비밀번호 확인</label>
+						                        <input type="password" class="form-control" id="password2" name="password2" placeholder="비밀번호를 다시 입력하세요" required>
+						                    </div>
+											
+						                    <!-- 저장 버튼 -->
+						                    <div class="form-group mb-3">
+						                        <button type="submit" class="btn btn-primary w-100">저장</button>
+						                    </div>
+						                </form>
+						            </div>
+						        </div>
+						    </div>
 						</div>
+
 
 					</main>
 				</div>
