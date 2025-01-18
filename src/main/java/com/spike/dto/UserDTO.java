@@ -92,6 +92,9 @@ public class UserDTO {
 	@Column(length = 100)
 	private String detailAddress;
 
+	@Column(length = 100)
+	private String References;
+
 	private String profile_image_uri;
 
 	@Transient // DB에 저장되지 않도록 처리해주는 에노테이션

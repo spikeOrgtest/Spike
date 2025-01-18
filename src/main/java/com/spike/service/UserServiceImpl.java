@@ -53,4 +53,9 @@ public class UserServiceImpl implements UserSerivce {
 		this.spikeDao.profileEdit(s);
 	}
 
+	@Override
+	public void mypageEdit(UserDTO s) {
+		this.spikeDao.mypageEdit(s);
+	}
+
 }

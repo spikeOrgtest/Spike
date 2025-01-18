@@ -20,4 +20,6 @@ public interface UserSerivce {
 
 	void profileEdit(UserDTO s);
 
+	void mypageEdit(UserDTO s);
+
 }

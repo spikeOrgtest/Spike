@@ -10,9 +10,9 @@
 <meta name="author" content="" />
 <title>자산조회</title>
 <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
-<link href="assets/css/mypage/mypageproperty.css" rel="stylesheet" />
-<link href="assets/css/mypage/sidebars.css" rel="stylesheet" />
-<link href="assets/css/include.css" rel="stylesheet" />
+<link href="../../css/mypage/mypageproperty.css" rel="stylesheet" />
+<link href="../../css/mypage/sidebars.css" rel="stylesheet" />
+<link href="../../css/include/include.css" rel="stylesheet" />
 </head>
 
 <body>
@@ -53,7 +53,7 @@
 				<div class="container row g-0">
 					<header class="text-center py-5">
 						<div class="img-container">
-							<img src="assets/img/mypage/property.jpg" class="opaque-image"
+							<img src="../../images/mypage/property.jpg" class="opaque-image"
 								alt="불투명도 이미지">
 							<div class="text-overlay"></div>
 						</div>

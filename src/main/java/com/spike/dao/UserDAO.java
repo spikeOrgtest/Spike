@@ -20,4 +20,6 @@ public interface UserDAO {
 
 	void profileEdit(UserDTO s);
 
+	void mypageEdit(UserDTO s);
+
 }

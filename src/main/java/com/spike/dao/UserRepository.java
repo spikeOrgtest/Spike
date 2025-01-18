@@ -37,4 +37,11 @@ public interface UserRepository extends JpaRepository<UserDTO, Integer> {
 	@Query("update UserDTO s set s.name = ?1, s.email_id = ?2, s.email_domain = ?3, s.password = ?4 where s.login_id = ?5")
 	public int profileEdit(String name, String email_id, String email_domain, String password, String login_id);
 
+	@Modifying
+	@Transactional
+	@Query("update UserDTO s set s.name = ?1, s.email_id = ?2, s.email_domain = ?3, s.phone = ?4, s.phone01 = ?5, s.phone02 = ?6, s.phone03 = ?7, s.postcode = ?8, s.roadAddress = ?9, s.jibunAddress = ?10, s.detailAddress = ?11, s.References = ?12, s.password = ?13 where s.login_id = ?14")
+	public void mypageEdit(String name, String email_id, String email_domain, String phone, String phone01,
+			String phone02, String phone03, String postcode, String roadAddress, String jibunAddress,
+			String detailAddress, String references, String password, String login_id);
+
 }

@@ -77,9 +77,16 @@ public class UserDAOImpl implements UserDAO {
 
 	@Override
 	public void profileEdit(UserDTO s) {
-		System.out.println(s);
 		this.spikeRepo.profileEdit(s.getName(), s.getEmail_id(), s.getEmail_domain(), s.getPassword(), s.getLogin_id());
 
+	}
+
+	@Override
+	public void mypageEdit(UserDTO s) {
+		System.out.println(s);
+		this.spikeRepo.mypageEdit(s.getName(), s.getEmail_id(), s.getEmail_domain(), s.getPhone(), s.getPhone01(),
+				s.getPhone02(), s.getPhone03(), s.getPostcode(), s.getRoadAddress(), s.getJibunAddress(),
+				s.getDetailAddress(), s.getReferences(), s.getPassword(), s.getLogin_id());
 	}
 
 }

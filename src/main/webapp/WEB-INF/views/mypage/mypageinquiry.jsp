@@ -10,9 +10,9 @@
 <meta name="author" content="" />
 <title>계좌조회</title>
 <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
-<link href="assets/css/mypage/mypageinquiry.css" rel="stylesheet" />
-<link href="assets/css/mypage/sidebars.css" rel="stylesheet" />
-<link href="assets/css/include.css" rel="stylesheet" />
+<link href="../../css/mypage/mypageinquiry.css" rel="stylesheet" />
+<link href="../../css/mypage/sidebars.css" rel="stylesheet" />
+<link href="../../css/include/include.css" rel="stylesheet" />
 </head>
 
 <body>
@@ -52,7 +52,7 @@
 				<div class="container row g-0">
 					<header class="text-center py-5">
 						<div class="img-container">
-							<img src="assets/img/mypage/inquiry.jpg" class="opaque-image"
+							<img src="../../images/mypage/inquiry.jpg" class="opaque-image"
 								alt="불투명도 이미지">
 							<div class="text-overlay"></div>
 						</div>
@@ -236,8 +236,8 @@
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-	<script src="assets/js/mypage/mypageinquiry.js"></script>
-	<script src="assets/js/mypage/sidebars.js"></script>
+	<script src="../../js/mypage/mypageinquiry.js"></script>
+	<script src="../../js/mypage/sidebars.js"></script>
 </body>
 
 </html>
