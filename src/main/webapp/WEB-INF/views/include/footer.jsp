@@ -33,15 +33,15 @@
 			<div class="social-links">
 				<a href="https://www.instagram.com" target="_blank"
 					class="social-button"> <img
-					src="assets/img/product/instagram.jfif" width="33" height="33"
+					src="/images/product/instagram.jfif" width="33" height="33"
 					alt="instagram" />
 				</a> <a href="https://www.facebook.com" target="_blank"
 					class="social-button"> <img
-					src="assets/img/product/facebook.jfif" width="33" height="33"
+					src="/images/product/facebook.jfif" width="33" height="33"
 					alt="facebook" />
 				</a> <a href="https://www.twitter.com" target="_blank"
 					class="social-button"> <img
-					src="assets/img/product/twitter.jfif" width="33" height="34"
+					src="/images/product/twitter.jfif" width="33" height="34"
 					alt="Twitter" />
 				</a>
 			</div> 

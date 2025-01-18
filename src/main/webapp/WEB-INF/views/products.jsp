@@ -5,8 +5,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SPIKE</title>
-<link rel="stylesheet" href="assets/css/product.css">
-<link rel="stylesheet" href="assets/css/include.css"> 
+<link rel="stylesheet" href="/css/product/product.css">
+<link rel="stylesheet" href="/css/include/include.css"> 
 
 </head>
 <body>
@@ -15,13 +15,13 @@
 
 	<nav class="top-menu">
 		<div class="container">
-			<a href="products.jsp" class="logo">SPIKE</a>
+			<a href="products" class="logo">SPIKE</a>
 			<ul>
-				<li><a href="./products/deposit.jsp">예금</a></li>
-				<li><a href="./products/savings.jsp">적금</a></li>
-				<li><a href="./products/loan.jsp">대출</a></li>
-				<li><a href="./products/card.jsp">카드</a></li>
-				<li><a href="./products/newmember.html">계좌 개설</a></li>
+				<li><a href="/deposit">예금</a></li>
+				<li><a href="/savings">적금</a></li>
+				<li><a href="/loan">대출</a></li>
+				<li><a href="/card">카드</a></li>
+				<li><a href="/newmember">계좌 개설</a></li>
 			</ul>
 		</div>
 	</nav>
@@ -112,6 +112,6 @@
 		
 		<jsp:include page="include/footer.jsp"/>
 
-	<script src="assets/js/product.js"></script>
+	<script src="/js/product/product.js"></script>
 </body>
 </html>
