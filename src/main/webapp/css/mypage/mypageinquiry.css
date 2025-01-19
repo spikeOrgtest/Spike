@@ -11044,3 +11044,14 @@ body {
         margin-bottom: 20px;
     }
 }
+
+h5 {
+    display: block;
+    font-size: 0.83em !important; 
+    margin-block-start: 1.67em !important;
+    margin-block-end: 1.67em !important;
+    margin-inline-start: 0px !important;
+    margin-inline-end: 0px !important;
+    font-weight: bold !important;
+    unicode-bidi: isolate !important;
+}
