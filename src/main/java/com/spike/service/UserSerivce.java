@@ -27,6 +27,7 @@ public interface UserSerivce {
 
 	UserDTO findFromSession(String loginId);
 
+
 	void usersecession(String loginId);
 
 	List<AccountDTO> findbyinquriy(Long userId);
@@ -46,5 +47,7 @@ public interface UserSerivce {
 	void UserDelete(Long user_id);
 
 	void AccountDelete(Long user_id);
+
+	void updateUserPoints(Long user_id, Integer earned_points); 
 
 }

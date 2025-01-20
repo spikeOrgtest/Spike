@@ -115,5 +115,10 @@ public class UserServiceImpl implements UserSerivce {
 	public void AccountDelete(Long user_id) {
 		this.spikeDao.AccountDelete(user_id);
 	}
+	
+	public void updateUserPoints(Long user_id, Integer earned_points) {
+		// TODO Auto-generated method stub
+	
+	}
 
 }

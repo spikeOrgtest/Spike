@@ -177,8 +177,31 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 });
 
+// 포인트 확인
+function checkUserPoints() {
+    fetch('/get-user-points', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    })
+    .then(response => response.json())
+    .then(data => {
+        document.getElementById('user-points').innerText = `현재 포인트: ${data.points}`;
+    })
+    .catch(error => {
+        console.error('포인트 확인 실패:', error);
+    });
+}
+
+window.onload = function() {
+    checkUserPoints();
+};
 
 </script>
+
+<p id="user-points">현재 포인트: 0</p>
+
 
 	<%@ include file="../include/shortfooter.jsp"%>
 </body>

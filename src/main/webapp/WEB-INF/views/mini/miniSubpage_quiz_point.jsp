@@ -42,7 +42,7 @@
 				<div class="my-point-container">
 					<!-- 포인트 확인 -->
 					<div class="point-box">
-						<h3>내 포인트</h3>
+						<h3>My Point</h3>
 						<div class="icon">
 							<i class="fas fa-coins"></i>
 						</div>
@@ -51,7 +51,7 @@
 
 					<!-- 맞춘 퀴즈 갯수 확인 -->
 					<div class="quiz-box">
-						<h3>맞춘 퀴즈 갯수</h3>
+						<h3>My Quiz</h3>
 						<div class="icon">
 							<i class="fas fa-check-circle"></i>
 						</div>

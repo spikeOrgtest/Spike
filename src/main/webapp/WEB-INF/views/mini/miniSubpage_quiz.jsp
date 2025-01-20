@@ -3,6 +3,7 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
+<meta name="_csrf" content="${_csrf.token}">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>OX 퀴즈</title>
 <link rel="stylesheet" href="../css/support/subpage.css">
@@ -16,16 +17,10 @@
 
 	<div class="subpageWrapper">
 		<%-- 서브페이지 래퍼 --%>
-
-		<%-- 서브네비바 --%>
 	</div>
-	<%-- /wrap --%>
 
 	<div class="subpageWrapper">
-		<%-- 메인 컨테이너(사이드바, 컨텐츠 포함하는 큰 틀) --%>
 		<div class="subpage-main-container">
-
-			<%-- 사이드바 --%>
 			<div class="subpage-sidebar">
 				<h3 class="subpage-sidebar-title">Spike Mini Quiz</h3>
 				<ul>
@@ -36,26 +31,18 @@
 			</div>
 
 			<div class="subpage-content-wrap">
-
-				<div class="subpageWrapper">
-					<img alt="gif" src="../images/mini/quiz.gif" width="450"
-						height="300">
-				</div>
-
 				<div class="quiz-wrapper">
 					<div class="quiz-container">
-
 						<h1 class="quiz-title">OX 퀴즈</h1>
 
-						<!-- 퀴즈 소개 페이지 -->
+						<!-- 퀴즈 문제들 -->
 						<div class="quiz-question active" id="quiz1">
 							<h2>
-								나오는 질문에 O, X를 선택해주세요. <br /> 질문에 대한 답을 바로바로 확인하며, <br /> 쉽고 빠르게
-								자신의 '금융지식'을 <br /> 테스트 해볼 수 있습니다.
+								나오는 질문에 O, X를 선택해주세요. <br /> 질문에 대한 답을 바로바로 확인하며, <br /> 쉽고
+								빠르게 자신의 '금융지식'을 <br /> 테스트 해볼 수 있습니다.
 							</h2>
 
-							<button class="quiz-next-question" onclick="nextQuestion(2)">문제
-								풀기</button>
+							<button class="quiz-next-question" onclick="nextQuestion(2)">문제 풀기</button>
 							<div class="quiz-result" id="quiz-result-1"></div>
 						</div>
 
@@ -63,11 +50,11 @@
 						<div class="quiz-question" id="quiz2">
 							<h2>Q1. 신용카드는 대출이 가능하다.</h2>
 							<div class="quiz-options">
-								<button class="quiz-option" onclick="showResult(true)">
+								<button class="quiz-option" onclick="showResult(true, 2)">
 									<div class="quiz-letter">O</div>
 									<div class="quiz-text">그래요</div>
 								</button>
-								<button class="quiz-option" onclick="showResult(false)">
+								<button class="quiz-option" onclick="showResult(false, 2)">
 									<div class="quiz-letter">X</div>
 									<div class="quiz-text">그렇지 않아요</div>
 								</button>
@@ -80,11 +67,11 @@
 						<div class="quiz-question" id="quiz3">
 							<h2>Q2. 예금은 원금을 보장한다.</h2>
 							<div class="quiz-options">
-								<button class="quiz-option" onclick="showResult(true)">
+								<button class="quiz-option" onclick="showResult(true, 3)">
 									<div class="quiz-letter">O</div>
 									<div class="quiz-text">그래요</div>
 								</button>
-								<button class="quiz-option" onclick="showResult(false)">
+								<button class="quiz-option" onclick="showResult(false, 3)">
 									<div class="quiz-letter">X</div>
 									<div class="quiz-text">그렇지 않아요</div>
 								</button>
@@ -97,11 +84,11 @@
 						<div class="quiz-question" id="quiz4">
 							<h2>Q3. 대출 금리는 경제 상황에 따라 변할 수 있다.</h2>
 							<div class="quiz-options">
-								<button class="quiz-option" onclick="showResult(true)">
+								<button class="quiz-option" onclick="showResult(true, 4)">
 									<div class="quiz-letter">O</div>
 									<div class="quiz-text">그래요</div>
 								</button>
-								<button class="quiz-option" onclick="showResult(false)">
+								<button class="quiz-option" onclick="showResult(false, 4)">
 									<div class="quiz-letter">X</div>
 									<div class="quiz-text">그렇지 않아요</div>
 								</button>
@@ -114,11 +101,11 @@
 						<div class="quiz-question" id="quiz5">
 							<h2>Q4. 적금은 정해진 기간 동안 돈을 맡기는 방식이다.</h2>
 							<div class="quiz-options">
-								<button class="quiz-option" onclick="showResult(true)">
+								<button class="quiz-option" onclick="showResult(true, 5)">
 									<div class="quiz-letter">O</div>
 									<div class="quiz-text">그래요</div>
 								</button>
-								<button class="quiz-option" onclick="showResult(false)">
+								<button class="quiz-option" onclick="showResult(false, 5)">
 									<div class="quiz-letter">X</div>
 									<div class="quiz-text">그렇지 않아요</div>
 								</button>
@@ -131,11 +118,11 @@
 						<div class="quiz-question" id="quiz6">
 							<h2>Q5. 보험금은 사고가 발생해야 받는다.</h2>
 							<div class="quiz-options">
-								<button class="quiz-option" onclick="showResult(true)">
+								<button class="quiz-option" onclick="showResult(true, 6)">
 									<div class="quiz-letter">O</div>
 									<div class="quiz-text">그래요</div>
 								</button>
-								<button class="quiz-option" onclick="showResult(false)">
+								<button class="quiz-option" onclick="showResult(false, 6)">
 									<div class="quiz-letter">X</div>
 									<div class="quiz-text">그렇지 않아요</div>
 								</button>
@@ -148,11 +135,11 @@
 						<div class="quiz-question" id="quiz7">
 							<h2>Q6. 신용 점수는 대출을 받을 때 중요한 요소다.</h2>
 							<div class="quiz-options">
-								<button class="quiz-option" onclick="showResult(true)">
+								<button class="quiz-option" onclick="showResult(true, 7)">
 									<div class="quiz-letter">O</div>
 									<div class="quiz-text">그래요</div>
 								</button>
-								<button class="quiz-option" onclick="showResult(false)">
+								<button class="quiz-option" onclick="showResult(false, 7)">
 									<div class="quiz-letter">X</div>
 									<div class="quiz-text">그렇지 않아요</div>
 								</button>
@@ -165,11 +152,11 @@
 						<div class="quiz-question" id="quiz8">
 							<h2>Q7. 카드 대출은 높은 금리가 적용될 수 있다.</h2>
 							<div class="quiz-options">
-								<button class="quiz-option" onclick="showResult(true)">
+								<button class="quiz-option" onclick="showResult(true, 8)">
 									<div class="quiz-letter">O</div>
 									<div class="quiz-text">그래요</div>
 								</button>
-								<button class="quiz-option" onclick="showResult(false)">
+								<button class="quiz-option" onclick="showResult(false, 8)">
 									<div class="quiz-letter">X</div>
 									<div class="quiz-text">그렇지 않아요</div>
 								</button>
@@ -182,11 +169,11 @@
 						<div class="quiz-question" id="quiz9">
 							<h2>Q8. 상속세는 상속을 받을 때 부과된다.</h2>
 							<div class="quiz-options">
-								<button class="quiz-option" onclick="showResult(true)">
+								<button class="quiz-option" onclick="showResult(true, 9)">
 									<div class="quiz-letter">O</div>
 									<div class="quiz-text">그래요</div>
 								</button>
-								<button class="quiz-option" onclick="showResult(false)">
+								<button class="quiz-option" onclick="showResult(false, 9)">
 									<div class="quiz-letter">X</div>
 									<div class="quiz-text">그렇지 않아요</div>
 								</button>
@@ -199,11 +186,11 @@
 						<div class="quiz-question" id="quiz10">
 							<h2>Q9. 예금 보험공사는 예금자의 돈을 보호한다.</h2>
 							<div class="quiz-options">
-								<button class="quiz-option" onclick="showResult(true)">
+								<button class="quiz-option" onclick="showResult(true, 10)">
 									<div class="quiz-letter">O</div>
 									<div class="quiz-text">그래요</div>
 								</button>
-								<button class="quiz-option" onclick="showResult(false)">
+								<button class="quiz-option" onclick="showResult(false, 10)">
 									<div class="quiz-letter">X</div>
 									<div class="quiz-text">그렇지 않아요</div>
 								</button>
@@ -212,88 +199,74 @@
 							<div class="quiz-result" id="quiz-result-10"></div>
 						</div>
 
-						<!-- 10 번째 문제 -->
-						<div class="quiz-question" id="quiz11">
-							<h2>Q10. 은행 대출은 신용 평가를 바탕으로 승인된다.</h2>
-							<div class="quiz-options">
-								<button class="quiz-option" onclick="showResult(true)">
-									<div class="quiz-letter">O</div>
-									<div class="quiz-text">그래요</div>
-								</button>
-								<button class="quiz-option" onclick="showResult(false)">
-									<div class="quiz-letter">X</div>
-									<div class="quiz-text">그렇지 않아요</div>
-								</button>
-							</div>
-							<button class="quiz-next-question" onclick="nextQuestion(1)">다시
-								시작</button>
-							<div class="quiz-result" id="quiz-result-11"></div>
-						</div>
-
-						<!-- 점수 표시 영역 -->
-						<div id="quiz-score"></div>
-
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+
 	<%@ include file="../include/shortfooter.jsp"%>
-	<script>
-		window.onload = function () {
-		    // 서버에 점수 요청하기
-		    fetch('/spike.com/quizlist') // 컨트롤러 서버에 요청 보내기 
-		        .then(response => response.json()) // 서버에서 온 응답을 텍스트로 변환
-		        .then(data => {
-		            console.log(data)
-		        })
-		        .catch(error => {
-		            // 에러가 생기면 알림
-		        	console.error('요청중 에러발생');
-		        });
-		};
-	
-		// 현재 문제 번호를 추적하는 전역 변수
-		let currentQuestion = 1;
 
-		// 점수를 추적하는 변수
-		let score = 0;
+<script>
+    let currentQuestion = 1;
+    let score = 0;
+    const userId = 12345; // 로그인한 사용자의 user_id로 변경 필요
 
-		// 정답 확인 함수
-		function showResult(isCorrect) {
-			let resultElement = document.getElementById('quiz-result-'
-					+ currentQuestion);
+    // 문제를 넘기는 함수
+    function nextQuestion(questionNumber) {
+        const currentQuiz = document.getElementById('quiz' + currentQuestion);
+        if (currentQuiz) {
+            currentQuiz.classList.remove('active');
+        }
 
-			// 정답이면 점수 +1
-			if (isCorrect) {
-				score += 1; // 점수 증가
-				resultElement.innerHTML = '<p class="quiz-result-correct">정답입니다!</p>';
-			} else {
-				resultElement.innerHTML = '<p class="quiz-result-wrong">오답입니다!</p>';
-			}
+        const nextQuiz = document.getElementById('quiz' + questionNumber);
+        if (nextQuiz) {
+            nextQuiz.classList.add('active');
+        }
 
-			// 점수 표시 (결과 영역에 점수도 함께 표시)
-			let scoreElement = document.getElementById('quiz-score');
-			if (scoreElement) {
-				scoreElement.innerHTML = '<p>현재 점수: ' + score + '</p>';
-			}
-			
-		}
+        currentQuestion = questionNumber;
+    }
 
-		// 다음 문제로 넘어가는 함수
-		function nextQuestion(questionNumber) {
-			// 현재 문제 숨기기
-			document.getElementById('quiz' + currentQuestion).classList
-					.remove('active');
+    // 정답을 선택하고 결과를 표시하는 함수
+    function showResult(isCorrect, questionNumber) {
+        let resultElement = document.getElementById('quiz-result-' + questionNumber);
 
-			// 새로운 문제 번호로 현재 문제 업데이트
-			currentQuestion = questionNumber;
+        if (isCorrect) {
+            score += 100; // 1문제 맞추면 100포인트
+            resultElement.innerHTML = '<p class="quiz-result-correct">정답입니다!</p>';
+        } else {
+            resultElement.innerHTML = '<p class="quiz-result-wrong">오답입니다!</p>';
+        }
 
-			// 새로운 문제 표시하기
-			document.getElementById('quiz' + currentQuestion).classList
-					.add('active');
-		}
-	</script>
+        // 백엔드에 점수 전송 (포인트)
+        sendPointsToBackend(isCorrect);
+    }
+
+    // 점수를 백엔드에 전송하는 함수
+    function sendPointsToBackend(isCorrect) {
+        fetch('/update-score', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                user_id: userId, // 로그인한 사용자의 ID
+                quiz_id: currentQuestion, // 현재 퀴즈 ID
+                answered_correctly: isCorrect ? 'Y' : 'N', // 정답 여부
+                earned_points: isCorrect ? 100 : 0, // 100 포인트 또는 0
+            }),
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log('포인트 업데이트 성공:', data);
+        })
+        .catch(error => {
+            console.error('포인트 업데이트 실패:', error);
+        });
+    }
+</script>
+
+
 
 </body>
 </html>

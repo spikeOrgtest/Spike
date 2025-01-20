@@ -2,15 +2,20 @@ package com.spike.dto;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.CreationTimestamp;
@@ -37,77 +42,100 @@ public class UserDTO {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_no_seq_name")
 	private Long user_id;
 
-	@NotNull
-	@Column(length = 100)
-	private String loginId;
+    @NotNull
+    @Column(length = 100)
+    private String loginId;
 
-	@NotNull
-	@Column(length = 255)
-	private String password;
+    @NotNull
+    @Column(length = 255)
+    private String password;
 
-	@NotNull
-	@Column(length = 100)
-	private String name;
+    @NotNull
+    @Column(length = 100)
+    private String name;
 
-	@NotNull
-	@Column(length = 255)
-	private String email_id;
+    @NotNull
+    @Column(length = 255)
+    private String email_id;
 
-	@NotNull
-	@Column(length = 255)
-	private String email_domain;
+    @NotNull
+    @Column(length = 255)
+    private String email_domain;
 
-	@NotNull
-	@Column(length = 15)
-	private String phone;
+    @NotNull
+    @Column(length = 15)
+    private String phone;
 
-	@NotNull
-	@Column(length = 15)
-	private String phone01;
+    @NotNull
+    @Column(length = 15)
+    private String phone01;
 
-	@NotNull
-	@Column(length = 15)
-	private String phone02;
+    @NotNull
+    @Column(length = 15)
+    private String phone02;
 
-	@NotNull
-	@Column(length = 15)
-	private String phone03;
+    @NotNull
+    @Column(length = 15)
+    private String phone03;
 
-	@NotNull
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	private LocalDate birth_date;
+    @NotNull
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate birth_date;
 
-	@NotNull
-	@Column(length = 255)
-	private String postcode;
+    @NotNull
+    @Column(length = 255)
+    private String postcode;
 
-	@NotNull
-	@Column(length = 255)
-	private String roadAddress;
+    @NotNull
+    @Column(length = 255)
+    private String roadAddress;
 
-	@Column(length = 255)
-	private String jibunAddress;
+    @Column(length = 255)
+    private String jibunAddress;
 
-	@NotNull
-	@Column(length = 100)
-	private String detailAddress;
+    @NotNull
+    @Column(length = 100)
+    private String detailAddress;
 
-	@Column(length = 100)
-	private String References;
+    @Column(length = 100)
+    private String References;
 
-	private String profile_image_uri;
+    private String profile_image_uri;
 
-	@Transient // DB에 저장되지 않도록 처리해주는 에노테이션
-	private MultipartFile profileImage;
+    @Transient // DB에 저장되지 않도록 처리해주는 에노테이션
+    private MultipartFile profileImage;
 
-	private String is_minor;
+    private String is_minor;
 
-	private String status;
+    private String status;
 
-	private LocalDateTime last_login; // 마지막 로그인
+    private LocalDateTime last_login; // 마지막 로그인
 
-	@CreationTimestamp
-	@Column(name = "registration_date", columnDefinition = "TIMESTAMP DEFAULT SYSDATE")
-	private LocalDate registration_date;
+    @CreationTimestamp
+    @Column(name = "registration_date", columnDefinition = "TIMESTAMP DEFAULT SYSDATE")
+    private LocalDate registration_date;
 
+    // QuizResult와의 연관 관계 (1:N 관계)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<QuizResultDTO> quizResults; // 유저가 푼 퀴즈 결과들
+
+    // **추가된 부분: 포인트 관련 필드 및 메서드**
+    
+    // 포인트 필드 (기존 필드에 추가)
+    private int points = 0;  // 기본값 0으로 설정
+
+    // 포인트 조회 메서드
+    public int getPoints() {
+        return points;
+    }
+
+    // 포인트 업데이트 메서드
+    public void setPoints(int points) {
+        this.points = points;
+    }
+
+    // 포인트 추가 메서드 (퀴즈에서 포인트가 적립될 때 사용)
+    public void addPoints(int additionalPoints) {
+        this.points += additionalPoints;
+    }
 }

@@ -1,9 +1,11 @@
 package com.spike.repository;
 
 import java.util.List;
+
 import java.util.Optional;
 
 import javax.transaction.Transactional;
+
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -12,7 +14,9 @@ import org.springframework.data.jpa.repository.Query;
 import com.spike.dto.AccountDTO;
 import com.spike.dto.UserDTO;
 
+
 public interface UserRepository extends JpaRepository<UserDTO, Long> {
+
 
 	@Query("select s from UserDTO s where s.loginId=?1")
 	public Optional<UserDTO> findid(String id);
