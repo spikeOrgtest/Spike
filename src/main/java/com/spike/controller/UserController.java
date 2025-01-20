@@ -220,7 +220,7 @@ public class UserController {
 			out.println("history.go();");
 			out.println("</script>");
 		} else {
-			String find_id = is.getLogin_id();
+			String find_id = is.getLoginId();
 			String find_name = is.getName();
 
 			ModelAndView fi = new ModelAndView("findId_ok");
@@ -245,7 +245,7 @@ public class UserController {
 		response.setContentType("text/html;charset=UTF-8");
 		PrintWriter out = response.getWriter();
 
-		s.setLogin_id(id);
+		s.setLoginId(id);
 		s.setName(name);
 		UserDTO ps = this.spikeService.findPwd(s);
 
@@ -257,7 +257,7 @@ public class UserController {
 		} else {
 			// 찾은 아이디와 이름을 수정 페이지로 전달
 			ModelAndView fp = new ModelAndView("findPwd_change");
-			fp.addObject("find_id", ps.getLogin_id());
+			fp.addObject("find_id", ps.getLoginId());
 			fp.addObject("find_name", ps.getName());
 
 			return fp;
@@ -285,7 +285,7 @@ public class UserController {
 
 		// 현재 사용자 정보 조회 (로그인 ID와 이름을 통해 조회)
 		UserDTO s = new UserDTO();
-		s.setLogin_id(login_id);
+		s.setLoginId(login_id);
 		s.setName(name);
 
 		// 현재 사용자의 기존 비밀번호를 DB에서 조회

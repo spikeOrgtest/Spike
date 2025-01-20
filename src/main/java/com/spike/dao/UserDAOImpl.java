@@ -52,24 +52,24 @@ public class UserDAOImpl implements UserDAO {
 
 	@Override
 	public UserDTO findPwd(UserDTO s) {
-		UserDTO ps = this.spikeRepo.findUserpwd(s.getLogin_id(), s.getName());
+		UserDTO ps = this.spikeRepo.findUserpwd(s.getLoginId(), s.getName());
 		return ps;
 	}
 
 	@Override
 	public UserDTO findMember(UserDTO s) {
-		UserDTO fm = this.spikeRepo.findMember(s.getLogin_id(), s.getName());
+		UserDTO fm = this.spikeRepo.findMember(s.getLoginId(), s.getName());
 		return null;
 	}
 
 	@Override
 	public UserDTO changePwd(UserDTO s) {
 		// 로그인 아이디와 이름으로 사용자를 조회하고 비밀번호를 업데이트
-		int updateCount = this.spikeRepo.changePwd(s.getPassword(), s.getLogin_id(), s.getName());
+		int updateCount = this.spikeRepo.changePwd(s.getPassword(), s.getLoginId(), s.getName());
 
 		// 업데이트된 행이 있으면 수정된 사용자를 반환
 		if (updateCount > 0) {
-			return this.spikeRepo.findMember(s.getLogin_id(), s.getName());
+			return this.spikeRepo.findMember(s.getLoginId(), s.getName());
 		} else {
 			return null; // 실패 시 null 반환
 		}
@@ -77,7 +77,7 @@ public class UserDAOImpl implements UserDAO {
 
 	@Override
 	public void profileEdit(UserDTO s) {
-		this.spikeRepo.profileEdit(s.getName(), s.getEmail_id(), s.getEmail_domain(), s.getPassword(), s.getLogin_id());
+		this.spikeRepo.profileEdit(s.getName(), s.getEmail_id(), s.getEmail_domain(), s.getPassword(), s.getLoginId());
 
 	}
 
@@ -86,7 +86,7 @@ public class UserDAOImpl implements UserDAO {
 		System.out.println(s);
 		this.spikeRepo.mypageEdit(s.getName(), s.getEmail_id(), s.getEmail_domain(), s.getPhone(), s.getPhone01(),
 				s.getPhone02(), s.getPhone03(), s.getPostcode(), s.getRoadAddress(), s.getJibunAddress(),
-				s.getDetailAddress(), s.getReferences(), s.getPassword(), s.getLogin_id());
+				s.getDetailAddress(), s.getReferences(), s.getPassword(), s.getLoginId());
 	}
 
 }

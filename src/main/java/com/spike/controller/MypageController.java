@@ -61,8 +61,8 @@ public class MypageController {
 		// 세션에 저장된 객체 저장
 		UserDTO sessionUser = (UserDTO) session.getAttribute("User");
 
-		String loginId = sessionUser.getLogin_id();
-		s.setLogin_id(loginId);
+		String loginId = sessionUser.getLoginId();
+		s.setLoginId(loginId);
 
 		// 이메일 도메인 처리
 		String email = s.getEmail_id() + "@" + s.getEmail_domain(); // 이메일 ID와 도메인을 합침
@@ -104,8 +104,8 @@ public class MypageController {
 	public ModelAndView mypageEdit(UserDTO s, HttpSession session, HttpServletResponse response) throws Exception {
 		UserDTO user = (UserDTO) session.getAttribute("User");
 
-		String loginId = user.getLogin_id();
-		s.setLogin_id(loginId);
+		String loginId = user.getLoginId();
+		s.setLoginId(loginId);
 
 		// 이메일 도메인 처리
 		String email = s.getEmail_id() + "@" + s.getEmail_domain(); // 이메일 ID와 도메인을 합침
