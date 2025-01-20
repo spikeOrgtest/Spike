@@ -48,7 +48,7 @@
             </div>
             <nav>
                 <ul>
-                    <li class="dropdown"><a href="mypageMain.jsp">마이페이지</a>
+                    <li class="dropdown"><a href="/spike.com/mypage/main">마이페이지</a>
                         <ul class="header-dropdown-menu">
                             <li><a href="mypageEdit.jsp">회원정보</a></li>
                             <li><a href="mypageinquiry.jsp">계좌조회</a></li>

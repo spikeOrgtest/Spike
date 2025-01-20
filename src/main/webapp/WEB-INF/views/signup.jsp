@@ -25,9 +25,9 @@
 				<input type="hidden" name="${_csrf.parameterName}"
 					value="${_csrf.token}" />
 				<div class="form-group">
-					<label for="login_id">아이디</label>
+					<label for="loginId">아이디</label>
 					<div class="id-container">
-						<input type="text" id="login_id" name="login_id" required
+						<input type="text" id="loginId" name="loginId" required
 							placeholder="아이디를 입력하세요">
 						<button type="button" onclick="id_check()">중복 확인</button>
 					</div>
@@ -280,31 +280,31 @@
 
 		function id_check() {
 			$("#idcheck").hide();
-			$login_id = $.trim($("#login_id").val());
-			if ($login_id.length < 4) {
+			$loginId = $.trim($("#loginId").val());
+			if ($loginId.length < 4) {
 				$newtext = '<font color="red" size="3"><b>아이디는 4자 이상이어야 합니다.</b></font>';
 				$("#idcheck").text('');
 				$("#idcheck").show();
 				$("#idcheck").append($newtext);
-				$("#login_id").val('').focus();
+				$("#loginId").val('').focus();
 				return false;
 			}
 			;
-			if ($login_id.length > 12) {
+			if ($loginId.length > 12) {
 				$newtext = '<font color="red" size="3"><b>아이디는12자 이하이어야 합니다.</b></font>';
 				$("#idcheck").text('');
 				$("#idcheck").show();
 				$("#idcheck").append($newtext);
-				$("#login_id").val('').focus();
+				$("#loginId").val('').focus();
 				return false;
 			}
 			;
-			if (!(validate_userid($login_id))) {
+			if (!(validate_userid($loginId))) {
 				$newtext = '<font color="red" size="3"><b>아이디는 영문소문자,숫자,_조합만 가능합니다.</b></font>';
 				$("#idcheck").text('');
 				$("#idcheck").show();
 				$("#idcheck").append($newtext);
-				$("#login_id").val('').focus();
+				$("#loginId").val('').focus();
 				return false;
 			}
 			;
@@ -313,7 +313,7 @@
 						type : "POST",
 						url : "signup_idcheck",
 						data : {
-							"id" : $login_id
+							"id" : $loginId
 						},
 						datatype : "int",
 						headers : {
@@ -328,7 +328,7 @@
 								$("#idcheck").text('');
 								$("#idcheck").show();
 								$("#idcheck").append($newtext);
-								$("#login_id").val('').focus();
+								$("#loginId").val('').focus();
 								return false;
 
 							} else {
@@ -345,10 +345,10 @@
 					});
 		}
 
-		function validate_userid($login_id) {
+		function validate_userid($loginId) {
 			var pattern = new RegExp(/^[a-z0-9_]+$/);//아이디를 영문소문
 			//자와 숫자 와 _조합으로 처리
-			return pattern.test($login_id);
+			return pattern.test($loginId);
 		};
 
 		function domain_list() {
