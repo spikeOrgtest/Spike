@@ -44,6 +44,7 @@ public interface UserRepository extends JpaRepository<UserDTO, Integer> {
 			String phone02, String phone03, String postcode, String roadAddress, String jibunAddress,
 			String detailAddress, String references, String password, String loginId);
 
+	@Query("select s from UserDTO s where s.loginId=?1")
 	Optional<UserDTO> findByLoginId(String loginId);
 
 }

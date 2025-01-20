@@ -15,7 +15,7 @@
 		<div class="login-wrapper">
 			<div class="login-container">
 				<h2>로그인</h2>
-				<form name="s" action="login_ok" method="post" class="login-form">
+				<form name="s" action="/spike.com/login" method="post" class="login-form">
 					<input type="hidden" name="${_csrf.parameterName}"
 						value="${_csrf.token}" />
 					<div class="input-group">

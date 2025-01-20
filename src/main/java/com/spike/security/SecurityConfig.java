@@ -6,6 +6,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 
 import com.spike.dao.UserDetail;
 
@@ -32,6 +33,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .failureUrl("/login?error")  // 로그인 실패 시 리디렉션할 URL 설정
                 .defaultSuccessUrl("/", true)  // 로그인 성공 후 이동할 URL
                 .permitAll()  // 로그인 페이지 접근은 모두 허용
+                .failureHandler(authenticationFailureHandler())
             .and()
             .logout()
                 .logoutUrl("/logout")  // 로그아웃 URL
@@ -44,9 +46,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
     	
+    	System.out.println("User Load security");
     	auth.userDetailsService(userDetail);
     	
     }
     
-    
+    private AuthenticationFailureHandler authenticationFailureHandler() {
+        return (request, response, exception) -> {
+            System.out.println("로그인 실패: " + exception.getMessage());
+            response.sendRedirect("/login?error");  // 로그인 실패 시 리디렉션
+        };
+    }
 }

@@ -156,7 +156,7 @@ public class UserController {
 	}
 
 	// 로그인
-	@PostMapping("/login_ok")
+	@PostMapping("/login")
 	public ModelAndView login_ok(String login_id, String password, HttpServletResponse response, HttpSession session)
 			throws Exception {
 		response.setContentType("text/html; charset=UTF-8");
