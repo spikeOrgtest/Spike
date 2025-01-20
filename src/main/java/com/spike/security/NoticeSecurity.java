@@ -1,5 +1,6 @@
 package com.spike.security;  
 
+
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -32,5 +33,11 @@ public class NoticeSecurity extends WebSecurityConfigurerAdapter {
                 .logoutUrl("/logout")  // 로그아웃 URL
                 .logoutSuccessUrl("/")  // 로그아웃 후 리디렉션할 URL
                 .permitAll();  // 로그아웃 페이지도 모두 허용
+
+        //.csrf().disable()  // CSRF 보호를 비활성화 (주의: 보안 위험이 있을 수 있음)
+        //.authorizeRequests()
+        //    .antMatchers("/spike.com/noti_edit_ok").permitAll()  // 특정 URL에 대한 접근 허용
+        //    .anyRequest().authenticated();
+
     }
 }

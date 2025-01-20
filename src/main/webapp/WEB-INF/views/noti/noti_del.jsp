@@ -41,30 +41,10 @@
 
 			<!-- 공지사항 상세 페이지 내용 -->
 			<div class="notice-container">
-				<h2>${n.notice_title}</h2>
-				
-				<div class= "notice_neme">
-				 <span><strong>작성자:</strong>${n.notice_name }</span>
-				</div>
-
-				<div class="notice-info">
-					<span><strong>등록일:</strong> 
-					<fmt:formatDate value="${n.created_date}" pattern="yyyy-MM-dd" /></span>
-				</div>
-				
-				<div class="notice-hit">
-				<span><strong>조회수:</strong>${n.notice_hit }</span>
-				</div>
+				<h2>삭제 확인</h2>
 
 				<div class="notice-content">
 					${n.notice_cont}
-				</div>
-
-				<div class="attachments">
-					<strong>첨부파일</strong>
-					<ul>
-						<li><a href="/spike.com/downloadFile?fileName=${n.notice_file}">${n.notice_file}</a></li>
-					</ul>
 				</div>
 
 				<!-- DB 연결을 위한 자리 -->
@@ -83,7 +63,6 @@
     </div>
 				  <div class="button-container3" style="text-align: center; margin-top: 20px;">
         <a href="/spike.com/noti_cont?notice_no=${n.notice_no }&state=del&page=${page}">삭제</a>
-        
     </div>
     </div>
     
@@ -96,21 +75,5 @@
 
 
 	<%@ include file="../include/shortfooter.jsp"%>
-	
-	<script type="text/javascript">
-		// 삭제 확인 함수
-		function confirmDelete(notice_no, page) {
-			// 확인 팝업 표시
-			var confirmAction = confirm("정말 삭제하시겠습니까?");
-			if (confirmAction) {
-				// 사용자가 확인을 누르면 삭제 요청 URL로 이동
-				window.location.href = '/spike.com/noti_del_ok?notice_no=' + notice_no + '&page=' + page;
-			} else {
-				// 취소하면 아무 동작도 하지 않음
-				return false;
-			}
-		}
-	</script>
-	
 </body>
 </html>

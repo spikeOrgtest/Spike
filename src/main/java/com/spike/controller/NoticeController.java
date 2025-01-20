@@ -199,10 +199,10 @@ public class NoticeController {
 				co.setViewName("/support/newSubpage_noticeDetail");//뷰페이지 경로=>/WEB-INF/views/bbs/bbs_cont.jsp
 			//}else if(state.equals("reply")) {//답변폼일때
 				//co.setViewName("notice/noti_reply");
-			//} /*else if(state.equals("edit")) {//수정폼일때
-				//co.setViewName("notice/noti_edit");
-			//}else {//state=del일때 즉 삭제폼일때
-				//co.setViewName("notice/noti_del");
+			} else if(state.equals("edit")) {//수정폼일때
+				co.setViewName("noti/noti_edit");
+			}else {//state=del일때 즉 삭제폼일때
+				co.setViewName("noti/noti_del");
 			}
 			
 			return co;
@@ -229,6 +229,10 @@ public class NoticeController {
 			PrintWriter out =response.getWriter();
 			String uploadFolder = request.getSession().getServletContext().getRealPath("upload");
 			//수정 첨부된 파일이 업로드 될 upload 폴더 실제 경로를 반환
+			File uploadDir = new File(uploadFolder);
+			if (!uploadDir.exists()) {
+			    uploadDir.mkdirs(); // 경로가 없으면 폴더 생성
+			}
 			
 			int page=1;
 			if(request.getParameter("page") != null) {
@@ -293,8 +297,8 @@ public class NoticeController {
 				}//if else
 				
 				this.noticeService.editNoti(notice);//자료실 수정
-				
-				ModelAndView em = new ModelAndView("redirect:/spike.com/noti_cont");
+
+				ModelAndView em = new ModelAndView("redirect:/support/newSubpage_noticeDetail");
 				em.addObject("notice_no", notice.getNotice_no());
 				em.addObject("page", page);
 				em.addObject("state", "cont");
