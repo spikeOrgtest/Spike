@@ -1,6 +1,7 @@
 package com.spike.dao;
 
 import com.spike.dto.QuizDTO;
+
 import java.util.List;
 
 public interface QuizDAO {

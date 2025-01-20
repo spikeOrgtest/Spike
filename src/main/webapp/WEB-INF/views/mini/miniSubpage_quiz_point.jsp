@@ -46,7 +46,7 @@
 						<div class="icon">
 							<i class="fas fa-coins"></i>
 						</div>
-						<p>1,250 P</p>
+						<p id="pointDisplay">0</p>
 					</div>
 
 					<!-- 맞춘 퀴즈 갯수 확인 -->
@@ -55,7 +55,7 @@
 						<div class="icon">
 							<i class="fas fa-check-circle"></i>
 						</div>
-						<p>18/20</p>
+						<p>0/0</p>
 					</div>
 				</div>
 
@@ -100,7 +100,30 @@
 			</div>
 		</div>
 	</div>
+	
+	
 
 	<%@ include file="../include/shortfooter.jsp"%>
 </body>
+
+<script>
+window.onload = function () {
+    // 서버에 점수 요청하기
+    fetch('/spike.com/quiz/mypoint') // 컨트롤러 서버에 요청 보내기 
+        .then(response => response.json()) // 서버에서 온 응답을 텍스트로 변환
+        .then(data => {
+            // 점수를 화면에 보여주기
+            const pointElement = document.getElementById('pointDisplay');
+            if (pointElement) {
+                pointElement.innerText = data+" P";
+            } else {
+                console.error('pointDisplay 요소를 찾을 수 없습니다.');
+            }
+        })
+        .catch(error => {
+            // 에러가 생기면 알림
+        	console.error('요청중 에러발생');
+        });
+};
+</script>
 </html>
