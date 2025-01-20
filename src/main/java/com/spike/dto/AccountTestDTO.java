@@ -34,7 +34,8 @@ public class AccountTestDTO {
 
     // 다른 팀원이 만든 User 엔티티가 있다고 가정 (PK = Long)
     @ManyToOne
-    private UserDTO user_id;
+    @JoinColumn(name = "OWNER_ID", nullable = false) //사용하지 않을 시 컬럼명이 owner_user_id ->가독성을 위해 joincolumn 어노테이션 사용
+    private UserDTO owner;
 
     private String accountNumber;
 

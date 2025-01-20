@@ -24,8 +24,8 @@
 	href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css"
 	rel="stylesheet" />
 <!-- Core theme CSS (includes Bootstrap)-->
-<link href="assets/css/transfer.css" rel="stylesheet" />
-<link rel="stylesheet" href="assets/css/include.css">
+<link href="/css/transfer/transfer.css" rel="stylesheet" />
+<link href="/css/include/include.css" rel="stylesheet">
 </head>
 
 <body>
@@ -39,7 +39,7 @@
 					<header class="text-center py-5">
 						<div class="img-container">
 							<!-- 이미지 배경 -->
-							<img src="assets/img/transfer/transfer.jpg" class="opaque-image"
+							<img src="/images/transfer/transfer.jpg" class="opaque-image"
 								alt="불투명도 이미지" />
 						</div>
 					</header>
@@ -143,6 +143,6 @@
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 	<!-- Core theme JS-->
-	<script src="assets/js/transfer.js"></script>
+	<script src="/js/transfer/transfer.js"></script>
 </body>
 </html>
