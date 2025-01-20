@@ -10,6 +10,10 @@
 <link rel="stylesheet" href="/css/support/subpage.css">
 <link rel="stylesheet" href="/css/include/include.css">
 <link rel="stylesheet" href="/css/support/newSubpage_noticeDetail.css">
+
+<!-- 외부 JavaScript 파일 연결 -->
+<script type="text/javascript" src="/js/noti/notidel.js"></script>
+
 </head>
 <body class="subpage">
 	<%@ include file="../include/header.jsp"%>
@@ -82,7 +86,7 @@
         <a href="/spike.com/noti_cont?notice_no=${n.notice_no }&state=edit&page=${page}">수정</a>
     </div>
 				  <div class="button-container3" style="text-align: center; margin-top: 20px;">
-        <a href="/spike.com/noti_cont?notice_no=${n.notice_no }&state=del&page=${page}">삭제</a>
+        <a href="javascript:void(0);" onclick="confirmDelete(${n.notice_no}, ${page})">삭제</a>
         
     </div>
     </div>
@@ -94,23 +98,10 @@
 	</div>
 
 
-
+  
 	<%@ include file="../include/shortfooter.jsp"%>
 	
-	<script type="text/javascript">
-		// 삭제 확인 함수
-		function confirmDelete(notice_no, page) {
-			// 확인 팝업 표시
-			var confirmAction = confirm("정말 삭제하시겠습니까?");
-			if (confirmAction) {
-				// 사용자가 확인을 누르면 삭제 요청 URL로 이동
-				window.location.href = '/spike.com/noti_del_ok?notice_no=' + notice_no + '&page=' + page;
-			} else {
-				// 취소하면 아무 동작도 하지 않음
-				return false;
-			}
-		}
-	</script>
+
 	
 </body>
 </html>

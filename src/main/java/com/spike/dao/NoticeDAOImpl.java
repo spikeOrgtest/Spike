@@ -20,13 +20,14 @@ public class NoticeDAOImpl implements NoticeDAO {
 	
 	@Override
 	public void insertNotice(NoticeDTO notice) {
-		System.out.println(" Notice 시퀀스 저장");
-		int notiseq_no = this.NoticeRepo.getNextSequenceValue();//오토언박싱 해서 시퀀스 다음번호값을 구하기.
-		notice.setNotice_no((long)notiseq_no);
-		notice.setNotice_ref(notiseq_no);
 		
+		 sqlSession.insert("notice.insertNotice", notice);
+		//System.out.println(" Notice 시퀀스 저장");
+		//int notiseq_no = this.NoticeRepo.getNextSequenceValue();//오토언박싱 해서 시퀀스 다음번호값을 구하기.
+		//notice.setNotice_no((long)notiseq_no);
+		//notice.setNotice_ref(notiseq_no);
 		
-		this.NoticeRepo.save(notice);
+		//this.NoticeRepo.save(notice);
 	}
 
 	@Override

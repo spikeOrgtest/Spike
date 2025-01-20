@@ -129,26 +129,33 @@ public class NoticeController {
 		// 검색 조건 설정
 		String find_name = request.getParameter("find_name"); //검색어
 		String find_field = request.getParameter("find_field"); // 검색필드
+		
+		//검색어와 필드를 dto에 셋팅
 		p.setFind_field(find_field);
 		p.setFind_name("%"+find_name+"%");
 		
+		//전체 게시물 수 구하기
 		int totalCount = this.noticeService.getRowCount(p);
 		
 		//시작페이지와 끝페이지 계산
-		p.setStartrow((page-1)*5+1); //시작행 번호
+		p.setStartrow((page-1)*limit +1); //시작행 번호
 		p.setEndrow(p.getStartrow()+limit-1); //끝행 번호
 		
+		//게시물 목록 가져오기
 		List<NoticeDTO> Nlist = this.noticeService.getNotiList(p);
 		
-		int maxpage=(int)((double)totalCount/limit+0.95); // 총페이지수
-		int startpage=(((int)((double)page/5+0.9))-1)*5+1; // 시작페이지
-		int endpage=maxpage;//현재페이지에 보여질 마지막 페이지
+		int maxpage = (int) Math.ceil((double) totalCount / limit); // 총페이지수
+		int startpage = ((page - 1) / 5) * 5 + 1;  // 시작 페이지
+		int endpage = startpage + 4;
 		//int startpage = ((page - 1) / 5) * 5 + 1;  // 시작 페이지 번호 계산
 		//int endpage = startpage + 4;  // 끝 페이지 번호는 시작 페이지 + 4 (5개씩 보이게 하니까)
-		//if (endpage > maxpage) {
-		//    endpage = maxpage;  // 만약 끝 페이지가 총 페이지 수보다 크면 끝 페이지를 maxpage로 설정
-		//}
-		if(endpage>startpage+5-1) endpage = startpage+5-1;
+		if (endpage > maxpage) {
+		    endpage = maxpage;  // 만약 끝 페이지가 총 페이지 수보다 크면 끝 페이지를 maxpage로 설정
+		    
+		}
+		System.out.println("startpage: " + startpage);
+		System.out.println("endpage: " + endpage);
+		//if(endpage>startpage+5-1) endpage = startpage+5-1;
 		
 		ModelAndView listP = new ModelAndView();
 		
@@ -197,8 +204,6 @@ public class NoticeController {
 			
 			if(state.equals("cont")) {//내용보기 일때
 				co.setViewName("/support/newSubpage_noticeDetail");//뷰페이지 경로=>/WEB-INF/views/bbs/bbs_cont.jsp
-			//}else if(state.equals("reply")) {//답변폼일때
-				//co.setViewName("notice/noti_reply");
 			} else if(state.equals("edit")) {//수정폼일때
 				co.setViewName("noti/noti_edit");
 			}else {//state=del일때 즉 삭제폼일때
@@ -311,24 +316,22 @@ public class NoticeController {
 		
 		//자료실 삭제
 		@RequestMapping("/noti_del_ok") //get or post방식으로 전송되는 매핑주소 처리
-		public String noti_del_ok(Long notice_no, int page, @RequestParam("del_pwd") String del_pwd,
+		public String noti_del_ok(Long notice_no, int page,
 		HttpServletResponse response,HttpServletRequest request) throws Exception{
 			response.setContentType("text/html;charset=UTF-8");
 			PrintWriter out = response.getWriter();
 			String delFolder = request.getSession().getServletContext().getRealPath("upload");//upload 실제 경로 반환
 			
 			NoticeDTO db_pwd = this.noticeService.getNoticeCont2(notice_no);
-			
-			
-				this.noticeService.delNoti(notice_no);//오라클로부터 레코드 삭제
+			this.noticeService.delNoti(notice_no);//오라클로부터 레코드 삭제
 				
 				if(db_pwd.getNotice_file() != null) {//기존 첨부파일이 있다면
 					File delFile = new File(delFolder+db_pwd.getNotice_file());//삭제할 파일 객체 생성
 					delFile.delete();//폴더는 삭제 안되고, 기존 첨부파일만 삭제된다.
 				}
 				
-				return "redirect:/spike/newsSubpage_notice?page="+page;
-			
+				
+				return "redirect:/spike.com/notice?page=" + page;
 				//return null;
 		}//noti_del_ok()
 		

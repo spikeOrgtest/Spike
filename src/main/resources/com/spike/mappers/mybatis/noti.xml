@@ -7,15 +7,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="notice">
 
  
-<!--  <insert id="noti_i">  parameterType은 전달인자 타입으로 생략가능함. 
+ <insert id="noti_i">  parameterType은 전달인자 타입으로 생략가능함. 
         insert into notice (notice_no,notice_name,notice_title,notice_cont,notice_file,notice_hit,notice_ref,notice_step,
         notice_level,created_date) values(notice_seq.nextval, #{notice_name}, #{notice_title},#{notice_cont},
         #{notice_file},0,notice_seq.nextval,0,0,sysdate)
-    </insert> -->
+    </insert> 
     
 
   <!-- 검색전후 레코드 개수 -->
-<select id="noti_count" parameterType="page" resultType="int">
+ <select id="noti_count" parameterType="page" resultType="int">
  select count(notice_no) from Notice
  <where>
   <if test="find_field == ''"></if>
@@ -33,5 +33,41 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
      select * from Notice order by created_date desc
      
     </select>
+    
+    <!--   일단 바꿈     
+    
+    <mapper namespace="notice">
+     페이징 쿼리  
+    <select id="getRowCount" parameterType="com.spike.dto.NotiPageDTO" resultType="int">
+        SELECT COUNT(*) FROM notice
+        <where>
+            <if test="find_field != null and find_name != null">
+                AND ${find_field} LIKE CONCAT('%', #{find_name}, '%')
+            </if>
+        </where>
+    </select>-->
+
+    <!-- 공지사항 목록 (페이징 및 검색 처리) 
+    <select id="getNotiList" parameterType="com.spike.dto.NotiPageDTO" resultType="com.spike.dto.NoticeDTO">
+        SELECT * FROM notice
+        <where>
+            <if test="find_field != null and find_name != null">
+                AND ${find_field} LIKE CONCAT('%', #{find_name}, '%')
+            </if>
+        </where>
+        ORDER BY notice_no DESC
+        LIMIT #{startrow}, #{endrow}
+    </select>-->
+
+    <!-- 검색 쿼리
+    <select id="searchNotices" parameterType="com.spike.dto.NotiPageDTO" resultType="com.spike.dto.NoticeDTO">
+        SELECT * FROM notice
+        <where>
+            <if test="find_field != null and find_name != null">
+                AND ${find_field} LIKE CONCAT('%', #{find_name}, '%')
+            </if>
+        </where>
+        ORDER BY notice_no DESC
+    </select> -->
 
 </mapper>
