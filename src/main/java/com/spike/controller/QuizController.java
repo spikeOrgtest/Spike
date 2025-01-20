@@ -1,6 +1,8 @@
 package com.spike.controller;
 
 import com.spike.service.QuizResultService; // 퀴즈 결과 관련 비즈니스 로직을 처리하는 서비스
+import com.spike.service.QuizService;
+import com.spike.dto.QuizDTO;
 import com.spike.dto.QuizResultDTO; // 퀴즈 결과를 저장할 데이터 전송 객체 (DTO)
 import com.spike.dto.UserDTO;
 
@@ -8,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import java.util.Date; // 날짜와 시간을 다루기 위한 클래스
+import java.util.List;
 
 @Controller // 이 클래스는 Spring MVC의 Controller 역할을 하며, HTTP 요청을 처리합니다.
 @RequestMapping("/spike.com") // '/mini' 경로에 대한 요청을 처리하도록 설정
@@ -16,7 +19,10 @@ public class QuizController {
     @Autowired
     private QuizResultService quizResultService; // 퀴즈 결과를 처리하는 서비스 주입
     
- // 미니 메인 페이지를 사용자에게 보여주는 메소드
+    @Autowired
+    private QuizService quizService;
+    
+    // 미니 메인 페이지를 사용자에게 보여주는 메소드
     @GetMapping("/mini")  
     public String mini() {
         return "mini/mini";  
@@ -83,7 +89,20 @@ public class QuizController {
         }
     }
     
+    //포인트 api 생성 
+    @GetMapping("/quiz/mypoint") 
+    @ResponseBody 
+    public String getQuizPoint () {
+    	// 해당 유저에 대한 QuizResult를 모두 조회
+    	// 조회된 QuizResult에 point를 합산
+    	return "100";
+    }
     
+    @GetMapping("/quizlist")
+    @ResponseBody 
+    public List<QuizDTO> quizList () {
+    	return this.quizService.getAllQuizzes();
+    }
 
     // 사용자가 푼 퀴즈 결과를 조회하는 메소드
     @GetMapping("/quiz/result") // /mini/quiz/result?userId=1&quizId=2

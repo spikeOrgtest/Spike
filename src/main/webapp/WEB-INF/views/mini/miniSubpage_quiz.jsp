@@ -240,6 +240,19 @@
 	</div>
 	<%@ include file="../include/shortfooter.jsp"%>
 	<script>
+		window.onload = function () {
+		    // 서버에 점수 요청하기
+		    fetch('/spike.com/quizlist') // 컨트롤러 서버에 요청 보내기 
+		        .then(response => response.json()) // 서버에서 온 응답을 텍스트로 변환
+		        .then(data => {
+		            console.log(data)
+		        })
+		        .catch(error => {
+		            // 에러가 생기면 알림
+		        	console.error('요청중 에러발생');
+		        });
+		};
+	
 		// 현재 문제 번호를 추적하는 전역 변수
 		let currentQuestion = 1;
 
@@ -264,6 +277,7 @@
 			if (scoreElement) {
 				scoreElement.innerHTML = '<p>현재 점수: ' + score + '</p>';
 			}
+			
 		}
 
 		// 다음 문제로 넘어가는 함수

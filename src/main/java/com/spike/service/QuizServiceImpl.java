@@ -5,6 +5,7 @@ import com.spike.dto.QuizDTO;  // QuizDTO를 임포트합니다. 이 객체는 �
 import org.springframework.beans.factory.annotation.Autowired;  // Spring의 의존성 주입 어노테이션
 import org.springframework.stereotype.Service;  // Spring 서비스 클래스를 정의하는 어노테이션
 import java.util.Date;  // 날짜와 시간을 처리하기 위한 클래스를 임포트합니다.
+import java.util.List;
 
 @Service  // 이 클래스가 Spring의 서비스 클래스임을 명시합니다.
 public class QuizServiceImpl implements QuizService {
@@ -48,4 +49,9 @@ public class QuizServiceImpl implements QuizService {
         int attempts = quizDao.countUserQuizAttempts(userId, new Date().toString());  // 오늘 사용자가 푼 퀴즈 개수를 데이터베이스에서 조회합니다.
         return attempts < 5;  // 5개 이하로 퀴즈를 풀었다면 true 반환, 그렇지 않으면 false 반환
     }
+
+	@Override
+	public List<QuizDTO> getAllQuizzes() {
+		return this.quizDao.getAllQuizzes();
+	}
 }
