@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,7 +32,10 @@ public class UserController {
 
 	@Autowired
 	private UserSerivce spikeService;
-
+	
+	@Autowired
+	 private PasswordEncoder passwordEncoder;
+	
 	// 로그인 폼
 	@GetMapping("/login")
 	public ModelAndView login() {
@@ -146,7 +150,7 @@ public class UserController {
 			s.setProfile_image_uri("");
 		}
 
-		s.setPassword(PwdChange.getPassWordToXEMD5String(s.getPassword()));
+		s.setPassword(passwordEncoder.encode(s.getPassword()));
 
 		// DB에 사용자 정보 저장
 		this.spikeService.insertMember(s);
@@ -155,14 +159,14 @@ public class UserController {
 		return new ModelAndView("redirect:/spike.com/login");
 	}
 
-	// 로그인
+	/*// 로그인
 	@PostMapping("/login_ok")
-	public ModelAndView login_ok(String login_id, String password, HttpServletResponse response, HttpSession session)
+	public ModelAndView login_ok(String loginId, String password, HttpServletResponse response, HttpSession session)
 			throws Exception {
 		response.setContentType("text/html; charset=UTF-8");
 		PrintWriter out = response.getWriter();
 
-		UserDTO s = this.spikeService.loginCheck(login_id);
+		UserDTO s = this.spikeService.loginCheck(loginId);
 
 		if (s == null) {
 			out.println("<script>");
@@ -190,7 +194,7 @@ public class UserController {
 		}
 
 		return null;
-	}
+	}*/
 
 	// 아이디 찾기 폼
 	@GetMapping("findId")
@@ -220,7 +224,7 @@ public class UserController {
 			out.println("history.go();");
 			out.println("</script>");
 		} else {
-			String find_id = is.getLogin_id();
+			String find_id = is.getLoginId();
 			String find_name = is.getName();
 
 			ModelAndView fi = new ModelAndView("findId_ok");
@@ -245,7 +249,7 @@ public class UserController {
 		response.setContentType("text/html;charset=UTF-8");
 		PrintWriter out = response.getWriter();
 
-		s.setLogin_id(id);
+		s.setLoginId(id);
 		s.setName(name);
 		UserDTO ps = this.spikeService.findPwd(s);
 
@@ -257,7 +261,7 @@ public class UserController {
 		} else {
 			// 찾은 아이디와 이름을 수정 페이지로 전달
 			ModelAndView fp = new ModelAndView("findPwd_change");
-			fp.addObject("find_id", ps.getLogin_id());
+			fp.addObject("find_id", ps.getLoginId());
 			fp.addObject("find_name", ps.getName());
 
 			return fp;
@@ -280,12 +284,12 @@ public class UserController {
 
 	// 비밀번호 변경
 	@PostMapping("findPwd_change_ok")
-	public String findPwd_change_ok(String login_id, String name, String newPassword, String confirmPassword,
+	public String findPwd_change_ok(String loginId, String name, String newPassword, String confirmPassword,
 			HttpServletResponse response) throws Exception {
 
 		// 현재 사용자 정보 조회 (로그인 ID와 이름을 통해 조회)
 		UserDTO s = new UserDTO();
-		s.setLogin_id(login_id);
+		s.setLoginId(loginId);
 		s.setName(name);
 
 		// 현재 사용자의 기존 비밀번호를 DB에서 조회
@@ -293,7 +297,7 @@ public class UserController {
 
 		// 기존 비밀번호와 새 비밀번호가 동일한지 확인
 		String existingPassword = existingUser.getPassword(); // DB에서 가져온 기존 비밀번호
-		String encryptedNewPassword = PwdChange.getPassWordToXEMD5String(newPassword); // 새 비밀번호를 암호화
+		 String encryptedNewPassword = passwordEncoder.encode(newPassword); // 새 비밀번호를 암호화
 
 		if (existingPassword.equals(encryptedNewPassword)) {
 			// 새 비밀번호가 기존 비밀번호와 동일하면 실패 처리
