@@ -8,9 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.spike.dto.AccountDTO;
@@ -47,6 +47,16 @@ public class AccountController {
 	@GetMapping("/products/card")
 	public String card() {
 		return "products/card";
+	}
+	/*
+	@GetMapping("/products/deposit/Subpage_D{number:\\d+}")
+	public String handleSubpageWithNumber(@PathVariable String number) {
+	    return "products/Subpage_D" + number;
+	}*/
+	
+	@GetMapping("/products/deposit/subpage_d1")
+	public String D1() {
+		return "products/Subpage_D1";
 	}
 	
 	// 계좌개설 폼

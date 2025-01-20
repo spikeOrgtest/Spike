@@ -5,9 +5,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title></title>
-<link rel="stylesheet" href="../assets/css/subpage.css">
-<link rel="stylesheet" href="../assets/css/include.css">
-<link rel="stylesheet" href="../sub/spike-savings.css">
+<link rel="stylesheet" href="../../css/support/subpage.css">
+<link rel="stylesheet" href="../../css/include/include.css">
+<link rel="stylesheet" href="../../css/product/spike-savings.css">
 
 <%--/
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -153,6 +153,6 @@
 	
 		<jsp:include page="../include/footer.jsp"/>
 
-	<script src="../sub/spike-savings.js"></script>
+	<script src="../../js/spike-savings.js"></script>
 </body>
 </html>

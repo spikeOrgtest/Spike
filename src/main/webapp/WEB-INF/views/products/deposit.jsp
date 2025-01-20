@@ -54,7 +54,7 @@
             <div class="container">
                 <h2>특별 예금 상품</h2>
                 <div class="product-grid" id="productGrid">
-                    <a href="Subpage_D1.jsp" class="product-card">
+                    <a href="deposit/subpage_d1" class="product-card">
                         <div class="card-header"></div>
                         <div class="card-body">
                             <h3>SPIKE 예금</h3>
