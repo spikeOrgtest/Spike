@@ -38,13 +38,19 @@
 				</div>
 			</div>
 			<div class="form-group">
-				<label for="password">비밀번호</label> <input type="password"
+				<label for="password">비밀번호</label> 
+				<div class="password_container">
+				<input type="password"
 					id="account_password" name="account_password" required />
+				</div>
 				<p class="password-requirements">비밀번호는 6자 숫자를 사용해야 합니다.</p>
 			</div>
 			<div class="form-group">
-				<label for="confirmPassword">비밀번호 확인</label> <input type="password"
+				<label for="confirmPassword">비밀번호 확인</label>
+				<div class="password_container">
+				<input type="password"
 					id="confirmPassword" name="confirmPassword" required />
+				</div>
 			</div>
 			<div class="form-group checkbox">
 				<input type="checkbox" id="termsAgreement" required /> <label

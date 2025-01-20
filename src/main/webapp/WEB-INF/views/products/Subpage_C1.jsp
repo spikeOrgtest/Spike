@@ -5,9 +5,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title></title>
-<link rel="stylesheet" href="../assets/css/subpage.css">
-<link rel="stylesheet" href="../assets/css/include.css">
-<link rel="stylesheet" href="../sub/spike-savings.css">
+<link rel="stylesheet" href="../../../css/support/subpage.css">
+<link rel="stylesheet" href="../../../css/include/include.css">
+<link rel="stylesheet" href="../../../css/product/spike-savings.css">
 
 <%--/
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -38,12 +38,12 @@
 			<div class="subpage-sidebar">
 				<h3 class="subpage-sidebar-title">카드 상품</h3>
 				<ul>
-					<li><a href="Subpage_C1.jsp">SPIKE 청년카드</a></li>
-					<li><a href="Subpage_C2.jsp">SPIKE 플래티넘 카드</a></li>
-					<li><a href="Subpage_C3.jsp">SPIKE 디지털 카드</a></li>
-					<li><a href="Subpage_C4.jsp">SPIKE 카드</a></li>  <%-- 현재페이지=선택된 메뉴면 배경색 진하게, 백엔드랑 연동할예정 --%>
-					<li><a href="Subpage_C5.jsp">SPIKE AIR 카드</a></li>
-					<li><a href="Subpage_C6.jsp">플러스 카드</a></li>
+					<li><a href="subpage_c1">SPIKE 청년카드</a></li>
+					<li><a href="subpage_c2">SPIKE 플래티넘 카드</a></li>
+					<li><a href="subpage_c3">SPIKE 디지털 카드</a></li>
+					<li><a href="subpage_c4">SPIKE 카드</a></li>  
+					<li><a href="subpage_c5">SPIKE TRAVEL 카드</a></li>
+					<li><a href="subpage_c6">플러스 카드</a></li>
 				</ul>
 			</div>
 
@@ -68,6 +68,9 @@
   <li>기타 혜택: 초저금리 신용카드 한도 지원, 생활 할인 및 적립</li>
                     </ul>
                 </div>
+                <div class="container">
+            <img src="../../../images/product/YOUTHCARD.png" width="50%" height="100%"/>
+            </div> 
                 </div>
                 </section>
                 <section class="interest-rates-section">
@@ -126,7 +129,7 @@
 
         <section class="cta">
             <div class="container">
-                <a href="#" class="button" id="joinButton">지금 가입하기</a>
+                <a href="../newcard" class="button" id="joinButton">지금 가입하기</a>
             </div>
         </section>
     </main>
@@ -138,6 +141,6 @@
 	
 	
 	<%@ include file="../include/shortfooter.jsp"%>
-	<script src="./sub/spike-savings.js"></script>
+	<script src="../../../js/spike-savings.js"></script>
 </body>
 </html>

@@ -44,7 +44,7 @@ document.addEventListener('DOMContentLoaded', function() {
         e.preventDefault();
         alert('SPIKE 적금 가입 페이지로 이동합니다.');
         // Here you would typically redirect to the actual join page
-        window.location.href = '../products/newmember.jsp';
+        window.location.href = '/products/newDeposit';
     });
 
     // Add animation to sections

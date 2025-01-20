@@ -45,6 +45,51 @@ document.addEventListener('DOMContentLoaded', function() {
 	}
 });
 
+document.addEventListener('DOMContentLoaded', function() {
+	const header = document.querySelector('h1'); // 상품 이름을 표시하는 h1
+	const joinButton = document.getElementById('joinButton'); // 계좌 개설 버튼
+	const productMapping = {
+		'spikeSavings': 'SPIKE 적금',
+		'youth': '청년 저축 적금',
+		'home': '청년 주택드림',
+		'regular': '정기적금',
+		'dream': '드림 적금',
+		'plus': '플러스 적금',
+	};
+
+	// URL 경로에 맞는 기본값 설정
+	const path = window.location.pathname;
+	let selectedProduct = 'spikeSavings';  // 기본값은 SPIKE 적금
+
+	if (path.includes('subpage_s1')) {
+		selectedProduct = 'spikeSavings';
+	} else if (path.includes('subpage_s2')) {
+		selectedProduct = 'youth';
+	} else if (path.includes('subpage_s3')) {
+		selectedProduct = 'home';
+	} else if (path.includes('subpage_s4')) {
+		selectedProduct = 'regular';
+	} else if (path.includes('subpage_s5')) {
+		selectedProduct = 'dream';
+	} else if (path.includes('subpage_s6')) {
+		selectedProduct = 'plus';
+	}
+
+	// 페이지 로드 시 기본값에 맞게 텍스트 설정
+	if (header) {
+		header.textContent = productMapping[selectedProduct];
+	}
+
+	// 계좌 개설 버튼 클릭 시 기본값에 맞는 상품 정보로 알림 표시
+	joinButton.addEventListener('click', function() {
+		const url = `../newsavings.jsp?product=${selectedProduct}`; // 상품 정보를 URL로 전달
+		window.location.href = url; // 해당 URL로 리디렉션
+	});
+});
+
+
+
+/*
 // 세부상품선택
 document.getElementById('account_type').addEventListener('change', function() {
 	const selectedType = this.value;
@@ -108,4 +153,4 @@ window.addEventListener('load', function() {
 	const accountTypeSelect = document.getElementById('account_type');
 	accountTypeSelect.value = '적금';
 	accountTypeSelect.dispatchEvent(new Event('change'));
-});
+}); */

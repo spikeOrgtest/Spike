@@ -5,19 +5,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title></title>
-<link rel="stylesheet" href="../../css/support/subpage.css">
-<link rel="stylesheet" href="../../css/include/include.css">
-<link rel="stylesheet" href="../../css/product/spike-savings.css">
+<link rel="stylesheet" href="../../../css/support/subpage.css">
+<link rel="stylesheet" href="../../../css/include/include.css">
+<link rel="stylesheet" href="../../../css/product/spike-savings.css">
 
 <%--/
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
  --%>
- <%--
-<linke rel="stylesheet" href="assets/css/내가만든css.css">
-
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  --%>
 </head>
 <body class="subpage">
 	<jsp:include page="../include/header.jsp"/>
@@ -140,7 +135,7 @@
 
         <section class="cta">
             <div class="container">
-                <a href="#" class="button" id="joinButton">지금 가입하기</a>
+                <a href="../newdeposit" class="button" id="joinButton">지금 가입하기</a>
             </div>
         </section>
     </main>
@@ -153,6 +148,6 @@
 	
 		<jsp:include page="../include/footer.jsp"/>
 
-	<script src="../../js/spike-savings.js"></script>
+	<script src="../../../js/spike-savings.js"></script>
 </body>
 </html>

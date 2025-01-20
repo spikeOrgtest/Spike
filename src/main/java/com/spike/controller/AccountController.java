@@ -48,15 +48,25 @@ public class AccountController {
 	public String card() {
 		return "products/card";
 	}
-	/*
-	@GetMapping("/products/deposit/Subpage_D{number:\\d+}")
-	public String handleSubpageWithNumber(@PathVariable String number) {
-	    return "products/Subpage_D" + number;
-	}*/
 	
-	@GetMapping("/products/deposit/subpage_d1")
-	public String D1() {
-		return "products/Subpage_D1";
+	@GetMapping("/products/deposit/subpage_d{number:\\d+}")
+	public String depositSubpage(@PathVariable String number) {
+	    return "products/Subpage_D" + number;
+	}
+
+	@GetMapping("/products/savings/subpage_s{number:\\d+}")
+	public String savingsSubpage(@PathVariable String number) {
+		return "products/Subpage_S" + number;
+	}
+	
+	@GetMapping("/products/card/subpage_c{number:\\d+}")
+	public String cardSubpage(@PathVariable String number) {
+		return "products/Subpage_C" + number;
+	}
+	
+	@GetMapping("/products/loan/subpage_l{number:\\d+}")
+	public String loanSubpage(@PathVariable String number) {
+		return "products/Subpage_L" + number;
 	}
 	
 	// 계좌개설 폼
