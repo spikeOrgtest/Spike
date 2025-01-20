@@ -1,6 +1,5 @@
 package com.spike.dao;
 
-import java.lang.System.Logger;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +8,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.spike.dto.QuizDTO;
 
-import lombok.extern.java.Log;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -60,7 +58,7 @@ public class QuizDAOImpl implements QuizDAO {
         if (quiz != null) {
             // 현재 시간으로 last_attempt_date를 업데이트합니다. 
             // new java.sql.Timestamp(System.currentTimeMillis())는 현재 시간을 Timestamp 형식으로 생성합니다.
-            quiz.setLast_attempt_date(new java.sql.Timestamp(System.currentTimeMillis())); // 현재 시간을 설정
+            quiz.setLast_attempt_date(quizId); // 현재 시간을 설정
             
             // entityManager.merge(quiz)는 수정된 quiz 객체를 데이터베이스에 반영합니다. 
             // 변경된 데이터를 저장하거나 업데이트하는 작업입니다.

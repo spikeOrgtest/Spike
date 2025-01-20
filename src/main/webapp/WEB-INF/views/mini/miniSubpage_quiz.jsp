@@ -239,61 +239,68 @@
 		</div>
 	</div>
 	<%@ include file="../include/shortfooter.jsp"%>
-	<script>
-		window.onload = function () {
-		    // 서버에 점수 요청하기
-		    fetch('/spike.com/quizlist') // 컨트롤러 서버에 요청 보내기 
-		        .then(response => response.json()) // 서버에서 온 응답을 텍스트로 변환
-		        .then(data => {
-		            console.log(data)
-		        })
-		        .catch(error => {
-		            // 에러가 생기면 알림
-		        	console.error('요청중 에러발생');
-		        });
-		};
 	
-		// 현재 문제 번호를 추적하는 전역 변수
-		let currentQuestion = 1;
+<script>
+    // 페이지가 로드될 때 퀴즈 목록을 불러오는 함수
+    window.onload = function() {
+        loadQuizzes();  // 퀴즈 목록을 불러오는 함수 호출
+    };
 
-		// 점수를 추적하는 변수
-		let score = 0;
+    // 서버에서 퀴즈 목록을 가져오는 함수
+    function loadQuizzes() {
+        // '/spike.com/quizlist' URL로 GET 요청을 보냄
+        fetch('/spike.com/quizlist')
+            .then(response => response.json())  // 응답을 JSON으로 변환
+            .then(data => {
+                const quizzes = data;  // 서버에서 받은 퀴즈 목록
+                let quizContainer = document.getElementById("quiz-container");  // 퀴즈를 표시할 HTML 요소
 
-		// 정답 확인 함수
-		function showResult(isCorrect) {
-			let resultElement = document.getElementById('quiz-result-'
-					+ currentQuestion);
+                // 받아온 퀴즈 데이터를 하나씩 처리해서 화면에 표시
+                quizzes.forEach(quiz => {
+                    const quizElement = document.createElement("div");
+                    quizElement.classList.add('quiz-question');
+                    quizElement.innerHTML = `
+                        <h2>${quiz.question}</h2>
+                        <div class="quiz-options">
+                            <button class="quiz-option" onclick="submitAnswer(${quiz.quizId}, 'O')">
+                                <div class="quiz-letter">O</div>
+                                <div class="quiz-text">그래요</div>
+                            </button>
+                            <button class="quiz-option" onclick="submitAnswer(${quiz.quizId}, 'X')">
+                                <div class="quiz-letter">X</div>
+                                <div class="quiz-text">그렇지 않아요</div>
+                            </button>
+                        </div>
+                    `;
+                    quizContainer.appendChild(quizElement);  // 새로운 퀴즈 문제를 화면에 추가
+                });
+            })
+            .catch(error => console.error("퀴즈 로드 실패:", error));  // 오류 발생 시 콘솔에 오류 메시지 출력
+    }
 
-			// 정답이면 점수 +1
-			if (isCorrect) {
-				score += 1; // 점수 증가
-				resultElement.innerHTML = '<p class="quiz-result-correct">정답입니다!</p>';
-			} else {
-				resultElement.innerHTML = '<p class="quiz-result-wrong">오답입니다!</p>';
-			}
+    // 사용자가 퀴즈를 풀었을 때 답을 제출하는 함수
+    function submitAnswer(quizId, userAnswer) {
+        fetch('/spike.com/quiz/attempt', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'  // 폼 데이터 형식으로 전송
+            },
+            body: `userId=1&quizId=${quizId}&userAnswer=${userAnswer}`  // 사용자 ID, 퀴즈 ID, 사용자 답안을 서버로 전송
+        })
+        .then(response => response.text())  // 서버에서 받은 메시지를 텍스트로 처리
+        .then(message => alert(message))  // 받은 메시지를 알림창으로 표시
+        .catch(error => console.error("퀴즈 제출 실패:", error));  // 오류 발생 시 콘솔에 오류 메시지 출력
+    }
+</script>
 
-			// 점수 표시 (결과 영역에 점수도 함께 표시)
-			let scoreElement = document.getElementById('quiz-score');
-			if (scoreElement) {
-				scoreElement.innerHTML = '<p>현재 점수: ' + score + '</p>';
-			}
-			
-		}
 
-		// 다음 문제로 넘어가는 함수
-		function nextQuestion(questionNumber) {
-			// 현재 문제 숨기기
-			document.getElementById('quiz' + currentQuestion).classList
-					.remove('active');
+<div id="quiz-container"></div>
+<div id="quiz-score"></div>
 
-			// 새로운 문제 번호로 현재 문제 업데이트
-			currentQuestion = questionNumber;
+<div id="quiz-container"></div>
+<div id="quiz-score"></div>
 
-			// 새로운 문제 표시하기
-			document.getElementById('quiz' + currentQuestion).classList
-					.add('active');
-		}
-	</script>
+
 
 </body>
 </html>
