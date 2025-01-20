@@ -55,7 +55,7 @@
 					<label for="email_id">이메일</label>
 					<div class="email-container">
 						<input name="email_id" id="email_id" /> @ <input
-							name="email_domain" id="email_domain" readonly /> <select
+							name="email_domain" id="email_domain" value="gmail.com" readonly /> <select
 							name="mail_list" onchange="domain_list();">
 							<c:forEach var="mail" items="${email}">
 								<option value="${mail}">${mail}</option>
@@ -67,7 +67,7 @@
 
 				<div class="form-group">
 					<label for="birth_date">생년월일</label> <input type="date"
-						id="birth_date" name="birth_date" required>
+						id="birth_date" name="birth_date" max="2099-12-31" required>
 				</div>
 				<span class="error-message" id="birthError"></span>
 
@@ -94,15 +94,15 @@
 								onclick="sample4_execDaumPostcode()" value="우편번호 찾기">
 						</div>
 
-						<label for="roadAddress">도로명주소</label> <input type="text"
-							id="roadAddress" name="roadAddress" placeholder="도로명주소" readonly>
-						<label for="jibunAddress">지번주소</label> <input type="text"
-							id="jibunAddress" name="jibunAddress" placeholder="지번주소" readonly>
-						<span id="guide" style="color: #999; display: none"></span> <label
-							for="detailAddress">상세주소</label> <input type="text"
-							id="detailAddress" name="detailAddress" placeholder="상세주소"
-							required> <label for="sample4_extraAddress">참고항목</label>
-						<input type="text" id="sample4_extraAddress" placeholder="참고항목">
+						<label for="roadAddress">도로명주소</label> 
+						<input type="text" id="roadAddress" name="roadAddress" placeholder="도로명주소" readonly>
+						<label for="jibunAddress">지번주소</label> 
+						<input type="text" id="jibunAddress" name="jibunAddress" placeholder="지번주소" readonly>
+						<span id="guide" style="color: #999; display: none"></span>
+						<label for="detailAddress">상세주소</label> 
+						<input type="text" id="detailAddress" name="detailAddress" placeholder="상세주소" required> 
+						<label for="sample4_extraAddress">참고항목</label>
+						<input type="text" id="References" name="References" placeholder="참고항목">
 					</div>
 				</div>
 
@@ -164,9 +164,9 @@
 
 							// 참고 항목 추가
 							if (roadAddr !== '') {
-								document.getElementById("sample4_extraAddress").value = extraRoadAddr;
+								document.getElementById("References").value = extraRoadAddr;
 							} else {
-								document.getElementById("sample4_extraAddress").value = '';
+								document.getElementById("References").value = '';
 							}
 
 							var guideTextBox = document.getElementById("guide");
