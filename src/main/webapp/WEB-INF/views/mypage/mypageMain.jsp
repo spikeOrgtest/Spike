@@ -1,4 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -9,10 +11,9 @@
 <meta name="description" content="" />
 <meta name="author" content="" />
 <title>마이페이지</title>
-<link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
-<link href="assets/css/mypage/mypageMain.css" rel="stylesheet" />
-<link href="assets/css/mypage/sidebars.css" rel="stylesheet" />
-<link href="assets/css/include.css" rel="stylesheet" />
+<link href="../../css/mypage/mypageMain.css" rel="stylesheet" />
+<link href="../../css/mypage/sidebars.css" rel="stylesheet" />
+<link href="../../css/include/include.css" rel="stylesheet" />
 
 </head>
 
@@ -39,10 +40,10 @@
 							aria-expanded="true">Home</button>
 						<div class="collapse show" id="home-collapse">
 							<ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-								<li><a href="mypageEdit.jsp" class="link-dark rounded">회원정보수정</a></li>
-								<li><a href="mypageinquiry.jsp" class="link-dark rounded">나의
+								<li><a href="javascript:location='/spike.com/mypage/mypageEdit';" class="link-dark rounded">회원정보수정</a></li>
+								<li><a href="javascript:location='/spike.com/mypage/inquiry';" class="link-dark rounded">나의
 										계좌</a></li>
-								<li><a href="mypageproperty.jsp" class="link-dark rounded">자산조회</a></li>
+								<li><a href="javascript:location='/spike.com/mypage/property';" class="link-dark rounded">자산조회</a></li>
 								<li><a href="#" class="link-dark rounded">목표 금액 설정</a></li>
 							</ul>
 						</div>
@@ -53,7 +54,7 @@
 				<div class="container row g-0">
 					<header class="text-center py-5">
 						<div class="img-container">
-							<img src="assets/img/mypage/mypage.jpg" class="opaque-image"
+							<img src="../../images/mypage/mypage.jpg" class="opaque-image"
 								alt="불투명도 이미지">
 							<div class="text-overlay"></div>
 						</div>
@@ -65,7 +66,7 @@
 								<div class="row">
 									<div class="col-md-4">
 										<div class="card">
-											<img src="assets/img/mypage/profile.jpg" class="card-img-top"
+											<img src="../../images/mypage/profile.jpg" class="card-img-top"
 												alt="프로필 이미지">
 											<div class="card-body">
 												<button class="btn btn-primary" style="width: 100%"
@@ -77,19 +78,12 @@
 									<div class="col-md-8">
 										<h2>개인정보</h2>
 										<ul class="list-group">
-											<li class="list-group-item"><strong>사용자 이름:</strong> 사용자
-												이름</li>
-											<li class="list-group-item"><strong>이메일:</strong>
-												user@example.com</li>
-											<li class="list-group-item"><strong>가입일:</strong>
-												2022-03-15</li>
-											<li class="list-group-item"><strong>전화번호:</strong>
-												010-1234-5678</li>
-											<li class="list-group-item"><strong>주소:</strong> 서울시 강남구
-												테헤란로 123</li>
-											<li class="list-group-item"><strong>생년월일:</strong>
-												1990-01-01</li>
-											<li class="list-group-item"><strong>성별:</strong> 남성</li>
+											<li class="list-group-item"><strong>사용자 이름:</strong> ${name}</li>
+											<li class="list-group-item"><strong>이메일:</strong> ${e_mail}@${e_mail2}</li>
+											<li class="list-group-item"><strong>가입일:</strong> ${Registrationdate}</li>
+											<li class="list-group-item"><strong>전화번호:</strong> ${phone}</li>
+											<li class="list-group-item"><strong>주소:</strong> ${roadaddress} ${detailaddress}</li>
+											<li class="list-group-item"><strong>생년월일:</strong> ${birthdate}</li>
 										</ul>
 									</div>
 
@@ -254,38 +248,62 @@
 						</div>
 
 						<!-- 프로필 수정 모달 -->
-						<div class="modal fade" id="editProfileModal" tabindex="-1"
-							aria-labelledby="editProfileModalLabel" aria-hidden="true">
-							<div class="modal-dialog">
-								<div class="modal-content">
-									<div class="modal-header">
-										<h5 class="modal-title" id="editProfileModalLabel">프로필 수정</h5>
-										<button type="button" class="btn-close"
-											data-bs-dismiss="modal" aria-label="Close"></button>
-									</div>
-									<div class="modal-body">
-										<form id="editProfileForm">
-											<div class="mb-3">
-												<label for="userName" class="form-label">사용자 이름</label> <input
-													type="text" class="form-control" id="userName"
-													value="사용자 이름">
-											</div>
-											<div class="mb-3">
-												<label for="userEmail" class="form-label">이메일</label> <input
-													type="email" class="form-control" id="userEmail"
-													value="user@example.com">
-											</div>
-											<div class="mb-3">
-												<label for="userPassword" class="form-label">비밀번호</label> <input
-													type="password" class="form-control" id="userPassword"
-													value="********">
-											</div>
-											<button type="submit" class="btn btn-primary">저장</button>
-										</form>
-									</div>
-								</div>
-							</div>
+						<div class="modal fade" id="editProfileModal" tabindex="-1" aria-labelledby="editProfileModalLabel" aria-hidden="true">
+						    <div class="modal-dialog">
+						        <div class="modal-content">
+						            <!-- 모달 헤더 -->
+						            <div class="modal-header">
+						                <h5 class="modal-title" id="editProfileModalLabel">프로필 수정</h5>
+						                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+						            </div>
+						            <!-- 모달 본문 -->
+						            <div class="modal-body">
+						                <form name="s" action="profileEdit" method="post" id="editProfileForm">
+											<input type="hidden" name="${_csrf.parameterName}"
+																value="${_csrf.token}" />
+						                    <!-- 사용자 이름 -->
+						                    <div class="form-group mb-3">
+						                        <label for="userName" class="form-label">사용자 이름</label>
+						                        <input type="text" class="form-control" id="name" name="name" placeholder="사용자 이름">
+						                    </div>
+											
+						                    <!-- 이메일 -->
+						                    <div class="form-group mb-3">
+						                        <label for="userEmail" class="form-label">이메일</label>
+						                        <div class="input-group">
+						                            <input type="text" class="form-control" id="email_id" name="email_id" placeholder="이메일">
+						                            <span class="email-at-symbol">@</span>
+						                            <input type="text" class="form-control" id="email_domain" name="email_domain" value="gmail.com" readonly />
+						                            <select name="mail_list" onchange="domain_list();" style="margin-left: 10px;">
+						                                <c:forEach var="mail" items="${email}">
+						                                    <option value="${mail}">${mail}</option>
+						                                </c:forEach>
+						                            </select>
+						                        </div>
+						                    </div>
+											
+						                    <!-- 비밀번호 -->
+						                    <div class="form-group mb-3">
+						                        <label for="userPassword" class="form-label">비밀번호</label>
+						                        <input type="password" class="form-control" id="password" name="password" placeholder="비밀번호를 입력하세요" required>
+						                    </div>
+											
+						                    <!-- 비밀번호 확인 -->
+						                    <div class="form-group mb-3">
+						                        <label for="userPassword" class="form-label">비밀번호 확인</label>
+						                        <input type="password" class="form-control" id="password2" name="password2" placeholder="비밀번호를 다시 입력하세요" required>
+						                    </div>
+											
+						                    <!-- 저장 버튼 -->
+						                    <div class="form-group mb-3">
+						                        <button type="submit" class="btn btn-primary w-100">저장</button>
+						                    </div>
+						                </form>
+						            </div>
+						        </div>
+						    </div>
 						</div>
+
 
 					</main>
 				</div>
@@ -297,15 +315,13 @@
 
 	<jsp:include page="../include/footer.jsp" />
 
-	<%--
 	
     <!-- Bootstrap JS, Chart.js -->
-	 --%>
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-	<script src="assets/js/mypage/mypageMain.js"></script>
-	<script src="assets/js/mypage/sidebars.js"></script>
+	<script src="../../js/mypage/mypageMain.js"></script>
+	<script src="../../js/mypage/sidebars.js"></script>
 
 </body>
 
