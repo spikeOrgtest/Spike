@@ -47,4 +47,7 @@ public interface UserRepository extends JpaRepository<UserDTO, Integer> {
 	@Query("select s from UserDTO s where s.loginId=?1")
 	Optional<UserDTO> findByLoginId(String loginId);
 
+	@Query("select s from UserDTO s where s.loginId=?1")
+	public UserDTO findFromSession(String loginId);
+
 }

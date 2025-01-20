@@ -24,8 +24,8 @@ public class UserServiceImpl implements UserSerivce {
 	}
 
 	@Override
-	public UserDTO loginCheck(String login_id) {
-		return this.spikeDao.loginCheck(login_id);
+	public UserDTO loginCheck(String loginId) {
+		return this.spikeDao.loginCheck(loginId);
 	}
 
 	@Override
@@ -56,6 +56,11 @@ public class UserServiceImpl implements UserSerivce {
 	@Override
 	public void mypageEdit(UserDTO s) {
 		this.spikeDao.mypageEdit(s);
+	}
+
+	@Override
+	public UserDTO findFromSession(String loginId) {
+		return this.spikeDao.findFromSession(loginId);
 	}
 
 }

@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,6 +25,8 @@ public class MypageController {
 
 	@Autowired
 	private UserSerivce userService;
+	
+	@Autowired PasswordEncoder passwordEncoder;
 
 	// 마이페이지 메인
 	@GetMapping("/main")
@@ -74,7 +77,8 @@ public class MypageController {
 			}
 		}
 
-		s.setPassword(PwdChange.getPassWordToXEMD5String(s.getPassword()));
+		s.setPassword(passwordEncoder.encode(s.getPassword()));
+
 
 		this.userService.profileEdit(s);
 
@@ -123,7 +127,7 @@ public class MypageController {
 
 		// 기존 비밀번호와 새 비밀번호가 동일한지 확인
 		String existingPassword = user.getPassword(); // DB에서 가져온 기존 비밀번호
-		String encryptedNewPassword = PwdChange.getPassWordToXEMD5String(s.getPassword()); // 새 비밀번호를 암호화
+		String encryptedNewPassword = passwordEncoder.encode(s.getPassword()); // 새 비밀번호를 암호화
 
 		if (existingPassword.equals(encryptedNewPassword)) {
 			// 새 비밀번호가 기존 비밀번호와 동일하면 실패 처리

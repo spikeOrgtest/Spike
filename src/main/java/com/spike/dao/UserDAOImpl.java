@@ -32,8 +32,8 @@ public class UserDAOImpl implements UserDAO {
 	}
 
 	@Override
-	public UserDTO loginCheck(String login_id) {
-		UserDTO s = this.spikeRepo.loginCheck(login_id); // 입력한 ID와 DB에 저장되있는 ID 비교
+	public UserDTO loginCheck(String loginId) {
+		UserDTO s = this.spikeRepo.loginCheck(loginId); // 입력한 ID와 DB에 저장되있는 ID 비교
 
 		if (s == null) {
 			return null; // 사용자 없음
@@ -87,6 +87,11 @@ public class UserDAOImpl implements UserDAO {
 		this.spikeRepo.mypageEdit(s.getName(), s.getEmail_id(), s.getEmail_domain(), s.getPhone(), s.getPhone01(),
 				s.getPhone02(), s.getPhone03(), s.getPostcode(), s.getRoadAddress(), s.getJibunAddress(),
 				s.getDetailAddress(), s.getReferences(), s.getPassword(), s.getLoginId());
+	}
+
+	@Override
+	public UserDTO findFromSession(String loginId) {
+		return this.spikeRepo.findFromSession(loginId);
 	}
 
 }

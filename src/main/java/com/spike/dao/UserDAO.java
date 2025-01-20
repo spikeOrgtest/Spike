@@ -8,7 +8,7 @@ public interface UserDAO {
 
 	UserDTO idCheck(String id);
 
-	UserDTO loginCheck(String login_id);
+	UserDTO loginCheck(String loginId);
 
 	UserDTO findId(UserDTO s);
 
@@ -21,5 +21,7 @@ public interface UserDAO {
 	void profileEdit(UserDTO s);
 
 	void mypageEdit(UserDTO s);
+
+	UserDTO findFromSession(String loginId);
 
 }

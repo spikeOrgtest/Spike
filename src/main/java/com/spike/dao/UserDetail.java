@@ -4,23 +4,31 @@ import java.util.Arrays;
 import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.spike.dto.UserDTO;
 
-import spikepwd.PwdChange;
 
 @Service
 public class UserDetail implements UserDetailsService {
 
 	@Autowired
 	private UserRepository userRepo;
+	
+    private final PasswordEncoder passwordEncoder;
+
+    @Autowired
+    public UserDetail(@Lazy PasswordEncoder passwordEncoder) {
+        this.passwordEncoder = passwordEncoder;
+    }
 	
 	@Override
 	public UserDetails loadUserByUsername(String loginId) throws UsernameNotFoundException {
@@ -43,10 +51,10 @@ public class UserDetail implements UserDetailsService {
     // 사용자가 입력한 비밀번호를 MD5로 암호화해서 DB 비밀번호와 비교하는 메서드 (로그인 시 비교)
     public boolean checkPassword(String inputPassword, String storedPassword) {
     	System.out.println("User Load Detail");
-        String encryptedInputPassword = PwdChange.getPassWordToXEMD5String(inputPassword);
+        String encryptedInputPassword = passwordEncoder.encode(inputPassword);
         System.out.println("입력된 비밀번호 (암호화): " + encryptedInputPassword);
         System.out.println("저장된 비밀번호: " + storedPassword);
-        return encryptedInputPassword.equals(storedPassword);
+        return passwordEncoder.matches(inputPassword, storedPassword);
     }
 
 }
