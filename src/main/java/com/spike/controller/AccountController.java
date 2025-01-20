@@ -96,6 +96,24 @@ public class AccountController {
 		ss.addObject("account_type", account_type);
 		return ss;
 	}
+
+	@GetMapping("/products/newcard")
+	public ModelAndView newCard() {
+		String[] account_type = {"카드"};
+		
+		ModelAndView ss = new ModelAndView("/products/newCard");
+		ss.addObject("account_type", account_type);
+		return ss;
+	}
+	
+	@GetMapping("/products/newloan")
+	public ModelAndView newLoan() {
+		String[] account_type = {"대출"};
+		
+		ModelAndView ss = new ModelAndView("/products/newLoan");
+		ss.addObject("account_type", account_type);
+		return ss;
+	}
 	
 	@PostMapping("/account_ok")
     public ModelAndView account_ok(AccountDTO s, 

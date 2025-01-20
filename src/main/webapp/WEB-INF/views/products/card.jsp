@@ -93,7 +93,7 @@
                         <div class="card-header"></div>
                         <div class="card-body">
                             <h3>SPIKE TRAVEL 카드</h3>
-                            <img src="../../images/product/TRAVELCARD.jpg" width="50%" height="75%"/>
+                            <img src="../../images/product/TRAVELCARD.png" width="50%" height="75%"/>
                         </div>
                     </a>
                     <a href="card/subpage_c6" class="product-card">
