@@ -36,7 +36,7 @@ public class CardController {
 		
 	@GetMapping("/products/newcard")
 	public ModelAndView newCard() {
-		String[] card_name = {"카드"};
+		String[] card_name = {"신용카드", "체크카드"};
 		
 		ModelAndView ss = new ModelAndView("/products/newCard");
 		ss.addObject("card_name", card_name);

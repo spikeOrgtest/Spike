@@ -63,6 +63,9 @@
 						<input type="radio" id="no" name="option2" value="no"><label for="no">신청안함</label>
 					</div>
 			</div>
+			<input type="hidden" id="overseas_payment_value" name="overseas_payment" />
+<input type="hidden" id="transportation_card_value" name="transportation_card" />
+			
 
 			<div class="form-group">
 				<label for="password">비밀번호</label>
@@ -99,9 +102,9 @@
 		</form>
 		<!-- 성공메시지는 alert 사용해서 띄우는 방향으로 수정하기. -->
 		<div id="cardInfo" class="hidden">
-			<p>계좌가 성공적으로 개설되었습니다!</p>
+			<p>카드가 성공적으로 개설되었습니다!</p>
 			<p>
-				귀하의 계좌번호: <span id="cardNumber"></span>
+				귀하의 카드번호: <span id="cardNumber"></span>
 			</p>
 		</div>
 		<p class="security-notice">⚠️ 보안 주의사항: 귀하의 개인정보 보호를 위해 공용 컴퓨터에서는

@@ -4,9 +4,22 @@ document.addEventListener('DOMContentLoaded', function() {
 	const confirmPassword = document.getElementById('confirmPassword');
 	const cardInfo = document.getElementById('cardInfo');
 	const cardNumberSpan = document.getElementById('cardNumber');
+	const overseasPaymentField = document.getElementById('overseas_payment_value');
+	const transportationCardField = document.getElementById('transportation_card_value');
 
 	form.addEventListener('submit', function(e) {
 		e.preventDefault(); // 기본 폼 제출 방지
+
+		const overseasPayment = document.querySelector('input[name="option"]:checked');
+		if (overseasPayment) {
+			overseasPaymentField.value = overseasPayment.value;
+		}
+
+		// 후불교통카드 선택 값 처리
+		const transportationCard = document.querySelector('input[name="option2"]:checked');
+		if (transportationCard) {
+			transportationCardField.value = transportationCard.value;
+		}
 
 		if (validateForm()) {
 			const newCardNumber = generateCardNumber();
@@ -16,8 +29,8 @@ document.addEventListener('DOMContentLoaded', function() {
 			form.submit();
 		}
 	});
-	
-	
+
+
 	// 비밀번호 검증
 	card_password.addEventListener('input', validatePassword);
 	confirmPassword.addEventListener('input', validatePasswordMatch);
@@ -57,13 +70,13 @@ document.getElementById('card_name').addEventListener('change', function() {
 
 	let options = [];
 
-	if (selectedType === '카드') {
+	if (selectedType === 'SPIKE 카드') {
 		options = [
-			{ value: 'spike_savings', text: 'SPIKE 예금' },
-			{ value: 'housing_savings', text: '주택청약' }
+			{ value: 'spike_savings', text: 'SPIKE 카드' },
+			{ value: 'housing_savings', text: '이벤트 카드' }
 		];
-	} 
-	
+	}
+
 	// 옵션 추가
 	options.forEach(option => {
 		const newOption = document.createElement('option');
@@ -74,4 +87,10 @@ document.getElementById('card_name').addEventListener('change', function() {
 
 	// 세부 상품 선택 영역 보여주기
 	productSelectContainer.style.display = options.length > 0 ? 'block' : 'none';
+});
+
+window.addEventListener('load', function() {
+	const cardTypeSelect = document.getElementById('card_name');
+	cardTypeSelect.value = 'SPIKE 카드'; // 기본값 설정
+	cardTypeSelect.dispatchEvent(new Event('change'));  // 'change' 이벤트 강제 실행
 });
