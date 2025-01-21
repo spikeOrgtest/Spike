@@ -24,4 +24,6 @@ public interface UserSerivce {
 
 	UserDTO findFromSession(String loginId);
 
+	void secession(String loginId);
+
 }

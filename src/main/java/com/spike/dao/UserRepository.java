@@ -50,4 +50,9 @@ public interface UserRepository extends JpaRepository<UserDTO, Integer> {
 	@Query("select s from UserDTO s where s.loginId=?1")
 	public UserDTO findFromSession(String loginId);
 
+	@Modifying
+	@Transactional
+	@Query("delete from UserDTO s where s.loginId=?1")
+	public void secession(String loginId);
+
 }

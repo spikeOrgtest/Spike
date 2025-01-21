@@ -63,4 +63,9 @@ public class UserServiceImpl implements UserSerivce {
 		return this.spikeDao.findFromSession(loginId);
 	}
 
+	@Override
+	public void secession(String loginId) {
+		this.spikeDao.secession(loginId);
+	}
+
 }

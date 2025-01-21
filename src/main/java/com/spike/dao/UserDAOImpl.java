@@ -94,4 +94,9 @@ public class UserDAOImpl implements UserDAO {
 		return this.spikeRepo.findFromSession(loginId);
 	}
 
+	@Override
+	public void secession(String loginId) {
+		this.spikeRepo.secession(loginId);
+	}
+
 }

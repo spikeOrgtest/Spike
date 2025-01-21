@@ -24,4 +24,6 @@ public interface UserDAO {
 
 	UserDTO findFromSession(String loginId);
 
+	void secession(String loginId);
+
 }
