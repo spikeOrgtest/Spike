@@ -20,3 +20,4 @@ select * from notice;
 drop table notice;
 
 DROP SEQUENCE notice_seq;
+

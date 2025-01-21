@@ -13,6 +13,7 @@
 <link rel="stylesheet" href="/css/include/include.css">
 <link rel="stylesheet" href="/css/support/subpage_notice.css">
 </head>
+	
 <body class="subpage">
 	<%@ include file="../include/header.jsp"%>
 
@@ -37,7 +38,7 @@
 			</div>
 
 			<div class="subpage-content-wrap">
-				<form method="post" action="noti_list">
+				<form method="get" action="/spike.com/notice">
 					<h2>공지사항</h2>
 					<div class="notice-board">
 						<table class="notice-table">
@@ -52,14 +53,20 @@
 							</thead>
 							<tbody>
 								<c:if test="${!empty Nlist}">
+								<!--  startrow값을 이용해서 번호계산 -->
+								   <c:set var="i" value="${index}" /><!-- 페이지가 1일 경우, 0으로 설정 -->
+								   
 									<c:forEach var="n" items="${Nlist}">
 										<tr>
-											<td>${n.notice_no}</td>
+											<td> ${i} </td>
+											
 											<td><a href="/spike.com/noti_cont?notice_no=${n.notice_no}&state=cont&page=${page}">${n.notice_title}</a></td>
 											<td>${n.notice_name}</td>
 											<td><fmt:formatDate value="${n.created_date}" pattern="yyyy-MM-dd" /></td>
 											<td align="center">${n.notice_hit}</td>
+											<c:set var="i" value="${i - 1}" />
 										</tr>
+										
 									</c:forEach>
 								</c:if>
 							</tbody>
@@ -70,7 +77,7 @@
 						<c:choose>
 							<c:when test="${empty find_field && empty find_name}">
 								<c:if test="${page > 1}">
-									<a href="notice?page=${page-1}">[이전]</a>&nbsp;
+									<a href="/spike.com/notice?page=${page-1}">[이전]</a>&nbsp;
 								</c:if>
 
 								<c:forEach var="a" begin="${startpage}" end="${endpage}" step="1">
@@ -78,18 +85,18 @@
 										[${a}]
 									</c:if>
 									<c:if test="${a != page}">
-										<a href="notice?page=${a}">[${a}]</a>&nbsp;
+										<a href="/spike.com/notice?page=${a}">[${a}]</a>&nbsp;
 									</c:if>
 								</c:forEach>
 
 								<c:if test="${page < maxpage}">
-									<a href="notice?page=${page+1}">[다음]</a>
+									<a href="/spike.com/notice?page=${page+1}">[다음]</a>
 								</c:if>
 							</c:when>
 
 							<c:otherwise>
 								<c:if test="${page > 1}">
-									<a href="notice?page=${page-1}&find_field=${find_field}&find_name=${find_name}">[이전]</a>&nbsp;
+									<a href="/spike.com/notice?page=${page-1}&find_field=${find_field}&find_name=${find_name}">[이전]</a>&nbsp;
 								</c:if>
 
 								<c:forEach var="a" begin="${startpage}" end="${endpage}" step="1">
@@ -97,12 +104,12 @@
 										[${a}]
 									</c:if>
 									<c:if test="${a != page}">
-										<a href="notice?page=${a}&find_field=${find_field}&find_name=${find_name}">[${a}]</a>&nbsp;
+										<a href="/spike.com/notice?page=${a}&find_field=${find_field}&find_name=${find_name}">[${a}]</a>&nbsp;
 									</c:if>
 								</c:forEach>
 
 								<c:if test="${page < maxpage}">
-									<a href="notice?page=${page+1}&find_field=${find_field}&find_name=${find_name}">[다음]</a>
+									<a href="/spike.com/notice?page=${page+1}&find_field=${find_field}&find_name=${find_name}">[다음]</a>
 								</c:if>
 							</c:otherwise>
 						</c:choose>
@@ -119,9 +126,9 @@
 
 					<div id="Nlist_menu">
 						<button type="button" onclick="location='/spike.com/noti_write?page=${page}';">글쓰기</button>
-						<c:if test="${(!empty find_field) && (!empty find_name)}">
+						<!--<c:if test="${(!empty find_field) && (!empty find_name)}">
 							<button type="button" onclick="location='/spike.com/notice?page=${page}';">전체목록</button>
-						</c:if>
+						</c:if>-->
 					</div>
 				</form>
 			</div>
@@ -130,5 +137,6 @@
 
 	<%@ include file="../include/shortfooter.jsp"%>
 	<script src="/js/subpage.js"></script>
+	
 </body>
 </html>

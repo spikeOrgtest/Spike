@@ -42,11 +42,15 @@
 			</div>
 	
  <div id="noti_wrap">
-  <form method="post" action="noti_write_ok" onsubmit="return write_check();" enctype="multipart/form-data">
+  <form method="post" action="noti_edit_ok" onsubmit="return write_check();" enctype="multipart/form-data">
    <%-- 파일 첨부되는 자료실 기능을 만들기 위해서 필요한 코드)
       1. 폼태그내에 enctype="multipart/form-data"속성을 꼭 지정해야 한다.
       2. method=post방식으로 설정해야 한다.
     --%>
+    
+    <input type="hidden" name="notice_no" value="${n.notice_no}" />
+    <input type="hidden" name="page" value="${page}" />
+    
     <table id="noti_t">
      <tr>
       <th>글쓴이</th>

@@ -122,11 +122,13 @@ public class NoticeController {
 	public ModelAndView notice_list(HttpServletRequest request, NoticeDTO notice, NotiPageDTO p ) {
 		int page=1;
 		int limit=5;
+		int index=0;
 		if(request.getParameter("page") != null) {
 			page = Integer.parseInt(request.getParameter("page"));
 			
 		}
-		// 검색 조건 설정
+		
+		// 검색 조건 설정---
 		String find_name = request.getParameter("find_name"); //검색어
 		String find_field = request.getParameter("find_field"); // 검색필드
 		
@@ -136,10 +138,14 @@ public class NoticeController {
 		
 		//전체 게시물 수 구하기
 		int totalCount = this.noticeService.getRowCount(p);
+		index = totalCount - (page-1)*limit; // 인덱스는 토탈카운트이다. 인덱스를 만든이유 : 공지사항 인덱싱 (페이징이 거꾸로 숫자가 나오게하려고)
 		
-		//시작페이지와 끝페이지 계산
+		
+		//시작페이지와 끝페이지 계산---
 		p.setStartrow((page-1)*limit +1); //시작행 번호
+		System.out.println("번호가? " +p.getStartrow());
 		p.setEndrow(p.getStartrow()+limit-1); //끝행 번호
+		System.out.println("끝 번호가? " +p.getEndrow());
 		
 		//게시물 목록 가져오기
 		List<NoticeDTO> Nlist = this.noticeService.getNotiList(p);
@@ -153,8 +159,7 @@ public class NoticeController {
 		    endpage = maxpage;  // 만약 끝 페이지가 총 페이지 수보다 크면 끝 페이지를 maxpage로 설정
 		    
 		}
-		System.out.println("startpage: " + startpage);
-		System.out.println("endpage: " + endpage);
+		
 		//if(endpage>startpage+5-1) endpage = startpage+5-1;
 		
 		ModelAndView listP = new ModelAndView();
@@ -167,8 +172,11 @@ public class NoticeController {
 		listP.addObject("totalCount",totalCount);
 		listP.addObject("find_field",find_field);
 		listP.addObject("find_name",find_name);
-		
+		listP.addObject("startrow",p.getStartrow());
+		listP.addObject("endR",p.getEndrow());
+		listP.addObject("index",index);
 		listP.setViewName("support/newsSubpage_notice"); 
+		
 		return listP;
 		
 	}//notice_list
@@ -302,8 +310,8 @@ public class NoticeController {
 				}//if else
 				
 				this.noticeService.editNoti(notice);//자료실 수정
-
-				ModelAndView em = new ModelAndView("redirect:/support/newSubpage_noticeDetail");
+				
+				ModelAndView em = new ModelAndView("redirect:/spike.com/noti_cont");
 				em.addObject("notice_no", notice.getNotice_no());
 				em.addObject("page", page);
 				em.addObject("state", "cont");

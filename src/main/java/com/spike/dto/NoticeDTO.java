@@ -61,9 +61,9 @@ public class NoticeDTO {
 	private int notice_hit; // 조회수
 	
 	//답변글과 관련된 부분
-	private int notice_ref; // 글그룹번호
-	private int notice_step;  // ! 필요없을수도 있음 !
-	private int notice_level; // 답변글 정렬순서  ! 필요없을수도 있음 !
+	//private int notice_ref; // 글그룹번호
+	//private int notice_step;  // ! 필요없을수도 있음 !
+	//private int notice_level; // 답변글 정렬순서  ! 필요없을수도 있음 !
 	
 	
 	@CreationTimestamp  // 하이버네이트의 특별한 기능으로 등록시점의 날짜값을 기록

@@ -11,13 +11,14 @@ import com.spike.dao.NoticeDAO;
 import com.spike.dto.NotiPageDTO;
 import com.spike.dto.NoticeDTO;
 
+@Transactional
 @Service
 public class NoticeServiceImpl implements NoticeService {
 
 	@Autowired
 	private NoticeDAO noticeDAO;
 	
-	@Transactional
+	//트렌젝션 자리
 	@Override
 	public void insertnotice(NoticeDTO notice) {
 		this.noticeDAO.insertNotice(notice);
