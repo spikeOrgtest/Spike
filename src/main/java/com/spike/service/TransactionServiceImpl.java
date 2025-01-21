@@ -19,35 +19,34 @@ public class TransactionServiceImpl implements TransactionService {
 	private AccountTestRepository accountRepo;
 	
 	@Autowired
-	private TransactionRepository transRepo;
+	private TransactionRepository transactionRepo;
 
 	@Transactional
 	@Override
 	public void transfer(Long fromAccountId, Long toAccountId, BigDecimal amount, String memo) {
-		AccountTestDTO fromAccount = accountRepository.findById(fromAccountId)
+		
+		//atm을 통한 입금,출금에서는 한쪽만 검증 필요(한쪽은 atm이니까), 이체에는 양쪽 다 필요 
+		AccountTestDTO fromAccount = accountRepo.findById(fromAccountId)
 				.orElseThrow(() -> new IllegalArgumentException("출금 계좌를 찾을 수 없습니다."));
 
-		// 입금 계좌 검증
-		AccountTestDTO toAccount = accountRepository.findById(toAccountId)
+		AccountTestDTO toAccount = accountRepo.findById(toAccountId)
 				.orElseThrow(() -> new IllegalArgumentException("입금 계좌를 찾을 수 없습니다."));
 
 
-		fromAccount.setBalance(fromAccount.getBalance().subtract(amount));
+		fromAccount.setBalance(fromAccount.getBalance().subtract(amount)); //BigDecimal 클래스의 내장메서드 subtract 활용
 		toAccount.setBalance(toAccount.getBalance().add(amount));
-		accountRepository.save(fromAccount);
-		accountRepository.save(toAccount);
+		accountRepo.save(fromAccount);
+		accountRepo.save(toAccount);
 
-		// 트랜잭션 생성 및 저장
-		TransactionDTO transaction = new TransactionDTO();
-		transaction.setFromAccount(fromAccount);
-		transaction.setToAccount(toAccount);
-		transaction.setAmount(amount);
-		transaction.setTransactionType("TRANSFER");
-		transaction.setStatus("COMPLETED");
-		transaction.setMemo(memo);
-		transactionRepository.save(transaction);
-		TransactionDTO transDto = new TransactionDTO();
-		this.transRepo.save(transDto);
+		//트랜잭션 객체 생성, 저장
+		TransactionDTO tDto = new TransactionDTO(); //생성자 메서드로 리팩토링 고려
+		tDto.setFromAccount(fromAccount);
+		tDto.setToAccount(toAccount);
+		tDto.setAmount(amount);
+		tDto.setTransactionType("TRANSFER");
+		tDto.setStatus("COMPLETED");
+		tDto.setMemo(memo);
+		transactionRepo.save(tDto);
 	}
 
 }
