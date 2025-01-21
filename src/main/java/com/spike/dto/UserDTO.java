@@ -40,7 +40,7 @@ public class UserDTO {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_no_seq_name")
-	private Integer user_id;
+	private Long user_id;
 
 	@NotNull
 	@Column(length = 100)
