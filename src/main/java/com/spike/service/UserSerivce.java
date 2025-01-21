@@ -1,5 +1,8 @@
 package com.spike.service;
 
+import java.util.List;
+
+import com.spike.dto.AccountDTO;
 import com.spike.dto.UserDTO;
 
 public interface UserSerivce {

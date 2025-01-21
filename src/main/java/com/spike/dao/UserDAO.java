@@ -1,5 +1,8 @@
 package com.spike.dao;
 
+import java.util.List;
+
+import com.spike.dto.AccountDTO;
 import com.spike.dto.UserDTO;
 
 public interface UserDAO {
@@ -25,5 +28,6 @@ public interface UserDAO {
 	UserDTO findFromSession(String loginId);
 
 	void secession(String loginId);
+
 
 }

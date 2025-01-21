@@ -19,7 +19,6 @@ import org.springframework.web.servlet.ModelAndView;
 import com.spike.dto.UserDTO;
 import com.spike.service.UserSerivce;
 
-import spikepwd.PwdChange;
 
 @Controller
 @RequestMapping("/spike.com/mypage")
@@ -171,6 +170,7 @@ public class MypageController {
         return new ModelAndView("/mypage/secessionComplete");  
     }
 
+    // 계좌 조회 폼
 	@GetMapping("inquiry")
 	public ModelAndView inquiry() {
 
