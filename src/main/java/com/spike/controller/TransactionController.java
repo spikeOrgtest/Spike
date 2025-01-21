@@ -9,13 +9,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.spike.dto.TransactionDTO;
-import com.spike.service.TransactionServiece;
+import com.spike.service.TransactionService;
 
 @Controller
 @RequestMapping("/spike.com")
 public class TransactionController {
 
-	private TransactionServiece transService;
+	private TransactionService transService;
 	
 	@GetMapping("transfer")
 	public String goTransfer() {
