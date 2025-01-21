@@ -30,6 +30,6 @@ public class TransactionController {
 		
 		this.transService.transfer(fromAccountId, toAccountId, amount, memo);
 		
-		return "mypage/mytransfer";
+		return "mypage/inquiry";
 	}
 }
