@@ -12,7 +12,7 @@
 			method="post" id="passwordform">
 			<h2>비밀번호 변경</h2>
 			<input type="hidden" name="${_csrf.parameterName}"
-				value="${_csrf.token}" /> <input type="hidden" name="login_id"
+				value="${_csrf.token}" /> <input type="hidden" name="loginId"
 				value="${find_id}" /> <input type="hidden" name="name"
 				value="${find_name}" /> <label for="newPassword">새 비밀번호</label> <input
 				type="password" id="newPassword" name="newPassword" required /> <span
