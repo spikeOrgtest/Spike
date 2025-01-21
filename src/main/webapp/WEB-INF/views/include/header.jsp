@@ -28,7 +28,7 @@
     <header class="main-header">
         <div class="header-container">
             <div class="UserInfo">
-                <a href="spike.com" class="logo"><img alt="로고" src="/images/newlogo.png"></a>
+                <a href="/spike.com" class="logo"><img alt="로고" src="/images/newlogo.png"></a>
                 <c:choose>
                     <c:when test="${sessionScope.User.name == null}">
                         <!-- 로그인 전 -->

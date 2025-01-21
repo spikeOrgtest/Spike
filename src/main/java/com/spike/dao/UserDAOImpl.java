@@ -53,6 +53,7 @@ public class UserDAOImpl implements UserDAO {
 	@Override
 	public UserDTO findPwd(UserDTO s) {
 		UserDTO ps = this.spikeRepo.findUserpwd(s.getLoginId(), s.getName());
+		System.out.println(ps);
 		return ps;
 	}
 

@@ -10,7 +10,7 @@ import org.springframework.data.jpa.repository.Query;
 
 import com.spike.dto.UserDTO;
 
-public interface UserRepository extends JpaRepository<UserDTO, Integer> {
+public interface UserRepository extends JpaRepository<UserDTO, Long> {
 
 	@Query("select s from UserDTO s where s.loginId=?1")
 	public Optional<UserDTO> findid(String id);
