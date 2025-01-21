@@ -122,7 +122,12 @@
                 </ul>
             </div>
         </section>
-
+		
+		<%
+				// 세션에 이미지 경로 저장
+				session.setAttribute("imagePath", "../../../images/product/DIGITALCARD.png");
+				%>
+		
         <section class="cta">
             <div class="container">
                 <a href="../newcard" class="button" id="joinButton">지금 가입하기</a>

@@ -44,10 +44,6 @@ public class AccountController {
 		return "products/loan";
 	}
 	
-	@GetMapping("/products/card")
-	public String card() {
-		return "products/card";
-	}
 	
 	@GetMapping("/products/deposit/subpage_d{number:\\d+}")
 	public String depositSubpage(@PathVariable String number) {
@@ -59,17 +55,12 @@ public class AccountController {
 		return "products/Subpage_S" + number;
 	}
 	
-	@GetMapping("/products/card/subpage_c{number:\\d+}")
-	public String cardSubpage(@PathVariable String number) {
-		return "products/Subpage_C" + number;
-	}
-	
 	@GetMapping("/products/loan/subpage_l{number:\\d+}")
 	public String loanSubpage(@PathVariable String number) {
 		return "products/Subpage_L" + number;
 	}
 	
-	// 계좌개설 폼
+	// 계좌개설 폼 tset
 	@GetMapping("/products/newmember")
     public ModelAndView newmember() {
         String[] account_type = {"예금", "적금"};
@@ -96,15 +87,6 @@ public class AccountController {
 		ss.addObject("account_type", account_type);
 		return ss;
 	}
-
-	@GetMapping("/products/newcard")
-	public ModelAndView newCard() {
-		String[] account_type = {"카드"};
-		
-		ModelAndView ss = new ModelAndView("/products/newCard");
-		ss.addObject("account_type", account_type);
-		return ss;
-	}
 	
 	@GetMapping("/products/newloan")
 	public ModelAndView newLoan() {
@@ -118,7 +100,7 @@ public class AccountController {
 	@PostMapping("/account_ok")
     public ModelAndView account_ok(AccountDTO s, 
     		HttpServletRequest request, BindingResult result) throws IOException {
-    	
+    	s.setBalance("0");
 		this.accountService.createAccount(s);
 		
     	return new ModelAndView("redirect:/spike.com/products");

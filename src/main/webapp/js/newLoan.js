@@ -1,25 +1,24 @@
 document.addEventListener('DOMContentLoaded', function() {
 	const form = document.getElementById('signupForm');
-	const card_password = document.getElementById('card_password');
+	const account_password = document.getElementById('account_password');
 	const confirmPassword = document.getElementById('confirmPassword');
-	const cardInfo = document.getElementById('cardInfo');
-	const cardNumberSpan = document.getElementById('cardNumber');
+	const accountInfo = document.getElementById('accountInfo');
+	const accountNumberSpan = document.getElementById('accountNumber');
 
 	form.addEventListener('submit', function(e) {
 		e.preventDefault(); // 기본 폼 제출 방지
 
 		if (validateForm()) {
-			const newCardNumber = generateCardNumber();
-			document.getElementById('card_number').value = newCardNumber;
-			cardNumberSpan.textContent = newCardNumber;
-			cardInfo.classList.remove('hidden');
+			const newAccountNumber = generateAccountNumber();
+			document.getElementById('account_number').value = newAccountNumber;
+			accountNumberSpan.textContent = newAccountNumber;
+			accountInfo.classList.remove('hidden');
 			form.submit();
 		}
 	});
-	
-	
+
 	// 비밀번호 검증
-	card_password.addEventListener('input', validatePassword);
+	account_password.addEventListener('input', validatePassword);
 	confirmPassword.addEventListener('input', validatePasswordMatch);
 
 	function validateForm() {
@@ -28,26 +27,26 @@ document.addEventListener('DOMContentLoaded', function() {
 
 	function validatePassword() {
 		const passwordRegex = /^[0-9]{6}$/; // 6자리 숫자
-		const isValid = passwordRegex.test(card_password.value);
-		card_password.setCustomValidity(isValid ? '' : '비밀번호는 6자리 숫자여야 합니다.');
+		const isValid = passwordRegex.test(account_password.value);
+		account_password.setCustomValidity(isValid ? '' : '비밀번호는 6자리 숫자여야 합니다.');
 		return isValid;
 	}
 
 	function validatePasswordMatch() {
-		const isValid = card_password.value === confirmPassword.value;
+		const isValid = account_password.value === confirmPassword.value;
 		confirmPassword.setCustomValidity(isValid ? '' : '비밀번호가 일치하지 않습니다.');
 		return isValid;
 	}
 
 	// 카드번호 랜덤 생성
-	function generateCardNumber() {
+	function generateAccountNumber() {
 		const numbers = Array.from({ length: 16 }, () => Math.floor(Math.random() * 10));
 		return `${numbers.slice(0, 4).join('')}-${numbers.slice(4, 8).join('')}-${numbers.slice(8, 12).join('')}-${numbers.slice(12).join('')}`;
 	}
 });
 
 // 세부상품선택
-document.getElementById('card_name').addEventListener('change', function() {
+document.getElementById('account_type').addEventListener('change', function() {
 	const selectedType = this.value;
 	const productSelect = document.getElementById('product_type');
 	const productSelectContainer = document.getElementById('product_select');
@@ -57,13 +56,18 @@ document.getElementById('card_name').addEventListener('change', function() {
 
 	let options = [];
 
-	if (selectedType === '카드') {
+	if (selectedType === '예금') {
 		options = [
 			{ value: 'spike_savings', text: 'SPIKE 예금' },
 			{ value: 'housing_savings', text: '주택청약' }
 		];
-	} 
-	
+	} else if (selectedType === '적금') {
+		options = [
+			{ value: 'spike_installment', text: 'SPIKE 적금' },
+			{ value: 'regular_installment', text: '정기적금' }
+		];
+	}
+
 	// 옵션 추가
 	options.forEach(option => {
 		const newOption = document.createElement('option');

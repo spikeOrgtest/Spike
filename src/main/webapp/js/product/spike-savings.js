@@ -43,9 +43,10 @@ document.addEventListener('DOMContentLoaded', function() {
     joinButton.addEventListener('click', function(e) {
         e.preventDefault();
         alert('SPIKE 적금 가입 페이지로 이동합니다.');
-        // Here you would typically redirect to the actual join page
-        window.location.href = '/products/newDeposit';
+		const imageURL ='../../../images/product/SPIKECARD.png';
+        window.location.href = 'products/newcard'+encodeURIComponent(imageURL);
     });
+	
 
     // Add animation to sections
     const sections = document.querySelectorAll('section');

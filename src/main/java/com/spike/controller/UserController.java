@@ -37,7 +37,7 @@ public class UserController {
 	 private PasswordEncoder passwordEncoder;
 	
 	// 로그인 폼
-	@GetMapping("/login")
+	@GetMapping("/login") 
 	public ModelAndView login() {
 		ModelAndView s = new ModelAndView();
 		s.setViewName("/login");
@@ -57,13 +57,9 @@ public class UserController {
 		ss.addObject("email", email);
 		return ss;
 	}
-<<<<<<< HEAD
 	
 	//아이디 중복 검색
-=======
 
-	// 아이디 중복 검색
->>>>>>> develop
 	@PostMapping("/signup_idcheck")
 	public void signup_idcheck(String id, HttpServletResponse response) throws Exception {
 		response.setContentType("text/html; charset=UTF-8");
@@ -155,6 +151,7 @@ public class UserController {
 			s.setProfile_image_uri("");
 		}
 
+		// 비밀번호 암호화
 		s.setPassword(passwordEncoder.encode(s.getPassword()));
 
 		// DB에 사용자 정보 저장
@@ -164,7 +161,7 @@ public class UserController {
 		return new ModelAndView("redirect:/spike.com/login");
 	}
 
-	/*// 로그인
+	// 로그인
 	@PostMapping("/login_ok")
 	public ModelAndView login_ok(String loginId, String password, HttpServletResponse response, HttpSession session)
 			throws Exception {
@@ -199,7 +196,7 @@ public class UserController {
 		}
 
 		return null;
-	}*/
+	}
 
 	// 아이디 찾기 폼
 	@GetMapping("findId")
@@ -292,66 +289,6 @@ public class UserController {
 	public String findPwd_change_ok(String loginId, String name, String newPassword, String confirmPassword,
 			HttpServletResponse response) throws Exception {
 
-<<<<<<< HEAD
-	    // 현재 사용자 정보 조회 (로그인 ID와 이름을 통해 조회)
-	    UserDTO s = new UserDTO();
-	    s.setLogin_id(login_id);
-	    s.setName(name);
-	    
-	    // 현재 사용자의 기존 비밀번호를 DB에서 조회
-	    UserDTO existingUser = this.spikeService.findPwd(s);  // 비밀번호 조회 서비스 호출
-	    
-	    // 만약 사용자가 존재하지 않거나 기존 비밀번호가 없다면 처리
-	    if (existingUser == null) {
-	        response.setContentType("text/html;charset=UTF-8");
-	        PrintWriter out = response.getWriter();
-	        out.println("<script>");
-	        out.println("alert('회원정보를 찾을 수 없습니다!');");
-	        out.println("history.go(-1);");
-	        out.println("</script>");
-	        return null;
-	    }
-	    
-	    // 기존 비밀번호와 새 비밀번호가 동일한지 확인
-	    String existingPassword = existingUser.getPassword();  // DB에서 가져온 기존 비밀번호
-	    String encryptedNewPassword = PwdChange.getPassWordToXEMD5String(newPassword); // 새 비밀번호를 암호화
-	    
-	    if (existingPassword.equals(encryptedNewPassword)) {
-	        // 새 비밀번호가 기존 비밀번호와 동일하면 실패 처리
-	        response.setContentType("text/html;charset=UTF-8");
-	        PrintWriter out = response.getWriter();
-	        out.println("<script>");
-	        out.println("alert('기존 비밀번호와 새 비밀번호가 동일합니다!');");
-	        out.println("window.location.href = '/spike.com/findPwd';");
-	        out.println("</script>");
-	        return null;
-	    }
-	    
-	    // 새 비밀번호를 암호화한 후 비밀번호 변경
-	    s.setPassword(encryptedNewPassword); // 새 비밀번호 설정
-	    UserDTO updatedUser = this.spikeService.changePwd(s); // 비밀번호 수정 서비스 호출
-	    
-	    if (updatedUser != null) {
-	        // 수정이 성공하면 성공 메시지 및 리다이렉트
-	        response.setContentType("text/html;charset=UTF-8");
-	        PrintWriter out = response.getWriter();
-	        out.println("<script>");
-	        out.println("alert('비밀번호 변경에 성공했습니다!');");
-	        out.println("window.close();");
-	        out.println("</script>");
-	        return null;  // 리다이렉트 후 새로운 페이지 로드
-	    } else {
-	        // 수정 실패 시 처리
-	        response.setContentType("text/html;charset=UTF-8");
-	        PrintWriter out = response.getWriter();
-	        out.println("<script>");
-	        out.println("alert('비밀번호 변경에 실패했습니다!');");
-	        out.println("history.go(-1);");
-	        out.println("</script>");
-	        return null;  // 실패 시 다시 돌아가도록 처리
-	    }
-	}
-=======
 		// 현재 사용자 정보 조회 (로그인 ID와 이름을 통해 조회)
 		UserDTO s = new UserDTO();
 		s.setLoginId(loginId);
@@ -397,10 +334,10 @@ public class UserController {
 			out.println("history.go(-1);");
 			out.println("</script>");
 			return null; // 실패 시 다시 돌아가도록 처리
-
+ 
 		}
 	}
-
+	
 	// 로그아웃
 	@GetMapping("logout")
 	public void logout(HttpServletResponse response, HttpSession session) throws Exception {
@@ -417,5 +354,4 @@ public class UserController {
 		out.close();
 	}
 
->>>>>>> develop
 }
