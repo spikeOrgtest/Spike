@@ -32,24 +32,34 @@
 			<div class="form-group" id="product_select" class="hidden">
 				<label for="product_type">세부상품</label>
 				<div class="product_container">
-				<select id="product_type"
-					name="product_type">
-				</select>
+					<select id="product_type" name="product_type">
+					</select>
 				</div>
 			</div>
+
+			<form method="POST" action="#">
+				<input type="submit" name="button" value="해외결제"> 
+				<input type="submit" name="button" value="국내전용">
+			</form>
+
+			<form method="POST" action="#">
+				<input type="submit" name="button" value="신청안함"> 
+				<input type="submit" name="button" value="신청">
+			</form>
+
 			<div class="form-group">
-				<label for="password">비밀번호</label> 
+				<label for="password">비밀번호</label>
 				<div class="password_container">
-				<input type="password"
-					id="account_password" name="account_password" required />
+					<input type="password" id="account_password"
+						name="account_password" required />
 				</div>
 				<p class="password-requirements">비밀번호는 6자 숫자를 사용해야 합니다.</p>
 			</div>
 			<div class="form-group">
 				<label for="confirmPassword">비밀번호 확인</label>
 				<div class="password_container">
-				<input type="password"
-					id="confirmPassword" name="confirmPassword" required />
+					<input type="password" id="confirmPassword" name="confirmPassword"
+						required />
 				</div>
 			</div>
 			<div class="form-group checkbox">
@@ -65,7 +75,7 @@
 				</label>
 			</div>
 			<div>
-				<button type="submit">계좌 개설</button>
+				<button type="submit">카드 발급</button>
 				<button type="button" onclick="location.href='../products'">취소</button>
 			</div>
 			<input type="hidden" id="account_number" name="account_number" />
