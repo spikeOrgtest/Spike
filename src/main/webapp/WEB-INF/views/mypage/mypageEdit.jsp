@@ -1,4 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -9,10 +11,9 @@
 <meta name="description" content="" />
 <meta name="author" content="" />
 <title>회원정보수정</title>
-<link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
-<link href="assets/css/mypage/mypageEdit.css" rel="stylesheet" />
-<link href="assets/css/mypage/sidebars.css" rel="stylesheet" />
-<link href="assets/css/include.css" rel="stylesheet" />
+<link href="../../css/mypage/mypageEdit.css" rel="stylesheet" />
+<link href="../../css/mypage/sidebars.css" rel="stylesheet" />
+<link href="../../css/include/include.css" rel="stylesheet" />
 
 </head>
 
@@ -39,10 +40,10 @@
 							aria-expanded="true">Home</button>
 						<div class="collapse show" id="home-collapse">
 							<ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-								<li><a href="mypageEdit.jsp" class="link-dark rounded">회원정보수정</a></li>
-								<li><a href="mypageinquiry.jsp" class="link-dark rounded">나의
+								<li><a href="javascript:location='/spike.com/mypage/mypageEdit';" class="link-dark rounded">회원정보수정</a></li>
+								<li><a href="javascript:location='/spike.com/mypage/inquiry';" class="link-dark rounded">나의
 										계좌</a></li>
-								<li><a href="mypageproperty.jsp" class="link-dark rounded">자산조회</a></li>
+								<li><a href="javascript:location='/spike.com/mypage/property';" class="link-dark rounded">자산조회</a></li>
 								<li><a href="#" class="link-dark rounded">목표 금액 설정</a></li>
 							</ul>
 						</div>
@@ -53,7 +54,7 @@
 				<div class="container row g-0">
 					<header class="text-center py-5">
 						<div class="img-container">
-							<img src="assets/img/mypage/edit.jpg" class="opaque-image"
+							<img src="../../images/mypage/edit.jpg" class="opaque-image"
 								alt="불투명도 이미지">
 							<div class="text-overlay"></div>
 						</div>
@@ -61,7 +62,9 @@
 					<main>
 						<div class="container py-5">
 							<h2 class="text-center mb-4">회원 정보 수정</h2>
-							<form action="#" method="POST">
+							<form name="s" action="/spike.com/mypage/mypageEdit" method="POST" id="editProfileForm">
+								<input type="hidden" name="${_csrf.parameterName}"
+													value="${_csrf.token}" />
 
 								<div class="row mb-3">
 									<label for="name" class="col-sm-2 col-form-label">이름</label>
@@ -72,36 +75,44 @@
 								</div>
 
 								<div class="row mb-3">
-									<label for="email" class="col-sm-2 col-form-label">이메일</label>
-									<div class="col-sm-10">
-										<input type="email" class="form-control" id="email"
-											name="email" placeholder="이메일을 입력하세요">
-									</div>
+								    <label for="email" class="col-sm-2 col-form-label">이메일</label>
+								    <div class="col-sm-10 d-flex align-items-center">
+								        <input type="text" class="form-control" id="email_id" name="email_id" placeholder="이메일" style="flex-grow: 1;"/>
+								        <span class="email-at-symbol">@</span>
+								        <input type="text" class="form-control" id="email_domain" name="email_domain" value="gmail.com" readonly style="flex-grow: 1;"/>
+								        <select name="mail_list" onchange="domain_list();" style="margin-left: 10px; flex-grow: 1;">
+								            <c:forEach var="mail" items="${email}">
+								                <option value="${mail}">${mail}</option>
+								            </c:forEach>
+								        </select>
+								    </div>
 								</div>
 
 								<div class="row mb-3">
 									<label for="phone" class="col-sm-2 col-form-label">전화번호</label>
 									<div class="col-sm-10">
-										<input type="tel" class="form-control" id="phone" name="phone"
-											placeholder="전화번호를 입력하세요">
+										<select name="phone01" id="phone01">
+											<c:forEach var="p" items="${phone}">
+												<option value="${p}">${p}</option>
+											</c:forEach>
+										</select> 
+											- 
+											<input name="phone02" id="phone02" size="4" maxlength="4" />
+											 -
+											<input name="phone03" id="phone03" size="4" maxlength="4" />
 									</div>
 								</div>
 
 								<div class="row mb-3">
 									<label for="address" class="col-sm-2 col-form-label">주소</label>
 									<div class="address-form">
-										<input type="text" class="address" id="sample4_postcode"
-											placeholder="우편번호"> <input type="button"
-											class="address-button" onclick="sample4_execDaumPostcode()"
-											value="우편번호 찾기"><br> <input type="text"
-											class="address" id="sample4_roadAddress" placeholder="도로명주소">
-										<input type="text" class="address" id="sample4_jibunAddress"
-											placeholder="지번주소"> <span id="guide"
-											style="color: #999; display: none"></span> <input type="text"
-											class="address-full" id="sample4_detailAddress"
-											placeholder="상세주소"> <input type="text"
-											class="address-full" id="sample4_extraAddress"
-											placeholder="참고항목">
+										<input type="text" class="address" id="postcode" name="postcode" placeholder="우편번호"> 
+										<input type="button" class="address-button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기"><br> 
+										<input type="text" class="address" id="roadAddress" name="roadAddress" placeholder="도로명주소">
+										<input type="text" class="address" id="jibunAddress" name="jibunAddress" placeholder="지번주소"> 
+										<span id="guide" style="color: #999; display: none"></span> 
+										<input type="text" class="address-full" id="detailAddress" name="detailAddress" placeholder="상세주소"> 
+										<input type="text" class="address-full" id="References" name="References" placeholder="참고항목">
 									</div>
 								</div>
 
@@ -118,7 +129,7 @@
 										확인</label>
 									<div class="col-sm-10">
 										<input type="password" class="form-control"
-											id="confirm_password" name="confirm_password"
+											id="password2" name="password2"
 											placeholder="비밀번호를 확인하세요">
 									</div>
 								</div>
@@ -146,8 +157,8 @@
 	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 	<script
 		src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-	<script src="assets/js/mypage/mypageEdit.js"></script>
-	<script src="assets/js/mypage/sidebars.js"></script>
+	<script src="../../js/mypage/mypageEdit.js"></script>
+	<script src="../../js/mypage/sidebars.js"></script>
 </body>
 
 </html>
