@@ -24,12 +24,12 @@ public class TransactionController {
 	}
 	
 	@PostMapping("transfer")
-	public ModelAndView transfer_ok(Long fromAccountId, Long toAccountId, BigDecimal amount, String memo) {
+	public String transfer_ok(Long fromAccountId, Long toAccountId, BigDecimal amount, String memo) {
 		
 		
 		
 		this.transService.transfer(fromAccountId, toAccountId, amount, memo);
 		
-		return null;
+		return "mypage/mytransfer";
 	}
 }
