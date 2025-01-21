@@ -10984,3 +10984,22 @@ body {
 	display: flex;
 	justify-content: center;
 }
+
+.email-at-symbol {
+    padding-left: 10px;
+    padding-right: 10px;
+    font-weight: bold; /* 원하는 스타일 추가 */
+    vertical-align: middle; /* 수평 가운데 정렬 */
+    margin-top: 4px; /* 위치를 아래로 내리는 값 (조정 가능) */
+}
+
+h5 {
+    display: block;
+    font-size: 0.83em !important; 
+    margin-block-start: 1.67em !important;
+    margin-block-end: 1.67em !important;
+    margin-inline-start: 0px !important;
+    margin-inline-end: 0px !important;
+    font-weight: bold !important;
+    unicode-bidi: isolate !important;
+}
