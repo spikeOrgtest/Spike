@@ -6,31 +6,14 @@
 <meta charset="utf-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 <title>spike mini</title>
-<meta name="description" content="">
-<meta name="keywords" content="">
-
-<meta name="robots" content="noindex, nofollow">
-
-<!-- Fonts -->
-<link href="assets/css/mini.css" rel="stylesheet">
-<link href="assets/css/include.css" rel="stylesheet">
-<link href="https://fonts.googleapis.com" rel="preconnect">
-<link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
-<link
-	href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
-	rel="stylesheet">
-
-<!-- Main CSS File -->
-
-
+<link rel="stylesheet" href="../css/include/include.css">
+<link rel="stylesheet" href="../css/mini/mini.css">
 </head>
 
 <body>
-
-	<jsp:include page="../include/header.jsp" />
+	<%@ include file="../include/header.jsp"%>
 
 	<main class="main">
-
 		<!-- Hero Section -->
 		<section id="hero" class="hero section">
 
@@ -38,7 +21,7 @@
 				<div class="row gy-4">
 					<div class="col-lg-1 order-lg-last hero-img" data-aos="zoom-out"
 						data-aos-delay="100">
-						<img src="assets/img/mini/mini_main.gif"
+						<img src="../images/mini/mini_main.gif"
 							class="img-fluid animated" alt="">
 					</div>
 					<div
@@ -65,6 +48,7 @@
 			<!-- Section Title -->
 			<div class="container section-title" data-aos="fade-up">
 				<h2>spike mini를 소개합니다.</h2>
+				</div>
 		</section>
 		<!-- /Features Section -->
 
@@ -76,7 +60,7 @@
 				<div class="row gy-4 align-items-center features-item">
 					<div class="col-md-1 d-flex align-items-center" data-aos="zoom-out"
 						data-aos-delay="100">
-						<img src="assets/img/mini/sign_up.gif" class="img-fluid"
+						<img src="../images/mini/sign_up.gif" class="img-fluid"
 							alt="회원가입">
 					</div>
 					<div class="col-md-2" data-aos="fade-up" data-aos-delay="100">
@@ -91,7 +75,7 @@
 				<div class="row gy-4 align-items-center features-item">
 					<div class="col-md-1 order-1 order-md-2 d-flex align-items-center"
 						data-aos="zoom-out" data-aos-delay="100">
-						<img src="assets/img/mini/저금통.gif" class="img-fluid" alt="저금통">
+						<img src="../images/mini/저금통.gif" class="img-fluid" alt="저금통">
 					</div>
 					<div class="col-md-2 order-2 order-md-1" data-aos="fade-up"
 						data-aos-delay="100">
@@ -106,7 +90,7 @@
 
 				<div class="row gy-4 align-items-center features-item">
 					<div class="col-md-1 d-flex align-items-center" data-aos="zoom-out">
-						<img src="assets/img/mini/지갑.gif" class="img-fluid" alt="지갑">
+						<img src="../images/mini/지갑.gif" class="img-fluid" alt="지갑">
 					</div>
 					<div class="col-md-2" data-aos="fade-up">
 						<h3>남은 금액은 얼마?</h3>
@@ -120,7 +104,7 @@
 				<div class="row gy-4 align-items-center features-item">
 					<div class="col-md-1 order-1 order-md-2 d-flex align-items-center"
 						data-aos="zoom-out">
-						<img src="assets/img/mini/경제.gif" class="img-fluid" alt="">
+						<img src="../images/mini/경제.gif" class="img-fluid" alt="">
 					</div>
 					<div class="col-md-2 order-2 order-md-1" data-aos="fade-up">
 						<h3>미리 배우는 경제활동!</h3>
@@ -131,37 +115,13 @@
 					</div>
 				</div>
 				<!-- Features Item 4 -->
-
 			</div>
-
 		</section>
 		<!-- /Feature Details Section -->
-
-
 	</main>
 
-	<jsp:include page="../include/footer.jsp" />
+	
+<%@ include file="../include/footer.jsp"%>
 
-
-
-
-
-	<!-- Scroll Top -->
-	<a href="#" id="scroll-top"
-		class="scroll-top d-flex align-items-center justify-content-center"><i
-		class="bi bi-arrow-up-short"></i></a>
-
-
-
-
-	<!-- Main JS File -->
-	<script src="assets/js/main.js"></script>
-
-	<script defer
-		src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015"
-		integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ=="
-		data-cf-beacon='{"rayId":"8e8fa5c7897ae3a1","serverTiming":{"name":{"cfExtPri":true,"cfL4":true,"cfSpeedBrain":true,"cfCacheStatus":true}},"version":"2024.10.5","token":"68c5ca450bae485a842ff76066d69420"}'
-		crossorigin="anonymous"></script>
 </body>
-
 </html>

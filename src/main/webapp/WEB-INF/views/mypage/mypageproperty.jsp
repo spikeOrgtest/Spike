@@ -10,9 +10,9 @@
 <meta name="author" content="" />
 <title>자산조회</title>
 <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
-<link href="assets/css/mypage/mypageproperty.css" rel="stylesheet" />
-<link href="assets/css/mypage/sidebars.css" rel="stylesheet" />
-<link href="assets/css/include.css" rel="stylesheet" />
+<link href="../../css/mypage/mypageproperty.css" rel="stylesheet" />
+<link href="../../css/mypage/sidebars.css" rel="stylesheet" />
+<link href="../../css/include/include.css" rel="stylesheet" />
 </head>
 
 <body>
@@ -38,10 +38,10 @@
 							aria-expanded="true">Home</button>
 						<div class="collapse show" id="home-collapse">
 							<ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-								<li><a href="mypageEdit.jsp" class="link-dark rounded">회원정보수정</a></li>
-								<li><a href="mypageinquiry.jsp" class="link-dark rounded">나의
+								<li><a href="javascript:location='/spike.com/mypage/mypageEdit';" class="link-dark rounded">회원정보수정</a></li>
+								<li><a href="javascript:location='/spike.com/mypage/inquiry';" class="link-dark rounded">나의
 										계좌</a></li>
-								<li><a href="mypageproperty.jsp" class="link-dark rounded">자산조회</a></li>
+								<li><a href="javascript:location='/spike.com/mypage/property';" class="link-dark rounded">자산조회</a></li>
 								<li><a href="#" class="link-dark rounded">목표 금액 설정</a></li>
 							</ul>
 						</div>
@@ -53,7 +53,7 @@
 				<div class="container row g-0">
 					<header class="text-center py-5">
 						<div class="img-container">
-							<img src="assets/img/mypage/property.jpg" class="opaque-image"
+							<img src="../../images/mypage/property.jpg" class="opaque-image"
 								alt="불투명도 이미지">
 							<div class="text-overlay"></div>
 						</div>
