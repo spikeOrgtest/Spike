@@ -37,7 +37,7 @@ public class UserController {
 	 private PasswordEncoder passwordEncoder;
 	
 	// 로그인 폼
-	@GetMapping("/login")
+	@GetMapping("/login") 
 	public ModelAndView login() {
 		ModelAndView s = new ModelAndView();
 		s.setViewName("/login");
@@ -57,8 +57,9 @@ public class UserController {
 		ss.addObject("email", email);
 		return ss;
 	}
+	
+	//아이디 중복 검색
 
-	// 아이디 중복 검색
 	@PostMapping("/signup_idcheck")
 	public void signup_idcheck(String id, HttpServletResponse response) throws Exception {
 		response.setContentType("text/html; charset=UTF-8");
@@ -89,7 +90,7 @@ public class UserController {
 				s.setEmail_domain(emailParts[1]); // email_domain 필드에 도메인 부분을 설정
 			}
 		}
-
+		
 		// 전화번호 필수값 체크
 		if (s.getPhone01() == null || s.getPhone02() == null || s.getPhone03() == null || s.getPhone01().isEmpty()
 				|| s.getPhone02().isEmpty() || s.getPhone03().isEmpty()) {
@@ -108,9 +109,9 @@ public class UserController {
 		// 전화번호 합치기 (phone01 + phone02 + phone03)
 		String phone = s.getPhone01() + "-" + s.getPhone02() + "-" + s.getPhone03();
 		s.setPhone(phone); // spikeDTO에 합친 전화번호 저장
-
+		
 		MultipartFile file = s.getProfileImage(); // 업로드된 프로필 이미지
-
+		
 		if (file != null && !file.isEmpty()) {
 			System.out.println("Upload File Name: " + file.getOriginalFilename());// 업로드 된 원본파일명
 			System.out.println("Upload File Size: " + file.getSize());// 업로드 파일크기
@@ -150,6 +151,7 @@ public class UserController {
 			s.setProfile_image_uri("");
 		}
 
+		// 비밀번호 암호화
 		s.setPassword(passwordEncoder.encode(s.getPassword()));
 
 		// DB에 사용자 정보 저장
@@ -159,7 +161,7 @@ public class UserController {
 		return new ModelAndView("redirect:/spike.com/login");
 	}
 
-	/*// 로그인
+	// 로그인
 	@PostMapping("/login_ok")
 	public ModelAndView login_ok(String loginId, String password, HttpServletResponse response, HttpSession session)
 			throws Exception {
@@ -194,8 +196,7 @@ public class UserController {
 		}
 
 		return null;
-	}*/
-
+	}
 	// 아이디 찾기 폼
 	@GetMapping("findId")
 	public ModelAndView findId() {
@@ -294,10 +295,10 @@ public class UserController {
 
 		// 현재 사용자의 기존 비밀번호를 DB에서 조회
 		UserDTO existingUser = this.spikeService.findPwd(s); // 비밀번호 조회 서비스 호출
-
+		System.out.println(existingUser);
 		// 기존 비밀번호와 새 비밀번호가 동일한지 확인
 		String existingPassword = existingUser.getPassword(); // DB에서 가져온 기존 비밀번호
-		 String encryptedNewPassword = passwordEncoder.encode(newPassword); // 새 비밀번호를 암호화
+		String encryptedNewPassword = passwordEncoder.encode(newPassword); // 새 비밀번호를 암호화
 
 		if (existingPassword.equals(encryptedNewPassword)) {
 			// 새 비밀번호가 기존 비밀번호와 동일하면 실패 처리
@@ -332,10 +333,10 @@ public class UserController {
 			out.println("history.go(-1);");
 			out.println("</script>");
 			return null; // 실패 시 다시 돌아가도록 처리
-
+ 
 		}
 	}
-
+	
 	// 로그아웃
 	@GetMapping("logout")
 	public void logout(HttpServletResponse response, HttpSession session) throws Exception {
