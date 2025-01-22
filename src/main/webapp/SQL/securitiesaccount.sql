@@ -17,3 +17,6 @@ INSERT INTO securities_account (
 (
     1, '123-456-789', 1000.0, 'USD', 'Active', SYSDATE, 1
 );
+
+select * from user_info;
+select * from SECURITIES_ACCOUNT;
