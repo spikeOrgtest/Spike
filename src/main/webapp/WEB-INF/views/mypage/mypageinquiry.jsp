@@ -1,4 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -37,10 +38,15 @@
 							aria-expanded="true">Home</button>
 						<div class="collapse show" id="home-collapse">
 							<ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-								<li><a href="javascript:location='/spike.com/mypage/mypageEdit';" class="link-dark rounded">회원정보수정</a></li>
-								<li><a href="javascript:location='/spike.com/mypage/inquiry';" class="link-dark rounded">나의
-										계좌</a></li>
-								<li><a href="javascript:location='/spike.com/mypage/property';" class="link-dark rounded">자산조회</a></li>
+								<li><a
+									href="javascript:location='/spike.com/mypage/mypageEdit';"
+									class="link-dark rounded">회원정보수정</a></li>
+								<li><a
+									href="javascript:location='/spike.com/mypage/inquiry';"
+									class="link-dark rounded">나의 계좌</a></li>
+								<li><a
+									href="javascript:location='/spike.com/mypage/property';"
+									class="link-dark rounded">자산조회</a></li>
 								<li><a href="#" class="link-dark rounded">목표 금액 설정</a></li>
 							</ul>
 						</div>
@@ -72,12 +78,13 @@
 										class="form-select" id="accountSelect" required
 										onchange="updateAccountInfo()">
 										<option value="" disabled selected>계좌를 선택하세요</option>
-										<option value="123-4567-8901:일반" data-balance="2345678"
-											data-available="1234567">123-4567-8901:일반</option>
-										<option value="987-6543-2100:mini" data-balance="3456789"
-											data-available="2345678">987-6543-2100:mini</option>
-										<option value="456-7890-1234:증권" data-balance="4567890"
-											data-available="3456789">456-7890-1234:증권</option>
+										<c:forEach var="item" items="${list}">
+											<option value="${item.account_number}:${item.account_type}"
+												data-balance="${item.balance}"
+												data-available="${item.balance}">
+												${item.account_number}:${item.account_type}</option>
+										</c:forEach>
+
 									</select>
 								</div>
 
@@ -85,6 +92,7 @@
 									<div class="col">
 										<label class="form-label">잔액</label>
 										<div class="form-control bg-light" id="balanceAmount">-
+											
 											원</div>
 									</div>
 									<div class="col">

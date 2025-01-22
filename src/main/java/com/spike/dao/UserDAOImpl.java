@@ -9,12 +9,16 @@ import org.springframework.stereotype.Repository;
 
 import com.spike.dto.AccountDTO;
 import com.spike.dto.UserDTO;
+import com.spike.repository.AccountRepository;
 
 @Repository
 public class UserDAOImpl implements UserDAO {
 
 	@Autowired
 	private UserRepository spikeRepo;
+	
+	@Autowired
+	private AccountRepository accountRepo;
 
 	@Override
 	public void insetMember(UserDTO s) {
@@ -102,4 +106,11 @@ public class UserDAOImpl implements UserDAO {
 		this.spikeRepo.secession(loginId);
 	}
 
+
+	@Override
+	public List<AccountDTO> findbyinquriy(Long userId) {
+		System.out.println("ID : " + userId);
+		return this.spikeRepo.findByUserId(userId);
+	}
+	
 }

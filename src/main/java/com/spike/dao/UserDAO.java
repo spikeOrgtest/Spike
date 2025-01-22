@@ -29,5 +29,6 @@ public interface UserDAO {
 
 	void secession(String loginId);
 
+	List<AccountDTO> findbyinquriy(Long userId);
 
 }

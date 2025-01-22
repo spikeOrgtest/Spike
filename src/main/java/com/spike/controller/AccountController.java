@@ -3,6 +3,7 @@ package com.spike.controller;
 import java.io.IOException;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.spike.dto.AccountDTO;
+import com.spike.dto.UserDTO;
 import com.spike.service.AccountService;
 
 @Controller
@@ -98,7 +100,9 @@ public class AccountController {
 	
 	@PostMapping("/account_ok")
     public ModelAndView account_ok(AccountDTO s, 
-    		HttpServletRequest request, BindingResult result) throws IOException {
+    		HttpServletRequest request, BindingResult result, HttpSession session) throws IOException {
+		UserDTO sessionUser = (UserDTO) session.getAttribute("User");
+		s.setOwner(sessionUser);
     	s.setBalance("0");
 		this.accountService.createAccount(s);
 		

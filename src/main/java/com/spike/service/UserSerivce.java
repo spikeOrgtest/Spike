@@ -29,4 +29,7 @@ public interface UserSerivce {
 
 	void secession(String loginId);
 
+	List<AccountDTO> findbyinquriy(Long userId);
+
+
 }

@@ -2,6 +2,7 @@ package com.spike.controller;
 
 import java.io.PrintWriter;
 import java.time.LocalDate;
+import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -16,7 +17,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.spike.dto.AccountDTO;
 import com.spike.dto.UserDTO;
+import com.spike.service.AccountService;
 import com.spike.service.UserSerivce;
 
 
@@ -26,6 +29,9 @@ public class MypageController {
 
 	@Autowired
 	private UserSerivce userService;
+	
+	@Autowired
+	private AccountService accountService;
 	
 	@Autowired PasswordEncoder passwordEncoder;
 
@@ -172,9 +178,18 @@ public class MypageController {
 
     // 계좌 조회 폼
 	@GetMapping("inquiry")
-	public ModelAndView inquiry() {
-
-		return new ModelAndView("/mypage/mypageinquiry");
+	public ModelAndView inquiry(HttpSession session, Long userId) {
+		UserDTO sessionUser = (UserDTO) session.getAttribute("User");
+		userId = sessionUser.getUser_id();
+		
+		List<AccountDTO> list = userService.findbyinquriy(userId);
+		System.out.println(list);
+		
+		ModelAndView account = new ModelAndView("mypage/mypageinquiry");
+		account.addObject("list", list);
+		
+		return account;
+		
 	}
 
 	@GetMapping("property")

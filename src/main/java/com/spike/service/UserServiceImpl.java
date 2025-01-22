@@ -71,4 +71,9 @@ public class UserServiceImpl implements UserSerivce {
 		this.spikeDao.secession(loginId);
 	}
 
+	@Override
+	public List<AccountDTO> findbyinquriy(Long userId) {
+		return this.spikeDao.findbyinquriy(userId);
+	}
+
 }
