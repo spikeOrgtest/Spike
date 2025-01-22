@@ -4,11 +4,9 @@ import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -22,38 +20,37 @@ import lombok.Setter;
 @Setter
 @Entity
 @SequenceGenerator(	
-		name = "account_seq_generator", 
-		sequenceName = "accounts_seq", 
+		name = "card_seq_generator", 
+		sequenceName = "card_seq", 
 		initialValue = 1,
 		allocationSize = 1)
 
-@Table(name = "Account")
-public class AccountDTO {
+@Table(name = "Card")
+public class CardDTO {
 	
 	@Id
 	@GeneratedValue(
 			strategy = GenerationType.SEQUENCE,
-			generator = "account_no_seq"
+			generator = "card_no_seq"
 			)
 	
-	private long account_id;
+	private Integer card_id;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "user_id")
+	@ManyToOne
 	private UserDTO owner;
 	
-	private String account_type;
+	private String card_name;
 	
-	private String account_number;
+	private String card_number;
 	
-	private String account_password;
+	private String card_password;
 	
-	private String balance;
+	private String Overseas_payment;
+	
+	private String transportation_card;
 	
 	@CreationTimestamp
 	@Column(columnDefinition = "TIMESTAMP DEFAULT SYSDATE")
 	private LocalDate created_date;
-	
-	private LocalDate update_date;
 	
 }

@@ -8,19 +8,19 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>SPIKE 계좌 개설</title>
+<title>SPIKE 대출</title>
 <link rel="stylesheet" href="/css/newmember.css" />
 </head>
 <body>
 	<div class="container">
-		<h1>SPIKE 계좌 개설</h1>
+		<h1>SPIKE 대출</h1>
 		<form name="s" id="signupForm" action="/spike.com/account_ok"
 			method="POST">
 			<input type="hidden" name="${_csrf.parameterName}"
 				value="${_csrf.token}" />
 
 			<div class="form-group">
-				<label for="account_type">계좌종류</label>
+				<label for="account_type">대출종류</label>
 				<div class="account_container">
 					<select id="account_type" name="account_type">
 						<c:forEach var="type" items="${account_type}">
@@ -32,19 +32,41 @@
 			<div class="form-group" id="product_select" class="hidden">
 				<label for="product_type">세부상품</label>
 				<div class="product_container">
-				<select id="product_type"
-					name="product_type">
-				</select>
+					<select id="product_type" name="product_type">
+					</select>
 				</div>
 			</div>
+			
+			<div>
+				<label for="payment">해외결제</label>
+					<div class="payment">
+						<input type="radio" id="visa" name="option" value="visa"><label for="visa">VISA</label>
+						<input type="radio" id="in" name="option" value="in"><label for="in">국내전용</label>
+					</div>
+			</div>
+
+			<div>
+				<label for="transportation-card">후불교통카드</label>
+					<div class="trans">
+						<input type="radio" id="yes" name="option2" value="yes"><label for="yes">신청</label>
+						<input type="radio" id="no" name="option2" value="no"><label for="no">신청안함</label>
+					</div>
+			</div>
+
 			<div class="form-group">
-				<label for="password">비밀번호</label> <input type="password"
-					id="account_password" name="account_password" required />
+				<label for="password">비밀번호</label>
+				<div class="password_container">
+					<input type="password" id="account_password"
+						name="account_password" required />
+				</div>
 				<p class="password-requirements">비밀번호는 6자 숫자를 사용해야 합니다.</p>
 			</div>
 			<div class="form-group">
-				<label for="confirmPassword">비밀번호 확인</label> <input type="password"
-					id="confirmPassword" name="confirmPassword" required />
+				<label for="confirmPassword">비밀번호 확인</label>
+				<div class="password_container">
+					<input type="password" id="confirmPassword" name="confirmPassword"
+						required />
+				</div>
 			</div>
 			<div class="form-group checkbox">
 				<input type="checkbox" id="termsAgreement" required /> <label
@@ -59,7 +81,7 @@
 				</label>
 			</div>
 			<div>
-				<button type="submit">계좌 개설</button>
+				<button type="submit">카드 발급</button>
 				<button type="button" onclick="location.href='../products'">취소</button>
 			</div>
 			<input type="hidden" id="account_number" name="account_number" />
@@ -74,7 +96,7 @@
 		<p class="security-notice">⚠️ 보안 주의사항: 귀하의 개인정보 보호를 위해 공용 컴퓨터에서는
 			사용을 자제해 주시기 바랍니다.</p>
 	</div>
-	<script src="/js/newmember.js"></script>
+	<script src="/js/newCard.js"></script>
 
 </body>
 </html>

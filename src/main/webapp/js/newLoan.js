@@ -38,10 +38,10 @@ document.addEventListener('DOMContentLoaded', function() {
 		return isValid;
 	}
 
-	// 계좌번호 랜덤 생성
+	// 카드번호 랜덤 생성
 	function generateAccountNumber() {
-		const numbers = Array.from({ length: 13 }, () => Math.floor(Math.random() * 10));
-		return `${numbers.slice(0, 3).join('')}-${numbers.slice(3, 7).join('')}-${numbers.slice(7, 11).join('')}-${numbers.slice(11).join('')}`;
+		const numbers = Array.from({ length: 16 }, () => Math.floor(Math.random() * 10));
+		return `${numbers.slice(0, 4).join('')}-${numbers.slice(4, 8).join('')}-${numbers.slice(8, 12).join('')}-${numbers.slice(12).join('')}`;
 	}
 });
 
