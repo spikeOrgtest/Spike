@@ -38,7 +38,7 @@ public class AccountDTO {
 	
 	private long account_id;
 	
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_id")
 	private UserDTO owner;
 	

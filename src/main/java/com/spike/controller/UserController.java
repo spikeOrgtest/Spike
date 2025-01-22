@@ -296,10 +296,10 @@ public class UserController {
 
 		// 현재 사용자의 기존 비밀번호를 DB에서 조회
 		UserDTO existingUser = this.spikeService.findPwd(s); // 비밀번호 조회 서비스 호출
-
+		System.out.println(existingUser);
 		// 기존 비밀번호와 새 비밀번호가 동일한지 확인
 		String existingPassword = existingUser.getPassword(); // DB에서 가져온 기존 비밀번호
-		 String encryptedNewPassword = passwordEncoder.encode(newPassword); // 새 비밀번호를 암호화
+		String encryptedNewPassword = passwordEncoder.encode(newPassword); // 새 비밀번호를 암호화
 
 		if (existingPassword.equals(encryptedNewPassword)) {
 			// 새 비밀번호가 기존 비밀번호와 동일하면 실패 처리

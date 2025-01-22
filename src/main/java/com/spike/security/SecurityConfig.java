@@ -44,7 +44,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .usernameParameter("loginId")  // 로그인 폼에서 사용하는 아이디 파라미터 이름을 "loginId"로 설정
                 .passwordParameter("password")  // 로그인 폼에서 사용하는 비밀번호 파라미터 이름을 "password"로 설정
                 .permitAll()  // 로그인 페이지 접근은 모두 허용
-                .failureHandler(authenticationFailureHandler())
             .and()
             .logout()
                 .logoutUrl("/logout")  // 로그아웃 URL
@@ -61,15 +60,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
     	
-    	System.out.println("User Load security");
     	auth.userDetailsService(userDetail);
     	
     }
     
-    private AuthenticationFailureHandler authenticationFailureHandler() {
-        return (request, response, exception) -> {
-            System.out.println("로그인 실패: " + exception.getMessage());
-            response.sendRedirect("/login?error");  // 로그인 실패 시 리디렉션
-        };
-    }
 }

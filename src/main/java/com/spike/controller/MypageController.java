@@ -9,15 +9,16 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.spike.dto.UserDTO;
 import com.spike.service.UserSerivce;
 
-import spikepwd.PwdChange;
 
 @Controller
 @RequestMapping("/spike.com/mypage")
@@ -149,7 +150,27 @@ public class MypageController {
 
 		return new ModelAndView("/mypage/mypageEdit");
 	}
+	
+	// 마이페이지 회원 탈퇴
+	@PostMapping("/secession")
+	public ModelAndView secession(@RequestParam("loginId") String loginId, HttpSession session, Model model) throws Exception{
+		
+		this.userService.secession(loginId);
+		
+		session.invalidate(); // 세션 만료
+		
+		model.addAttribute("message", "Spike를 이용해주셔서 감사합니다.");
+		
+		return new ModelAndView("/mypage/secessionComplete");
+	}
+	
+	// 회원 탈퇴 완료
+    @GetMapping("/secessionComplete")
+    public ModelAndView secessionComplete() {
+        return new ModelAndView("/mypage/secessionComplete");  
+    }
 
+    // 계좌 조회 폼
 	@GetMapping("inquiry")
 	public ModelAndView inquiry() {
 
