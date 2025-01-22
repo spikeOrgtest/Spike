@@ -41,4 +41,10 @@ public class StockController {
 		}
 		return "investment/stock_order"; // JSP 파일 이름
 	}
+	
+	// 증권 계좌 개설 페이지로 이동
+    @GetMapping("/spike/securities-account/open")
+    public String openSecuritiesAccountPage() {
+        return "investment/open_securitiesaccount"; // JSP 파일의 경로 반환
+    }
 }

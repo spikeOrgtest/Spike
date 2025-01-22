@@ -9,6 +9,6 @@ import java.util.List;
 @Repository
 public interface SecuritiesAccountRepository extends JpaRepository<SecuritiesAccountDTO, Long> {
 
-    // 특정 사용자 ID로 계좌 목록 검색
-    List<SecuritiesAccountDTO> findByUserId(Long userId);
+    // 수정된 메서드
+    List<SecuritiesAccountDTO> findByUser_UserId(Long userId);
 }

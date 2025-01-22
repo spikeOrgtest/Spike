@@ -21,13 +21,15 @@ public class SecuritiesAccountServiceImpl implements SecuritiesAccountService {
         if (accountDTO.getInitialDeposit() < 0) {
             throw new IllegalArgumentException("Initial deposit must be greater than or equal to 0.");
         }
+        // 초기 잔액 설정
+        accountDTO.setBalance(accountDTO.getInitialDeposit());
         return accountRepository.save(accountDTO);
     }
 
     // 사용자 ID로 계좌 조회
     @Override
     public List<SecuritiesAccountDTO> getAccountsByUserId(Long userId) {
-        return accountRepository.findByUserId(userId);
+        return accountRepository.findByUser_UserId(userId);
     }
 
     // 계좌 잔액 업데이트
@@ -36,7 +38,13 @@ public class SecuritiesAccountServiceImpl implements SecuritiesAccountService {
         Optional<SecuritiesAccountDTO> optionalAccount = accountRepository.findById(accountId);
         if (optionalAccount.isPresent()) {
             SecuritiesAccountDTO account = optionalAccount.get();
-            account.setBalance(account.getBalance() + amount);
+            double updatedBalance = account.getBalance() + amount;
+
+            if (updatedBalance < 0) {
+                throw new IllegalArgumentException("Insufficient balance in the account.");
+            }
+
+            account.setBalance(updatedBalance);
             return accountRepository.save(account);
         } else {
             throw new IllegalArgumentException("Account not found with ID: " + accountId);

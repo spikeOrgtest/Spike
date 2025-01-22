@@ -37,7 +37,7 @@ public class SecuritiesAccountDTO {
 
     // N:1 관계 매핑
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", nullable = false)
+    @JoinColumn(name = "user_id", nullable = false) // user_id가 외래 키임을 명시
     private UserDTO user;
 
     @Transient

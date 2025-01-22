@@ -25,9 +25,10 @@ import java.util.List;
 @EqualsAndHashCode(of = "user_id")
 public class UserDTO {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_no_seq_name")
-    private Long user_id;
+	@Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "user_id") // 데이터베이스의 컬럼 이름
+    private Long userId;
 
     @NotNull
     @Column(length = 100)
