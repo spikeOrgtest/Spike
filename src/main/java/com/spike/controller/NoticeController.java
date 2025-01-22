@@ -11,6 +11,7 @@ import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -330,7 +331,7 @@ public class NoticeController {
 			PrintWriter out = response.getWriter();
 			String delFolder = request.getSession().getServletContext().getRealPath("upload");//upload 실제 경로 반환
 			
-			NoticeDTO db_pwd = this.noticeService.getNoticeCont2(notice_no);
+			NoticeDTO db_pwd = this.noticeService.getNoticeCont2(notice_no); // 삭제할 공지사항 가져오기
 			this.noticeService.delNoti(notice_no);//오라클로부터 레코드 삭제
 				
 				if(db_pwd.getNotice_file() != null) {//기존 첨부파일이 있다면
@@ -338,8 +339,8 @@ public class NoticeController {
 					delFile.delete();//폴더는 삭제 안되고, 기존 첨부파일만 삭제된다.
 				}
 				
-				
-				return "redirect:/spike.com/notice?page=" + page;
+				return "redirect:/spike.com/notice?page=" + page; // 삭제 후 페이지 리다이렉트
+
 				//return null;
 		}//noti_del_ok()
 		

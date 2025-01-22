@@ -12,7 +12,7 @@
 <link rel="stylesheet" href="/css/support/newSubpage_noticeDetail.css">
 
 <!-- 외부 JavaScript 파일 연결 -->
-<script type="text/javascript" src="/js/noti/notidel.js"></script>
+<script type="text/javascript" src="/js/noti/noti.js"></script>
 
 </head>
 <body class="subpage">

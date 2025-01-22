@@ -8,7 +8,7 @@
 <title>사용자 자료실 입력폼 </title>
 <link rel="stylesheet" type="text/css" href="../css/noti/noti.css" />
 <script src="https://code.jquery.com/jquery-latest.min.js"></script>
-<script src="../js/noti/noti.js"></script>
+<script src="../js/noti/noti.js"></script> 
 
 <link rel="stylesheet" href="/css/support/subpage.css">
 <link rel="stylesheet" href="/css/include/include.css">
@@ -42,7 +42,7 @@
 			</div>
 	
  <div id="noti_wrap">
-  <form method="post" action="noti_edit_ok" onsubmit="return write_check();" enctype="multipart/form-data">
+  <form method="post" action="noti_edit_ok" onsubmit="return write_Change();" enctype="multipart/form-data">
    <%-- 파일 첨부되는 자료실 기능을 만들기 위해서 필요한 코드)
       1. 폼태그내에 enctype="multipart/form-data"속성을 꼭 지정해야 한다.
       2. method=post방식으로 설정해야 한다.
@@ -55,7 +55,7 @@
      <tr>
       <th>글쓴이</th>
       <td>
-       <input name="notice_name" id="notice_name" size="50" style="height: 40px; font-size: 18px;" value="${n.notice_name}"/> <%-- type속성을 생략하면 기본값이 한줄 입력필드인 text이다. --%>
+       <input name="notice_name" id="notice_name" size="50" style="height: 40px; font-size: 18px;" value="${n.notice_name}" readonly/> <%-- type속성을 생략하면 기본값이 한줄 입력필드인 text이다. --%>
       </td>
      </tr>
      <tr>
@@ -77,7 +77,7 @@
     </table>
     <div id="noti_menu">
     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token }" />
-     <button type="submit">입력</button>
+     <button type="submit">완료</button>
     
      <button type="Reset" onclick="location.href='/spike.com/noti_cont?notice_no=${n.notice_no}&state=cont&page=${page}'">취소</button>
      <button type="button" onclick="location='/spike.com/notice?page=${page}';">목록</button>
