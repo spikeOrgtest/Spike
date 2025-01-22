@@ -162,7 +162,7 @@
 											<div class="card-body">
 												<p>현재 계정에서 로그아웃하려면 아래 버튼을 클릭하세요. 로그아웃 후 다시 로그인하려면 인증이
 													필요합니다.</p>
-												<button class="btn btn-secondary" onclick="logout()">로그아웃</button>
+												<button class="btn btn-secondary" onclick="location='/spike.com/logout';">로그아웃</button>
 											</div>
 										</div>
 									</div>
@@ -174,7 +174,8 @@
 											<div class="card-body">
 												<p>회원 탈퇴 시 모든 계정 정보와 연결된 데이터가 삭제됩니다. 탈퇴 후 계정 복구는 불가능합니다.
 													신중히 결정하세요.</p>
-												<button class="btn btn-secondary" id="openWithdrawalModal">탈퇴하기</button>
+												<button class="btn btn-secondary" id="openWithdrawalModal" data-bs-toggle="modal" data-bs-target="#withdrawalModal">탈퇴하기</button>
+
 											</div>
 										</div>
 									</div>
@@ -230,15 +231,18 @@
 											</div>
 
 											<!-- 탈퇴 확인 폼 -->
-											<form id="withdrawal-form" class="text-center">
+											<form action= "/spike.com/mypage/secession" id="withdrawal-form" class="text-center" method="POST">
+											<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+						
 												<div class="form-check mb-3">
 													<input class="form-check-input" type="checkbox"
 														id="confirmCheck"> <label
 														class="form-check-label memberout" for="confirmCheck">
 														회원탈퇴에 따른 모든 내용을 확인하였으며, 이에 동의합니다. </label>
 												</div>
+												<input type="hidden" name="loginId" value="${sessionScope.User.loginId}">
 												<button type="submit" class="btn btn-danger btn-lg">탈퇴하기</button>
-												<a href="mypageMain.jsp"
+												<a href="javascript:location='main';"
 													class="btn btn-secondary btn-lg ms-3">취소</a>
 											</form>
 										</div>

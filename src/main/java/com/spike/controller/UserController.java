@@ -159,43 +159,6 @@ public class UserController {
 		return new ModelAndView("redirect:/spike.com/login");
 	}
 
-	/*// 로그인
-	@PostMapping("/login_ok")
-	public ModelAndView login_ok(String loginId, String password, HttpServletResponse response, HttpSession session)
-			throws Exception {
-		response.setContentType("text/html; charset=UTF-8");
-		PrintWriter out = response.getWriter();
-
-		UserDTO s = this.spikeService.loginCheck(loginId);
-
-		if (s == null) {
-			out.println("<script>");
-			out.println("alert('존재하지않는 아이디입니다.');");
-			out.println("history.back();");
-			out.println("</script>");
-		} else {
-			if (!s.getPassword().equals(PwdChange.getPassWordToXEMD5String(password))) {
-				out.println("<script>");
-				out.println("alert('비밀번호가 틀립니다.');");
-				out.println("history.back();");
-				out.println("</script>");
-			} else {
-				session.setAttribute("User", s);
-
-				// 세션 만료 시간을 1시간으로 설정 (단위: 초)
-				session.setMaxInactiveInterval(60 * 60); // 1시간
-				session.setAttribute("remainingTime", session.getMaxInactiveInterval());
-
-				// 남은 시간을 모델에 추가
-				ModelAndView loginS = new ModelAndView();
-				loginS.setViewName("redirect:/spike.com/");
-				return loginS;
-			}
-		}
-
-		return null;
-	}*/
-
 	// 아이디 찾기 폼
 	@GetMapping("findId")
 	public ModelAndView findId() {
@@ -294,10 +257,10 @@ public class UserController {
 
 		// 현재 사용자의 기존 비밀번호를 DB에서 조회
 		UserDTO existingUser = this.spikeService.findPwd(s); // 비밀번호 조회 서비스 호출
-
+		System.out.println(existingUser);
 		// 기존 비밀번호와 새 비밀번호가 동일한지 확인
 		String existingPassword = existingUser.getPassword(); // DB에서 가져온 기존 비밀번호
-		 String encryptedNewPassword = passwordEncoder.encode(newPassword); // 새 비밀번호를 암호화
+		String encryptedNewPassword = passwordEncoder.encode(newPassword); // 새 비밀번호를 암호화
 
 		if (existingPassword.equals(encryptedNewPassword)) {
 			// 새 비밀번호가 기존 비밀번호와 동일하면 실패 처리
