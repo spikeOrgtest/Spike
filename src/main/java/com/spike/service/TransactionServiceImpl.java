@@ -1,14 +1,17 @@
 package com.spike.service;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.spike.dao.UserRepository;
 import com.spike.dto.AccountTestDTO;
 import com.spike.dto.TransactionDTO;
+import com.spike.dto.UserDTO;
 import com.spike.repository.AccountTestRepository;
 import com.spike.repository.TransactionRepository;
 
@@ -21,6 +24,9 @@ public class TransactionServiceImpl implements TransactionService {
 	@Autowired
 	private TransactionRepository transactionRepo;
 
+	@Autowired
+	private UserRepository userRepo;
+	
 	@Transactional
 	@Override
 	public void transfer(Long fromAccountId, Long toAccountId, BigDecimal amount, String memo) {
@@ -47,6 +53,32 @@ public class TransactionServiceImpl implements TransactionService {
 		tDto.setStatus("COMPLETED");
 		tDto.setMemo(memo);
 		transactionRepo.save(tDto);
+	}
+
+	@Override
+	public List<AccountTestDTO> getAccountList(Long user_id) {
+		//return this.accountRepo.getAccountList(user_id);
+		//return this.accountRepo.findByOwnerUserIdNative(user_id);
+		System.out.println(this.accountRepo.findRawResults(user_id));
+		System.out.println(this.accountRepo.findAccounts());
+		System.out.println(this.accountRepo.cntAccounts());
+		System.out.println("--------------------");
+		System.out.println(this.accountRepo.cntAccountsByOwnerUserId());
+		System.out.println("--------------------");
+		System.out.println(this.accountRepo.cntAccountsWithDtype());
+		System.out.println("--------------------");
+		System.out.println(this.accountRepo.cntAll());
+		
+//		AccountTestDTO account = new AccountTestDTO();
+//		if(this.userRepo.findById(user_id).isPresent()) {
+//			UserDTO user = this.userRepo.findById(user_id).get();
+//			account.setOwner(user);
+//		}
+//		account.setBalance(BigDecimal.valueOf(1000L));
+//		this.accountRepo.save(account);
+
+		
+		return null;
 	}
 
 }
