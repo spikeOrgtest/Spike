@@ -15,11 +15,11 @@
 		<div class="login-wrapper">
 			<div class="login-container">
 				<h2>로그인</h2>
-				<form name="s" action="login_ok" method="post" class="login-form">
+				<form name="s" action="/login" method="post" class="login-form">
 					<input type="hidden" name="${_csrf.parameterName}"
 						value="${_csrf.token}" />
 					<div class="input-group">
-						<input type="text" name="login_id" id="login_id"
+						<input type="text" name="loginId" id="loginId"
 							placeholder="아이디를 입력하세요" required>
 					</div>
 					<div class="input-group">
@@ -59,7 +59,7 @@
 			const savedId = localStorage.getItem('savedId');
 			if (savedId) {
 				// localStorage에 저장된 아이디가 있다면 입력란에 자동으로 값 넣기
-				document.getElementById('login_id').value = savedId;
+				document.getElementById('loginId').value = savedId;
 				// "아이디 저장" 체크박스도 체크하기
 				document.getElementById('rememberMe').checked = true;
 			}
@@ -69,14 +69,14 @@
 							'submit',
 							function(e) {
 								// 로그인 시 아이디와 체크박스 상태를 가져오기
-								const login_id = document
-										.getElementById('login_id').value; // 로그인 아이디 값
+								const loginId = document
+										.getElementById('loginId').value; // 로그인 아이디 값
 								const rememberMe = document
 										.getElementById('rememberMe').checked; // 체크박스 상태 (true or false)
 
 								// "아이디 저장" 체크박스가 체크되어 있으면 localStorage에 아이디 저장
 								if (rememberMe) {
-									localStorage.setItem('savedId', login_id); // 입력된 아이디 값을 localStorage에 저장
+									localStorage.setItem('savedId', loginId); // 입력된 아이디 값을 localStorage에 저장
 								} else {
 									localStorage.removeItem('savedId'); // 체크박스가 해제되면 localStorage에서 아이디 삭제
 								}
