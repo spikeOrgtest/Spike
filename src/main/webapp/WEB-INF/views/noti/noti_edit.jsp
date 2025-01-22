@@ -8,7 +8,7 @@
 <title>사용자 자료실 입력폼 </title>
 <link rel="stylesheet" type="text/css" href="../css/noti/noti.css" />
 <script src="https://code.jquery.com/jquery-latest.min.js"></script>
-<script src="../js/noti/noti.js"></script>
+<script src="../js/noti/noti.js"></script> 
 
 <link rel="stylesheet" href="/css/support/subpage.css">
 <link rel="stylesheet" href="/css/include/include.css">
@@ -42,21 +42,25 @@
 			</div>
 	
  <div id="noti_wrap">
-  <form method="post" action="noti_write_ok" onsubmit="return write_check();" enctype="multipart/form-data">
+  <form method="post" action="noti_edit_ok" onsubmit="return write_Change();" enctype="multipart/form-data">
    <%-- 파일 첨부되는 자료실 기능을 만들기 위해서 필요한 코드)
       1. 폼태그내에 enctype="multipart/form-data"속성을 꼭 지정해야 한다.
       2. method=post방식으로 설정해야 한다.
     --%>
+    
+    <input type="hidden" name="notice_no" value="${n.notice_no}" />
+    <input type="hidden" name="page" value="${page}" />
+    
     <table id="noti_t">
      <tr>
-      <th>작성자</th>
+      <th>글쓴이</th>
       <td>
-       <input name="notice_name" id="notice_name" size="50" style="height: 40px; font-size: 18px;"> <%-- type속성을 생략하면 기본값이 한줄 입력필드인 text이다. --%>
+       <input name="notice_name" id="notice_name" size="50" style="height: 40px; font-size: 18px;" value="${n.notice_name}" readonly/> <%-- type속성을 생략하면 기본값이 한줄 입력필드인 text이다. --%>
       </td>
      </tr>
      <tr>
       <th>제목</th>
-      <td><input name="notice_title" id="notice_title" size="50" style="height: 40px; font-size: 18px;" ></td>
+      <td><input name="notice_title" id="notice_title" size="50" style="height: 40px; font-size: 18px;" value="${n.notice_title}"/></td>
      </tr>
      <!-- <tr>
       <th>비밀번호</th>
@@ -64,17 +68,18 @@
      </tr> -->
      <tr>
       <th>글내용</th>
-      <td><textarea name="notice_cont" id="notice_cont" rows="20" cols="50" style="font-size: 18px;"></textarea></td>
+      <td><textarea name="notice_cont" id="notice_cont" rows="20" cols="50" style="font-size: 18px;" >${n.notice_cont}</textarea></td>
      </tr>
      <tr>
       <th>파일첨부</th>
-      <td><input type="file" name="uploadFile" ></td>
+      <td><input type="file" name="uploadFile" />${n.notice_file}</td>
      </tr>
     </table>
     <div id="noti_menu">
     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token }" />
-     <button type="submit">입력</button>
-     <button type="Reset" onclick="$('#notice_no').focus();">취소</button>
+     <button type="submit">완료</button>
+    
+     <button type="Reset" onclick="location.href='/spike.com/noti_cont?notice_no=${n.notice_no}&state=cont&page=${page}'">취소</button>
      <button type="button" onclick="location='/spike.com/notice?page=${page}';">목록</button>
     </div>
     
