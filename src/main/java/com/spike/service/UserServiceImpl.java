@@ -1,9 +1,12 @@
 package com.spike.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.spike.dao.UserDAO;
+import com.spike.dto.AccountDTO;
 import com.spike.dto.UserDTO;
 
 @Service
@@ -61,6 +64,11 @@ public class UserServiceImpl implements UserSerivce {
 	@Override
 	public UserDTO findFromSession(String loginId) {
 		return this.spikeDao.findFromSession(loginId);
+	}
+
+	@Override
+	public void secession(String loginId) {
+		this.spikeDao.secession(loginId);
 	}
 
 }

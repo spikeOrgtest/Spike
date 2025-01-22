@@ -5,8 +5,8 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>SPIKE 예금</title>
-<link rel="stylesheet" href="../assets/css/savings.css" />
-<link rel="stylesheet" href="../assets/css/include.css"> 
+<link rel="stylesheet" href="../../css/product/savings.css" />
+<link rel="stylesheet" href="../../css/include/include.css"> 
 </head>
 <body>
 	
@@ -54,7 +54,7 @@
             <div class="container">
                 <h2>특별 예금 상품</h2>
                 <div class="product-grid" id="productGrid">
-                    <a href="Subpage_D1.jsp" class="product-card">
+                    <a href="deposit/subpage_d1" class="product-card">
                         <div class="card-header"></div>
                         <div class="card-body">
                             <h3>SPIKE 예금</h3>
@@ -139,7 +139,7 @@
 		
 	</main>
 	<jsp:include page="../include/pfooter.jsp"/>
-	<script src="../assets/js/savings.js"></script>
+	<script src="../../js/savings.js"></script>
 </body>
 </html>
 
