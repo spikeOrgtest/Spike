@@ -20,9 +20,6 @@ public class SecuritiesAccountDTO {
     @Column(name = "account_id", nullable = false)
     private Long accountId;
 
-    @Column(name = "user_id", nullable = false)
-    private Long userId; // user_info 테이블의 외래 키
-
     @Column(name = "account_number", unique = true, nullable = false, length = 255)
     private String accountNumber;
 
@@ -37,4 +34,12 @@ public class SecuritiesAccountDTO {
 
     @Column(name = "created_date", nullable = false)
     private LocalDateTime createdDate = LocalDateTime.now();
+
+    // N:1 관계 매핑
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false)
+    private UserDTO user;
+
+    @Transient
+    private Double initialDeposit;
 }
