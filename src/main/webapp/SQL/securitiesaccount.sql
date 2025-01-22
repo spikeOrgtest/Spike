@@ -1,5 +1,5 @@
 -- 사용자 데이터 삽입
-INSERT INTO UserInfo (
+INSERT INTO User_Info (
     user_id, login_id, password, name, email_id, email_domain, phone, phone01, phone02, phone03,
     birth_date, postcode, road_address, jibun_address, detail_address, references, profile_image_uri,
     is_minor, status, last_login, registration_date
