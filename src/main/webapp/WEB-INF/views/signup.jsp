@@ -194,6 +194,7 @@
 				.getElementById('signupForm')
 				.addEventListener(
 						'submit',
+
 						function(e) {
 							let isValid = true;
 

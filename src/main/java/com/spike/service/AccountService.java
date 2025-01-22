@@ -1,11 +1,11 @@
-package com.spike.dao;
+package com.spike.service;
 
 import com.spike.dto.AccountDTO;
 
-public interface AccountDAO{
+
+public interface AccountService {
 
 	void createAccount(AccountDTO s);
-	
 
 	
 }

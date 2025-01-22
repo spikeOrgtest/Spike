@@ -58,13 +58,12 @@ document.getElementById('account_type').addEventListener('change', function() {
 
 	if (selectedType === '예금') {
 		options = [
-			{ value: 'spike_savings', text: 'SPIKE 예금' },
-			{ value: 'housing_savings', text: '주택청약' }
-		];
-	} else if (selectedType === '적금') {
-		options = [
-			{ value: 'spike_installment', text: 'SPIKE 적금' },
-			{ value: 'regular_installment', text: '정기적금' }
+			{ value: 'spikeDeposit', text: 'SPIKE 예금' },
+			{ value: 'IRP', text: 'IRP (Individual Retirement Pension)' },
+			{ value: 'plus', text: '1+1 예금' },
+			{ value: 'regular', text: '정기 예금' },
+			{ value: 'spike', text: '~~예금' },
+			{ value: 'family', text: '평생가족 예금' }
 		];
 	}
 
@@ -75,7 +74,38 @@ document.getElementById('account_type').addEventListener('change', function() {
 		newOption.textContent = option.text;
 		productSelect.appendChild(newOption);
 	});
-
+	
 	// 세부 상품 선택 영역 보여주기
 	productSelectContainer.style.display = options.length > 0 ? 'block' : 'none';
+});
+
+// 옵션 변경시 H1 태그 변경
+document.getElementById('product_type').addEventListener('change', function() {
+	const selectedProduct = this.value;
+	const header = document.querySelector('h1'); // <h1> 태그를 선택
+	let headerText = '';
+
+	if (selectedProduct === 'spikeDeposit') {
+		headerText = 'SPIKE 예금'; // SPIKE 예금 또는 적금 선택 시
+	} else if (selectedProduct === 'IRP') {
+		headerText = 'IRP (Individual Retirement Pension)'; // 주택청약 선택 시
+	} else if (selectedProduct === 'plus') {
+		headerText = '1+1 예금'; // 정기적금 선택 시
+	} else if (selectedProduct === 'regular') {
+		headerText = '정기 예금'; // 정기적금 선택 시
+	} else if (selectedProduct === 'spike') {
+		headerText = '~~예금'; // 정기적금 선택 시
+	} else if (selectedProduct === 'family') {
+		headerText = '평생가족 예금'; // 정기적금 선택 시
+	}
+
+	if (header) {
+		header.textContent = headerText;
+	}
+});
+
+window.addEventListener('load', function() {
+	const accountTypeSelect = document.getElementById('account_type');
+	accountTypeSelect.value = '예금';  // 기본값 '예금'으로 설정
+	accountTypeSelect.dispatchEvent(new Event('change'));  // 'change' 이벤트 강제 실행
 });
