@@ -197,7 +197,6 @@ public class UserController {
 
 		return null;
 	}
-
 	// 아이디 찾기 폼
 	@GetMapping("findId")
 	public ModelAndView findId() {
