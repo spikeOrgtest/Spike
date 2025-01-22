@@ -65,23 +65,18 @@
 			</div>
 			<div>
 				<button type="submit" id="account">계좌 개설</button>
-				<script>
-					document.getElementById("account").onclick = function() {
-						alert("계좌가 성공적으로 개설되었습니다!\n" + "계좌번호: " + accountInfo);
-					};
-				</script>
 				<button type="button" onclick="location.href='../products'">취소</button>
 			</div>
 			<input type="hidden" id="account_number" name="account_number" />
 		</form>
-		<!-- 성공메시지는 alert 사용해서 띄우는 방향으로 수정하기. 
+		<!-- 성공메시지는 alert 사용해서 띄우는 방향으로 수정하기. --> 
 		<div id="accountInfo" class="hidden">
 			<p>계좌가 성공적으로 개설되었습니다!</p>
 			<p>
 				귀하의 계좌번호: <span id="accountNumber"></span>
 			</p>
 		</div>
-		-->
+		
 		<p class="security-notice">⚠️ 보안 주의사항: 귀하의 개인정보 보호를 위해 공용 컴퓨터에서는
 			사용을 자제해 주시기 바랍니다.</p>
 	</div>
