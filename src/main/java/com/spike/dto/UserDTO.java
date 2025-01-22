@@ -1,32 +1,19 @@
 package com.spike.dto;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.List;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
-import javax.persistence.Transient;
-import javax.validation.constraints.NotNull;
-
-import org.hibernate.annotations.CreationTimestamp;
-import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.web.multipart.MultipartFile;
-
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import org.hibernate.annotations.CreationTimestamp;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.web.multipart.MultipartFile;
+
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.List;
 
 @Setter
 @Getter
@@ -38,81 +25,84 @@ import lombok.ToString;
 @EqualsAndHashCode(of = "user_id")
 public class UserDTO {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_no_seq_name")
-	private Long user_id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_no_seq_name")
+    private Long user_id;
 
-	@NotNull
-	@Column(length = 100)
-	private String loginId;
+    @NotNull
+    @Column(length = 100)
+    private String loginId;
 
-	@NotNull
-	@Column(length = 255)
-	private String password;
+    @NotNull
+    @Column(length = 255)
+    private String password;
 
-	@NotNull
-	@Column(length = 100)
-	private String name;
+    @NotNull
+    @Column(length = 100)
+    private String name;
 
-	@NotNull
-	@Column(length = 255)
-	private String email_id;
+    @NotNull
+    @Column(length = 255)
+    private String email_id;
 
-	@NotNull
-	@Column(length = 255)
-	private String email_domain;
+    @NotNull
+    @Column(length = 255)
+    private String email_domain;
 
-	@NotNull
-	@Column(length = 15)
-	private String phone;
+    @NotNull
+    @Column(length = 15)
+    private String phone;
 
-	@NotNull
-	@Column(length = 15)
-	private String phone01;
+    @NotNull
+    @Column(length = 15)
+    private String phone01;
 
-	@NotNull
-	@Column(length = 15)
-	private String phone02;
+    @NotNull
+    @Column(length = 15)
+    private String phone02;
 
-	@NotNull
-	@Column(length = 15)
-	private String phone03;
+    @NotNull
+    @Column(length = 15)
+    private String phone03;
 
-	@NotNull
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	private LocalDate birth_date;
+    @NotNull
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate birth_date;
 
-	@NotNull
-	@Column(length = 255)
-	private String postcode;
+    @NotNull
+    @Column(length = 255)
+    private String postcode;
 
-	@NotNull
-	@Column(length = 255)
-	private String roadAddress;
+    @NotNull
+    @Column(length = 255)
+    private String roadAddress;
 
-	@Column(length = 255)
-	private String jibunAddress;
+    @Column(length = 255)
+    private String jibunAddress;
 
-	@NotNull
-	@Column(length = 100)
-	private String detailAddress;
+    @NotNull
+    @Column(length = 100)
+    private String detailAddress;
 
-	@Column(length = 100)
-	private String References;
+    @Column(length = 100)
+    private String References;
 
-	private String profile_image_uri;
+    private String profile_image_uri;
 
-	@Transient // DB에 저장되지 않도록 처리해주는 에노테이션
-	private MultipartFile profileImage;
+    @Transient
+    private MultipartFile profileImage;
 
-	private String is_minor;
+    private String is_minor;
 
-	private String status;
+    private String status;
 
-	private LocalDateTime last_login; // 마지막 로그인
+    private LocalDateTime last_login;
 
-	@CreationTimestamp
-	@Column(name = "registration_date", columnDefinition = "TIMESTAMP DEFAULT SYSDATE")
-	private LocalDate registration_date;
+    @CreationTimestamp
+    @Column(name = "registration_date", columnDefinition = "TIMESTAMP DEFAULT SYSDATE")
+    private LocalDate registration_date;
 
+    // 1:N 관계 매핑
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<SecuritiesAccountDTO> securitiesAccounts;
 }
