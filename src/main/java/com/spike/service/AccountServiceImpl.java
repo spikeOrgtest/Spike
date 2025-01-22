@@ -16,8 +16,4 @@ public class AccountServiceImpl implements AccountService {
 	public void createAccount(AccountDTO s) {
 		this.accountdao.createAccount(s);
 	}
-
-	
-	
-	
 }
