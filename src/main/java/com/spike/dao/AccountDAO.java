@@ -12,5 +12,7 @@ public interface AccountDAO{
 
 	void Passwordupdateaccount(String account_password, String account_number);
 
+	void accountsecession(String account_number);
+
 
 }

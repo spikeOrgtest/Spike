@@ -32,4 +32,9 @@ public class AccountDAOImpl implements AccountDAO {
 		this.accountrepo.Passwordupdateaccount(account_password, account_number);
 	}
 
+	@Override
+	public void accountsecession(String account_number) {
+		this.accountrepo.accountsecession(account_number);
+	}
+
 }

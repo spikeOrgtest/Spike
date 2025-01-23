@@ -56,9 +56,12 @@ public interface UserRepository extends JpaRepository<UserDTO, Long> {
 	@Modifying
 	@Transactional
 	@Query("delete from UserDTO s where s.loginId=?1")
-	public void secession(String loginId);
+	public void usersecession(String loginId);
 
 	@Query("SELECT a FROM AccountDTO a WHERE a.owner.user_id =?1")
 	List<AccountDTO> findByUserId(Long userId);
+
+	@Query("SELECT a FROM AccountDTO a WHERE a.owner.user_id =?1")
+	public String findbyaccountnumber(Long userId);
 
 }

@@ -32,5 +32,10 @@ public class AccountServiceImpl implements AccountService {
 		this.accountdao.Passwordupdateaccount(account_password, account_number);
 	}
 
+	@Override
+	public void accountsecession(String account_number) {
+		this.accountdao.accountsecession(account_number);
+	}
+
 
 }

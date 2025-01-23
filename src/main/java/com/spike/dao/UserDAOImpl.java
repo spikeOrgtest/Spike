@@ -101,14 +101,19 @@ public class UserDAOImpl implements UserDAO {
 	}
 
 	@Override
-	public void secession(String loginId) {
-		this.spikeRepo.secession(loginId);
+	public void usersecession(String loginId) {
+		this.spikeRepo.usersecession(loginId);
 	}
 
 
 	@Override
 	public List<AccountDTO> findbyinquriy(Long userId) {
 		return this.spikeRepo.findByUserId(userId);
+	}
+
+	@Override
+	public String findbyaccountnumber(Long userId) {
+		return this.spikeRepo.findbyaccountnumber(userId);
 	}
 	
 }

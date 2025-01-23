@@ -27,9 +27,10 @@ public interface UserSerivce {
 
 	UserDTO findFromSession(String loginId);
 
-	void secession(String loginId);
+	void usersecession(String loginId);
 
 	List<AccountDTO> findbyinquriy(Long userId);
 
+	String findbyaccountnumber(Long userId);
 
 }

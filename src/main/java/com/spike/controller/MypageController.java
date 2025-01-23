@@ -160,9 +160,17 @@ public class MypageController {
 	
 	// 마이페이지 회원 탈퇴
 	@PostMapping("/secession")
-	public ModelAndView secession(@RequestParam("loginId") String loginId, HttpSession session, Model model) throws Exception{
+	public ModelAndView secession(@RequestParam("loginId") String loginId, Long userId ,String account_number, HttpSession session, Model model) throws Exception{
+		UserDTO sessionUser = (UserDTO) session.getAttribute("User");
+		userId = sessionUser.getUser_id();
+		account_number = userService.findbyaccountnumber(userId);
+		System.out.println(account_number);
+	    // 계좌와 관련된 탈퇴 작업
+	    if (account_number != null && !account_number.isEmpty()) {
+	        this.accountService.accountsecession(account_number);
+	    }
 		
-		this.userService.secession(loginId);
+		this.userService.usersecession(loginId);
 		
 		session.invalidate(); // 세션 만료
 		

@@ -192,7 +192,7 @@
 											<div class="form-group">
 												<label for="oneLimitInput" style="margin-bottom: 20px;">1회
 													한도 금액 (₩)</label> <input type="text" class="form-control" name="one_limit"
-													id="oneLimitInput" placeholder="출금 한도를 입력하세요" />
+													id="oneLimitInput" style="margin-bottom: 20px;" placeholder="출금 한도를 입력하세요" />
 											</div>
 											<input type="hidden" id="selectedAccountNumber1" name="account_number" value="" />
 											<button type="reset" class="btn btn-secondary"

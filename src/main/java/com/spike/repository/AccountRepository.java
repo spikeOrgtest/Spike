@@ -27,4 +27,14 @@ public interface AccountRepository extends JpaRepository<AccountDTO, Long> {
 	@Query("update AccountDTO a set a.account_password = ?1 where a.account_number =?2")
 	void Passwordupdateaccount(String account_password, String account_number);
 
+	@Modifying
+	@Transactional
+	@Query("delete from UserDTO s where s.loginId=?1")
+	public void secession(String loginId);
+
+	@Modifying
+	@Transactional
+	@Query("delete from AccountDTO a where a.account_number=?1")
+	public void accountsecession(String account_number);
+
 }
