@@ -20,3 +20,11 @@ INSERT INTO securities_account (
 
 select * from user_info;
 select * from SECURITIES_ACCOUNT;
+
+
+drop table USER_INFO;
+drop table SECURITIES_ACCOUNT;
+
+--모든 데이터 삭제
+DELETE FROM SECURITIES_ACCOUNT;
+
