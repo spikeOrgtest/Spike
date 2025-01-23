@@ -1,6 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -12,82 +13,130 @@
 <link rel="stylesheet" href="/css/include/include.css">
 <link rel="stylesheet" href="/css/support/subpage_notice.css">
 </head>
+	
 <body class="subpage">
 	<%@ include file="../include/header.jsp"%>
 
 	<jsp:include page="../include/subnav.jsp" />
 
 	<div class="subpageWrapper">
-		<!-- 브레드크럼(경로) -->
 		<div class="subpage-breadcrumbs">
-			<a href="#">고객지원</a> <span> &gt; </span> <a
-				href="supportSubpage_notice.jsp">공지사항</a>
+			<a href="#">고객지원</a> <span> &gt; </span> <a href="supportSubpage_notice.jsp">공지사항</a>
 		</div>
 	</div>
 
 	<div class="subpageWrapper">
 		<div class="subpage-main-container">
-			<!-- 사이드바 -->
 			<div class="subpage-sidebar">
 				<h3 class="subpage-sidebar-title">SPIKE 소식</h3>
 				<ul>
 					<li><a href="newsSubpage_bank.jsp">은행소식</a></li>
 					<li><a href="newsSubpage_product.jsp">새 상품소식</a></li>
 					<li><a href="newsSubpage_job.jsp">채용공고</a></li>
-					<%-- 현재페이지=선택된 메뉴면 배경색 진하게, 백엔드랑 연동할예정 --%>
 					<li><a href="newsSubpage_notice.jsp">공지사항</a></li>
 				</ul>
 			</div>
 
-			<!-- 컨텐츠 영역 -->
 			<div class="subpage-content-wrap">
-				<h2>공지사항</h2>
-				<div class="notice-board">
-					<table class="notice-table">
-						<thead>
-							<tr>
-								<th>번호</th>
-								<th>제목</th>
-								<th>작성자</th>
-								<th>작성일</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td>1</td>
-								<td><a href="noticeDetail.jsp?noticeId=1">[필독] 시스템 점검
-										안내 (12/25)</a></td>
-								<td>관리자</td>
-								<td>2024-12-18</td>
-							</tr>
-							<tr>
-								<td>2</td>
-								<td><a href="noticeDetail.jsp?noticeId=2">신규 서비스 출시 안내</a></td>
-								<td>관리자</td>
-								<td>2024-12-10</td>
-							</tr>
-							<tr>
-								<td>3</td>
-								<td><a href="noticeDetail.jsp?noticeId=3">이벤트 당첨자 발표</a></td>
-								<td>관리자</td>
-								<td>2024-12-01</td>
-							</tr>
-						</tbody>
-					</table>
-
-					<div class="notice-pagination">
-						<a href="#">&lt;</a> <a href="#" class="active">1</a> <a href="#">2</a>
-						<a href="#">3</a> <a href="#">&gt;</a>
+				<form method="get" action="/spike.com/notice">
+					<h2>공지사항</h2>
+					<div class="notice-board">
+						<table class="notice-table">
+							<thead>
+								<tr>
+									<th>번호</th>
+									<th>제목</th>
+									<th>작성자</th>
+									<th>작성일</th>
+									<th>조회수</th>
+								</tr>
+							</thead>
+							<tbody>
+								<c:if test="${!empty Nlist}">
+								<!--  startrow값을 이용해서 번호계산 -->
+								   <c:set var="i" value="${index}" /><!-- 페이지가 1일 경우, 0으로 설정 -->
+								   
+									<c:forEach var="n" items="${Nlist}">
+										<tr>
+											<td> ${i} </td>
+											
+											<td><a href="/spike.com/noti_cont?notice_no=${n.notice_no}&state=cont&page=${page}">${n.notice_title}</a></td>
+											<td>${n.notice_name}</td>
+											<td><fmt:formatDate value="${n.created_date}" pattern="yyyy-MM-dd" /></td>
+											<td align="center">${n.notice_hit}</td>
+											<c:set var="i" value="${i - 1}" />
+										</tr>
+										
+									</c:forEach>
+								</c:if>
+							</tbody>
+						</table>
 					</div>
-				</div>
+
+					<div id="Nlist_paging">
+						<c:choose>
+							<c:when test="${empty find_field && empty find_name}">
+								<c:if test="${page > 1}">
+									<a href="/spike.com/notice?page=${page-1}">[이전]</a>&nbsp;
+								</c:if>
+
+								<c:forEach var="a" begin="${startpage}" end="${endpage}" step="1">
+									<c:if test="${a == page}">
+										[${a}]
+									</c:if>
+									<c:if test="${a != page}">
+										<a href="/spike.com/notice?page=${a}">[${a}]</a>&nbsp;
+									</c:if>
+								</c:forEach>
+
+								<c:if test="${page < maxpage}">
+									<a href="/spike.com/notice?page=${page+1}">[다음]</a>
+								</c:if>
+							</c:when>
+
+							<c:otherwise>
+								<c:if test="${page > 1}">
+									<a href="/spike.com/notice?page=${page-1}&find_field=${find_field}&find_name=${find_name}">[이전]</a>&nbsp;
+								</c:if>
+
+								<c:forEach var="a" begin="${startpage}" end="${endpage}" step="1">
+									<c:if test="${a == page}">
+										[${a}]
+									</c:if>
+									<c:if test="${a != page}">
+										<a href="/spike.com/notice?page=${a}&find_field=${find_field}&find_name=${find_name}">[${a}]</a>&nbsp;
+									</c:if>
+								</c:forEach>
+
+								<c:if test="${page < maxpage}">
+									<a href="/spike.com/notice?page=${page+1}&find_field=${find_field}&find_name=${find_name}">[다음]</a>
+								</c:if>
+							</c:otherwise>
+						</c:choose>
+					</div>
+
+					<div id="nFind_wrap">
+						<select name="find_field">
+							<option value="notice_title" <c:if test="${find_field == 'notice_title'}">selected</c:if>>제목</option>
+							<option value="notice_cont" <c:if test="${find_field == 'notice_cont'}">selected</c:if>>내용</option>
+						</select>
+						<input type="search" name="find_name" size="14" value="${find_name}" />
+						<button type="submit">검색</button>
+					</div>
+
+					<div id="Nlist_menu">
+						<button type="button" onclick="location='/spike.com/noti_write?page=${page}';">글쓰기</button>
+						<!--<c:if test="${(!empty find_field) && (!empty find_name)}">
+							<button type="button" onclick="location='/spike.com/notice?page=${page}';">전체목록</button>
+						</c:if>-->
+					</div>
+				</form>
 			</div>
-
-			<!-- //subpage-content-wrap -->
-
 		</div>
 	</div>
 
 	<%@ include file="../include/shortfooter.jsp"%>
-	<script src="assets/js/subpage.js"></script>
+	<script src="/js/subpage.js"></script>
+	
 </body>
 </html>
