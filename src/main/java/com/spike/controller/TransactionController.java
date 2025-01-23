@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.spike.dto.AccountDTO;
 import com.spike.dto.AccountTestDTO;
 import com.spike.dto.TransactionDTO;
 import com.spike.dto.UserDTO;
@@ -33,18 +34,24 @@ public class TransactionController {
 		
 		ModelAndView mv = new ModelAndView();
 		UserDTO user = (UserDTO)session.getAttribute("User");
-		System.out.println(user);
-		List<AccountTestDTO> accList = this.transService.getAccountList(user.getUser_id());
-		System.out.println("=================================\n\n");
-		System.out.println(accList);
-		System.out.println("\n\n=================================");
+		if(user != null) { //로그인 된 상태 확인
+			System.out.println("접속중인 유저: " + user.getName());
+			
+			List<AccountDTO> accList = this.transService.getAccountList(user);
+			System.out.println("=================================\n\n");
+			System.out.println(accList);
+			System.out.println("첫 번째 계좌의 계좌번호: " + accList.getFirst().getAccount_number());
+			System.out.println("\n\n=================================");
+			mv.addObject("accountList",accList);
+		}
+		
 		
 		mv.setViewName("transfer/transfer");
 		return mv;
 	}
 	
 	@PostMapping("transfer")
-	public String transfer_ok(Long fromAccountId, Long toAccountId, BigDecimal amount, String memo) {
+	public String transfer_ok(Long fromAccountId, Long toAccountId, long amount, String memo) {
 		
 		
 		

@@ -1,5 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -58,7 +58,16 @@
 										class="form-select" id="fromAccount" required
 										onchange="updateAccountInfo()">
 										<option value="" disabled selected>계좌를 선택하세요</option>
-										
+										<c:forEach var="account" items="${accountList}">
+											<option value="${account.account_id}"
+												data-balance="${account.balance}"
+												data-available="123">
+												${account.accountNumber}</option>
+										</c:forEach>
+										<option value="123-4567-8901" data-balance="2345678"
+											data-available="1234567">123-4567-8901</option>
+										<option value="123-4567-8901" data-balance="2345678"
+											data-available="1234567">123-4567-8901</option>
 										<option value="123-4567-8901" data-balance="2345678"
 											data-available="1234567">123-4567-8901</option>
 										<option value="987-6543-2100" data-balance="3456789"

@@ -3,12 +3,14 @@ package com.spike.service;
 import java.math.BigDecimal;
 import java.util.List;
 
+import com.spike.dto.AccountDTO;
 import com.spike.dto.AccountTestDTO;
+import com.spike.dto.UserDTO;
 
 public interface TransactionService {
 
-	void transfer(Long fromAccountId, Long toAccountId, BigDecimal amount, String memo);
+	List<AccountDTO> getAccountList(UserDTO user);
 
-	List<AccountTestDTO> getAccountList(Long user_id);
+	void transfer(Long fromAccountId, Long toAccountId, long amount, String memo);
 
 }

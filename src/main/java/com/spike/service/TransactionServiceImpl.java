@@ -9,9 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.spike.dao.UserRepository;
+import com.spike.dto.AccountDTO;
 import com.spike.dto.AccountTestDTO;
 import com.spike.dto.TransactionDTO;
 import com.spike.dto.UserDTO;
+import com.spike.repository.AccountRepository;
 import com.spike.repository.AccountTestRepository;
 import com.spike.repository.TransactionRepository;
 
@@ -19,7 +21,7 @@ import com.spike.repository.TransactionRepository;
 public class TransactionServiceImpl implements TransactionService {
 
 	@Autowired
-	private AccountTestRepository accountRepo;
+	private AccountRepository accountRepo;
 	
 	@Autowired
 	private TransactionRepository transactionRepo;
@@ -29,18 +31,18 @@ public class TransactionServiceImpl implements TransactionService {
 	
 	@Transactional
 	@Override
-	public void transfer(Long fromAccountId, Long toAccountId, BigDecimal amount, String memo) {
+	public void transfer(Long fromAccountId, Long toAccountId, long amount, String memo) {
 		
 		//atm을 통한 입금,출금에서는 한쪽만 검증 필요(한쪽은 atm이니까), 이체에는 양쪽 다 필요 
-		AccountTestDTO fromAccount = accountRepo.findById(fromAccountId)
+		AccountDTO fromAccount = accountRepo.findById(fromAccountId)
 				.orElseThrow(() -> new IllegalArgumentException("출금 계좌를 찾을 수 없습니다."));
 
-		AccountTestDTO toAccount = accountRepo.findById(toAccountId)
+		AccountDTO toAccount = accountRepo.findById(toAccountId)
 				.orElseThrow(() -> new IllegalArgumentException("입금 계좌를 찾을 수 없습니다."));
 
 
-		fromAccount.setBalance(fromAccount.getBalance().subtract(amount)); //BigDecimal 클래스의 내장메서드 subtract 활용
-		toAccount.setBalance(toAccount.getBalance().add(amount));
+		fromAccount.setBalance(fromAccount.getBalance() - amount); //BigDecimal 클래스의 내장메서드 subtract 활용
+		toAccount.setBalance(toAccount.getBalance() + amount);
 		accountRepo.save(fromAccount);
 		accountRepo.save(toAccount);
 
@@ -56,18 +58,20 @@ public class TransactionServiceImpl implements TransactionService {
 	}
 
 	@Override
-	public List<AccountTestDTO> getAccountList(Long user_id) {
+	public List<AccountDTO> getAccountList(UserDTO user) {
+		return this.accountRepo.findByOwner(user);
+		
 		//return this.accountRepo.getAccountList(user_id);
 		//return this.accountRepo.findByOwnerUserIdNative(user_id);
-		System.out.println(this.accountRepo.findRawResults(user_id));
-		System.out.println(this.accountRepo.findAccounts());
-		System.out.println(this.accountRepo.cntAccounts());
-		System.out.println("--------------------");
-		System.out.println(this.accountRepo.cntAccountsByOwnerUserId());
-		System.out.println("--------------------");
-		System.out.println(this.accountRepo.cntAccountsWithDtype());
-		System.out.println("--------------------");
-		System.out.println(this.accountRepo.cntAll());
+//		System.out.println(this.accountRepo.findRawResults(user_id));
+//		System.out.println(this.accountRepo.findAccounts());
+//		System.out.println(this.accountRepo.cntAccounts());
+//		System.out.println("--------------------");
+//		System.out.println(this.accountRepo.cntAccountsByOwnerUserId());
+//		System.out.println("--------------------");
+//		System.out.println(this.accountRepo.cntAccountsWithDtype());
+//		System.out.println("--------------------");
+//		System.out.println(this.accountRepo.cntAll());
 		
 //		AccountTestDTO account = new AccountTestDTO();
 //		if(this.userRepo.findById(user_id).isPresent()) {
@@ -78,7 +82,7 @@ public class TransactionServiceImpl implements TransactionService {
 //		this.accountRepo.save(account);
 
 		
-		return null;
+		//return null;
 	}
 
 }

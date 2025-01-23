@@ -3,6 +3,7 @@ package com.spike.controller;
 import java.io.IOException;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,53 +15,54 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.spike.dto.AccountDTO;
+import com.spike.dto.UserDTO;
 import com.spike.service.AccountService;
 
 @Controller
 @RequestMapping("/spike.com/*")
 public class AccountController {
 
-	@Autowired
-	private AccountService accountService;
-	
-	//상품 메인페이지
-	@GetMapping("/products")
+   @Autowired
+   private AccountService accountService;
+   
+   //상품 메인페이지
+   @GetMapping("/products")
     public String products() {
         return "products";
-    }	
-		
-	@GetMapping("/products/deposit")
+    }   
+      
+   @GetMapping("/products/deposit")
     public String deposit() {
         return "products/deposit";
     }
-	
-	@GetMapping("/products/savings")
-	public String savings() {
-		return "products/savings";
-	}
-	
-	@GetMapping("/products/loan")
-	public String loan() {
-		return "products/loan";
-	}
-	
-	@GetMapping("/products/deposit/subpage_d{number:\\d+}")
-	public String depositSubpage(@PathVariable String number) {
-	    return "products/Subpage_D" + number;
-	}
+   
+   @GetMapping("/products/savings")
+   public String savings() {
+      return "products/savings";
+   }
+   
+   @GetMapping("/products/loan")
+   public String loan() {
+      return "products/loan";
+   }
+   
+   @GetMapping("/products/deposit/subpage_d{number:\\d+}")
+   public String depositSubpage(@PathVariable String number) {
+       return "products/Subpage_D" + number;
+   }
 
-	@GetMapping("/products/savings/subpage_s{number:\\d+}")
-	public String savingsSubpage(@PathVariable String number) {
-		return "products/Subpage_S" + number;
-	}
-	
-	@GetMapping("/products/loan/subpage_l{number:\\d+}")
-	public String loanSubpage(@PathVariable String number) {
-		return "products/Subpage_L" + number;
-	}
-	
-	// 계좌개설 폼 tset
-	@GetMapping("/products/newmember")
+   @GetMapping("/products/savings/subpage_s{number:\\d+}")
+   public String savingsSubpage(@PathVariable String number) {
+      return "products/Subpage_S" + number;
+   }
+   
+   @GetMapping("/products/loan/subpage_l{number:\\d+}")
+   public String loanSubpage(@PathVariable String number) {
+      return "products/Subpage_L" + number;
+   }
+   
+   // 계좌개설 폼 tset
+   @GetMapping("/products/newmember")
     public ModelAndView newmember() {
         String[] account_type = {"예금", "적금"};
         
@@ -69,40 +71,42 @@ public class AccountController {
         return ss;
     }
 
-	@GetMapping("/products/newdeposit")
-	public ModelAndView newDeposit() {
-		String[] account_type = {"예금"};
-		
-		ModelAndView ss = new ModelAndView("/products/newDeposit");
-		ss.addObject("account_type", account_type);
-		return ss;
-	}
-	
-	@GetMapping("/products/newsavings")
-	public ModelAndView newSavings() {
-		String[] account_type = {"적금"};
-		
-		ModelAndView ss = new ModelAndView("/products/newSavings");
-		ss.addObject("account_type", account_type);
-		return ss;
-	}
-	
-	@GetMapping("/products/newloan")
-	public ModelAndView newLoan() {
-		String[] account_type = {"대출"};
-		
-		ModelAndView ss = new ModelAndView("/products/newLoan");
-		ss.addObject("account_type", account_type);
-		return ss;
-	}
-	
-	@PostMapping("/account_ok")
+   @GetMapping("/products/newdeposit")
+   public ModelAndView newDeposit() {
+      String[] account_type = {"예금"};
+      
+      ModelAndView ss = new ModelAndView("/products/newDeposit");
+      ss.addObject("account_type", account_type);
+      return ss;
+   }
+   
+   @GetMapping("/products/newsavings")
+   public ModelAndView newSavings() {
+      String[] account_type = {"적금"};
+      
+      ModelAndView ss = new ModelAndView("/products/newSavings");
+      ss.addObject("account_type", account_type);
+      return ss;
+   }
+   
+   @GetMapping("/products/newloan")
+   public ModelAndView newLoan() {
+      String[] account_type = {"대출"};
+      
+      ModelAndView ss = new ModelAndView("/products/newLoan");
+      ss.addObject("account_type", account_type);
+      return ss;
+   }
+   
+   @PostMapping("/account_ok")
     public ModelAndView account_ok(AccountDTO s, 
-    		HttpServletRequest request, BindingResult result) throws IOException {
-    	s.setBalance("0");
-		this.accountService.createAccount(s);
-		
-    	return new ModelAndView("redirect:/spike.com/products");
+          HttpServletRequest request, BindingResult result, HttpSession session) throws IOException {
+      UserDTO sessionUser = (UserDTO) session.getAttribute("User");
+      s.setOwner(sessionUser);
+      s.setBalance(10000000L);
+      this.accountService.createAccount(s);
+      
+       return new ModelAndView("redirect:/spike.com/products");
     }
-	
+   
 }

@@ -1,6 +1,5 @@
 package com.spike.dto;
 
-import java.math.BigDecimal;
 import java.sql.Timestamp;
 
 import javax.persistence.Column;
@@ -39,12 +38,12 @@ public class TransactionDTO {
 	private long id;
 	
 	@ManyToOne
-	private AccountTestDTO fromAccount; //@manyToOne에 의해 컬럼명이 자동으로 from_account_id로 생성 -> joincolumn 어노테이션 사용할 필요 x
+	private AccountDTO fromAccount; //@manyToOne에 의해 컬럼명이 자동으로 from_account_id로 생성 -> joincolumn 어노테이션 사용할 필요 x
 	
 	@ManyToOne
-	private AccountTestDTO toAccount;
+	private AccountDTO toAccount;
 	
-	private BigDecimal amount;
+	private long amount;
 	
 	private String transactionType;
 	
