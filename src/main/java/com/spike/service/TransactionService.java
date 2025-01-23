@@ -11,6 +11,6 @@ public interface TransactionService {
 
 	List<AccountDTO> getAccountList(UserDTO user);
 
-	void transfer(Long fromAccountId, Long toAccountId, long amount, String memo);
+	void transfer(Long fromAccountId, String toAccount, long amount, String memo, String accountPassword);
 
 }

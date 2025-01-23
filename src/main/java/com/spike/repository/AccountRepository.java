@@ -2,6 +2,8 @@ package com.spike.repository;
 
 
 import java.util.List;
+import java.util.Optional;
+
 import javax.transaction.Transactional;
 
 
@@ -17,7 +19,9 @@ import com.spike.dto.UserDTO;
 public interface AccountRepository extends JpaRepository<AccountDTO, Long> {
 
 	List<AccountDTO> findByOwner(UserDTO user);
-
+	
+	@Query("select a from AccountDTO a where a.account_number = ?1")
+	Optional<AccountDTO> findByAccountNumber(String accountNumber);
 
 
 	@Modifying
@@ -44,6 +48,10 @@ public interface AccountRepository extends JpaRepository<AccountDTO, Long> {
 	@Transactional
 	@Query("delete from AccountDTO a where a.account_number=?1")
 	public void accountsecession(String account_number);
+
+
+
+	
 
 }
 
