@@ -100,13 +100,17 @@ public class AccountController {
    
    @PostMapping("/account_ok")
     public ModelAndView account_ok(AccountDTO s, 
-          HttpServletRequest request, BindingResult result, HttpSession session) throws IOException {
-      UserDTO sessionUser = (UserDTO) session.getAttribute("User");
-      s.setOwner(sessionUser);
-      s.setBalance(10000000L);
-      this.accountService.createAccount(s);
-      
-       return new ModelAndView("redirect:/spike.com/products");
+
+    	HttpServletRequest request, BindingResult result, HttpSession session) throws IOException {
+		UserDTO sessionUser = (UserDTO) session.getAttribute("User");
+		s.setOwner(sessionUser);
+    	s.setBalance(1000000L);
+    	s.setDay_limit(1000000L);
+    	s.setOne_limit(100000L);
+		this.accountService.createAccount(s);
+		
+    	return new ModelAndView("redirect:/spike.com/products");
+
     }
    
 }

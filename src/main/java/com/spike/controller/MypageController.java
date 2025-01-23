@@ -2,7 +2,9 @@ package com.spike.controller;
 
 import java.io.PrintWriter;
 import java.time.LocalDate;
+import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -16,7 +18,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.spike.dto.AccountDTO;
 import com.spike.dto.UserDTO;
+import com.spike.service.AccountService;
 import com.spike.service.UserSerivce;
 
 
@@ -26,6 +30,9 @@ public class MypageController {
 
 	@Autowired
 	private UserSerivce userService;
+	
+	@Autowired
+	private AccountService accountService;
 	
 	@Autowired PasswordEncoder passwordEncoder;
 
@@ -153,9 +160,17 @@ public class MypageController {
 	
 	// 마이페이지 회원 탈퇴
 	@PostMapping("/secession")
-	public ModelAndView secession(@RequestParam("loginId") String loginId, HttpSession session, Model model) throws Exception{
+	public ModelAndView secession(@RequestParam("loginId") String loginId, Long userId ,String account_number, HttpSession session, Model model) throws Exception{
+		UserDTO sessionUser = (UserDTO) session.getAttribute("User");
+		userId = sessionUser.getUser_id();
+		account_number = userService.findbyaccountnumber(userId);
+		System.out.println(account_number);
+	    // 계좌와 관련된 탈퇴 작업
+	    if (account_number != null && !account_number.isEmpty()) {
+	        this.accountService.accountsecession(account_number);
+	    }
 		
-		this.userService.secession(loginId);
+		this.userService.usersecession(loginId);
 		
 		session.invalidate(); // 세션 만료
 		
@@ -172,9 +187,42 @@ public class MypageController {
 
     // 계좌 조회 폼
 	@GetMapping("inquiry")
-	public ModelAndView inquiry() {
+	public ModelAndView inquiry(HttpSession session, Long userId) {
+		UserDTO sessionUser = (UserDTO) session.getAttribute("User");
+		userId = sessionUser.getUser_id();
+		
+		List<AccountDTO> list = userService.findbyinquriy(userId);
 
-		return new ModelAndView("/mypage/mypageinquiry");
+		ModelAndView account = new ModelAndView("mypage/mypageinquiry");
+		account.addObject("list", list);
+		
+		return account;
+		
+	}
+	
+	// 계좌 조회 일일 한도 설정
+	@PostMapping("inquiryLimit")
+	public String inquiryLimit(Long one_limit, Long day_limit, String account_number) {
+		
+		if(one_limit != null) {
+		this.accountService.Oneupdateaccount(one_limit, account_number);
+		}
+		
+		if(day_limit != null) {
+		this.accountService.Dayupdateaccount(day_limit, account_number);
+		}
+		
+		
+		return "redirect:/spike.com/mypage/inquiry";
+	}
+	
+	// 계좌 조회 비밀번호 변경
+	@PostMapping("inquiryPassword")
+	public String inquiryPassword(String account_password, String account_number) {
+		
+		this.accountService.Passwordupdateaccount(account_password, account_number);
+
+		return "redirect:/spike.com/mypage/inquiry";
 	}
 
 	@GetMapping("property")

@@ -67,8 +67,18 @@ public class UserServiceImpl implements UserSerivce {
 	}
 
 	@Override
-	public void secession(String loginId) {
-		this.spikeDao.secession(loginId);
+	public void usersecession(String loginId) {
+		this.spikeDao.usersecession(loginId);
+	}
+
+	@Override
+	public List<AccountDTO> findbyinquriy(Long userId) {
+		return this.spikeDao.findbyinquriy(userId);
+	}
+
+	@Override
+	public String findbyaccountnumber(Long userId) {
+		return this.spikeDao.findbyaccountnumber(userId);
 	}
 
 }
