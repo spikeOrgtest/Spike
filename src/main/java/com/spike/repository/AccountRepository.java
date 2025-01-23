@@ -1,8 +1,15 @@
 package com.spike.repository;
 
+
 import java.util.List;
+import java.util.Optional;
+
+import javax.transaction.Transactional;
+
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import com.spike.dto.AccountDTO;
@@ -10,5 +17,41 @@ import com.spike.dto.UserDTO;
 
 @Repository
 public interface AccountRepository extends JpaRepository<AccountDTO, Long> {
+
 	List<AccountDTO> findByOwner(UserDTO user);
+	
+	@Query("select a from AccountDTO a where a.account_number = ?1")
+	Optional<AccountDTO> findByAccountNumber(String accountNumber);
+
+
+	@Modifying
+	@Transactional
+	@Query("update AccountDTO a set a.one_limit = ?1 where a.account_number =?2")
+	void Oneupdateaccount(Long one_limit, String accountnumber);
+	
+	@Modifying
+	@Transactional
+	@Query("update AccountDTO a set a.day_limit = ?1 where a.account_number =?2")
+	void Dayupdateaccount(Long day_limit, String accountnumber);
+
+	@Modifying
+	@Transactional
+	@Query("update AccountDTO a set a.account_password = ?1 where a.account_number =?2")
+	void Passwordupdateaccount(String account_password, String account_number);
+
+	@Modifying
+	@Transactional
+	@Query("delete from UserDTO s where s.loginId=?1")
+	public void secession(String loginId);
+
+	@Modifying
+	@Transactional
+	@Query("delete from AccountDTO a where a.account_number=?1")
+	public void accountsecession(String account_number);
+
+
+
+	
+
 }
+

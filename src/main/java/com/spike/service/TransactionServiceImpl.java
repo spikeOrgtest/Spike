@@ -8,7 +8,7 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.spike.dao.UserRepository;
+import com.spike.repository.UserRepository;
 import com.spike.dto.AccountDTO;
 import com.spike.dto.AccountTestDTO;
 import com.spike.dto.TransactionDTO;
@@ -31,17 +31,17 @@ public class TransactionServiceImpl implements TransactionService {
 	
 	@Transactional
 	@Override
-	public void transfer(Long fromAccountId, Long toAccountId, long amount, String memo) {
+	public void transfer(Long fromAccountId, String toAccountNumber, long amount, String memo, String accountPassword) {
 		
 		//atm을 통한 입금,출금에서는 한쪽만 검증 필요(한쪽은 atm이니까), 이체에는 양쪽 다 필요 
 		AccountDTO fromAccount = accountRepo.findById(fromAccountId)
 				.orElseThrow(() -> new IllegalArgumentException("출금 계좌를 찾을 수 없습니다."));
 
-		AccountDTO toAccount = accountRepo.findById(toAccountId)
+		AccountDTO toAccount = accountRepo.findByAccountNumber(toAccountNumber)
 				.orElseThrow(() -> new IllegalArgumentException("입금 계좌를 찾을 수 없습니다."));
 
 
-		fromAccount.setBalance(fromAccount.getBalance() - amount); //BigDecimal 클래스의 내장메서드 subtract 활용
+		fromAccount.setBalance(fromAccount.getBalance() - amount); //BigDecimal 클래스의 내장메서드 subtract 활용 -> 보류
 		toAccount.setBalance(toAccount.getBalance() + amount);
 		accountRepo.save(fromAccount);
 		accountRepo.save(toAccount);

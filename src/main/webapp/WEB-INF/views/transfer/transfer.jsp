@@ -58,22 +58,19 @@
 										class="form-select" id="fromAccount" required
 										onchange="updateAccountInfo()">
 										<option value="" disabled selected>계좌를 선택하세요</option>
-										<c:forEach var="account" items="${accountList}">
-											<option value="${account.account_id}"
-												data-balance="${account.balance}"
-												data-available="123">
-												${account.accountNumber}</option>
-										</c:forEach>
-										<option value="123-4567-8901" data-balance="2345678"
-											data-available="1234567">123-4567-8901</option>
-										<option value="123-4567-8901" data-balance="2345678"
-											data-available="1234567">123-4567-8901</option>
-										<option value="123-4567-8901" data-balance="2345678"
-											data-available="1234567">123-4567-8901</option>
-										<option value="987-6543-2100" data-balance="3456789"
-											data-available="2345678">987-6543-2100</option>
-										<option value="456-7890-1234" data-balance="4567890"
-											data-available="3456789">456-7890-1234</option>
+										<c:choose>
+											<c:when test="${empty accountList}">
+												<option value="" disabled>출금 가능한 계좌가 없습니다</option>
+											</c:when>
+											<c:otherwise>
+												<c:forEach var="account" items="${accountList}">
+													<option value="${account.account_id}"
+														data-balance="${account.balance}"
+														data-available="${account.day_limit}">
+														${account.account_type}: ${account.account_number}</option>
+												</c:forEach>
+											</c:otherwise>
+										</c:choose>
 									</select>
 								</div>
 								<div class="row">
@@ -99,51 +96,55 @@
 									<label for="depositBank" class="form-label">입금은행</label> <select
 										class="form-select" id="depositBank" required>
 										<option value="" disabled selected>은행을 선택하세요</option>
-										<option value="우리은행">우리은행</option>
-										<option value="국민은행">국민은행</option>
-										<option value="신한은행">신한은행</option>
-										<option value="하나은행">하나은행</option>
+										<option value="SPIKE">SPIKE</option>
+
 									</select>
 								</div>
-								<div class="mb-3">
-									<label for="toAccount" class="form-label">계좌번호</label> <input
-										type="text" class="form-control" id="toAccount"
-										placeholder="'-' 없이 숫자만 입력" required />
-								</div>
-								<div class="mb-3">
-									<label for="amount" class="form-label">이체금액</label> <input
-										type="text" class="form-control" id="amount"
-										placeholder="금액을 입력하세요" required />
-								</div>
-								<div class="mb-3">
-									<label for="note" class="form-label">이체메모(선택)</label> <input
-										type="text" class="form-control" id="note"
-										placeholder="메모를 입력하세요" />
-								</div>
+								<!-- 송금 폼 -->
+								<form action="/transfer_ok?fromAccountId=${account.account_id}" method="post">
+									<div class="mb-3">
+										<label for="toAccount" class="form-label">계좌번호</label> <input
+											type="text" class="form-control" id="toAccount"
+											name="toAccount" placeholder="'-' 없이 숫자만 입력" required />
+									</div>
+									<div class="mb-3">
+										<label for="amount" class="form-label">이체금액</label> <input
+											type="text" class="form-control" id="amount" name="amount"
+											placeholder="금액을 입력하세요" required />
+									</div>
+									<div class="mb-3">
+										<label for="note" class="form-label">이체메모(선택)</label> <input
+											type="text" class="form-control" id="memo" name="memo"
+											placeholder="메모를 입력하세요" />
+									</div>
+									<!-- 계좌 비밀번호 -->
+									<div class="mb-3">
+										<label for="accountPassword" class="form-label">계좌
+											비밀번호</label> <input type="password" class="form-control"
+											id="accountPassword" name="accountPassword"
+											placeholder="계좌 비밀번호를 입력하세요" required />
+									</div>
 
-								<!-- 계좌 비밀번호 -->
-								<div class="mb-3">
-									<label for="accountPassword" class="form-label">계좌 비밀번호</label>
-									<input type="password" class="form-control"
-										id="accountPassword" placeholder="계좌 비밀번호를 입력하세요" required />
-								</div>
-							</div>
-
-							<!-- 버튼 영역 -->
-							<div class="text-end mt-4">
-								<button class="btn btn-secondary" id="filterBtn">취소</button>
-								<button class="btn btn-secondary" id="filterBtn"
-									onclick="completeTransfer()">송금</button>
+									<!-- 버튼 영역 -->
+									<div class="text-end mt-4">
+										<button type="submit" class="btn btn-primary">송금</button>
+										<button type="reset" class="btn btn-secondary">취소</button>
+									</div>
+								</form>
+								
 							</div>
 						</section>
 
 						<!-- 송금 내역 -->
+						
+						<!-- 
 						<section class="transfer-history mt-5">
 							<h4>
 								<i class="bi bi-receipt"></i> 송금 내역
 							</h4>
 							<ul id="transferHistory" class="list-group"></ul>
 						</section>
+						 -->
 					</main>
 				</div>
 			</div>
