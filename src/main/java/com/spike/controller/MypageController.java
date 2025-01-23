@@ -192,7 +192,7 @@ public class MypageController {
 		
 	}
 	
-	// 계좌 조회
+	// 계좌 조회 일일 한도 설정
 	@PostMapping("inquiryLimit")
 	public String inquiryLimit(Long one_limit, Long day_limit, String account_number) {
 		
@@ -208,18 +208,11 @@ public class MypageController {
 		return "redirect:/spike.com/mypage/inquiry";
 	}
 	
+	// 계좌 조회 비밀번호 변경
 	@PostMapping("inquiryPassword")
-	public String inquiryPassword(HttpServletRequest request) {
-
-		AccountDTO ad = new AccountDTO();
-		String accountnumber = ad.getAccount_number();
-
-		request.getParameterMap().forEach((key, value) -> {
-			System.out.println(key + ": " + String.join(", ", value)); // 여러 값이 있을 수 있음
-		});
-
-		//this.accountService.updateaccount(one_limit, day_limit, accountnumber);
-
+	public String inquiryPassword(String account_password, String account_number) {
+		
+		this.accountService.Passwordupdateaccount(account_password, account_number);
 
 		return "redirect:/spike.com/mypage/inquiry";
 	}

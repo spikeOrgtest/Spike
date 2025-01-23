@@ -27,5 +27,10 @@ public class AccountServiceImpl implements AccountService {
 		this.accountdao.Dayupdateaccount(day_limit, account_number);
 	}
 
+	@Override
+	public void Passwordupdateaccount(String account_password, String account_number) {
+		this.accountdao.Passwordupdateaccount(account_password, account_number);
+	}
+
 
 }

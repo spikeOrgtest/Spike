@@ -27,4 +27,9 @@ public class AccountDAOImpl implements AccountDAO {
 		this.accountrepo.Dayupdateaccount(day_limit, account_number);
 	}
 
+	@Override
+	public void Passwordupdateaccount(String account_password, String account_number) {
+		this.accountrepo.Passwordupdateaccount(account_password, account_number);
+	}
+
 }

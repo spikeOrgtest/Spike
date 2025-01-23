@@ -22,4 +22,9 @@ public interface AccountRepository extends JpaRepository<AccountDTO, Long> {
 	@Query("update AccountDTO a set a.day_limit = ?1 where a.account_number =?2")
 	void Dayupdateaccount(Long day_limit, String accountnumber);
 
+	@Modifying
+	@Transactional
+	@Query("update AccountDTO a set a.account_password = ?1 where a.account_number =?2")
+	void Passwordupdateaccount(String account_password, String account_number);
+
 }

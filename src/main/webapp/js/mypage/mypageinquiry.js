@@ -16,7 +16,9 @@ function updateAccountInfo() {
 
 		const accountNumber = selectedAccount.match(/[\d-]+/)[0];
 		
-		document.getElementById('selectedAccountNumber').value = accountNumber;
+		document.getElementById('selectedAccountNumber1').value = accountNumber;
+		document.getElementById('selectedAccountNumber2').value = accountNumber;
+		
 	}
 }
 
