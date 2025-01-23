@@ -9,9 +9,9 @@ function write_check(){
 		return false;
 	}
 	
-	if($.trim($('#title').val()).length == 0){
+	if($.trim($('#notice_title').val()).length == 0){
 		alert('글제목을 입력하세요!');
-		$('#title').val('').focus();
+		$('#notice_title').val('').focus();
 		return false;
 	}
 	
@@ -21,9 +21,50 @@ function write_check(){
 	//	return false;
 	//}
 	
-	if($.trim($('#content').val()) == ''){
+	if($.trim($('#notice_cont').val()) == ''){
 		alert('글내용을 입력하세요!');
-		$('#content').val('').focus();
+		$('#notice_cont').val('').focus();
 		return false;
-	}
 }
+
+}
+
+function confirmDelete(notice_no, page) {
+    // 확인 팝업 표시
+    var confirmAction = confirm("정말 삭제하시겠습니까?");
+    if (confirmAction) {
+        // 사용자가 확인을 누르면 삭제 요청 URL로 이동
+		alert('삭제가 완료되었습니다.');
+        window.location.href = '/spike.com/noti_del_ok?notice_no=' + notice_no + '&page=' + page;
+    } else {
+        // 취소하면 아무 동작도 하지 않음
+        return false;
+    }
+}
+
+function write_Change(){
+		
+		if($.trim($('#notice_title').val()).length == 0){
+			alert('변경하실 제목을 입력하세요!');
+			$('#notice_title').val('').focus();
+			return false;
+		}
+		
+		if($.trim($('notice_cont').val()).lenth == 0){
+			alert('변경하실 내용을 입력하세요.')
+			$('#notice_cont').val('').focus();
+			return false;
+		}
+	
+		var confirmAction1 = confirm("정말 변경하시겠습니까?");
+		    if (confirmAction1) {
+		        // 사용자가 확인을 누르면 삭제 요청 URL로 이동
+				alert('변경 완료되었습니다.');
+				} else {
+			        // 사용자가 '취소'를 클릭했을 때
+			        alert('변경이 취소되었습니다.');
+			    }
+		
+		
+}
+
