@@ -1,6 +1,10 @@
 select * from user_info;
-select * from sampleaccount;
+select * from account;
 select * from transaction;
+
+delete from account;
+
+select * from sampleaccount;
 insert into transaction values();
 truncate table transaction;
 drop table sampleaccount cascade constraint;
