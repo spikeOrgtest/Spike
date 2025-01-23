@@ -103,7 +103,9 @@ public class AccountController {
     		HttpServletRequest request, BindingResult result, HttpSession session) throws IOException {
 		UserDTO sessionUser = (UserDTO) session.getAttribute("User");
 		s.setOwner(sessionUser);
-    	s.setBalance("0");
+    	s.setBalance(1000000L);
+    	s.setDay_limit(1000000L);
+    	s.setOne_limit(100000L);
 		this.accountService.createAccount(s);
 		
     	return new ModelAndView("redirect:/spike.com/products");

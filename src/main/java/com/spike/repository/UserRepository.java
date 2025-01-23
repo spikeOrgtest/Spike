@@ -1,4 +1,4 @@
-package com.spike.dao;
+package com.spike.repository;
 
 import java.util.List;
 import java.util.Optional;

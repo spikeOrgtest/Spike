@@ -1,47 +1,28 @@
-// 계좌 정보 데이터
-const accountData = {
-    "123-4567-8901:일반": {
-        balance: 2345678,
-        available: 1234567,
-        transactions: [
-            { date: "2024-11-28", type: "출금", amount: 500000, destination: "증권" },
-            { date: "2024-11-27", type: "입금", amount: 200000, source: "급여" },
-            { date: "2024-11-26", type: "출금", amount: 300000, destination: "편의점" }
-        ]
-    },
-    "987-6543-2100:mini": {
-        balance: 3456789,
-        available: 2345678,
-        transactions: [
-            { date: "2024-11-28", type: "입금", amount: 1000000, source: "이체" },
-            { date: "2024-11-27", type: "출금", amount: 200000, destination: "인터넷" },
-            { date: "2024-11-26", type: "입금", amount: 150000, source: "급여" }
-        ]
-    },
-    "456-7890-1234:증권": {
-        balance: 4567890,
-        available: 3456789,
-        transactions: [
-            { date: "2024-11-28", type: "입금", amount: 500000, source: "가상화폐" },
-            { date: "2024-11-27", type: "출금", amount: 400000, destination: "증권" },
-            { date: "2024-11-26", type: "입금", amount: 300000, source: "이체" }
-        ]
-    }
-};
-
 // 계좌 정보 업데이트 함수
 function updateAccountInfo() {
-    const selectedAccount = document.getElementById('accountSelect').value;
-    if (selectedAccount) {
-        const account = accountData[selectedAccount];
+	const selectedAccount = document.getElementById('accountSelect').value;
+	if (selectedAccount) {
+	    const account = accountData[selectedAccount];
 
-        // 잔액 및 일일한도 업데이트
-        document.getElementById('balanceAmount').innerText = `₩${account.balance.toLocaleString()}`;
-        document.getElementById('availableAmount').innerText = `₩${account.available.toLocaleString()}`;
+	    // 잔액 업데이트 (쉼표 추가)
+	    const formattedBalance = formatNumber(account.balance.toString());
+		
+	    document.getElementById('balanceAmount').innerText = `${formattedBalance} 원`;
 
-        // 거래 내역 업데이트
-        updateTransactionHistory(account.transactions);
-    }
+	    // 일일 한도 업데이트
+	    document.getElementById('daylimit').innerText = `${formatNumber(account.daylimit.toString())} 원`;
+		
+		document.getElementById('onelimit').innerText = `${formatNumber(account.onelimit.toString())} 원`;
+
+		const accountNumber = selectedAccount.match(/[\d-]+/)[0];
+		
+		document.getElementById('selectedAccountNumber').value = accountNumber;
+	}
+}
+
+// 숫자에 쉼표를 자동으로 추가하는 함수
+function formatNumber(number) {
+	return number.replace(/\B(?=(\d{3})+(?!\d))/g, ',');  // 3자리마다 쉼표 추가
 }
 
 // 거래 내역을 화면에 업데이트하는 함수
@@ -116,27 +97,6 @@ function updateTransactionHistory(transactions) {
         transactionHistory.appendChild(transactionItem);
     });
 }
-
-// 숫자에 쉼표를 자동으로 추가하는 함수
-function formatNumber(input) {
-    let value = input.value;
-
-    // 숫자만 남기고 쉼표를 추가하기 위한 정규식
-    value = value.replace(/[^0-9]/g, '');  // 숫자 외의 문자 제거
-    value = value.replace(/\B(?=(\d{3})+(?!\d))/g, ',');  // 3자리마다 쉼표 추가
-
-    // 입력된 값을 다시 input 필드에 설정
-    input.value = value;
-}
-
-// 일일한도 설정 입력값에 ₩ 기호 자동 추가
-document.getElementById('dailyLimitInput').addEventListener('input', function() {
-    formatNumber(this);
-
-    // 쉼표가 포함된 값을 ₩ 기호로 시작하게 변경
-    const formattedValue = '₩' + this.value;
-    this.value = formattedValue; // 입력 필드에 새로운 값 설정
-});
 
 window.addEventListener('DOMContentLoaded', function() {
     const transactionHistoryContainer = document.getElementById('transactionHistoryContainer');
@@ -213,30 +173,31 @@ document.getElementById('setLimitBtn').addEventListener('click', function() {
     dailyLimitModal.show();
 });
 
-// 모달 내 "저장" 버튼 클릭 시 처리
-document.getElementById('saveLimitBtn').addEventListener('click', function() {
-    const dailyLimit = document.getElementById('dailyLimitInput').value;
-    if (dailyLimit) {
-        // 출금 한도 설정 처리
-        alert("설정된 출금 한도: " + dailyLimit + " 원");
+function limitChange(event) {
+	event.preventDefault();
+	
+	var dayLimit = document.getElementById('dayLimitInput').value;
+	var oneLimit = document.getElementById('oneLimitInput').value;
+	
+	var form = document.getElementById('limit');
+	form.querySelector('[name="day_limit"]').value = dayLimit;
+	form.querySelector('[name="one_limit"]').value = oneLimit;
+	
+	form.submit();
+	
+};
 
-        // 출금 한도 설정 후 모달 닫기
-        var dailyLimitModal = bootstrap.Modal.getInstance(document.getElementById('dailyLimitModal'));
-        dailyLimitModal.hide();
-
-        // 설정된 출금 한도를 화면에 반영
-        const selectedAccount = document.getElementById('accountSelect').value;
-        if (selectedAccount) {
-            const account = accountData[selectedAccount];
-            account.available = parseInt(dailyLimit.replace(/[^0-9]/g, '')); // 쉼표 및 기호를 제거하고 숫자만 설정
-            document.getElementById('availableAmount').innerText = `₩${account.available.toLocaleString()}`;
-        }
-    } else {
-        alert("출금 한도를 입력해주세요.");
-    }
+document.getElementById('saveLimitBtn').addEventListener('click', function(event) {
+	limitChange(event);
 });
 
-function changePassword() {
+document.getElementById('changePasswordBtn').addEventListener('click', function(event) {
+	changePassword(event);
+});
+
+function changePassword(event) {
+	event.preventDefault();
+	
     const currentPassword = document.getElementById("currentPassword").value;
     const newPassword = document.getElementById("newPassword").value;
     const confirmPassword = document.getElementById("confirmPassword").value;
@@ -253,12 +214,17 @@ function changePassword() {
         return;
     }
 
-    // 비밀번호 길이 검증 (예: 최소 8자리 이상)
-    if (newPassword.length < 8) {
-        alert("새 비밀번호는 최소 8자 이상이어야 합니다.");
+    // 비밀번호 길이 검증 (예: 최소 6자리 이상)
+    if (newPassword.length < 6) {
+        alert("새 비밀번호는 최소 6자 이상이어야 합니다.");
         return;
     }
 
+	document.getElementById('confirmPassword').value = '';
+	document.getElementById('currentPassword').value = '';
+	
+	document.getElementById('passwordChangeForm').submit();
+	
     // 비밀번호 변경 처리 로직 (서버와의 통신 등)
     alert("비밀번호가 성공적으로 변경되었습니다.");
 
@@ -266,16 +232,12 @@ function changePassword() {
     const modalElement = document.getElementById('passwordChangeModal');  // 모달 요소 참조
     const modal = bootstrap.Modal.getInstance(modalElement);  // 이미 열린 모달의 인스턴스를 가져옵니다.
     modal.hide();  // 모달을 닫습니다.
-}
+};
 
 var modalElement = document.getElementById('dailyLimitModal');
 var modal = new bootstrap.Modal(modalElement, {
     backdrop: 'static',  // 배경 클릭으로 모달을 닫지 않게 설정
     keyboard: false      // ESC로 모달 닫히지 않도록 설정
-});
-
-document.getElementById('setLimitBtn').addEventListener('click', function() {
-    modal.show();
 });
 
 document.querySelector('[data-bs-dismiss="modal"]').addEventListener('click', function () {

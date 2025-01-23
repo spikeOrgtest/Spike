@@ -16,4 +16,15 @@ public class AccountDAOImpl implements AccountDAO {
 	public void createAccount(AccountDTO s) {
 		this.accountrepo.save(s);
 	}
+
+	@Override
+	public void Oneupdateaccount(Long one_limit, String account_number) {
+		this.accountrepo.Oneupdateaccount(one_limit, account_number);
+	}
+
+	@Override
+	public void Dayupdateaccount(Long day_limit, String account_number) {
+		this.accountrepo.Dayupdateaccount(day_limit, account_number);
+	}
+
 }

@@ -92,13 +92,16 @@
 									<div class="col">
 										<label class="form-label">잔액</label>
 										<div class="form-control bg-light" id="balanceAmount">-
-											
+
 											원</div>
 									</div>
 									<div class="col">
 										<label class="form-label">일일한도</label>
-										<div class="form-control bg-light" id="availableAmount">
-											- 원</div>
+										<div class="form-control bg-light" id="daylimit">- 원</div>
+									</div>
+									<div class="col">
+										<label class="form-label">1회한도</label>
+										<div class="form-control bg-light" id="onelimit">- 원</div>
 									</div>
 								</div>
 							</div>
@@ -171,23 +174,32 @@
 							<div class="modal-dialog">
 								<div class="modal-content">
 									<div class="modal-header">
-										<h5 class="modal-title" id="dailyLimitModalLabel">일일 출금
-											한도 설정</h5>
+										<h4 class="modal-title" id="dailyLimitModalLabel">출금 한도
+											설정</h4>
 										<button type="button" class="btn-close"
 											data-bs-dismiss="modal" aria-label="Close"></button>
 									</div>
 									<div class="modal-body">
-										<div class="form-group">
-											<label for="dailyLimitInput">최대 출금 금액 (₩)</label> <input
-												type="text" class="form-control" id="dailyLimitInput"
-												placeholder="출금 한도를 입력하세요" />
-										</div>
-									</div>
-									<div class="modal-footer">
-										<button type="button" class="btn btn-secondary"
-											data-bs-dismiss="modal">취소</button>
-										<button type="button" class="btn btn-secondary"
-											id="saveLimitBtn">저장</button>
+										<form id="limit" action="inquiryLimit" method="post">
+										<input type="hidden" name="${_csrf.parameterName}"
+																value="${_csrf.token}" />
+											<div class="form-group">
+												<label for="dayLimitInput" style="margin-bottom: 20px;">일일
+													한도 금액 (₩)</label> <input type="text" class="form-control"
+													id="dayLimitInput" placeholder="출금 한도를 입력하세요" name="day_limit"
+													style="margin-bottom: 20px;" />
+											</div>
+											<div class="form-group">
+												<label for="oneLimitInput" style="margin-bottom: 20px;">1회
+													한도 금액 (₩)</label> <input type="text" class="form-control" name="one_limit"
+													id="oneLimitInput" placeholder="출금 한도를 입력하세요" />
+											</div>
+											<input type="hidden" id="selectedAccountNumber" name="account_number" value="" />
+											<button type="reset" class="btn btn-secondary"
+												data-bs-dismiss="modal">취소</button>
+											<button type="submit" class="btn btn-secondary"
+												id="saveLimitBtn" onclick="limitChange()">저장</button>
+										</form>
 									</div>
 								</div>
 							</div>
@@ -199,36 +211,36 @@
 							<div class="modal-dialog">
 								<div class="modal-content">
 									<div class="modal-header">
-										<h5 class="modal-title" id="passwordChangeModalLabel">계좌
-											비밀번호 변경</h5>
+										<h4 class="modal-title" id="passwordChangeModalLabel">계좌
+											비밀번호 변경</h4>
 										<button type="button" class="btn-close"
 											data-bs-dismiss="modal" aria-label="Close"></button>
 									</div>
 									<div class="modal-body">
-										<form id="passwordChangeForm">
 											<div class="mb-3">
 												<label for="currentPassword" class="form-label">현재
-													비밀번호</label> <input type="password" class="form-control"
+													비밀번호</label> <input type="password" class="form-control" name="cpassword"
 													id="currentPassword" required />
 											</div>
+										<form action="inquiryPassword" method="post" id="passwordChangeForm">
+										<input type="hidden" name="${_csrf.parameterName}"
+																value="${_csrf.token}" />
 											<div class="mb-3">
 												<label for="newPassword" class="form-label">새 비밀번호</label> <input
-													type="password" class="form-control" id="newPassword"
+													type="password" class="form-control" id="newPassword" name="password"
 													required />
 											</div>
 											<div class="mb-3">
 												<label for="confirmPassword" class="form-label">새
-													비밀번호 확인</label> <input type="password" class="form-control"
+													비밀번호 확인</label> <input type="password" class="form-control" name="npassword"
 													id="confirmPassword" required />
 											</div>
-										</form>
-									</div>
-									<div class="modal-footer">
-										<button type="button" class="btn btn-secondary"
+										<button type="reset" class="btn btn-secondary"
 											data-bs-dismiss="modal">취소</button>
-										<button type="button" class="btn btn-secondary"
+										<button type="submit" class="btn btn-secondary"
 											id="changePasswordBtn" onclick="changePassword()">비밀번호
 											변경</button>
+										</form>
 									</div>
 								</div>
 							</div>
@@ -247,6 +259,34 @@
 	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 	<script src="../../js/mypage/mypageinquiry.js"></script>
 	<script src="../../js/mypage/sidebars.js"></script>
+
+	<script>
+		// 계좌 데이터 전달을 위한 JavaScript 변수 생성
+		const accountData = {};
+		<c:forEach var="item" items="${list}">
+		accountData["${item.account_number}:${item.account_type}"] = {
+			balance : "${item.balance}",
+			daylimit : "${item.day_limit}",
+			onelimit : "${item.one_limit}",
+			transactions : [ {
+				date : "2024-11-28",
+				type : "출금",
+				amount : 500000,
+				destination : "증권"
+			}, {
+				date : "2024-11-27",
+				type : "입금",
+				amount : 200000,
+				source : "급여"
+			}, {
+				date : "2024-11-26",
+				type : "출금",
+				amount : 300000,
+				destination : "편의점"
+			} ]
+		};
+		</c:forEach>
+	</script>
 </body>
 
 </html>

@@ -4,6 +4,7 @@ import java.io.PrintWriter;
 import java.time.LocalDate;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -183,13 +184,49 @@ public class MypageController {
 		userId = sessionUser.getUser_id();
 		
 		List<AccountDTO> list = userService.findbyinquriy(userId);
-		System.out.println(list);
-		
+
 		ModelAndView account = new ModelAndView("mypage/mypageinquiry");
 		account.addObject("list", list);
 		
 		return account;
 		
+	}
+	
+	// 계좌 조회
+	@PostMapping("inquiryLimit")
+	public String inquiryLimit(Long one_limit, Long day_limit, String account_number) {
+		System.out.println(one_limit);
+		System.out.println(day_limit);
+		
+		
+		System.out.println(account_number);
+		
+		if(one_limit != null) {
+		this.accountService.Oneupdateaccount(one_limit, account_number);
+		}
+		
+		if(day_limit != null) {
+		this.accountService.Dayupdateaccount(day_limit, account_number);
+		}
+		
+		
+		return "redirect:/spike.com/mypage/inquiry";
+	}
+	
+	@PostMapping("inquiryPassword")
+	public String inquiryPassword(HttpServletRequest request) {
+
+		AccountDTO ad = new AccountDTO();
+		String accountnumber = ad.getAccount_number();
+
+		request.getParameterMap().forEach((key, value) -> {
+			System.out.println(key + ": " + String.join(", ", value)); // 여러 값이 있을 수 있음
+		});
+
+		//this.accountService.updateaccount(one_limit, day_limit, accountnumber);
+
+
+		return "redirect:/spike.com/mypage/inquiry";
 	}
 
 	@GetMapping("property")

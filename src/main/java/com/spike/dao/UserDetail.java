@@ -15,6 +15,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.spike.dto.UserDTO;
+import com.spike.repository.UserRepository;
 
 
 @Service
