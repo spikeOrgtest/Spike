@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" > <!-- 원본 -->
+
+<mapper namespace="notice">
+
+ 
+ <insert id="noti_i">  parameterType은 전달인자 타입으로 생략가능함. 
+        insert into notice (notice_no,notice_name,notice_title,notice_cont,notice_file,notice_hit,
+        created_date) values(#{notice_name}, #{notice_title},#{notice_cont},
+        #{notice_file},0,sysdate)
+    </insert> 
+    
+<!--  =====================================   -->
+  <!-- 검색전후 레코드 개수 -->
+ <!--  <select id="noti_count" parameterType="page" resultType="int">
+ select count(notice_no) from Notice
+ <where>
+  <if test="find_field == ''"></if>
+  <if test="find_field == 'notice_name'">
+  notice_title like #{find_name}
+  </if>
+  <if test="find_field == 'notice_title'">
+  notice_cont like #{find_name}
+  </if>
+ </where>
+</select>-->
+
+<!-- 검색전후 페이징 목록 -->
+    <!--  <select id="noti_list" resultType="Notice">
+     select * from Notice order by created_date desc
+     
+    </select> -->
+    
+<!--  =====================================   -->    
+
+    <!-- 검색 전후 레코드 개수 -->
+<select id="noti_count" parameterType="page" resultType="int">
+  SELECT COUNT(notice_no)
+  FROM Notice
+  <where>
+    <if test="find_field != null and find_name != null and find_name != ''">
+      AND ${find_field} LIKE '%' || #{find_name} || '%'
+    </if>
+  </where>
+</select>
+
+  <!-- 검색 및 페이징 목록 -->
+
+<select id="noti_list" parameterType="com.spike.dto.NotiPageDTO" resultType="com.spike.dto.NoticeDTO">
+
+  SELECT * FROM (
+    SELECT rownum AS rNum, notice_no, notice_name, notice_title, notice_hit, created_date
+    FROM (
+      SELECT * FROM notice
+      <where>
+        <if test="find_field == ''"></if> <!-- 검색 조건이 없으면 모든 데이터를 가져옴 -->
+        <if test="find_field == 'notice_title'">
+          notice_title LIKE #{find_name}
+        </if>
+        <if test="find_field == 'notice_cont'">
+          notice_cont LIKE #{find_name}
+        </if>
+      </where>
+      ORDER BY notice_no DESC, created_date DESC
+    )
+  ) WHERE rNum BETWEEN #{startrow} AND #{endrow}
+</select>
+
+ <!--  SELECT * FROM (
+    SELECT rownum AS rNum, notice_no, notice_name, notice_title, notice_hit, created_date
+    FROM (
+      SELECT * 
+      FROM Notice
+      <where>-->
+        <!--<if test="find_field == ''"></if>  검색조건이 없으면 검색하지 않음 -->
+        <!--<if test="find_field == 'notice_title'">
+          notice_title LIKE #{find_name}
+        </if>
+        <if test="find_field == 'notice_cont'">
+          notice_cont LIKE #{find_name}
+        </if>
+      </where>
+      ORDER BY notice_no DESC, created_date DESC
+    )
+  )-->
+ <!-- WHERE rNum BETWEEN #{startrow} AND #{endrow} 페이지 범위에 맞는 레코드를 반환 -->
+<!--  </select>-->
+
+</mapper>

@@ -83,3 +83,26 @@
     border-color: #333;
     background-color: #e0e0e0;
 }
+
+/* 새로 추가 */
+#Nlist_paging{
+	display: flex;
+	justify-content: center;   /* 가로축(좌우) 중앙 정렬 */
+    align-items: center;   
+    padding: 10px;
+}
+
+#Nlist_menu{
+	display: flex;
+	justify-content: center;   /* 가로축(좌우) 중앙 정렬 */
+    align-items: center;  
+    padding: 10px;
+}
+
+#nFind_wrap{
+	display: flex;
+	justify-content: center;   /* 가로축(좌우) 중앙 정렬 */
+    align-items: center;  
+    
+}
+

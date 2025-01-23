@@ -1,5 +1,7 @@
 package com.spike.service;
 
+import java.util.List;
+
 import com.spike.dto.NotiPageDTO;
 import com.spike.dto.NoticeDTO;
 
@@ -7,6 +9,17 @@ public interface NoticeService {
 
 	void insertnotice(NoticeDTO notice);
 
-	int getRowCount(NoticeDTO notice, NotiPageDTO p);
+	int getRowCount(NotiPageDTO p);
+
+	List<NoticeDTO> getNotiList(NotiPageDTO p);
+
+	NoticeDTO getNoticeCont(Long notice_no);
+
+	NoticeDTO getNoticeCont2(Long notice_no);
+
+	void editNoti(NoticeDTO notice);
+
+	void delNoti(Long notice_no);
+
 
 }
