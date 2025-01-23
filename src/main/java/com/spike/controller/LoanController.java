@@ -15,42 +15,44 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.spike.dto.CardDTO;
+import com.spike.dto.LoanDTO;
 import com.spike.dto.UserDTO;
 import com.spike.service.CardService;
+import com.spike.service.LoanService;
 
 @Controller
 @RequestMapping("/spike.com")
-public class CardController {
+public class LoanController {
 
 	@Autowired
-	private CardService cardService;
+	private LoanService loanService;
 		
-	@GetMapping("/products/card")
-	public String card() {
-		return "products/card";
+	@GetMapping("/products/loan")
+	public String loan() {
+		return "products/loan";
 	}
 		
-	@GetMapping("/products/card/subpage_c{number:\\d+}")
-	public String cardSubpage(@PathVariable String number) {
-		return "products/Subpage_C" + number;
+	@GetMapping("/products/loan/subpage_l{number:\\d+}")
+	public String loanSubpage(@PathVariable String number) {
+		return "products/Subpage_L" + number;
 	}
 	
 		
-	@GetMapping("/products/newcard")
-	public ModelAndView newCard() {
-		String[] card_name = {""};
+	@GetMapping("/products/newloan")
+	public ModelAndView newLoan() {
+		String[] loan_name = {"대출"};
 		
-		ModelAndView ss = new ModelAndView("/products/newCard");
-		ss.addObject("card_name", card_name);
+		ModelAndView ss = new ModelAndView("/products/newLoan");
+		ss.addObject("loan_name", loan_name);
 		return ss;
 	}
 	
-	@PostMapping("/card_ok")
-	public ModelAndView card_ok(CardDTO s, 
+	@PostMapping("/loan_ok")
+	public ModelAndView loan_ok(LoanDTO s, 
 			HttpServletRequest request, BindingResult result, HttpSession session) throws IOException {
 		UserDTO sessionUser = (UserDTO) session.getAttribute("User");
 	    s.setOwner(sessionUser);
-		this.cardService.createCard(s);
+		this.loanService.createLoan(s);
 		
 		return new ModelAndView("redirect:/spike.com/products");
 	}

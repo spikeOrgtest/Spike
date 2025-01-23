@@ -4,16 +4,16 @@ import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.CreationTimestamp;
+
+import com.spike.dto.UserDTO;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -22,42 +22,29 @@ import lombok.Setter;
 @Setter
 @Entity
 @SequenceGenerator(	
-		name = "account_seq_generator", 
-		sequenceName = "accounts_seq", 
+		name = "loan_seq_generator", 
+		sequenceName = "loan_seq", 
 		initialValue = 1,
 		allocationSize = 1)
 
-@Table(name = "Account")
-public class AccountDTO {
+@Table(name = "Loan")
+public class LoanDTO {
 	
 	@Id
 	@GeneratedValue(
 			strategy = GenerationType.SEQUENCE,
-			generator = "account_no_seq"
+			generator = "loan_no_seq"
 			)
 	
-	private long account_id;
+	private Integer loan_id;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "user_id")
+	@ManyToOne
 	private UserDTO owner;
 	
-	private String account_type;
-	
-	private String account_number;
-	
-	private String account_password;
-
-	private Long one_limit;
-	
-	private Long day_limit;
-	
-	private Long balance;
+	private String loan_name;
 	
 	@CreationTimestamp
 	@Column(columnDefinition = "TIMESTAMP DEFAULT SYSDATE")
 	private LocalDate created_date;
-	
-	private LocalDate update_date;
 	
 }

@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	form.addEventListener('submit', function(e) {
 		e.preventDefault(); // 기본 폼 제출 방지
 
+		// 해외결제 선택
 		const overseasPayment = document.querySelector('input[name="option"]:checked');
 		if (overseasPayment) {
 			overseasPaymentField.value = overseasPayment.value;
