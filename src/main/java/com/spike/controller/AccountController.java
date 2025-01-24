@@ -22,72 +22,74 @@ import com.spike.service.AccountService;
 @RequestMapping("/spike.com")
 public class AccountController {
 
-   @Autowired
-   private AccountService accountService;
-   
-   //상품 메인페이지
-   @GetMapping("/products")
-    public String products() {
-        return "products";
-    }   
-      
-   @GetMapping("/products/deposit")
-    public String deposit() {
-        return "products/deposit";
-    }
-   
-   @GetMapping("/products/savings")
-   public String savings() {
-      return "products/savings";
-   }
-      
-   @GetMapping("/products/deposit/subpage_d{number:\\d+}")
-   public String depositSubpage(@PathVariable String number) {
-       return "products/Subpage_D" + number;
-   }
+	@Autowired
+	private AccountService accountService;
 
-   @GetMapping("/products/savings/subpage_s{number:\\d+}")
-   public String savingsSubpage(@PathVariable String number) {
-      return "products/Subpage_S" + number;
-   }
-      
-   // 계좌개설 폼 tset
-   @GetMapping("/products/newmember")
-    public ModelAndView newmember() {
-        String[] account_type = {"입출금계좌", "투자계좌"};
-        
-        ModelAndView ss = new ModelAndView("/products/newmember");
-        ss.addObject("account_type", account_type);
-        return ss;
-    }
+	// 상품 메인페이지
+	@GetMapping("/products")
+	public String products() {
+		return "products";
+	}
 
-   @GetMapping("/products/newdeposit")
-   public ModelAndView newDeposit() {
-      String[] account_type = {"예금"};
-      
-      ModelAndView ss = new ModelAndView("/products/newDeposit");
-      ss.addObject("account_type", account_type);
-      return ss;
-   }
-   
-   @GetMapping("/products/newsavings")
-   public ModelAndView newSavings() {
-      String[] account_type = {"적금"};
-      
-      ModelAndView ss = new ModelAndView("/products/newSavings");
-      ss.addObject("account_type", account_type);
-      return ss;
-   }
-         
-   @PostMapping("/account_ok")
-    public ModelAndView account_ok(AccountDTO s, 
-          HttpServletRequest request, BindingResult result, HttpSession session) throws IOException {
-      UserDTO sessionUser = (UserDTO) session.getAttribute("User");
-      s.setOwner(sessionUser);
-      s.setBalance(10000000L);
-      this.accountService.createAccount(s);
-      
-       return new ModelAndView("redirect:/spike.com/products");
-    }
-   
+	@GetMapping("/products/deposit")
+	public String deposit() {
+		return "products/deposit";
+	}
+
+	@GetMapping("/products/savings")
+	public String savings() {
+		return "products/savings";
+	}
+
+	@GetMapping("/products/deposit/subpage_d{number:\\d+}")
+	public String depositSubpage(@PathVariable String number) {
+		return "products/Subpage_D" + number;
+	}
+
+	@GetMapping("/products/savings/subpage_s{number:\\d+}")
+	public String savingsSubpage(@PathVariable String number) {
+		return "products/Subpage_S" + number;
+	}
+
+	// 계좌개설 폼 tset
+	@GetMapping("/products/newmember")
+	public ModelAndView newmember() {
+		String[] account_type = { "입출금계좌", "투자계좌" };
+
+		ModelAndView ss = new ModelAndView("/products/newmember");
+		ss.addObject("account_type", account_type);
+		return ss;
+	}
+
+	@GetMapping("/products/newdeposit")
+	public ModelAndView newDeposit() {
+		String[] account_type = { "예금" };
+
+		ModelAndView ss = new ModelAndView("/products/newDeposit");
+		ss.addObject("account_type", account_type);
+		return ss;
+	}
+
+	@GetMapping("/products/newsavings")
+	public ModelAndView newSavings() {
+		String[] account_type = { "적금" };
+
+		ModelAndView ss = new ModelAndView("/products/newSavings");
+		ss.addObject("account_type", account_type);
+		return ss;
+	}
+
+	@PostMapping("/account_ok")
+	public ModelAndView account_ok(AccountDTO s, HttpServletRequest request, BindingResult result, HttpSession session)
+			throws IOException {
+		UserDTO sessionUser = (UserDTO) session.getAttribute("User");
+		s.setOwner(sessionUser);
+		s.setBalance(1000000L);
+		s.setDay_limit(1000000L);
+		s.setOne_limit(100000L);
+		this.accountService.createAccount(s);
+
+		return new ModelAndView("redirect:/spike.com/products");
+	}
+
 }
