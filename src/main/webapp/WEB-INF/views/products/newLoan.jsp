@@ -35,6 +35,33 @@
 				</div>
 			</div>
 			
+			<div class="form-group">
+				<label for="loan_amount">대출금액</label>
+				<div class="product_container">
+				<select id="amount_select" name="amount_select" required>
+					<option value="">금액을 선택하세요</option>
+				</select>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label for="account_select">수령계좌</label>
+				<div class="product_container">
+				<select id="account_select" name="account_select" required>
+					<option value="">계좌를 선택하세요</option>
+				</select>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label for="repayment_account">상환계좌</label>
+				<div class="product_container">
+				<select id="repayment_account" name="repayment_account" required>
+					<option value="">계좌를 선택하세요</option>
+				</select>
+				</div>
+			</div>
+			
 			<div class="form-group checkbox">
 				<input type="checkbox" id="termsAgreement" required /> <label
 					for="termsAgreement"> <a href="#" id="termsLink">금융 서비스

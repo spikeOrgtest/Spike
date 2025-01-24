@@ -1,6 +1,7 @@
 package com.spike.controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -14,10 +15,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.spike.dto.CardDTO;
+import com.spike.dto.AccountDTO;
 import com.spike.dto.LoanDTO;
 import com.spike.dto.UserDTO;
-import com.spike.service.CardService;
+import com.spike.service.AccountService;
 import com.spike.service.LoanService;
 
 @Controller
@@ -40,7 +41,7 @@ public class LoanController {
 		
 	@GetMapping("/products/newloan")
 	public ModelAndView newLoan() {
-		String[] loan_name = {"대출"};
+		String[] loan_name = {"대출", "그냥대출"};
 		
 		ModelAndView ss = new ModelAndView("/products/newLoan");
 		ss.addObject("loan_name", loan_name);

@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,6 +25,9 @@ public class CardController {
 
 	@Autowired
 	private CardService cardService;
+	
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 		
 	@GetMapping("/products/card")
 	public String card() {
@@ -50,6 +54,7 @@ public class CardController {
 			HttpServletRequest request, BindingResult result, HttpSession session) throws IOException {
 		UserDTO sessionUser = (UserDTO) session.getAttribute("User");
 	    s.setOwner(sessionUser);
+	    s.setCard_password(passwordEncoder.encode(s.getCard_password()));
 		this.cardService.createCard(s);
 		
 		return new ModelAndView("redirect:/spike.com/products");

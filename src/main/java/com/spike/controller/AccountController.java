@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,6 +25,9 @@ public class AccountController {
 
 	@Autowired
 	private AccountService accountService;
+	
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 
 	// 상품 메인페이지
 	@GetMapping("/products")
@@ -51,7 +55,6 @@ public class AccountController {
 		return "products/Subpage_S" + number;
 	}
 
-	// 계좌개설 폼 tset
 	@GetMapping("/products/newmember")
 	public ModelAndView newmember() {
 		String[] account_type = { "입출금계좌", "투자계좌" };
@@ -87,6 +90,7 @@ public class AccountController {
 		s.setBalance(1000000L);
 		s.setDay_limit(1000000L);
 		s.setOne_limit(100000L);
+		s.setAccount_password(passwordEncoder.encode(s.getAccount_password()));
 		this.accountService.createAccount(s);
 
 		return new ModelAndView("redirect:/spike.com/products");

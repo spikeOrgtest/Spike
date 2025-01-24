@@ -37,5 +37,4 @@ public class AccountServiceImpl implements AccountService {
 		this.accountdao.accountsecession(account_number);
 	}
 
-
 }

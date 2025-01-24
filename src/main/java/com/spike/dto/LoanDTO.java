@@ -13,8 +13,6 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.CreationTimestamp;
 
-import com.spike.dto.UserDTO;
-
 import lombok.Getter;
 import lombok.Setter;
 

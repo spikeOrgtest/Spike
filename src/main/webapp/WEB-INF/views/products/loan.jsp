@@ -54,7 +54,7 @@
             <div class="container">
                 <h2>특별 대출 상품</h2>
                 <div class="product-grid" id="productGrid">
-                    <a href="savings/subpage_l1" class="product-card">
+                    <a href="loan/subpage_l1" class="product-card">
                         <div class="card-header"></div>
                         <div class="card-body">
                             <h3>SPIKE 학자금 대출</h3>
@@ -66,7 +66,7 @@
                             </ul>
                         </div>
                     </a>
-                    <a href="savings/subpage_l2" class="product-card">
+                    <a href="loan/subpage_l2" class="product-card">
                         <div class="card-header"></div>
                         <div class="card-body">
                             <h3>SPIKE 비상금 대출</h3>
@@ -78,7 +78,7 @@
                             </ul>
                         </div>
                     </a>
-                    <a href="savings/subpage_l3" class="product-card">
+                    <a href="loan/subpage_l3" class="product-card">
                         <div class="card-header"></div>
                         <div class="card-body">
                             <h3>SPIKE 직장인 대출</h3>
@@ -97,7 +97,7 @@
             <div class="container">
                 <h2>대출 상품 목록</h2>
                 <div class="product-grid" id="productGrid">
-                    <a href="savings/subpage_l4" class="product-card">
+                    <a href="loan/subpage_l4" class="product-card">
                         <div class="card-header"></div>
                         <div class="card-body">
                             <h3>SPIKE 대출</h3>
@@ -109,7 +109,7 @@
                             </ul>
                         </div>
                     </a>
-                    <a href="savings/subpage_l5" class="product-card">
+                    <a href="loan/subpage_l5" class="product-card">
                         <div class="card-header"></div>
                         <div class="card-body">
                             <h3>주택담보 대출</h3>
@@ -121,7 +121,7 @@
                             </ul>
                         </div>
                     </a>
-                    <a href="savings/subpage_l6" class="product-card">
+                    <a href="loan/subpage_l6" class="product-card">
                         <div class="card-header"></div>
                         <div class="card-body">
                             <h3>소상공인 대출</h3>
