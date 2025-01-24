@@ -14,13 +14,13 @@
 
 	<nav class="top-menu">
 		<div class="container">
-			<a href="products.jsp" class="logo">SPIKE</a>
+			<a href="/spike.com/products" class="logo">SPIKE</a>
 			<ul>
-				<li><a href="deposit.jsp">예금</a></li>
-				<li><a href="savings.jsp">적금</a></li>
-				<li><a href="loan.jsp">대출</a></li>
-				<li><a href="card.jsp">카드</a></li>
-				<li><a href="newmember.jsp">계좌 개설</a></li>
+				<li><a href="/spike.com/products/deposit">예금</a></li>
+				<li><a href="/spike.com/products/savings">적금</a></li>
+				<li><a href="/spike.com/products/loan">대출</a></li>
+				<li><a href="/spike.com/products/card">카드</a></li>
+				<li><a href="/spike.com/products/newmember">계좌 개설</a></li>
 			</ul>
 		</div>
 	</nav>

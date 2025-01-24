@@ -5,9 +5,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title></title>
-<link rel="stylesheet" href="../assets/css/subpage.css">
-<link rel="stylesheet" href="../assets/css/include.css">
-<link rel="stylesheet" href="../sub/spike-savings.css">
+<link rel="stylesheet" href="../../../css/support/subpage.css">
+<link rel="stylesheet" href="../../../css/include/include.css">
+<link rel="stylesheet" href="../../../css/product/spike-savings.css">
 
 <%--/
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -38,12 +38,12 @@
 			<div class="subpage-sidebar">
 				<h3 class="subpage-sidebar-title">예금 상품</h3>
 				<ul>
-					<li><a href="Subpage_D1.jsp">SPIKE 예금</a></li>
-					<li><a href="Subpage_D2.jsp">IRP(Individual Retirement Pension)</a></li>
-					<li><a href="Subpage_D3.jsp">1+1 예금</a></li>
-					<li><a href="Subpage_D4.jsp">정기 예금</a></li>  <%-- 현재페이지=선택된 메뉴면 배경색 진하게, 백엔드랑 연동할예정 --%>
-					<li><a href="Subpage_D5.jsp">퇴직연금예금</a></li>
-					<li><a href="Subpage_D6.jsp">평생가족 예금</a></li>
+					<li><a href="subpage_d1">SPIKE 예금</a></li>
+					<li><a href="subpage_d2">IRP(Individual Retirement Pension)</a></li>
+					<li><a href="subpage_d3">1+1 예금</a></li>
+					<li><a href="subpage_d4">정기 예금</a></li>  <%-- 현재페이지=선택된 메뉴면 배경색 진하게, 백엔드랑 연동할예정 --%>
+					<li><a href="subpage_d5">퇴직연금예금</a></li>
+					<li><a href="subpage_d6">평생가족 예금</a></li>
 				</ul>
 			</div>
 
@@ -133,7 +133,7 @@
 
         <section class="cta">
             <div class="container">
-                <a href="#" class="button" id="joinButton">지금 가입하기</a>
+                <a href="../newdeposit" class="button" id="joinButton">지금 가입하기</a>
             </div>
         </section>
     </main>

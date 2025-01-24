@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	form.addEventListener('submit', function(e) {
 		e.preventDefault(); // 기본 폼 제출 방지
 
+		// 해외결제 선택
 		const overseasPayment = document.querySelector('input[name="option"]:checked');
 		if (overseasPayment) {
 			overseasPaymentField.value = overseasPayment.value;
@@ -72,8 +73,12 @@ document.getElementById('card_name').addEventListener('change', function() {
 
 	if (selectedType === 'SPIKE 카드') {
 		options = [
-			{ value: 'spike_savings', text: 'SPIKE 카드' },
-			{ value: 'housing_savings', text: '이벤트 카드' }
+			{ value: 'YOUTHCARD', text: 'SPIKE 청년 카드' },
+			{ value: 'PLATINUMCARD', text: '플래티넘 카드' },
+			{ value: 'DIGITALCARD', text: '디지털 카드' },
+			{ value: 'SPIKECARD', text: 'SPIKE 카드' },
+			{ value: 'TRAVELCARD', text: 'SPIKE TRAVEL 카드' },
+			{ value: 'PLUSCARD', text: '플러스 카드' }
 		];
 	}
 
