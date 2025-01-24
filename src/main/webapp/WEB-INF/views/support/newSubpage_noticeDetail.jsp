@@ -98,7 +98,6 @@
 	</div>
 
 
-  
 	<%@ include file="../include/shortfooter.jsp"%>
 	
 

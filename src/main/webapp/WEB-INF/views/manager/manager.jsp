@@ -1,6 +1,8 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -9,8 +11,8 @@
 <title>관리자 페이지</title>
 <link rel="stylesheet" href="/css/support/subpage.css">
 <link rel="stylesheet" href="/css/include/include.css">
-<link rel="stylesheet" href="/css/support/newSubpage_noticeDetail.css">
-
+<link rel="stylesheet" href="/css/manager/manager.css">
+<!--  <link rel="stylesheet" href="/css/support/newSubpage_noticeDetail.css">-->
 
 </head>
 <body>
@@ -115,16 +117,87 @@
 			<div class="subpage-sidebar">
 				<h3 class="subpage-sidebar-title">관리자 페이지</h3>
 				<ul>
-					<li><a href="newsSubpage_bank.jsp">고객센터 수정</a></li>
-					<li><a href="newsSubpage_product.jsp">고객관리 수정</a></li>
-					<li><a href="newsSubpage_job.jsp">  </a></li>
-					<li><a href="newsSubpage_notice.jsp">  </a></li>
+				    <li><a href="newsSubpage_bank.jsp">대시보드</a></li>
+					<li><a href="newsSubpage_bank.jsp">사용자관리</a></li>
+					<li><a href="newsSubpage_product.jsp">계좌수정</a></li>
+					<li><a href="newsSubpage_product.jsp">거래내역관리</a></li>
+					<li><a href="newsSubpage_job.jsp">대출관리</a></li>
+					<li><a href="newsSubpage_notice.jsp">공지사항관리</a></li>
+					<li><a href="newsSubpage_notice.jsp">보안관리</a></li>
 				</ul>
 			</div>
-</div>
+
+<div class="Alldash">
+<div class="All-box1">
+<!--  ---------------------------------------------- -->
+
+<div class="dashboard1-box">
+<div class="dashboard1">
+  <h2><strong>오늘의 방문자수</strong></h2> 
+  <div id="board1">
+    <p>152명</p>
+    </div>
+   </div>
+  </div>
+
+<div class="dashboard2-box">
+<div class="dashboard2">
+  <h2><strong>총 방문자수</strong></h2> <!-- 오늘 거래한 회원 수 -->
+  <div id="board1">
+    <p>249382명</p>
+    </div>
+   </div>
+  </div>
 </div>
 
+<div class="All-box2">
 
+<div class="dashboard3-box">           
+<div class="dashboard3">
+  <h2><strong>오늘의 거래 회원</strong></h2> <!-- 오늘 거래한 회원 수 -->
+  <div id="board1">
+    <p>1582명</p>
+    </div>
+   </div>
+  </div>
+
+
+<div class="dashboard4-box">
+<div class="dashboard4">
+  <h2><strong>신규 회원가입</strong></h2> <!-- 오늘 가입한 신규 회원 수 -->
+  <div id="board1">
+    <p>38명</p>
+    </div>
+   </div>
+  </div>
+
+
+<div class="dashboard5-box">
+<div class="dashboard5">
+  <h2><strong>오늘의 대출 신청</strong></h2> <!-- 오늘 가입한 신규 회원 수 -->
+  <div id="board1">
+    <p>38건</p>
+    </div>
+   </div>
+  </div>
+  </div>
+  
+  
+<div class="All-box3">
+
+<div class="dashboard6-box">
+<div class="dashboard6">
+  <h2><strong>전체통계</strong></h2> <!-- 오늘 가입한 신규 회원 수 -->
+  <div id="board1">
+    <p>총 가입자 수: 210293명</p>
+    <p>총 대출 금액: 5.312.049.840원</p>
+    <p>총 거래액: 54.029.312.840원</p>
+    </div>
+   </div>
+  </div>
+</div>
+
+</div>
 
 
 <%-- 헤더 스크립트 시작 --%>
@@ -161,19 +234,11 @@ if (remainingTime >= 0) {
 
 <%-- 헤더 스크립트 끝 --%>
 
-
-
-
-
-
-
-
-
-
-
-
+    </div> <!--  subpage-main-container 클래스 -->
+</div> <!-- subpageWrapper 클래스 -->
 
   <%@ include file="../include/shortfooter.jsp"%>
+  <script src="/js/subpage.js"></script>
 
 </body>
 </html>

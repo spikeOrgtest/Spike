@@ -1,1 +1,81 @@
-@charset "UTF-8";
+.dashboard1-box{
+	max-width: 300px;
+    height: auto;
+    margin: 50px auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    flex: 0 0 48% !important; /* 첫 번째 행 2개씩 배치 (50% - 간격 고려) */
+    box-sizing: border-box;
+}
+
+.dashboard2-box{
+	max-width: 800px;
+	width:600px;
+    height: auto;
+    margin: 50px auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    flex: 0 0 48% !important; /* 첫 번째 행 2개씩 배치 (50% - 간격 고려) */
+    box-sizing: border-box;
+}
+
+.dashboard3-box, .dashboard4-box, .dashboard5-box{
+	max-width: 800px;
+    height: auto;
+    margin: 50px auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    flex: 0 0 30%; /* 두 번째 행 3개씩 배치 (33.33% - 간격 고려) */
+    box-sizing: border-box;
+}
+
+.dashboard6-box{
+	max-width: 800px;
+    height: auto;
+    margin: 50px auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+	flex: 0 0 100%; /* 마지막 행은 1개만 차지 */
+    box-sizing: border-box;
+}
+
+#board1{
+	margin-top: 20px;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    /*white-space: pre-line;*/
+}
+
+.All-box1, .All-box2 , .All-box3{
+	display: flex;
+}
+
+.Alldash {
+    margin-left: 100px;
+    text-align: center;
+}
+
+.footer-content h6 {
+	margin:0px 0px 0px 0px;
+	padding:0px 0px 0px 0px;
+}
+
+.footer-content p{
+	margin:0px 0px 0px 0px;
+	padding:0px 0px 0px 0px;
+}
+
