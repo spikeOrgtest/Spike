@@ -23,7 +23,6 @@ public interface AccountRepository extends JpaRepository<AccountDTO, Long> {
 	@Query("select a from AccountDTO a where a.account_number = ?1")
 	Optional<AccountDTO> findByAccountNumber(String accountNumber);
 
-
 	@Modifying
 	@Transactional
 	@Query("update AccountDTO a set a.one_limit = ?1 where a.account_number =?2")
