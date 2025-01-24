@@ -25,7 +25,7 @@ public class AccountController {
 
 	@Autowired
 	private AccountService accountService;
-	
+
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 
@@ -95,5 +95,5 @@ public class AccountController {
 
 		return new ModelAndView("redirect:/spike.com/products");
 	}
-
+	
 }
