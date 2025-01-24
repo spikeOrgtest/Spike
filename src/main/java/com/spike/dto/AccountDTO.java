@@ -23,7 +23,7 @@ import lombok.Setter;
 @Entity
 @SequenceGenerator(   
       name = "account_seq_generator", 
-      sequenceName = "accounts_seq", 
+      sequenceName = "account_no_seq", 
       initialValue = 1,
       allocationSize = 1)
 
@@ -32,7 +32,7 @@ public class AccountDTO {
    @Id
    @GeneratedValue(
          strategy = GenerationType.SEQUENCE,
-         generator = "account_no_seq"
+         generator = "account_seq_generator"
          )
    
    private long account_id;

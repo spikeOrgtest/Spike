@@ -21,7 +21,7 @@ import lombok.Setter;
 @Entity
 @SequenceGenerator(	
 		name = "card_seq_generator", 
-		sequenceName = "card_seq", 
+		sequenceName = "card_no_seq", 
 		initialValue = 1,
 		allocationSize = 1)
 
@@ -31,7 +31,7 @@ public class CardDTO {
 	@Id
 	@GeneratedValue(
 			strategy = GenerationType.SEQUENCE,
-			generator = "card_no_seq"
+			generator = "card_seq_generator"
 			)
 	
 	private Integer card_id;

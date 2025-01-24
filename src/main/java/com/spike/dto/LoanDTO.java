@@ -21,7 +21,7 @@ import lombok.Setter;
 @Entity
 @SequenceGenerator(	
 		name = "loan_seq_generator", 
-		sequenceName = "loan_seq", 
+		sequenceName = "loan_no_seq", 
 		initialValue = 1,
 		allocationSize = 1)
 
@@ -31,7 +31,7 @@ public class LoanDTO {
 	@Id
 	@GeneratedValue(
 			strategy = GenerationType.SEQUENCE,
-			generator = "loan_no_seq"
+			generator = "loan_seq_generator"
 			)
 	
 	private Integer loan_id;
