@@ -47,7 +47,7 @@ public class TransactionDTO {
 	
 	private String transactionType;
 	
-	private String status = "PENDING"; //기본값 pending으로 지정
+	private String status = "PENDING"; //기본값 pending으로 지정, transaction 완료시 COMPLETED로 변경할 예정
 	
 	private String memo; //이체 메모
 	
