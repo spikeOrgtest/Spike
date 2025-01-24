@@ -6,6 +6,4 @@ public interface CardDAO{
 
 	void createCard(CardDTO s);
 	
-
-	
 }

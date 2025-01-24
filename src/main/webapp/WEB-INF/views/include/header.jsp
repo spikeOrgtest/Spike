@@ -1,9 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<%--
-<base href="${pageContext.request.contextPath}/">
- --%>
+
 
 
 
@@ -58,7 +56,7 @@
                         </ul>
                     </li>
 
-                    <li class="dropdown"><a href="transfer.jsp">이체/송금</a></li>
+                    <li class="dropdown"><a href="/spike.com/transfer">이체/송금</a></li>
                     <li class="dropdown"><a href="products.jsp">금융/투자</a>
                         <ul class="header-dropdown-menu">
                             <li><a href="/spike.com/products/deposit">예금</a></li>

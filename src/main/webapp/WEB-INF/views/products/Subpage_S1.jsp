@@ -38,12 +38,12 @@
 			<div class="subpage-sidebar">
 				<h3 class="subpage-sidebar-title">적금 상품</h3>
 				<ul>
-					<li><a href="Subpage_S1.jsp">SPIKE 적금</a></li>
-					<li><a href="Subpage_S2.jsp">청년 저축적금</a></li>
-					<li><a href="Subpage_S3.jsp">청년 주택드림</a></li>
-					<li><a href="Subpage_S4.jsp">정기 적금</a></li>  <%-- 현재페이지=선택된 메뉴면 배경색 진하게, 백엔드랑 연동할예정 --%>
-					<li><a href="Subpage_S5.jsp">드림 적금</a></li>
-					<li><a href="Subpage_S6.jsp">플러스 적금</a></li>
+					<li><a href="subpage_s1">SPIKE 적금</a></li>
+					<li><a href="subpage_s2">청년 저축적금</a></li>
+					<li><a href="subpage_s3">청년 주택드림</a></li>
+					<li><a href="subpage_s4">정기 적금</a></li>
+					<li><a href="subpage_s5">드림 적금</a></li>
+					<li><a href="subpage_s6">플러스 적금</a></li>
 				</ul>
 			</div>
 

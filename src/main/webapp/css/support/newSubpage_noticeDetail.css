@@ -129,3 +129,13 @@ body {
     gap: 20px; /* 버튼 간 간격 */
     margin-top: 20px; /* 위쪽 여백 */
 }
+
+.footer-content h6 {
+	margin:0px 0px 0px 0px;
+	padding:0px 0px 0px 0px;
+}
+
+.footer-content p{
+	margin:0px 0px 0px 0px;
+	padding:0px 0px 0px 0px;
+}

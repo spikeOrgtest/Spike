@@ -115,5 +115,10 @@ public class UserDAOImpl implements UserDAO {
 	public List<String> findbyaccountnumber(Long userId) {
 		return this.spikeRepo.findbyaccountnumber(userId);
 	}
+
+	@Override
+	public Long todayloge() {
+		return this.spikeRepo.todayloge();
+	}
 	
 }
