@@ -10,11 +10,9 @@ import org.springframework.stereotype.Service;
 
 import com.spike.repository.UserRepository;
 import com.spike.dto.AccountDTO;
-import com.spike.dto.AccountTestDTO;
 import com.spike.dto.TransactionDTO;
 import com.spike.dto.UserDTO;
 import com.spike.repository.AccountRepository;
-import com.spike.repository.AccountTestRepository;
 import com.spike.repository.TransactionRepository;
 
 @Service
@@ -60,29 +58,6 @@ public class TransactionServiceImpl implements TransactionService {
 	@Override
 	public List<AccountDTO> getAccountList(UserDTO user) {
 		return this.accountRepo.findByOwner(user);
-		
-		//return this.accountRepo.getAccountList(user_id);
-		//return this.accountRepo.findByOwnerUserIdNative(user_id);
-//		System.out.println(this.accountRepo.findRawResults(user_id));
-//		System.out.println(this.accountRepo.findAccounts());
-//		System.out.println(this.accountRepo.cntAccounts());
-//		System.out.println("--------------------");
-//		System.out.println(this.accountRepo.cntAccountsByOwnerUserId());
-//		System.out.println("--------------------");
-//		System.out.println(this.accountRepo.cntAccountsWithDtype());
-//		System.out.println("--------------------");
-//		System.out.println(this.accountRepo.cntAll());
-		
-//		AccountTestDTO account = new AccountTestDTO();
-//		if(this.userRepo.findById(user_id).isPresent()) {
-//			UserDTO user = this.userRepo.findById(user_id).get();
-//			account.setOwner(user);
-//		}
-//		account.setBalance(BigDecimal.valueOf(1000L));
-//		this.accountRepo.save(account);
-
-		
-		//return null;
 	}
 
 }
