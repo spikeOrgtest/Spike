@@ -92,7 +92,6 @@ window.addEventListener('load', function() {
 	const productSelect = document.getElementById('product_type');
 	loanTypeSelect.value = '대출'; // 기본값 설정
 	loanTypeSelect.dispatchEvent(new Event('change'));  // 'change' 이벤트 강제 실행
-
 	productSelect.value = 'product1';
 	productSelect.dispatchEvent(new Event('change'));
 });

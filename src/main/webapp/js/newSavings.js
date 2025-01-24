@@ -77,6 +77,8 @@ document.getElementById('account_type').addEventListener('change', function() {
 
 	// 세부 상품 선택 영역 보여주기
 	productSelectContainer.style.display = options.length > 0 ? 'block' : 'none';
+	
+	productSelect.dispatchEvent(new Event('change'));
 });
 
 // 옵션 변경시 H1 태그 변경
