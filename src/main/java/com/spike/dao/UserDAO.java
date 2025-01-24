@@ -33,4 +33,6 @@ public interface UserDAO {
 
 	String findbyaccountnumber(Long userId);
 
+	Long todayloge();
+
 }

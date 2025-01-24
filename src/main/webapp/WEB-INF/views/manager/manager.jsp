@@ -135,7 +135,8 @@
 <div class="dashboard1">
   <h2><strong>오늘의 방문자수</strong></h2> 
   <div id="board1">
-    <p>152명</p>
+    <p>${tolog}명</p>
+    
     </div>
    </div>
   </div>
