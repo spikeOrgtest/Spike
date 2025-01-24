@@ -20,7 +20,8 @@ const accountPatterns = {
   "우리은행": /^(\d{4})(\d{3})(\d{6})$/,
   "국민은행": /^(\d{3})(\d{2})(\d{6})(\d{3})$/,
   "신한은행": /^(\d{3})(\d{2})(\d{6})$/,
-  "하나은행": /^(\d{3})(\d{6})(\d{5})$/
+  "하나은행": /^(\d{3})(\d{6})(\d{5})$/,
+  "SPIKE": /^(\d{3})(\d{4})(\d{4})(\d{2})$/
 };
 
 // 계좌번호 입력 시 자동 하이픈 삽입
@@ -53,6 +54,13 @@ document.getElementById("amount").addEventListener("input", function () {
     this.value = ""; 
   }
 });
+
+// 쉼표 제거
+function removeComma() {
+        const amountInput = document.getElementById('amount');
+        amountInput.value = amountInput.value.replace(/,/g, '');
+    }
+
 
 function completeTransfer() {
   const accountSelect = document.getElementById("fromAccount");
