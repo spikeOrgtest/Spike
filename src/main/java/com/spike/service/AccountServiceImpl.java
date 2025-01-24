@@ -16,4 +16,26 @@ public class AccountServiceImpl implements AccountService {
 	public void createAccount(AccountDTO s) {
 		this.accountdao.createAccount(s);
 	}
+
+	@Override
+	public void Oneupdateaccount(Long one_limit, String account_number) {
+		this.accountdao.Oneupdateaccount(one_limit, account_number);
+	}
+
+	@Override
+	public void Dayupdateaccount(Long day_limit, String account_number) {
+		this.accountdao.Dayupdateaccount(day_limit, account_number);
+	}
+
+	@Override
+	public void Passwordupdateaccount(String account_password, String account_number) {
+		this.accountdao.Passwordupdateaccount(account_password, account_number);
+	}
+
+	@Override
+	public void accountsecession(String account_number) {
+		this.accountdao.accountsecession(account_number);
+	}
+
+
 }

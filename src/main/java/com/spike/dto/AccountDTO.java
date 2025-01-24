@@ -21,39 +21,43 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@SequenceGenerator(	
-		name = "account_seq_generator", 
-		sequenceName = "accounts_seq", 
-		initialValue = 1,
-		allocationSize = 1)
+@SequenceGenerator(   
+      name = "account_seq_generator", 
+      sequenceName = "accounts_seq", 
+      initialValue = 1,
+      allocationSize = 1)
 
 @Table(name = "Account")
 public class AccountDTO {
-	
-	@Id
-	@GeneratedValue(
-			strategy = GenerationType.SEQUENCE,
-			generator = "account_no_seq"
-			)
-	
-	private long account_id;
-	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "user_id")
-	private UserDTO owner;
-	
-	private String account_type;
-	
-	private String account_number;
-	
-	private String account_password;
-	
-	private String balance;
-	
-	@CreationTimestamp
-	@Column(columnDefinition = "TIMESTAMP DEFAULT SYSDATE")
-	private LocalDate created_date;
-	
-	private LocalDate update_date;
-	
+   
+   @Id
+   @GeneratedValue(
+         strategy = GenerationType.SEQUENCE,
+         generator = "account_no_seq"
+         )
+   
+   private long account_id;
+   
+   @ManyToOne(fetch = FetchType.LAZY)
+   @JoinColumn(name = "user_id")
+   private UserDTO owner;
+   
+   private String account_type;
+   
+   private String account_number;
+   
+   private String account_password;
+
+   private Long one_limit;
+   
+   private Long day_limit;
+   
+   private Long balance;
+   
+   @CreationTimestamp
+   @Column(columnDefinition = "TIMESTAMP DEFAULT SYSDATE")
+   private LocalDate created_date;
+   
+   private LocalDate update_date;
+   
 }
