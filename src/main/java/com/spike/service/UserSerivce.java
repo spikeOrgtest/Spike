@@ -33,4 +33,6 @@ public interface UserSerivce {
 
 	String findbyaccountnumber(Long userId);
 
+	Long todayloge(); //설(관리자ManagerController 사용)
+
 }
