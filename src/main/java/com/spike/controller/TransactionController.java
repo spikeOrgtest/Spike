@@ -43,10 +43,10 @@ public class TransactionController {
 	@PostMapping("transfer_ok")
 	public String transfer_ok(Long fromAccountId, String toAccount, long amount, String memo, String accountPassword) {
 		
-		
+		System.out.println("fromAccountId: "+fromAccountId + "\ntoAccount: "+toAccount +"\namount: "+amount);
 		
 		this.transService.transfer(fromAccountId, toAccount, amount, memo, accountPassword);
 		
-		return "mypage/inquiry";
+		return "redirect:/spike.com/mypage/inquiry";
 	}
 }
