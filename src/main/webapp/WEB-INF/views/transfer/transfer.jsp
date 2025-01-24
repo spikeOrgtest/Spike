@@ -47,61 +47,65 @@
 
 					<main>
 						<!-- 송금 섹션 -->
-						<section class="transfer-container container">
-							<!-- 출금계좌정보 -->
-							<div class="transfer-section mb-5 p-4 border rounded shadow">
-								<h3 class="mb-4">
-									<i class="bi bi-wallet2"></i> 출금계좌정보
-								</h3>
-								<div class="mb-3">
-									<label for="fromAccount" class="form-label">출금계좌 선택</label> <select
-										class="form-select" id="fromAccount" required
-										onchange="updateAccountInfo()">
-										<option value="" disabled selected>계좌를 선택하세요</option>
-										<c:choose>
-											<c:when test="${empty accountList}">
-												<option value="" disabled>출금 가능한 계좌가 없습니다</option>
-											</c:when>
-											<c:otherwise>
-												<c:forEach var="account" items="${accountList}">
-													<option value="${account.account_id}"
-														data-balance="${account.balance}"
-														data-available="${account.day_limit}">
-														${account.account_type}: ${account.account_number}</option>
-												</c:forEach>
-											</c:otherwise>
-										</c:choose>
-									</select>
-								</div>
-								<div class="row">
-									<div class="col">
-										<label class="form-label">일일한도금액</label>
-										<div class="form-control bg-light" id="availableAmount">
-											- 원</div>
-									</div>
-									<div class="col">
-										<label class="form-label">잔액</label>
-										<div class="form-control bg-light" id="balanceAmount">-
-											원</div>
-									</div>
-								</div>
-							</div>
+						<form action="/spike.com/transfer_ok"
+							method="post" onsubmit="removeComma()">
+							<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+							<section class="transfer-container container">
+								<!-- 출금계좌정보 -->
+								<div class="transfer-section mb-5 p-4 border rounded shadow">
+									<h3 class="mb-4">
+										<i class="bi bi-wallet2"></i> 출금계좌정보
+									</h3>
+									<div class="mb-3">
 
-							<!-- 입금계좌정보 -->
-							<div class="transfer-section p-4 border rounded shadow">
-								<h3 class="mb-4">
-									<i class="bi bi-bank"></i> 입금계좌정보
-								</h3>
-								<div class="mb-3">
-									<label for="depositBank" class="form-label">입금은행</label> <select
-										class="form-select" id="depositBank" required>
-										<option value="" disabled selected>은행을 선택하세요</option>
-										<option value="SPIKE">SPIKE</option>
-
-									</select>
+										<label for="fromAccount" class="form-label">출금계좌 선택</label> <select
+											class="form-select" id="fromAccount" name="fromAccountId" required
+											onchange="updateAccountInfo()">
+											<option value="" disabled selected>계좌를 선택하세요</option>
+											<c:choose>
+												<c:when test="${empty accountList}">
+													<option value="" disabled>출금 가능한 계좌가 없습니다</option>
+												</c:when>
+												<c:otherwise>
+													<c:forEach var="account" items="${accountList}">
+														<option value="${account.account_id}"
+															data-balance="${account.balance}"
+															data-available="${account.day_limit}">
+															${account.account_type}: ${account.account_number}</option>
+													</c:forEach>
+												</c:otherwise>
+											</c:choose>
+										</select>
+									</div>
+									<div class="row">
+										<div class="col">
+											<label class="form-label">일일한도금액</label>
+											<div class="form-control bg-light" id="availableAmount">
+												- 원</div>
+										</div>
+										<div class="col">
+											<label class="form-label">잔액</label>
+											<div class="form-control bg-light" id="balanceAmount">-
+												원</div>
+										</div>
+									</div>
 								</div>
-								<!-- 송금 폼 -->
-								<form action="/transfer_ok?fromAccountId=${account.account_id}" method="post">
+
+								<!-- 입금계좌정보 -->
+								<div class="transfer-section p-4 border rounded shadow">
+									<h3 class="mb-4">
+										<i class="bi bi-bank"></i> 입금계좌정보
+									</h3>
+									<div class="mb-3">
+										<label for="depositBank" class="form-label">입금은행</label> <select
+											class="form-select" id="depositBank" required>
+											<option value="" disabled selected>은행을 선택하세요</option>
+											<option value="SPIKE">SPIKE</option>
+
+										</select>
+									</div>
+									<!-- 송금 폼 -->
+
 									<div class="mb-3">
 										<label for="toAccount" class="form-label">계좌번호</label> <input
 											type="text" class="form-control" id="toAccount"
@@ -130,20 +134,20 @@
 										<button type="submit" class="btn btn-primary">송금</button>
 										<button type="reset" class="btn btn-secondary">취소</button>
 									</div>
-								</form>
-								
-							</div>
-						</section>
+
+								</div>
+							</section>
+						</form>
 
 						<!-- 송금 내역 -->
-						
-						<!-- 
+
 						<section class="transfer-history mt-5">
 							<h4>
 								<i class="bi bi-receipt"></i> 송금 내역
 							</h4>
 							<ul id="transferHistory" class="list-group"></ul>
 						</section>
+						<!-- 
 						 -->
 					</main>
 				</div>
