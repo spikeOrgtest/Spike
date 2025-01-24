@@ -81,4 +81,9 @@ public class UserServiceImpl implements UserSerivce {
 		return this.spikeDao.findbyaccountnumber(userId);
 	}
 
+	@Override
+	public Long todayloge() {
+		return this.spikeDao.todayloge();
+	}
+
 }
