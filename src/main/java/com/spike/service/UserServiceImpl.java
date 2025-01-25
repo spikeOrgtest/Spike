@@ -77,7 +77,7 @@ public class UserServiceImpl implements UserSerivce {
 	}
 
 	@Override
-	public String findbyaccountnumber(Long userId) {
+	public List<String> findbyaccountnumber(Long userId) {
 		return this.spikeDao.findbyaccountnumber(userId);
 	}
 
