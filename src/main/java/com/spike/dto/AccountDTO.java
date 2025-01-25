@@ -1,84 +1,62 @@
 package com.spike.dto;
 
-import java.util.Date;
+import java.time.LocalDate;
 
-public class AccountDTO {
-    private Long accountId;
-    private Long userId;
-    private String accountNumber;
-    private String accountType;
-    private Long balance;
-    private Date createdDate;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 
-    // 기본 생성자, getters, setters, toString 등
+import org.hibernate.annotations.CreationTimestamp;
 
-    public AccountDTO(Long accountId, Long userId, String accountNumber, String accountType, Long balance, Date createdDate) {
-        this.accountId = accountId;
-        this.userId = userId;
-        this.accountNumber = accountNumber;
-        this.accountType = accountType;
-        this.balance = balance;
-        this.createdDate = createdDate;
-    }
+import lombok.Getter;
+import lombok.Setter;
 
-    // Getters and Setters
-    public Long getAccountId() {
-        return accountId;
-    }
+@Getter
+@Setter
+@Entity
+@SequenceGenerator(   
+      name = "account_seq_generator", 
+      sequenceName = "accounts_seq", 
+      initialValue = 1,
+      allocationSize = 1)
 
-    public void setAccountId(Long accountId) {
-        this.accountId = accountId;
-    }
+@Table(name = "Account")
+public class AccountDTO {   
+   @Id
+   @GeneratedValue(
+         strategy = GenerationType.SEQUENCE,
+         generator = "account_no_seq"
+         )
+   
+   private long account_id;
+   
+   @ManyToOne(fetch = FetchType.LAZY)
+   @JoinColumn(name = "user_id")
+   private UserDTO owner;
+   
+   private String account_type;
+   
+   private String account_number;
+   
+   private String account_password;
 
-    public Long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
-
-    public String getAccountNumber() {
-        return accountNumber;
-    }
-
-    public void setAccountNumber(String accountNumber) {
-        this.accountNumber = accountNumber;
-    }
-
-    public String getAccountType() {
-        return accountType;
-    }
-
-    public void setAccountType(String accountType) {
-        this.accountType = accountType;
-    }
-
-    public Long getBalance() {
-        return balance;
-    }
-
-    public void setBalance(Long balance) {
-        this.balance = balance;
-    }
-
-    public Date getCreatedDate() {
-        return createdDate;
-    }
-
-    public void setCreatedDate(Date createdDate) {
-        this.createdDate = createdDate;
-    }
-
-    @Override
-    public String toString() {
-        return "AccountDTO{" +
-                "accountId=" + accountId +
-                ", userId=" + userId +
-                ", accountNumber='" + accountNumber + '\'' +
-                ", accountType='" + accountType + '\'' +
-                ", balance=" + balance +
-                ", createdDate=" + createdDate +
-                '}';
-    }
+   private Long one_limit;
+   
+   private Long day_limit;
+   
+   private Long balance;
+   
+   @CreationTimestamp
+   @Column(columnDefinition = "TIMESTAMP DEFAULT SYSDATE")
+   private LocalDate created_date;
+   
+   private LocalDate update_date;
+   
 }

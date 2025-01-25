@@ -5,9 +5,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title></title>
-<link rel="stylesheet" href="../assets/css/subpage.css">
-<link rel="stylesheet" href="../assets/css/include.css">
-<link rel="stylesheet" href="../sub/spike-savings.css">
+<link rel="stylesheet" href="../../../css/support/subpage.css">
+<link rel="stylesheet" href="../../../css/include/include.css">
+<link rel="stylesheet" href="../../../css/product/spike-savings.css">
 
 <%--/
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -38,12 +38,12 @@
 			<div class="subpage-sidebar">
 				<h3 class="subpage-sidebar-title">적금 상품</h3>
 				<ul>
-					<li><a href="Subpage_S1.jsp">SPIKE 적금</a></li>
-					<li><a href="Subpage_S2.jsp">청년 저축적금</a></li>
-					<li><a href="Subpage_S3.jsp">청년 주택드림</a></li>
-					<li><a href="Subpage_S4.jsp">정기 적금</a></li>  <%-- 현재페이지=선택된 메뉴면 배경색 진하게, 백엔드랑 연동할예정 --%>
-					<li><a href="Subpage_S5.jsp">드림 적금</a></li>
-					<li><a href="Subpage_S6.jsp">플러스 적금</a></li>
+					<li><a href="subpage_s1">SPIKE 적금</a></li>
+					<li><a href="subpage_s2">청년 저축적금</a></li>
+					<li><a href="subpage_s3">청년 주택드림</a></li>
+					<li><a href="subpage_s4">정기 적금</a></li>
+					<li><a href="subpage_s5">드림 적금</a></li>
+					<li><a href="subpage_s6">플러스 적금</a></li>
 				</ul>
 			</div>
 
@@ -134,7 +134,7 @@
 
         <section class="cta">
             <div class="container">
-                <a href="#" class="button" id="joinButton">지금 가입하기</a>
+                <a href="../newsavings" class="button" id="joinButton">지금 가입하기</a>
             </div>
         </section>
     </main>
