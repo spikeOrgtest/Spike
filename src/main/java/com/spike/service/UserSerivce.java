@@ -1,5 +1,8 @@
 package com.spike.service;
 
+import java.util.List;
+
+import com.spike.dto.AccountDTO;
 import com.spike.dto.UserDTO;
 
 public interface UserSerivce {
@@ -8,7 +11,7 @@ public interface UserSerivce {
 
 	UserDTO idCheck(String id);
 
-	UserDTO loginCheck(String login_id);
+	UserDTO loginCheck(String loginId);
 
 	UserDTO findId(UserDTO s);
 
@@ -21,5 +24,15 @@ public interface UserSerivce {
 	void profileEdit(UserDTO s);
 
 	void mypageEdit(UserDTO s);
+
+	UserDTO findFromSession(String loginId);
+
+	void usersecession(String loginId);
+
+	List<AccountDTO> findbyinquriy(Long userId);
+
+	String findbyaccountnumber(Long userId);
+
+	Long todayloge(); //설(관리자ManagerController 사용)
 
 }

@@ -1,9 +1,12 @@
 package com.spike.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.spike.dao.UserDAO;
+import com.spike.dto.AccountDTO;
 import com.spike.dto.UserDTO;
 
 @Service
@@ -24,8 +27,8 @@ public class UserServiceImpl implements UserSerivce {
 	}
 
 	@Override
-	public UserDTO loginCheck(String login_id) {
-		return this.spikeDao.loginCheck(login_id);
+	public UserDTO loginCheck(String loginId) {
+		return this.spikeDao.loginCheck(loginId);
 	}
 
 	@Override
@@ -56,6 +59,31 @@ public class UserServiceImpl implements UserSerivce {
 	@Override
 	public void mypageEdit(UserDTO s) {
 		this.spikeDao.mypageEdit(s);
+	}
+
+	@Override
+	public UserDTO findFromSession(String loginId) {
+		return this.spikeDao.findFromSession(loginId);
+	}
+
+	@Override
+	public void usersecession(String loginId) {
+		this.spikeDao.usersecession(loginId);
+	}
+
+	@Override
+	public List<AccountDTO> findbyinquriy(Long userId) {
+		return this.spikeDao.findbyinquriy(userId);
+	}
+
+	@Override
+	public String findbyaccountnumber(Long userId) {
+		return this.spikeDao.findbyaccountnumber(userId);
+	}
+
+	@Override
+	public Long todayloge() {
+		return this.spikeDao.todayloge();
 	}
 
 }

@@ -2,21 +2,27 @@ package com.spike.controller;
 
 import java.io.PrintWriter;
 import java.time.LocalDate;
+import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.spike.dto.AccountDTO;
 import com.spike.dto.UserDTO;
+import com.spike.service.AccountService;
 import com.spike.service.UserSerivce;
 
-import spikepwd.PwdChange;
 
 @Controller
 @RequestMapping("/spike.com/mypage")
@@ -24,6 +30,11 @@ public class MypageController {
 
 	@Autowired
 	private UserSerivce userService;
+	
+	@Autowired
+	private AccountService accountService;
+	
+	@Autowired PasswordEncoder passwordEncoder;
 
 	// 마이페이지 메인
 	@GetMapping("/main")
@@ -61,8 +72,8 @@ public class MypageController {
 		// 세션에 저장된 객체 저장
 		UserDTO sessionUser = (UserDTO) session.getAttribute("User");
 
-		String loginId = sessionUser.getLogin_id();
-		s.setLogin_id(loginId);
+		String loginId = sessionUser.getLoginId();
+		s.setLoginId(loginId);
 
 		// 이메일 도메인 처리
 		String email = s.getEmail_id() + "@" + s.getEmail_domain(); // 이메일 ID와 도메인을 합침
@@ -74,7 +85,8 @@ public class MypageController {
 			}
 		}
 
-		s.setPassword(PwdChange.getPassWordToXEMD5String(s.getPassword()));
+		s.setPassword(passwordEncoder.encode(s.getPassword()));
+
 
 		this.userService.profileEdit(s);
 
@@ -104,8 +116,8 @@ public class MypageController {
 	public ModelAndView mypageEdit(UserDTO s, HttpSession session, HttpServletResponse response) throws Exception {
 		UserDTO user = (UserDTO) session.getAttribute("User");
 
-		String loginId = user.getLogin_id();
-		s.setLogin_id(loginId);
+		String loginId = user.getLoginId();
+		s.setLoginId(loginId);
 
 		// 이메일 도메인 처리
 		String email = s.getEmail_id() + "@" + s.getEmail_domain(); // 이메일 ID와 도메인을 합침
@@ -123,7 +135,7 @@ public class MypageController {
 
 		// 기존 비밀번호와 새 비밀번호가 동일한지 확인
 		String existingPassword = user.getPassword(); // DB에서 가져온 기존 비밀번호
-		String encryptedNewPassword = PwdChange.getPassWordToXEMD5String(s.getPassword()); // 새 비밀번호를 암호화
+		String encryptedNewPassword = passwordEncoder.encode(s.getPassword()); // 새 비밀번호를 암호화
 
 		if (existingPassword.equals(encryptedNewPassword)) {
 			// 새 비밀번호가 기존 비밀번호와 동일하면 실패 처리
@@ -145,11 +157,72 @@ public class MypageController {
 
 		return new ModelAndView("/mypage/mypageEdit");
 	}
+	
+	// 마이페이지 회원 탈퇴
+	@PostMapping("/secession")
+	public ModelAndView secession(@RequestParam("loginId") String loginId, Long userId ,String account_number, HttpSession session, Model model) throws Exception{
+		UserDTO sessionUser = (UserDTO) session.getAttribute("User");
+		userId = sessionUser.getUser_id();
+		account_number = userService.findbyaccountnumber(userId);
+		System.out.println(account_number);
+	    // 계좌와 관련된 탈퇴 작업
+	    if (account_number != null && !account_number.isEmpty()) {
+	        this.accountService.accountsecession(account_number);
+	    }
+		
+		this.userService.usersecession(loginId);
+		
+		session.invalidate(); // 세션 만료
+		
+		model.addAttribute("message", "Spike를 이용해주셔서 감사합니다.");
+		
+		return new ModelAndView("/mypage/secessionComplete");
+	}
+	
+	// 회원 탈퇴 완료
+    @GetMapping("/secessionComplete")
+    public ModelAndView secessionComplete() {
+        return new ModelAndView("/mypage/secessionComplete");  
+    }
 
+    // 계좌 조회 폼
 	@GetMapping("inquiry")
-	public ModelAndView inquiry() {
+	public ModelAndView inquiry(HttpSession session, Long userId) {
+		UserDTO sessionUser = (UserDTO) session.getAttribute("User");
+		userId = sessionUser.getUser_id();
+		
+		List<AccountDTO> list = userService.findbyinquriy(userId);
 
-		return new ModelAndView("/mypage/mypageinquiry");
+		ModelAndView account = new ModelAndView("mypage/mypageinquiry");
+		account.addObject("list", list);
+		
+		return account;
+		
+	}
+	
+	// 계좌 조회 일일 한도 설정
+	@PostMapping("inquiryLimit")
+	public String inquiryLimit(Long one_limit, Long day_limit, String account_number) {
+		
+		if(one_limit != null) {
+		this.accountService.Oneupdateaccount(one_limit, account_number);
+		}
+		
+		if(day_limit != null) {
+		this.accountService.Dayupdateaccount(day_limit, account_number);
+		}
+		
+		
+		return "redirect:/spike.com/mypage/inquiry";
+	}
+	
+	// 계좌 조회 비밀번호 변경
+	@PostMapping("inquiryPassword")
+	public String inquiryPassword(String account_password, String account_number) {
+		
+		this.accountService.Passwordupdateaccount(account_password, account_number);
+
+		return "redirect:/spike.com/mypage/inquiry";
 	}
 
 	@GetMapping("property")

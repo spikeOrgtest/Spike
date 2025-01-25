@@ -20,7 +20,8 @@ const accountPatterns = {
   "우리은행": /^(\d{4})(\d{3})(\d{6})$/,
   "국민은행": /^(\d{3})(\d{2})(\d{6})(\d{3})$/,
   "신한은행": /^(\d{3})(\d{2})(\d{6})$/,
-  "하나은행": /^(\d{3})(\d{6})(\d{5})$/
+  "하나은행": /^(\d{3})(\d{6})(\d{5})$/,
+  "SPIKE": /^(\d{3})(\d{4})(\d{4})(\d{2})$/
 };
 
 // 계좌번호 입력 시 자동 하이픈 삽입
@@ -53,6 +54,13 @@ document.getElementById("amount").addEventListener("input", function () {
     this.value = ""; 
   }
 });
+
+// 쉼표 제거
+function removeComma() {
+        const amountInput = document.getElementById('amount');
+        amountInput.value = amountInput.value.replace(/,/g, '');
+    }
+
 
 function completeTransfer() {
   const accountSelect = document.getElementById("fromAccount");
@@ -107,18 +115,7 @@ function completeTransfer() {
     return;
   }
 
-  // 잔액 및 출금 가능 금액 차감
-  const newAvailableAmount = availableAmount - transferAmount;
-  const newBalanceAmount = balanceAmount - transferAmount;
-
-  // 화면에 업데이트
-  document.getElementById("availableAmount").textContent = formatCurrency(newAvailableAmount) + " 원";
-  document.getElementById("balanceAmount").textContent = formatCurrency(newBalanceAmount) + " 원";
-
-  // 선택된 옵션에 새로운 금액 저장 (출금 계좌 상태 업데이트)
-  selectedOption.setAttribute("data-available", newAvailableAmount);
-  selectedOption.setAttribute("data-balance", newBalanceAmount);
-
+  
   // 송금 완료 알림 메시지
   alert(`송금이 완료되었습니다! \n\n출금계좌: ${fromAccount}\n입금은행: ${depositBank}\n입금계좌: ${toAccount}\n이체금액: ${formatCurrency(transferAmount)} 원\n${note ? '메모: ' + note : ''}`);
 

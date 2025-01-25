@@ -19,4 +19,7 @@ select * from notice;
 
 drop table notice;
 
-DROP SEQUENCE notice_id_seq;
+DROP SEQUENCE notice_seq;
+
+
+

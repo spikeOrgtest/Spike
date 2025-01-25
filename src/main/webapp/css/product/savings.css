@@ -254,6 +254,7 @@ nav ul li:hover .dropdown-menu {
 
 .card-body {
     padding: 20px;
+    text-align: center;
 }
 
 .card-body h3 {
