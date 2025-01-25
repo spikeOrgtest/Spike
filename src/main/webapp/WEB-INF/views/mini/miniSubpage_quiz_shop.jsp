@@ -32,11 +32,12 @@
 
 			<%-- 사이드바 --%>
 			<div class="subpage-sidebar">
-				<h3 class="subpage-sidebar-title">Spike Mini Quiz</h3>
+				<h3 class="subpage-sidebar-title">Point Shop</h3>
 				<ul>
-					<li><a href="minisubpage_Quiz.jsp">OX Quiz</a></li>
-					<li><a href="miniSubpage_quiz_shop.jsp">Point Shop</a></li>
-					<li><a href=".jsp">My Point</a></li>
+					<li><a href="mini">mini home</a></li>
+					<li><a href="quiz">O/X Quiz</a></li>
+					<li><a href="shop">Point Shop</a></li>
+					<li><a href="point">My Point</a></li>
 				</ul>
 			</div>
 

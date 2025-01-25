@@ -15,7 +15,7 @@ body {
 
 /* 래퍼 스타일 */
 #wrap {
-    max-width: 1200px;
+    max-width: 950px;
     margin: 0 auto;
     padding: 20px;
 }
@@ -27,6 +27,7 @@ body {
     text-align: center;
     border-radius: 10px;
     margin-bottom: 40px;
+    width: 950px;
 }
 
 .main-intro h1 {
@@ -64,6 +65,7 @@ body {
     border-radius: 10px;
     margin-bottom: 40px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    width: 950px;
 }
 
 .search-bar {
@@ -125,11 +127,11 @@ body {
 .banner-section {
     text-align: center;
     margin: 40px 0;
-    max-width: 1200px;
+    max-width: 950px;
 }
 
 .quiz-banner {
-    width: 1200px;  /* 가로 크기 1200px */
+    width: 990px;  /* 가로 크기 1200px */
     height: 350px;  /* 세로 크기 350px */
     object-fit: cover;  /* 배너 이미지가 영역을 꽉 채우도록 설정 */
     border-radius: 10px;  /* 모서리를 둥글게 */
@@ -144,6 +146,7 @@ body {
 /* FAQ 섹션 */
 .faq-section {
     margin-bottom: 40px;
+    width: 990px;
 }
 
 .faq-section h2 {
@@ -157,7 +160,7 @@ body {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 20px;
-    max-width: 1200px;
+    max-width: 990px;
     margin: 0 auto;
 }
 

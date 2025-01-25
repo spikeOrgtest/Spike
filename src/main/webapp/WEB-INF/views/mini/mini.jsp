@@ -125,9 +125,9 @@
 
 	</main>
   <!-- 바로가기 버튼 -->
-    <a href="#" class="shortcut-button">
+    <a href="minisub" class="shortcut-button">
         <div class="button-content">
-            <span class="button-text">바로가기</span>
+            <span class="button-text">mini 자세히보기</span>
         </div>
     </a>
 

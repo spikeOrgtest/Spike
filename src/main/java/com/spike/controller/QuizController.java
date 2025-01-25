@@ -74,7 +74,7 @@ public class QuizController {
     }
     
  // 금융교육 페이지
-    @GetMapping("/miniedu")
+    @GetMapping("/edu")
     public String miniedu() {
         return "mini/miniSubpage_edu";
     }
@@ -115,6 +115,7 @@ public class QuizController {
         QuizResultDTO quizResult = new QuizResultDTO();
         UserDTO userDTO = new UserDTO();
         userDTO.getUser_id();
+        userDTO.getPoint();
         quizResult.setUser(userDTO);  // 사용자 정보 설정
         quizResult.setQuiz(quizService.getQuizById(quizId));  // 퀴즈 정보 설정
         quizResult.setAnswered_correctly(isCorrect ? 'Y' : 'N');
