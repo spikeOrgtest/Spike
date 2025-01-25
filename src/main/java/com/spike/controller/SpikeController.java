@@ -10,18 +10,18 @@ import com.spike.service.TestService;
 @Controller
 @RequestMapping("/spike.com")
 public class SpikeController {
-	
+
 	@Autowired
 	TestService testService;
-	
+
 	@GetMapping("")
 	public String showIndex() {
 		return "index";
 	}
-	
+
 	@GetMapping("hi")
 	public String showMainpage() {
 		return "login";
 	}
-	
+
 }
