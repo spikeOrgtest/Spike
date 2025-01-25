@@ -50,4 +50,6 @@ public interface UserSerivce {
 
 	void updateUserPoints(Long user_id, Integer earned_points); 
 
+	// 포인트 추가 
+	void addPoints(UserDTO user, Integer value);
 }

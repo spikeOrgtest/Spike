@@ -1,4 +1,4 @@
-package com.spike.dao;
+package com.spike.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

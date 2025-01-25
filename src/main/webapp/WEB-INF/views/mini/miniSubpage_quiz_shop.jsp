@@ -43,22 +43,24 @@
 
 
 
-			<div class="subpage-content-wrap">
-				<!-- 퀴즈 풀고 얻은 포인트로 기프티콘 구매 -->
-				<div class="shop">
-					<div class="shop-header">
-						<i class="fas fa-coins coin-icon"></i>
-						<!-- 동전 아이콘 -->
-						<h1>Point Shop</h1>
-					</div>
-					<div class="user-info">
-						<span>현재 포인트: <strong id="userPoints">100000</strong>P
-						</span>
-					</div>
-				</div>
 
 
-				<main>
+
+			<main>
+
+				<div class="subpage-content-wrap">
+					<!-- 퀴즈 풀고 얻은 포인트로 기프티콘 구매 -->
+					<div class="shop">
+						<div class="shop-header">
+							<i class="fas fa-coins coin-icon"></i>
+							<!-- 동전 아이콘 -->
+							<h1>Point Shop</h1>
+						</div>
+						<div class="user-info">
+							<span>현재 포인트: <strong id="userPoints">${point}</strong>P
+							</span>
+						</div>
+					</div>
 					<section class="gift-cards">
 						<div class="gift-card" data-name="배스킨라빈스" data-price="10000">
 							<img src="../images/mini/gift1.jpg" alt="기프티콘 1">
@@ -109,24 +111,24 @@
 							</div>
 						</div>
 					</section>
+				</div>
+			</main>
 
-				</main>
-
-				<!-- 포인트로 구매하는 모달 창 -->
-				<div id="purchaseModal" class="modal">
-					<div class="modal-content">
-						<h2>구매 확인</h2>
-						<p id="modalMessage"></p>
-						<div class="modal-buttons">
-							<button id="confirmPurchaseBtn">구매</button>
-							<button id="cancelPurchaseBtn">취소</button>
-						</div>
+			<!-- 포인트로 구매하는 모달 창 -->
+			<div id="purchaseModal" class="modal">
+				<div class="modal-content">
+					<h2>구매 확인</h2>
+					<p id="modalMessage"></p>
+					<div class="modal-buttons">
+						<button id="confirmPurchaseBtn">구매</button>
+						<button id="cancelPurchaseBtn">취소</button>
 					</div>
 				</div>
-
 			</div>
+
 		</div>
 	</div>
+
 
 	<script>
 document.addEventListener("DOMContentLoaded", function() {
@@ -149,7 +151,7 @@ document.addEventListener("DOMContentLoaded", function() {
             selectedGiftPrice = parseInt(giftCard.getAttribute("data-price"));
 
             // 모달 메시지 업데이트
-            modalMessage.textContent = `${selectedGiftName}을 구매하시겠습니까? (가격: ${selectedGiftPrice}P)`;
+            modalMessage.textContent = `구매하시겠습니까?`;
 
             // 모달 창 표시
             modal.style.display = "flex";
@@ -201,7 +203,7 @@ window.onload = function() {
 
 </script>
 
-<p id="user-points">현재 포인트: 0</p>
+	<p id="user-points">현재 포인트: 0</p>
 
 
 	<%@ include file="../include/shortfooter.jsp"%>

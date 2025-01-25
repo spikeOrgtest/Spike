@@ -4,17 +4,21 @@ import com.spike.dao.QuizResultDAO;
 
 
 import com.spike.dto.QuizResultDTO;
+
 import com.spike.dto.UserDTO;
 
+import com.spike.repository.QuizResultRepository;
 import com.spike.repository.UserRepository;
 import com.spike.dto.QuizDTO;
-
+import com.spike.dto.QuizRank;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.text.SimpleDateFormat;
 
 
@@ -29,6 +33,9 @@ public class QuizResultServiceImpl implements QuizResultService {
 
 	@Autowired
 	private UserRepository userRepository;
+	
+	@Autowired
+	private QuizResultRepository quizResultRepository;
 
 	@Override
 	public QuizResultDTO handleQuizResult(Long userId, int quizId, char answeredCorrectly) {
@@ -39,14 +46,14 @@ public class QuizResultServiceImpl implements QuizResultService {
 
 			QuizResultDTO quizResult = new QuizResultDTO();
 			quizResult.setQuiz(quiz);  // 퀴즈 정보 설정
-			quizResult.getUser_id(); // 사용자 ID 설정
-			quizResult.setAnswered_correctly(answeredCorrectly);  // 정답 여부 설정
-			quizResult.setEarned_points(answeredCorrectly == 'Y' ? 10 : 0);  // 정답시 포인트 부여
-			quizResult.setAttempt_date(new Date());  // 현재 시간 설정
+			quizResult.getUser(); // 사용자 ID 설정
+			quizResult.setAnsweredCorrectly(answeredCorrectly);  // 정답 여부 설정
+			quizResult.setEarnedPoints(answeredCorrectly == 'Y' ? 10 : 0);  // 정답시 포인트 부여
+			quizResult.setAttemptDate(new Date());  // 현재 시간 설정
 
 			quizResultDAO.saveQuizResult(quizResult);  // 퀴즈 결과 저장
 
-			updateUserPoints(userId, quizResult.getEarned_points());  // 사용자 포인트 업데이트
+			updateUserPoints(userId, quizResult.getEarnedPoints());  // 사용자 포인트 업데이트
 
 			return quizResult;  // 퀴즈 결과 반환
 		} else {
@@ -69,27 +76,33 @@ public class QuizResultServiceImpl implements QuizResultService {
 
 		QuizResultDTO result = new QuizResultDTO();
 		result.setQuiz(quiz);  // 퀴즈 정보 설정
-		result.getUser_id();  // 사용자 ID 설정
-		result.setAnswered_correctly(answeredCorrectly);  // 정답 여부 설정
-		result.setEarned_points(isCorrect ? 10 : 0);  // 포인트 설정
-		result.setAttempt_date(new Date());  // 현재 시간 설정
+		result.getUser();  // 사용자 ID 설정
+		result.setAnsweredCorrectly(answeredCorrectly);  // 정답 여부 설정
+		result.setEarnedPoints(isCorrect ? 10 : 0);  // 포인트 설정
+		result.setAttemptDate(new Date());  // 현재 시간 설정
 
 		quizResultDAO.saveQuizResult(result);  // 퀴즈 결과 저장
 
-		updateUserPoints(userId, result.getEarned_points());  // 사용자 포인트 업데이트
+		updateUserPoints(userId, result.getEarnedPoints());  // 사용자 포인트 업데이트
 
 		return true;
 	}
 
 	private boolean checkAnswer(int quizId, String userAnswer) {
 		QuizDTO quiz = quizService.getQuizById(quizId);
-		return quiz.getCorrect_answer().equals(userAnswer);  // 실제 정답 비교
+		return quiz.getCorrectAnswer().equals(userAnswer);  // 실제 정답 비교
 	}
 
+		//퀴즈 풀고 획득한 포인트 합
 	@Override
-	public int getUserTotalPoints(Long userId) {
-		UserDTO user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
-		return user.getPoints();  // 포인트 반환
+	public Integer getUserTotalPoints(UserDTO user) {
+		List<QuizResultDTO> results = quizResultRepository.findByUser(user);
+		
+		Integer sum = 0;
+		for (QuizResultDTO qr : results) {
+			sum += qr.getEarnedPoints();
+		}
+		return sum;
 	}
 
 	@Override
@@ -101,8 +114,7 @@ public class QuizResultServiceImpl implements QuizResultService {
 
 	@Override
 	public void saveQuizResult(QuizResultDTO quizResult) {
-		// TODO Auto-generated method stub
-		
+		this.quizResultRepository.save(quizResult);
 	}
 
 	@Override
@@ -122,5 +134,18 @@ public class QuizResultServiceImpl implements QuizResultService {
 		// TODO Auto-generated method stub
 		
 	}
+	
+	// 사용자가 수행한 모든 퀴즈 결과 
+	@Override
+	public List<QuizResultDTO> getTotalQuizResult(UserDTO user) {
+		return quizResultRepository.findByUser(user);
+	}
+	
+	@Override
+	public List<QuizRank> getTopRankUser() {
+		return quizResultRepository.findTop3();
+	}
+	
+	
 }
 

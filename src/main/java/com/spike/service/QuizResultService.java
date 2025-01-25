@@ -1,7 +1,11 @@
 package com.spike.service;
 
 
+import java.util.List;
+
+import com.spike.dto.QuizRank;
 import com.spike.dto.QuizResultDTO; // 퀴즈 결과 DTO 객체를 가져옵니다.
+import com.spike.dto.UserDTO;
 
 public interface QuizResultService {
 	
@@ -81,10 +85,10 @@ public interface QuizResultService {
 		/**
 		 * 사용자의 총 포인트를 반환하는 메소드.
 		 * 
-		 * @param userId 사용자의 ID
+		 * @param user 사용자
 		 * @return 사용자의 총 포인트
 		 */
-		int getUserTotalPoints(Long userId);
+		Integer getUserTotalPoints(UserDTO user);
 
 		/**
 		 * 사용자 포인트를 업데이트하는 메소드.
@@ -96,6 +100,11 @@ public interface QuizResultService {
 		 */
 		void updateUserPoints(Long userId, int earnedPoints);
 
+
 		void updateUserScore(Long userId, int i);
+		
+		List<QuizResultDTO> getTotalQuizResult(UserDTO user);
+		
+		List<QuizRank> getTopRankUser();
 	}
 

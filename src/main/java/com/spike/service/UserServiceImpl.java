@@ -120,5 +120,12 @@ public class UserServiceImpl implements UserSerivce {
 		// TODO Auto-generated method stub
 	
 	}
+	
+	// 퀴즈 포인트 적립 
+	@Override
+	public void addPoints(UserDTO user, Integer value) { //로그인 유저에 포인트 더해주는 코드
+		UserDTO realUser = this.spikeDao.findId(user);
+		this.spikeDao.updateUserPoint(user.getUser_id(), realUser.getPoint() + value);
+	}
 
 }

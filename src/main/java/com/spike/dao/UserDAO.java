@@ -34,6 +34,9 @@ public interface UserDAO {
 	List<String> findbyaccountnumber(Long userId);
 
 	Long todayloge();
+	
+	// 퀴즈 포인트 쌓기 
+	void updateUserPoint(Long userId, Integer value);
 
 	Long newMember();
 

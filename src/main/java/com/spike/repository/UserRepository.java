@@ -97,8 +97,13 @@ public interface UserRepository extends JpaRepository<UserDTO, Long> {
 	@Query("delete FROM AccountDTO a WHERE a.owner.user_id =?1")
 	public void AccountDelete(Long user_id);
 
-	
-	//퀴즈 추가 쿼리 
+
+	// 포인트 추가
 	@Query("SELECT u FROM UserDTO u WHERE u.id = :id")
     Optional<UserDTO> findUserById(@Param("id") Integer id);
+
+	@Modifying
+	@Transactional
+	@Query("UPDATE UserDTO u SET u.point = ?2 WHERE u.user_id =?1")
+	void updateUserPoint(Long userId, Integer value);
 }

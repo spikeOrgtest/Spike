@@ -314,5 +314,4 @@ public class UserController {
 
 		out.close();
 	}
-
 }

@@ -1,7 +1,7 @@
 package com.spike.service;
 
-import com.spike.dao.QuizRepository;
 import com.spike.dto.QuizDTO;
+import com.spike.repository.QuizRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

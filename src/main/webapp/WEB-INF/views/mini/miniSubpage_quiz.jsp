@@ -3,7 +3,9 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<meta name="_csrf" content="${_csrf.token}">
+<meta id="_csrf" name="_csrf" content="${_csrf.token}"/>
+<meta id="_csrf_header" name="_csrf_header" content="${_csrf.headerName}"/>
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>OX 퀴즈</title>
 <link rel="stylesheet" href="../css/support/subpage.css">
@@ -154,12 +156,12 @@
 	<%@ include file="../include/shortfooter.jsp"%>
 
 	<script>
-    // 초기 상태 정의
-    let currentQuestion = 1;  // 현재 퀴즈 번호
-    let correctCount = 0;      // 맞춘 문제 수
-    let totalPoints = 0;       // 획득한 포인트
+	// 초기 상태 정의
+    let currentQuestion;  // 현재 퀴즈 번호
+    let correctCount;      // 맞춘 문제 수
+    let totalPoints;       // 획득한 포인트
 
- // 문제를 넘기는 함수
+	// 문제를 넘기는 함수
     function nextQuestion(questionNumber) {
         // 현재 문제 숨기기
         const currentQuiz = document.getElementById('quiz' + currentQuestion);
@@ -194,16 +196,20 @@
 
     // 점수를 백엔드에 전송하는 함수
     function sendPointsToBackend(isCorrect) {
-        fetch('/update-score', {
+    	const header = document.querySelector('meta[name="_csrf_header"]').content;
+        const token = document.querySelector('meta[name="_csrf"]').content;
+    	
+        fetch('/spike.com/update-score', {
             method: 'POST',
             headers: {
+            	'header': header,
                 'Content-Type': 'application/json',
+                'X-CSRF-TOKEN':  token
             },
             body: JSON.stringify({
-                user_id: userId, // 로그인한 사용자의 ID
-                quiz_id: currentQuestion, // 현재 퀴즈 ID
-                answered_correctly: isCorrect ? 'Y' : 'N', // 정답 여부
-                earned_points: isCorrect ? 100 : 0, // 100 포인트 또는 0
+                quizId: currentQuestion, // 현재 퀴즈 ID
+                answeredCorrectly: isCorrect ? 'Y' : 'N', // 정답 여부
+                earnedPoints: isCorrect ? 100 : 0, // 100 포인트 또는 0
             }),
         })
         .then(response => response.json())
@@ -214,7 +220,8 @@
             console.error('포인트 업데이트 실패:', error);
         });
     }
-
+    
+    	
     // 정답과 맞춘 문제 수 슬라이드로 보여주는 함수
     function showScoreSlide() {
         // 점수와 맞춘 문제 수 업데이트
@@ -233,7 +240,16 @@
         const scoreSlide = document.getElementById('score-slide');
         scoreSlide.classList.add('show');  // show 클래스를 추가하여 슬라이드 표시
     }
-
+    
+ 	    
+    window.onload = function() {
+    	currentQuestion = 1;
+    	correctCount = 0;
+    	totalPoints = 0;
+        
+    }
+    	
+    	
 </script>
 
 </body>

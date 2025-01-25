@@ -12,6 +12,8 @@
 <link
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
 	rel="stylesheet">
+
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 </head>
 
 <body class="subpage">
@@ -25,7 +27,7 @@
 			<div class="subpage-sidebar">
 				<h3 class="subpage-sidebar-title">My Point</h3>
 				<ul>
-				<li><a href="mini">mini home</a></li>
+					<li><a href="mini">mini home</a></li>
 					<li><a href="quiz">O/X Quiz</a></li>
 					<li><a href="shop">Point Shop</a></li>
 					<li><a href="point">My Point</a></li>
@@ -47,7 +49,7 @@
 						<div class="icon">
 							<i class="fas fa-coins"></i>
 						</div>
-						<p id="pointDisplay">0</p>
+						<p>${totalPoint}P</p>
 					</div>
 
 					<!-- 맞춘 퀴즈 갯수 확인 -->
@@ -56,7 +58,7 @@
 						<div class="icon">
 							<i class="fas fa-check-circle"></i>
 						</div>
-						<p>0/0</p>
+						<p>${correctNum}/${totalAttempts}</p>
 					</div>
 				</div>
 
@@ -73,27 +75,19 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr>
-								<td>1</td>
-								<td>홍길동 <span class="rank-icon"><i
-										class="fas fa-star"></i></span></td>
-								<td>18/20</td>
-								<td>1,250 P</td>
-							</tr>
-							<tr>
-								<td>2</td>
-								<td>김철수 <span class="rank-icon"><i
-										class="fas fa-star"></i></span></td>
-								<td>17/20</td>
-								<td>1,100 P</td>
-							</tr>
-							<tr>
-								<td>3</td>
-								<td>이영희 <span class="rank-icon"><i
-										class="fas fa-star"></i></span></td>
-								<td>16/20</td>
-								<td>1,000 P</td>
-							</tr>
+
+
+							<c:forEach var="rank" items="${ranks}" varStatus="status">
+								<tr>
+									<td>${status.count}</td>
+									<td>${rank.name}<span class="rank-icon"><i
+											class="fas fa-star"></i></span>
+									</td>
+									<td>${rank.correctAnswered}</td>
+									<td>${rank.earnedPoints} P</td>
+								</tr>
+							</c:forEach>
+
 						</tbody>
 					</table>
 				</div>
@@ -101,8 +95,8 @@
 			</div>
 		</div>
 	</div>
-	
-	
+
+
 
 	<%@ include file="../include/shortfooter.jsp"%>
 </body>
@@ -111,6 +105,23 @@
 window.onload = function () {
     // 서버에 점수 요청하기
     fetch('/spike.com/quiz/mypoint') // 컨트롤러 서버에 요청 보내기 
+        .then(response => response.json()) // 서버에서 온 응답을 텍스트로 변환
+        .then(data => {
+            // 점수를 화면에 보여주기
+            const pointElement = document.getElementById('pointDisplay');
+            if (pointElement) {
+                pointElement.innerText = data+" P";
+            } else {
+                console.error('pointDisplay 요소를 찾을 수 없습니다.');
+            }
+        })
+        .catch(error => {
+            // 에러가 생기면 알림
+        	console.error('요청중 에러발생');
+        });
+    
+	// 서버에 점수 요청하기
+    fetch('/spike.com/quiz/attempts') // 컨트롤러 서버에 요청 보내기 
         .then(response => response.json()) // 서버에서 온 응답을 텍스트로 변환
         .then(data => {
             // 점수를 화면에 보여주기

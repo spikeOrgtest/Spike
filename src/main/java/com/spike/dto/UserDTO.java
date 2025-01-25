@@ -123,24 +123,4 @@ public class UserDTO {
     // QuizResult와의 연관 관계 (1:N 관계)
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<QuizResultDTO> quizResults; // 유저가 푼 퀴즈 결과들
-
-    // **추가된 부분: 포인트 관련 필드 및 메서드**
-    
-    // 포인트 필드 (기존 필드에 추가)
-    private int points = 0;  // 기본값 0으로 설정
-
-    // 포인트 조회 메서드
-    public int getPoints() {
-        return points;
-    }
-
-    // 포인트 업데이트 메서드
-    public void setPoints(int points) {
-        this.points = points;
-    }
-
-    // 포인트 추가 메서드 (퀴즈에서 포인트가 적립될 때 사용)
-    public void addPoints(int additionalPoints) {
-        this.points += additionalPoints;
-    }
 }
