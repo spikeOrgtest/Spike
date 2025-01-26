@@ -24,8 +24,6 @@ import org.springframework.web.servlet.ModelAndView;
 import com.spike.dto.UserDTO;
 import com.spike.service.UserSerivce;
 
-import spikepwd.PwdChange;
-
 @Controller
 @RequestMapping("/spike.com")
 public class UserController {
@@ -161,42 +159,6 @@ public class UserController {
 		return new ModelAndView("redirect:/spike.com/login");
 	}
 
-	// 로그인
-	@PostMapping("/login_ok")
-	public ModelAndView login_ok(String loginId, String password, HttpServletResponse response, HttpSession session)
-			throws Exception {
-		response.setContentType("text/html; charset=UTF-8");
-		PrintWriter out = response.getWriter();
-
-		UserDTO s = this.spikeService.loginCheck(loginId);
-
-		if (s == null) {
-			out.println("<script>");
-			out.println("alert('존재하지않는 아이디입니다.');");
-			out.println("history.back();");
-			out.println("</script>");
-		} else {
-			if (!s.getPassword().equals(PwdChange.getPassWordToXEMD5String(password))) {
-				out.println("<script>");
-				out.println("alert('비밀번호가 틀립니다.');");
-				out.println("history.back();");
-				out.println("</script>");
-			} else {
-				session.setAttribute("User", s);
-
-				// 세션 만료 시간을 1시간으로 설정 (단위: 초)
-				session.setMaxInactiveInterval(60 * 60); // 1시간
-				session.setAttribute("remainingTime", session.getMaxInactiveInterval());
-
-				// 남은 시간을 모델에 추가
-				ModelAndView loginS = new ModelAndView();
-				loginS.setViewName("redirect:/spike.com/");
-				return loginS;
-			}
-		}
-
-		return null;
-	}
 	// 아이디 찾기 폼
 	@GetMapping("findId")
 	public ModelAndView findId() {

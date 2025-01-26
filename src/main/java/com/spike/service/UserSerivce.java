@@ -31,7 +31,7 @@ public interface UserSerivce {
 
 	List<AccountDTO> findbyinquriy(Long userId);
 
-	String findbyaccountnumber(Long userId);
+	List<String> findbyaccountnumber(Long userId);
 
 	Long todayloge(); //설(관리자ManagerController 사용)
 
