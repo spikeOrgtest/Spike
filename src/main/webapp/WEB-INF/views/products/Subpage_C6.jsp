@@ -126,6 +126,7 @@
         
         <%
 				// 세션에 이미지 경로 저장
+				session.setAttribute("selectedCard", "플러스 카드");
 				session.setAttribute("imagePath", "../../../images/product/PLUSCARD.png");
 				%>
 

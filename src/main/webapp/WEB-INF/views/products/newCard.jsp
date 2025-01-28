@@ -11,7 +11,7 @@
 </head>
 <body>
 	<div class="container">
-		<h1>SPIKE 카드 발급</h1>
+		<h1><%=session.getAttribute("selectedCard")%> 발급</h1>
 		<form name="s" id="signupForm" action="/spike.com/card_ok"
 			method="POST">
 			<input type="hidden" name="${_csrf.parameterName}"
@@ -29,19 +29,12 @@
 				
 
 			<div class="form-group">
-				<label for="card_name">카드종류</label>
+				<label for="card_name">카드선택</label>
 				<div class="card_container">
 					<select id="card_name" name="card_name">
 						<c:forEach var="type" items="${card_name}">
 							<option value="${type}">${type}</option>
 						</c:forEach>
-					</select>
-				</div>
-			</div>
-			<div class="form-group" id="product_select" class="hidden">
-				<label for="product_type">세부상품</label>
-				<div class="product_container">
-					<select id="product_type" name="product_type">
 					</select>
 				</div>
 			</div>
@@ -108,6 +101,9 @@
 		<p class="security-notice">⚠️ 보안 주의사항: 귀하의 개인정보 보호를 위해 공용 컴퓨터에서는
 			사용을 자제해 주시기 바랍니다.</p>
 	</div>
+	<script>
+		var selectedCard = '<%=session.getAttribute("selectedCard")%>';
+	</script>
 	<script src="/js/newCard.js"></script>
 
 </body>

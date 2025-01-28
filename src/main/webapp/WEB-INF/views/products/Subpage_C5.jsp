@@ -125,6 +125,7 @@
 
 <%
 				// 세션에 이미지 경로 저장
+				session.setAttribute("selectedCard", "SPIKE TRAVEL 카드");
 				session.setAttribute("imagePath", "../../../images/product/TRAVELCARD.png");
 				%>
 				

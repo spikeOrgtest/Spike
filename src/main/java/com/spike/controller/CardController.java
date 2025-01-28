@@ -55,7 +55,15 @@ public class CardController {
 			return null;
 		}
 		
-		String[] card_name = {""};
+		String[] card_name = {
+			"SPIKE 청년 카드",
+			"플래티넘 카드",
+			"디지털 카드",
+			"SPIKE 카드",
+			"SPIKE TRAVEL 카드",
+			"플러스 카드"
+		};
+		
 		ModelAndView ss = new ModelAndView("/products/newCard");
 		ss.addObject("card_name", card_name);
 		return ss;
@@ -74,5 +82,5 @@ public class CardController {
 		this.cardService.createCard(s);
 		
 		return new ModelAndView("redirect:/spike.com/products");
-	}
+	}	
 }
