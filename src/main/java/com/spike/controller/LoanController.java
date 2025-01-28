@@ -1,9 +1,11 @@
 package com.spike.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,9 +42,19 @@ public class LoanController {
 	
 		
 	@GetMapping("/products/newloan")
-	public ModelAndView newLoan() {
-		String[] loan_name = {"대출", "그냥대출"};
+	public ModelAndView newLoan(HttpSession session, HttpServletResponse response) throws IOException {
+		response.setContentType("text/html; charset=UTF-8");
+		PrintWriter out = response.getWriter();
 		
+		if (session.getAttribute("User") == null) {
+			out.println("<script>");
+			out.println("alert('로그인이 필요한 서비스입니다.');");
+			out.println("location.href='/spike.com/login';");
+			out.println("</script>");
+			return null;
+		}
+		
+		String[] loan_name = {"대출", "그냥대출"};
 		ModelAndView ss = new ModelAndView("/products/newLoan");
 		ss.addObject("loan_name", loan_name);
 		return ss;
@@ -51,8 +63,12 @@ public class LoanController {
 	@PostMapping("/loan_ok")
 	public ModelAndView loan_ok(LoanDTO s, 
 			HttpServletRequest request, BindingResult result, HttpSession session) throws IOException {
+		if (session.getAttribute("User") == null) {
+			return new ModelAndView("redirect:/spike.com/login");
+		}
+		
 		UserDTO sessionUser = (UserDTO) session.getAttribute("User");
-	    s.setOwner(sessionUser);
+		s.setOwner(sessionUser);
 		this.loanService.createLoan(s);
 		
 		return new ModelAndView("redirect:/spike.com/products");

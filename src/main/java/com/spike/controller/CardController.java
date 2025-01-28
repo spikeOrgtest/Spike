@@ -1,8 +1,10 @@
 package com.spike.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,20 +43,34 @@ public class CardController {
 	
 		
 	@GetMapping("/products/newcard")
-	public ModelAndView newCard() {
-		String[] card_name = {""};
+	public ModelAndView newCard(HttpSession session, HttpServletResponse response) throws IOException {
+		response.setContentType("text/html; charset=UTF-8");
+		PrintWriter out = response.getWriter();
 		
+		if (session.getAttribute("User") == null) {
+			out.println("<script>");
+			out.println("alert('로그인이 필요한 서비스입니다.');");
+			out.println("location.href='/spike.com/login';");
+			out.println("</script>");
+			return null;
+		}
+		
+		String[] card_name = {""};
 		ModelAndView ss = new ModelAndView("/products/newCard");
 		ss.addObject("card_name", card_name);
 		return ss;
 	}
 	
 	@PostMapping("/card_ok")
-	public ModelAndView card_ok(CardDTO s, 
-			HttpServletRequest request, BindingResult result, HttpSession session) throws IOException {
+	public ModelAndView card_ok(CardDTO s, HttpServletRequest request, 
+			BindingResult result, HttpSession session) throws IOException {
+		if (session.getAttribute("User") == null) {
+			return new ModelAndView("redirect:/spike.com/login");
+		}
+		
 		UserDTO sessionUser = (UserDTO) session.getAttribute("User");
-	    s.setOwner(sessionUser);
-	    s.setCard_password(passwordEncoder.encode(s.getCard_password()));
+		s.setOwner(sessionUser);
+		s.setCard_password(passwordEncoder.encode(s.getCard_password()));
 		this.cardService.createCard(s);
 		
 		return new ModelAndView("redirect:/spike.com/products");

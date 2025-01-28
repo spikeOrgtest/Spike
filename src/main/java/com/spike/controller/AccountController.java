@@ -1,8 +1,10 @@
 package com.spike.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +27,7 @@ public class AccountController {
 
 	@Autowired
 	private AccountService accountService;
-	
+
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 
@@ -65,18 +67,31 @@ public class AccountController {
 	}
 
 	@GetMapping("/products/newdeposit")
-	public ModelAndView newDeposit() {
+	public ModelAndView newDeposit(HttpSession session, HttpServletResponse response) throws IOException {
+		response.setContentType("text/html; charset=UTF-8");
+		PrintWriter out = response.getWriter();
+		
+		if (session.getAttribute("User") == null) {
+			out.println("<script>");
+			out.println("alert('로그인이 필요한 서비스입니다.');");
+			out.println("location.href='/spike.com/login';");
+			out.println("</script>");
+			return null;
+		}
+		
 		String[] account_type = { "예금" };
-
 		ModelAndView ss = new ModelAndView("/products/newDeposit");
 		ss.addObject("account_type", account_type);
 		return ss;
 	}
 
 	@GetMapping("/products/newsavings")
-	public ModelAndView newSavings() {
-		String[] account_type = { "적금" };
+	public ModelAndView newSavings(HttpSession session) {
+		if (session.getAttribute("User") == null) {
+			return new ModelAndView("redirect:/spike.com/login");
+		}
 
+		String[] account_type = { "적금" };
 		ModelAndView ss = new ModelAndView("/products/newSavings");
 		ss.addObject("account_type", account_type);
 		return ss;
