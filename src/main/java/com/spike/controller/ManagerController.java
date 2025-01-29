@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.spike.dto.UserDTO;
@@ -51,12 +52,23 @@ public class ManagerController {
 
 		List<UserDTO> list = this.userService.findByUserList();
 
-		System.out.println("list : " + list);
-
 		ModelAndView um = new ModelAndView("manager/userManagement");
 		um.addObject("list", list);
 
 		return um;
+	}
+
+	@GetMapping("/EditUser")
+	public ModelAndView EditUser(@RequestParam("user_id") Long user_id) {
+
+		List<UserDTO> list = this.userService.findByUserIdEdit(user_id);
+
+		System.out.println("list : " + list);
+
+		ModelAndView em = new ModelAndView("manager/EditUser");
+		em.addObject("list", list);
+
+		return em;
 	}
 
 }

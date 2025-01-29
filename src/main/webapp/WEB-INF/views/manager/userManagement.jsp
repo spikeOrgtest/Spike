@@ -49,8 +49,8 @@
 							<td>${item.name}</td>
 							<td>${item.email_id}@${item.email_domain}</td>
 							<td>${item.status}</td>
-							<td><a href="editUser.jsp?id=user01">수정</a></td>
-							<td><a href="deleteUser.jsp?id=user01">삭제</a></td>
+							<td><a href="/spike.com/EditUser?user_id=${item.user_id}">수정</a></td>
+							<td><a href="deleteUser.jsp?user_id=${item.user_id}">삭제</a></td>
 						</tr>
 						</c:forEach>
 					</tbody>

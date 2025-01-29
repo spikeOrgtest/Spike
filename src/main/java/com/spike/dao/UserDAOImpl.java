@@ -130,4 +130,9 @@ public class UserDAOImpl implements UserDAO {
 		return this.spikeRepo.findAll();
 	}
 
+	@Override
+	public List<UserDTO> findByUserIdEdit(Long user_id) {
+		return this.spikeRepo.findByUserIdEdit(user_id);
+	}
+
 }

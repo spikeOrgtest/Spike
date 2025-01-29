@@ -73,4 +73,7 @@ public interface UserRepository extends JpaRepository<UserDTO, Long> {
 	@Query("select count(s) from UserDTO s where (trunc(s.registration_date) = trunc(current_date))")
 	public Long newMember();
 
+	@Query("select s from UserDTO s where s.user_id=?1")
+	public List<UserDTO> findByUserIdEdit(Long user_id);
+
 }

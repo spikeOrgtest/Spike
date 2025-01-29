@@ -96,4 +96,9 @@ public class UserServiceImpl implements UserSerivce {
 		return this.spikeDao.findByUserList();
 	}
 
+	@Override
+	public List<UserDTO> findByUserIdEdit(Long user_id) {
+		return this.spikeDao.findByUserIdEdit(user_id);
+	}
+
 }

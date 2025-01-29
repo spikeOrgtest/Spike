@@ -39,4 +39,6 @@ public interface UserSerivce {
 
 	List<UserDTO> findByUserList();
 
+	List<UserDTO> findByUserIdEdit(Long user_id);
+
 }
