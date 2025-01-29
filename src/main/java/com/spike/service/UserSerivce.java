@@ -33,6 +33,10 @@ public interface UserSerivce {
 
 	List<String> findbyaccountnumber(Long userId);
 
-	Long todayloge(); //설(관리자ManagerController 사용)
+	Long todayloge(); // 설(관리자ManagerController 사용)
+
+	Long newMember();
+
+	List<UserDTO> findByUserList();
 
 }

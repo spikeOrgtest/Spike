@@ -62,13 +62,15 @@ public interface UserRepository extends JpaRepository<UserDTO, Long> {
 
 	@Query("SELECT a.account_number FROM AccountDTO a WHERE a.owner.user_id =?1")
 	public List<String> findbyaccountnumber(Long userId);
-	
-	
 
-	//@Query("SELECT COUNT(a) FROM UserDTO a WHERE FUNCTION('DATE', a.user_id) = CURRENT_DATE")
-	//@Query("SELECT COUNT(u) FROM UserDTO u WHERE TRUNC(u.last_login) = TRUNC(CURRENT_DATE)")
+	// @Query("SELECT COUNT(a) FROM UserDTO a WHERE FUNCTION('DATE', a.user_id) =
+	// CURRENT_DATE")
+	// @Query("SELECT COUNT(u) FROM UserDTO u WHERE TRUNC(u.last_login) =
+	// TRUNC(CURRENT_DATE)")
 	@Query("SELECT COUNT(u) FROM UserDTO u WHERE (TRUNC(u.last_login) = TRUNC(CURRENT_DATE) OR u.last_login IS NULL)")
 	public Long todayloge();
 
-	
+	@Query("select count(s) from UserDTO s where (trunc(s.registration_date) = trunc(current_date))")
+	public Long newMember();
+
 }

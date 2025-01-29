@@ -167,7 +167,7 @@
 <div class="dashboard4">
   <h2><strong>신규 회원가입</strong></h2> <!-- 오늘 가입한 신규 회원 수 -->
   <div id="board1">
-    <p>38명</p>
+    <p>${newmember}</p>
     </div>
    </div>
   </div>

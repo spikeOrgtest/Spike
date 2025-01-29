@@ -86,4 +86,14 @@ public class UserServiceImpl implements UserSerivce {
 		return this.spikeDao.todayloge();
 	}
 
+	@Override
+	public Long newMember() {
+		return this.spikeDao.newMember();
+	}
+
+	@Override
+	public List<UserDTO> findByUserList() {
+		return this.spikeDao.findByUserList();
+	}
+
 }

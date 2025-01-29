@@ -17,7 +17,7 @@ public class UserDAOImpl implements UserDAO {
 
 	@Autowired
 	private UserRepository spikeRepo;
-	
+
 	@Autowired
 	private AccountRepository accountRepo;
 
@@ -105,7 +105,6 @@ public class UserDAOImpl implements UserDAO {
 		this.spikeRepo.usersecession(loginId);
 	}
 
-
 	@Override
 	public List<AccountDTO> findbyinquriy(Long userId) {
 		return this.spikeRepo.findByUserId(userId);
@@ -120,5 +119,15 @@ public class UserDAOImpl implements UserDAO {
 	public Long todayloge() {
 		return this.spikeRepo.todayloge();
 	}
-	
+
+	@Override
+	public Long newMember() {
+		return this.spikeRepo.newMember();
+	}
+
+	@Override
+	public List<UserDTO> findByUserList() {
+		return this.spikeRepo.findAll();
+	}
+
 }

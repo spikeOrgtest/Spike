@@ -35,4 +35,8 @@ public interface UserDAO {
 
 	Long todayloge();
 
+	Long newMember();
+
+	List<UserDTO> findByUserList();
+
 }
