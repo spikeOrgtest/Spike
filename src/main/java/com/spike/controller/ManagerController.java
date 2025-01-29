@@ -1,10 +1,14 @@
 package com.spike.controller;
 
+import java.io.PrintWriter;
 import java.util.List;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
@@ -69,6 +73,22 @@ public class ManagerController {
 		em.addObject("list", list);
 
 		return em;
+	}
+
+	@PostMapping("/UpdateUser")
+	public String UpdateUser(Long user_id, String is_minor, String status, HttpServletResponse response)
+			throws Exception {
+		response.setContentType("text/html; charset=UTF-8");
+		PrintWriter out = response.getWriter();
+
+		this.userService.UpdateUser(is_minor, status, user_id);
+
+		out.println("<script>");
+		out.println("alert('수정 완료했습니다.');");
+		out.println("window.location.href = '/spike.com/userManagement';");
+		out.println("</script>");
+
+		return null;
 	}
 
 }

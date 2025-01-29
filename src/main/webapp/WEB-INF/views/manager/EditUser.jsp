@@ -28,45 +28,45 @@
 				</ul>
 			</div>
 			<div class="subpage-content">
-				<h2>사용자 수정</h2>
-				<form action="updateUser.jsp" method="post">
+				<h2 style="margin-left: 50px;">사용자 수정</h2>
+				<form action="UpdateUser" method="post">
 					<input type="hidden" name="${_csrf.parameterName}"
 						value="${_csrf.token}" />
 					<c:forEach var="item" items="${list}">
 						<div class="form-group">
-							<label for="user_id">사용자 번호 : </label> <input type="text"
-								id="user_id" value="${item.user_id}" readonly>
+							<label for="user_id">사용자 번호</label> <input type="text"
+								id="user_id" name="user_id" value="${item.user_id}" readonly>
 						</div>
 
 						<div class="form-group">
-							<label for="loginId">사용자 ID : </label> <input type="text"
+							<label for="loginId">사용자 ID</label> <input type="text"
 								id="loginId" value="${item.loginId}" readonly>
 						</div>
 
 						<div class="form-group">
-							<label for="name">이름 : </label> <input type="text" id="name"
+							<label for="name">이름</label> <input type="text" id="name"
 								value="${item.name}" readonly>
 						</div>
 
 						<div class="form-group">
-							<label for="birth_date">생년월일 : </label> <input type="text"
+							<label for="birth_date">생년월일</label> <input type="text"
 								id="birth_date" name="birth_date" value="${item.birth_date}"
 								readonly>
 						</div>
 
 						<div class="form-group">
-							<label for="email_id">이메일 : </label> <input type="text"
+							<label for="email_id">이메일</label> <input type="text"
 								id="email_id" value="${item.email_id}@${item.email_domain}"
 								readonly>
 						</div>
 
 						<div class="form-group">
-							<label for="phone">핸드폰 : </label> <input type="text" id="phone"
+							<label for="phone">핸드폰</label> <input type="text" id="phone"
 								value="${item.phone}" readonly>
 						</div>
 
 						<div class="form-group">
-							<label for="postcode">주소 : </label> <input type="text"
+							<label for="postcode">주소</label> <input type="text"
 								id="postcode" value="${item.postcode}" placeholder="우편번호"
 								readonly>
 						</div>
@@ -84,12 +84,12 @@
 						</div>
 
 						<div class="form-group">
-							<label for="is_minor">미성년자 여부 : </label> <input type="text"
+							<label for="is_minor">미성년자 여부</label> <input type="text"
 								id="is_minor" name="is_minor" value="${item.is_minor}">
 						</div>
 
 						<div class="form-group">
-							<label for="status">상태 : </label> <input type="text" id="status"
+							<label for="status">상태</label> <input type="text" id="status"
 								name="status" value="${item.status}">
 						</div>
 					</c:forEach>

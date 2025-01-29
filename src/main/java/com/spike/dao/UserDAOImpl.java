@@ -135,4 +135,9 @@ public class UserDAOImpl implements UserDAO {
 		return this.spikeRepo.findByUserIdEdit(user_id);
 	}
 
+	@Override
+	public void UpdateUser(String is_minor, String status, Long user_id) {
+		this.spikeRepo.UpdateUser(is_minor, status, user_id);
+	}
+
 }

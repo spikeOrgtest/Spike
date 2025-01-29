@@ -1,8 +1,8 @@
 @charset "UTF-8";
 form {
     width: 100%;
-    width: 1000px;
-    margin: 20px auto;
+    width: 800px;
+    margin-left: 50px;
     padding: 20px;
     background-color: #f9f9f9;
     border-radius: 8px;
@@ -37,7 +37,7 @@ form {
 /* 버튼 스타일 */
 .form-buttons {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
 }
 
 .submit-btn, .reset-btn {
@@ -52,6 +52,7 @@ form {
 .submit-btn {
     background-color: #4CAF50;
     color: white;
+    margin-right: 10px;
 }
 
 .reset-btn {

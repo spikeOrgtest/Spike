@@ -41,4 +41,6 @@ public interface UserSerivce {
 
 	List<UserDTO> findByUserIdEdit(Long user_id);
 
+	void UpdateUser(String is_minor, String status, Long user_id);
+
 }

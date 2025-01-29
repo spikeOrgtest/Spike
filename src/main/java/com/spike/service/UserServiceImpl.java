@@ -101,4 +101,9 @@ public class UserServiceImpl implements UserSerivce {
 		return this.spikeDao.findByUserIdEdit(user_id);
 	}
 
+	@Override
+	public void UpdateUser(String is_minor, String status, Long user_id) {
+		this.spikeDao.UpdateUser(is_minor, status, user_id);
+	}
+
 }

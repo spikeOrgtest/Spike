@@ -76,4 +76,9 @@ public interface UserRepository extends JpaRepository<UserDTO, Long> {
 	@Query("select s from UserDTO s where s.user_id=?1")
 	public List<UserDTO> findByUserIdEdit(Long user_id);
 
+	@Modifying
+	@Transactional
+	@Query("update UserDTO s set s.is_minor=?1 , s.status=?2 where s.user_id=?3")
+	public void UpdateUser(String is_minor, String status, Long user_id);
+
 }
