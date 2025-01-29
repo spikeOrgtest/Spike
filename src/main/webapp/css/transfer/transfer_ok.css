@@ -1,0 +1,71 @@
+@charset "UTF-8";
+
+#transferBody{
+	display: flex;
+	justify-content: center;
+	background: #aaa;
+}
+
+#transferWrapper{
+	width: 600px;
+	height: 600px;
+	background: white;
+}
+
+
+
+/* 중앙 컨테이너 */
+#transferWrapper {
+    width: 400px;
+    padding: 30px;
+    border-radius: 5px; /* 모서리를 둥글게 */
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2); /* 부드러운 그림자 */
+    background: #ffffff; /* 카드 스타일 흰 배경 */
+    margin: 20px 0px;
+}
+
+/* 제목 스타일 */
+#transferWrapper h2 {
+    font-size: 20px;
+    margin-bottom: 20px;
+    color: #555; /* 약간 어두운 색상 */
+}
+
+/* 버튼 영역 */
+#transferWrapper .buttons {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-around; /* 버튼 간격 유지 */
+}
+
+/* 확인 버튼 */
+#transferWrapper .confirm {
+    padding: 10px 20px;
+    background-color: #28a745; /* 부드러운 초록색 */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#transferWrapper .confirm:hover {
+    background-color: #218838; /* 살짝 어두운 초록색 */
+}
+
+/* 취소 버튼 */
+#transferWrapper .cancel {
+    padding: 10px 20px;
+    background-color: #dc3545; /* 부드러운 빨간색 */
+    color: white;
+    text-decoration: none; /* 밑줄 제거 */
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#transferWrapper .cancel:hover {
+    background-color: #c82333; /* 살짝 어두운 빨간색 */
+}
