@@ -76,7 +76,7 @@ public class ManagerController {
 	}
 
 	@PostMapping("/UpdateUser")
-	public String UpdateUser(Long user_id, String is_minor, String status, HttpServletResponse response)
+	public void UpdateUser(Long user_id, String is_minor, String status, HttpServletResponse response)
 			throws Exception {
 		response.setContentType("text/html; charset=UTF-8");
 		PrintWriter out = response.getWriter();
@@ -88,7 +88,32 @@ public class ManagerController {
 		out.println("window.location.href = '/spike.com/userManagement';");
 		out.println("</script>");
 
-		return null;
+	}
+
+	@GetMapping("/DeleteUser")
+	public void DeleteUser(@RequestParam("user_id") Long user_id, HttpServletResponse response) throws Exception {
+		response.setContentType("text/html; charset=UTF-8");
+		PrintWriter out = response.getWriter();
+
+		List<String> list = this.userService.findbyaccountnumber(user_id);
+
+		System.out.println("list : " + list);
+
+		if (list.size() == 0) {
+			this.userService.UserDelete(user_id);
+			out.println("<script>");
+			out.println("alert('삭제 완료했습니다.');");
+			out.println("window.location.href = '/spike.com/userManagement';");
+			out.println("</script>");
+		} else {
+			this.userService.AccountDelete(user_id);
+			this.userService.UserDelete(user_id);
+			out.println("<script>");
+			out.println("alert('삭제 완료했습니다.');");
+			out.println("window.location.href = '/spike.com/userManagement';");
+			out.println("</script>");
+		}
+
 	}
 
 }

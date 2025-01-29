@@ -106,4 +106,14 @@ public class UserServiceImpl implements UserSerivce {
 		this.spikeDao.UpdateUser(is_minor, status, user_id);
 	}
 
+	@Override
+	public void UserDelete(Long user_id) {
+		this.spikeDao.UserDelete(user_id);
+	}
+
+	@Override
+	public void AccountDelete(Long user_id) {
+		this.spikeDao.AccountDelete(user_id);
+	}
+
 }

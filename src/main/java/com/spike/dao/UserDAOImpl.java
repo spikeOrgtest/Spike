@@ -140,4 +140,14 @@ public class UserDAOImpl implements UserDAO {
 		this.spikeRepo.UpdateUser(is_minor, status, user_id);
 	}
 
+	@Override
+	public void UserDelete(Long user_id) {
+		this.spikeRepo.UserDelete(user_id);
+	}
+
+	@Override
+	public void AccountDelete(Long user_id) {
+		this.spikeRepo.AccountDelete(user_id);
+	}
+
 }

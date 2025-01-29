@@ -43,4 +43,8 @@ public interface UserDAO {
 
 	void UpdateUser(String is_minor, String status, Long user_id);
 
+	void UserDelete(Long user_id);
+
+	void AccountDelete(Long user_id);
+
 }

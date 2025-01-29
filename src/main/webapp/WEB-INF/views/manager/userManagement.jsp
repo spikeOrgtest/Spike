@@ -50,7 +50,7 @@
 							<td>${item.email_id}@${item.email_domain}</td>
 							<td>${item.status}</td>
 							<td><a href="/spike.com/EditUser?user_id=${item.user_id}">수정</a></td>
-							<td><a href="deleteUser.jsp?user_id=${item.user_id}">삭제</a></td>
+							<td><a href="/spike.com/DeleteUser?user_id=${item.user_id}" onclick="return confirm('삭제 버튼을 누르면 모든 정보가 삭제됩니다. 그래도 진행하시겠습니까?');">삭제</a></td>
 						</tr>
 						</c:forEach>
 					</tbody>

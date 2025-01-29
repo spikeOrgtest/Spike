@@ -81,4 +81,14 @@ public interface UserRepository extends JpaRepository<UserDTO, Long> {
 	@Query("update UserDTO s set s.is_minor=?1 , s.status=?2 where s.user_id=?3")
 	public void UpdateUser(String is_minor, String status, Long user_id);
 
+	@Modifying
+	@Transactional
+	@Query("delete from UserDTO s where s.user_id=?1")
+	public void UserDelete(Long user_id);
+
+	@Modifying
+	@Transactional
+	@Query("delete FROM AccountDTO a WHERE a.owner.user_id =?1")
+	public void AccountDelete(Long user_id);
+
 }
