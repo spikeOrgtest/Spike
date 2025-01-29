@@ -35,4 +35,16 @@ public interface UserDAO {
 
 	Long todayloge();
 
+	Long newMember();
+
+	List<UserDTO> findByUserList();
+
+	List<UserDTO> findByUserIdEdit(Long user_id);
+
+	void UpdateUser(String is_minor, String status, Long user_id);
+
+	void UserDelete(Long user_id);
+
+	void AccountDelete(Long user_id);
+
 }
