@@ -1,5 +1,7 @@
 package com.spike.dao;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -11,7 +13,7 @@ public class AccountDAOImpl implements AccountDAO {
 
 	@Autowired
 	private AccountRepository accountrepo;
-	
+
 	@Override
 	public void createAccount(AccountDTO s) {
 		this.accountrepo.save(s);
@@ -28,9 +30,22 @@ public class AccountDAOImpl implements AccountDAO {
 	}
 
 	@Override
-	public void Passwordupdateaccount(String account_password, String account_number) {
-		this.accountrepo.Passwordupdateaccount(account_password, account_number);
+	public void Passwordupdateaccount(AccountDTO a) {
+		this.accountrepo.Passwordupdateaccount(a.getAccount_password(), a.getAccount_number());
 	}
 
+	@Override
+	public AccountDTO findByAccount(String account_number) {
+		Optional<AccountDTO> result = this.accountrepo.findByAccount(account_number);
+
+		AccountDTO member;
+		if (result.isPresent()) {
+			member = result.get();
+		} else {
+			member = null;
+		}
+		return member;
+
+	}
 
 }

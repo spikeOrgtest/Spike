@@ -11,7 +11,7 @@ public class AccountServiceImpl implements AccountService {
 
 	@Autowired
 	private AccountDAO accountdao;
-	
+
 	@Override
 	public void createAccount(AccountDTO s) {
 		this.accountdao.createAccount(s);
@@ -28,8 +28,13 @@ public class AccountServiceImpl implements AccountService {
 	}
 
 	@Override
-	public void Passwordupdateaccount(String account_password, String account_number) {
-		this.accountdao.Passwordupdateaccount(account_password, account_number);
+	public void Passwordupdateaccount(AccountDTO a) {
+		this.accountdao.Passwordupdateaccount(a);
+	}
+
+	@Override
+	public AccountDTO findByAccount(String account_number) {
+		return this.accountdao.findByAccount(account_number);
 	}
 
 }

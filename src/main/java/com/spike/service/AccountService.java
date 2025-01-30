@@ -2,7 +2,6 @@ package com.spike.service;
 
 import com.spike.dto.AccountDTO;
 
-
 public interface AccountService {
 
 	void createAccount(AccountDTO s);
@@ -11,6 +10,8 @@ public interface AccountService {
 
 	void Dayupdateaccount(Long day_limit, String account_number);
 
-	void Passwordupdateaccount(String account_password, String account_number);
+	void Passwordupdateaccount(AccountDTO a);
+
+	AccountDTO findByAccount(String account_number);
 
 }
