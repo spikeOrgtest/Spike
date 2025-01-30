@@ -10,7 +10,6 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 
 import com.spike.dao.UserDetail;
 
@@ -52,11 +51,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	}
 
 	@Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-    	
-    	auth.userDetailsService(userDetail);
-    	
-    }
+	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 
-	>>>>>>>3 cfd3091d697929d57aac6a416ddd634fdbef2cf
+		auth.userDetailsService(userDetail);
+
+	}
+
 }

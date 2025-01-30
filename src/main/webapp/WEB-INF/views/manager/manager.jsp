@@ -117,8 +117,8 @@
 			<div class="subpage-sidebar">
 				<h3 class="subpage-sidebar-title">관리자 페이지</h3>
 				<ul>
-				    <li><a href="newsSubpage_bank.jsp">대시보드</a></li>
-					<li><a href="newsSubpage_bank.jsp">사용자관리</a></li>
+					<li><a href="/spike.com/ma">대시보드</a></li>
+					<li><a href="/spike.com/userManagement">사용자관리</a></li>
 					<li><a href="newsSubpage_product.jsp">계좌수정</a></li>
 					<li><a href="newsSubpage_product.jsp">거래내역관리</a></li>
 					<li><a href="newsSubpage_job.jsp">대출관리</a></li>
@@ -167,7 +167,7 @@
 <div class="dashboard4">
   <h2><strong>신규 회원가입</strong></h2> <!-- 오늘 가입한 신규 회원 수 -->
   <div id="board1">
-    <p>38명</p>
+    <p>${newmember}</p>
     </div>
    </div>
   </div>
