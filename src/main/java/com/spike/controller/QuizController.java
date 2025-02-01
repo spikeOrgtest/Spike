@@ -1,8 +1,9 @@
 package com.spike.controller;
 
 import com.spike.service.QuizResultService;
+
+
 import com.spike.service.QuizService;
-import com.spike.service.UserSerivce;
 import com.spike.dto.QuizDTO;
 import com.spike.dto.QuizResultDTO;
 import com.spike.dto.UserDTO;
@@ -30,8 +31,7 @@ public class QuizController {
     @Autowired
     private QuizService quizService;
     
-    @Autowired
-    private UserSerivce userService;
+
 
     @PostMapping("/update-score")
     public ResponseEntity<Map<String, Object>> updateScore(@RequestBody QuizResultDTO quizResultDto) {
@@ -42,7 +42,7 @@ public class QuizController {
             quizResultService.saveQuizResult(quizResultDto);
 
             // User의 포인트 업데이트
-            userService.updateUserPoints(quizResultDto.getUser_id(), quizResultDto.getEarned_points());
+         // UserSerivce.updateUserPoints(quizResultDto.getUser_id(), quizResultDto.getEarned_points());
 
             response.put("status", "success");
             response.put("message", "포인트가 성공적으로 업데이트되었습니다.");
@@ -66,7 +66,19 @@ public class QuizController {
     public String mini() {
         return "mini/mini";
     }
-
+    
+ // 서브메인 페이지
+    @GetMapping("/minisub")
+    public String minisub() {
+        return "mini/miniSubpage_main";
+    }
+    
+ // 금융교육 페이지
+    @GetMapping("/miniedu")
+    public String miniedu() {
+        return "mini/miniSubpage_edu";
+    }
+    
     // 퀴즈 페이지
     @GetMapping("/quiz")
     public String miniquiz() {
@@ -102,7 +114,7 @@ public class QuizController {
         // QuizResultDTO 객체 생성 및 저장
         QuizResultDTO quizResult = new QuizResultDTO();
         UserDTO userDTO = new UserDTO();
-        userDTO.setUser_id(userId);
+        userDTO.getUser_id();
         quizResult.setUser(userDTO);  // 사용자 정보 설정
         quizResult.setQuiz(quizService.getQuizById(quizId));  // 퀴즈 정보 설정
         quizResult.setAnswered_correctly(isCorrect ? 'Y' : 'N');

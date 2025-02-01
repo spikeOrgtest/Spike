@@ -110,10 +110,15 @@ public class UserDTO {
     private String status;
 
     private LocalDateTime last_login; // 마지막 로그인
-
+    
     @CreationTimestamp
     @Column(name = "registration_date", columnDefinition = "TIMESTAMP DEFAULT SYSDATE")
     private LocalDate registration_date;
+    
+    //mini 퀴즈 포인트 추가
+    private int point = 0;
+    
+    
 
     // QuizResult와의 연관 관계 (1:N 관계)
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)

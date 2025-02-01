@@ -42,7 +42,8 @@
 								빠르게 자신의 '금융지식'을 <br /> 테스트 해볼 수 있습니다.
 							</h2>
 
-							<button class="quiz-next-question" onclick="nextQuestion(2)">문제 풀기</button>
+							<button class="quiz-next-question" onclick="nextQuestion(2)">문제
+								풀기</button>
 							<div class="quiz-result" id="quiz-result-1"></div>
 						</div>
 
@@ -199,6 +200,31 @@
 							<div class="quiz-result" id="quiz-result-10"></div>
 						</div>
 
+						<!-- 10 번째 문제 -->
+						<div class="quiz-question" id="quiz11">
+							<h2>Q10. 돈을 은행에 맡기면 이자를 받을 수 있다.</h2>
+							<div class="quiz-options">
+								<button class="quiz-option" onclick="showResult(true, 11)">
+									<div class="quiz-letter">O</div>
+									<div class="quiz-text">그래요</div>
+								</button>
+								<button class="quiz-option" onclick="showResult(false, 11)">
+									<div class="quiz-letter">X</div>
+									<div class="quiz-text">그렇지 않아요</div>
+								</button>
+							</div>
+							<button class="quiz-next-question" onclick="nextQuestion(12)">정답
+								확인</button>
+							<div class="quiz-result" id="quiz-result-11"></div>
+
+							<!-- 정답 확인 버튼 뒤에 추가 -->
+							<div id="score-slide" class="score-slide">
+								<p id="correct-answers">맞춘 문제: 0개</p>
+								<p id="total-points">획득한 포인트: 0점</p>
+							</div>
+						</div>
+
+
 					</div>
 				</div>
 			</div>
@@ -207,9 +233,10 @@
 
 	<%@ include file="../include/shortfooter.jsp"%>
 
-<script>
+	<script>
     let currentQuestion = 1;
-    let score = 0;
+    let correctCount = 0; // 맞춘 문제 수
+    let totalPoints = 0;  // 획득한 포인트
     const userId = 12345; // 로그인한 사용자의 user_id로 변경 필요
 
     // 문제를 넘기는 함수
@@ -225,6 +252,11 @@
         }
 
         currentQuestion = questionNumber;
+
+        // 마지막 문제에서 '정답 확인' 후 점수 슬라이드 보여주기
+        if (questionNumber === 12) {
+            showScoreSlide(); // 점수 슬라이드 함수 호출
+        }
     }
 
     // 정답을 선택하고 결과를 표시하는 함수
@@ -232,7 +264,8 @@
         let resultElement = document.getElementById('quiz-result-' + questionNumber);
 
         if (isCorrect) {
-            score += 100; // 1문제 맞추면 100포인트
+            correctCount += 1; // 맞춘 문제 수 증가
+            totalPoints += 100; // 100 포인트 추가
             resultElement.innerHTML = '<p class="quiz-result-correct">정답입니다!</p>';
         } else {
             resultElement.innerHTML = '<p class="quiz-result-wrong">오답입니다!</p>';
@@ -264,7 +297,24 @@
             console.error('포인트 업데이트 실패:', error);
         });
     }
+
+    // 점수와 맞춘 문제 수 슬라이드로 보여주는 함수
+    function showScoreSlide() {
+        // 점수와 맞춘 문제 수 업데이트
+        document.getElementById('correct-answers').textContent = '맞춘 문제: ' + correctCount + '개';
+        document.getElementById('total-points').textContent = '획득한 포인트: ' + totalPoints + '점';
+
+        // 슬라이드 애니메이션 효과
+        const scoreSlide = document.getElementById('score-slide');
+        scoreSlide.classList.add('show');  // show 클래스를 추가
+
+        // 3초 후 슬라이드 숨기기
+        setTimeout(() => {
+            scoreSlide.classList.remove('show'); // show 클래스를 제거
+        }, 3000);
+    }
 </script>
+
 
 
 

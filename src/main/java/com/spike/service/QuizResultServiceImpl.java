@@ -5,6 +5,7 @@ import com.spike.dao.QuizResultDAO;
 
 import com.spike.dto.QuizResultDTO;
 import com.spike.dto.UserDTO;
+
 import com.spike.repository.UserRepository;
 import com.spike.dto.QuizDTO;
 
@@ -28,9 +29,6 @@ public class QuizResultServiceImpl implements QuizResultService {
 
 	@Autowired
 	private UserRepository userRepository;
-
-
-
 
 	@Override
 	public QuizResultDTO handleQuizResult(Long userId, int quizId, char answeredCorrectly) {

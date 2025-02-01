@@ -160,3 +160,21 @@
 	margin-bottom: 50px;
 }
 
+.score-slide {
+    display: none;
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border: 2px solid #ffcc00;
+    border-radius: 5px;
+    text-align: center;
+    transition: all 0.3s ease-in-out;
+    opacity: 0;
+}
+
+.score-slide.show {
+    display: block;
+    opacity: 1;
+}
+
+

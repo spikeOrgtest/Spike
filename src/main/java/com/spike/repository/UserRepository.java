@@ -12,6 +12,8 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
 import com.spike.dto.AccountDTO;
+import org.springframework.data.repository.query.Param;
+
 import com.spike.dto.UserDTO;
 
 
@@ -95,4 +97,8 @@ public interface UserRepository extends JpaRepository<UserDTO, Long> {
 	@Query("delete FROM AccountDTO a WHERE a.owner.user_id =?1")
 	public void AccountDelete(Long user_id);
 
+	
+	//퀴즈 추가 쿼리 
+	@Query("SELECT u FROM UserDTO u WHERE u.id = :id")
+    Optional<UserDTO> findUserById(@Param("id") Integer id);
 }
