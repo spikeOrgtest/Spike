@@ -15,9 +15,9 @@
 
         <!-- 계좌 정보 표시 -->
         <div class="account-info">
-            <p><strong>계좌 번호:</strong> ${createdAccount.accountNumber}</p>
-            <p><strong>초기 잔액:</strong> ${createdAccount.balance} ${createdAccount.currency}</p>
-            <p><strong>화폐 단위:</strong> ${createdAccount.currency}</p>
+            <p><strong>계좌 번호:</strong> ${account.accountNumber}</p>
+            <p><strong>초기 잔액:</strong> ${account.balance} ${account.currency}</p>
+            <p><strong>화폐 단위:</strong> ${account.currency}</p>
         </div>
 
         <!-- 버튼 영역 -->

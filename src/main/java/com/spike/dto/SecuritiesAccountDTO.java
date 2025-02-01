@@ -6,6 +6,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Getter
 @Setter
@@ -17,7 +18,6 @@ public class SecuritiesAccountDTO {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_account_id")
     @SequenceGenerator(name = "seq_account_id", sequenceName = "SEQ_ACCOUNT_ID", allocationSize = 1)
-    @Column(name = "account_id", nullable = false)
     private Long accountId;
 
     @Column(name = "account_number", unique = true, nullable = false, length = 255)
@@ -35,11 +35,33 @@ public class SecuritiesAccountDTO {
     @Column(name = "created_date", nullable = false)
     private LocalDateTime createdDate = LocalDateTime.now();
 
-    // N:1 관계 매핑
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", nullable = false) // user_id가 외래 키임을 명시
+    @JoinColumn(name = "user_id", nullable = false)
     private UserDTO user;
+
+    @Column(name = "account_password", nullable = false, length = 6)
+    private String accountPassword;
 
     @Transient
     private Double initialDeposit;
+
+    public void setInitialDeposit(Double initialDeposit) {
+        this.initialDeposit = initialDeposit;
+        if (initialDeposit != null) {
+            this.balance = initialDeposit;
+        }
+    }
+
+    // 계좌 번호 생성 메서드
+    public void generateAccountNumber() {
+        this.accountNumber = "ACC-" + UUID.randomUUID().toString().substring(0, 10).toUpperCase();
+    }
+
+    // 계좌 비밀번호 검증 및 설정 메서드
+    public void setAccountPassword(String accountPassword) {
+        if (!accountPassword.matches("\\d{6}")) {
+            throw new IllegalArgumentException("비밀번호는 6자리 숫자여야 합니다.");
+        }
+        this.accountPassword = accountPassword;
+    }
 }

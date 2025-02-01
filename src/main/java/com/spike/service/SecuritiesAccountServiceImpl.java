@@ -1,12 +1,14 @@
 package com.spike.service;
 
 import com.spike.dto.SecuritiesAccountDTO;
+import com.spike.dto.UserDTO;
 import com.spike.repository.SecuritiesAccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.security.SecureRandom;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class SecuritiesAccountServiceImpl implements SecuritiesAccountService {
@@ -14,40 +16,76 @@ public class SecuritiesAccountServiceImpl implements SecuritiesAccountService {
     @Autowired
     private SecuritiesAccountRepository accountRepository;
 
+    private static final SecureRandom RANDOM = new SecureRandom();
+
     // 계좌 생성
     @Override
-    public SecuritiesAccountDTO createAccount(SecuritiesAccountDTO accountDTO) {
-        // 추가 유효성 검사를 수행할 수 있음
-        if (accountDTO.getInitialDeposit() < 0) {
-            throw new IllegalArgumentException("Initial deposit must be greater than or equal to 0.");
+    @Transactional
+    public SecuritiesAccountDTO createAccount(SecuritiesAccountDTO accountDTO, UserDTO user) {
+        // 사용자 계좌 존재 여부 확인
+        if (isAccountExistsForUser(user)) {
+            throw new IllegalStateException("사용자 계좌가 이미 존재합니다. 추가 계좌를 생성할 수 없습니다.");
         }
-        // 초기 잔액 설정
-        accountDTO.setBalance(accountDTO.getInitialDeposit());
+
+        // 사용자 정보 설정
+        accountDTO.setUser(user);
+
+        // 계좌번호 생성
+        accountDTO.setAccountNumber(generateRandomAccountNumber());
+
+        // 계좌 저장
         return accountRepository.save(accountDTO);
     }
 
-    // 사용자 ID로 계좌 조회
-    @Override
-    public List<SecuritiesAccountDTO> getAccountsByUserId(Long userId) {
-        return accountRepository.findByUser_UserId(userId);
+    // 12자리 랜덤 계좌번호 생성 메서드
+    private String generateRandomAccountNumber() {
+        // 랜덤한 12자리 숫자를 생성
+        StringBuilder accountNumber = new StringBuilder();
+        for (int i = 0; i < 12; i++) {
+            accountNumber.append(RANDOM.nextInt(10)); // 0~9 중 랜덤 숫자 추가
+        }
+        return accountNumber.toString();
     }
 
-    // 계좌 잔액 업데이트
+    // 사용자 기반으로 계좌 조회
     @Override
-    public SecuritiesAccountDTO updateBalance(Long accountId, Double amount) {
-        Optional<SecuritiesAccountDTO> optionalAccount = accountRepository.findById(accountId);
-        if (optionalAccount.isPresent()) {
-            SecuritiesAccountDTO account = optionalAccount.get();
-            double updatedBalance = account.getBalance() + amount;
+    public List<SecuritiesAccountDTO> getAccountsByUser(UserDTO user) {
+        return accountRepository.findByUser(user);
+    }
 
-            if (updatedBalance < 0) {
-                throw new IllegalArgumentException("Insufficient balance in the account.");
-            }
+    // 사용자 계좌 존재 여부 확인
+    @Override
+    public boolean isAccountExistsForUser(UserDTO user) {
+    	
+        List<SecuritiesAccountDTO> accounts = accountRepository.findByUser(user);
+        return !accounts.isEmpty();
+    }
+    
+    @Override
+    @Transactional
+    public void changeAccountPassword(Long accountId, String newPassword) {
+        // 계좌 조회
+        SecuritiesAccountDTO account = accountRepository.findById(accountId)
+                .orElseThrow(() -> new RuntimeException("계좌를 찾을 수 없습니다."));
 
-            account.setBalance(updatedBalance);
-            return accountRepository.save(account);
-        } else {
-            throw new IllegalArgumentException("Account not found with ID: " + accountId);
+        // 비밀번호 검증
+        if (!newPassword.matches("\\d{6}")) {
+            throw new IllegalArgumentException("비밀번호는 6자리 숫자여야 합니다.");
         }
+
+        // 비밀번호 변경
+        account.setAccountPassword(newPassword);
+        accountRepository.save(account);
+    }
+
+    @Override
+    @Transactional
+    public void deleteAccount(Long accountId) {
+        // 계좌 존재 여부 확인
+        SecuritiesAccountDTO account = accountRepository.findById(accountId)
+                .orElseThrow(() -> new RuntimeException("계좌를 찾을 수 없습니다."));
+
+        // 계좌 삭제
+        accountRepository.delete(account);
     }
 }

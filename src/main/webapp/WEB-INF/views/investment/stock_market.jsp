@@ -22,6 +22,11 @@
 		<a href="/spike/securities-account/open" class="open-account-button">
 			증권 계좌 개설하기 </a>
 	</div>
+	<div class="button-container">
+		<!-- 증권 계좌 관리 버튼 -->
+		<a href="/spike/securities-account/manage" class="open-account-button">
+			증권 계좌 관리하기 </a>
+	</div>
 	<main class="main-content">
 		<!-- 주요 경제 지수 -->
 		<div class="economic-indices-container">
