@@ -5,8 +5,8 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>SPIKE 예금</title>
-<link rel="stylesheet" href="../assets/css/savings.css" />
-<link rel="stylesheet" href="../assets/css/include.css"> 
+<link rel="stylesheet" href="../../css/product/savings.css" />
+<link rel="stylesheet" href="../../css/include/include.css"> 
 </head>
 <body>
 	
@@ -14,13 +14,13 @@
 
 	<nav class="top-menu">
 		<div class="container">
-			<a href="products.jsp" class="logo">SPIKE</a>
+			<a href="/spike.com/products" class="logo">SPIKE</a>
 			<ul>
-				<li><a href="deposit.jsp">예금</a></li>
-				<li><a href="savings.jsp">적금</a></li>
-				<li><a href="loan.jsp">대출</a></li>
-				<li><a href="card.jsp">카드</a></li>
-				<li><a href="newmember.jsp">계좌 개설</a></li>
+				<li><a href="/spike.com/products/deposit">예금</a></li>
+				<li><a href="/spike.com/products/savings">적금</a></li>
+				<li><a href="/spike.com/products/loan">대출</a></li>
+				<li><a href="/spike.com/products/card">카드</a></li>
+				<li><a href="/spike.com/products/newmember">계좌 개설</a></li>
 			</ul>
 		</div>
 	</nav>
@@ -54,7 +54,7 @@
             <div class="container">
                 <h2>특별 예금 상품</h2>
                 <div class="product-grid" id="productGrid">
-                    <a href="Subpage_D1.jsp" class="product-card">
+                    <a href="deposit/subpage_d1" class="product-card">
                         <div class="card-header"></div>
                         <div class="card-body">
                             <h3>SPIKE 예금</h3>
@@ -66,7 +66,7 @@
                             </ul>
                         </div>
                     </a>
-                    <a href="Subpage_D2.jsp" class="product-card">
+                    <a href="deposit/subpage_d2" class="product-card">
                         <div class="card-header"></div>
                         <div class="card-body">
                             <h3>IRP (Individual Retirement Pension)</h3>
@@ -78,7 +78,7 @@
                             </ul>
                         </div>
                     </a>
-                    <a href="Subpage_D3.jsp" class="product-card">
+                    <a href="deposit/subpage_d3" class="product-card">
                         <div class="card-header"></div>
                         <div class="card-body">
                             <h3>1+1 예금</h3>
@@ -97,7 +97,7 @@
             <div class="container">
                 <h2>예금 상품 목록</h2>
                 <div class="product-grid" id="productGrid">
-                    <a href="Subpage_D4.jsp" class="product-card">
+                    <a href="deposit/subpage_d4" class="product-card">
                         <div class="card-header"></div>
                         <div class="card-body">
                             <h3>정기 예금</h3>
@@ -109,7 +109,7 @@
                             </ul>
                         </div>
                     </a>
-                    <a href="Subpage_D5.jsp" class="product-card">
+                    <a href="deposit/subpage_d5" class="product-card">
                         <div class="card-header"></div>
                         <div class="card-body">
                             <h3>퇴직연금예금</h3>
@@ -121,7 +121,7 @@
                             </ul>
                         </div>
                     </a>
-                    <a href="Subpage_D6.jsp" class="product-card">
+                    <a href="deposit/subpage_d6" class="product-card">
                         <div class="card-header"></div>
                         <div class="card-body">
                             <h3>평생가족 예금</h3>
@@ -139,7 +139,7 @@
 		
 	</main>
 	<jsp:include page="../include/pfooter.jsp"/>
-	<script src="../assets/js/savings.js"></script>
+	<script src="../../js/savings.js"></script>
 </body>
 </html>
 

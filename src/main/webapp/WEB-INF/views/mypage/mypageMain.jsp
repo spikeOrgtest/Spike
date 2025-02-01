@@ -201,7 +201,7 @@
 							<div class="modal-dialog modal-lg">
 								<div class="modal-content">
 									<div class="modal-header">
-										<h5 class="modal-title" id="withdrawalModalLabel">회원탈퇴</h5>
+										<h5 class="modal-title" id="withdrawalModalLabel" style="">회원탈퇴</h5>
 										<button type="button" class="btn-close"
 											data-bs-dismiss="modal" aria-label="Close"></button>
 									</div>
@@ -231,7 +231,7 @@
 											</div>
 
 											<!-- 탈퇴 확인 폼 -->
-											<form action= "/spike.com/mypage/secession" id="withdrawal-form" class="text-center" method="POST">
+											<form action= "/spike.com/mypage/main" id="withdrawal-form" class="text-center" method="POST">
 											<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 						
 												<div class="form-check mb-3">
@@ -242,8 +242,7 @@
 												</div>
 												<input type="hidden" name="loginId" value="${sessionScope.User.loginId}">
 												<button type="submit" class="btn btn-danger btn-lg">탈퇴하기</button>
-												<a href="javascript:location='main';"
-													class="btn btn-secondary btn-lg ms-3">취소</a>
+												<button type ="button" class="btn btn-secondary btn-lg ms-3" id="cancelButton">취소</button>
 											</form>
 										</div>
 									</div>
@@ -321,6 +320,7 @@
 
 	
     <!-- Bootstrap JS, Chart.js -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>

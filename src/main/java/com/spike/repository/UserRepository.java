@@ -1,11 +1,10 @@
-package com.spike.dao;
+package com.spike.repository;
 
 import java.util.List;
 import java.util.Optional;
 
 import javax.transaction.Transactional;
 
-import org.apache.ibatis.annotations.Param;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -48,7 +47,7 @@ public interface UserRepository extends JpaRepository<UserDTO, Long> {
 			String detailAddress, String references, String password, String loginId);
 
 	@Query("select s from UserDTO s where s.loginId=?1")
-	Optional<UserDTO> findByLoginId(String loginId);
+	public Optional<UserDTO> findByLoginId(String loginId);
 
 	@Query("select s from UserDTO s where s.loginId=?1")
 	public UserDTO findFromSession(String loginId);
@@ -56,6 +55,40 @@ public interface UserRepository extends JpaRepository<UserDTO, Long> {
 	@Modifying
 	@Transactional
 	@Query("delete from UserDTO s where s.loginId=?1")
-	public void secession(String loginId);
+	public void usersecession(String loginId);
+
+	@Query("SELECT a FROM AccountDTO a WHERE a.owner.user_id =?1")
+	public List<AccountDTO> findByUserId(Long userId);
+
+	@Query("SELECT a.account_number FROM AccountDTO a WHERE a.owner.user_id =?1")
+	public List<String> findbyaccountnumber(Long userId);
+
+	// @Query("SELECT COUNT(a) FROM UserDTO a WHERE FUNCTION('DATE', a.user_id) =
+	// CURRENT_DATE")
+	// @Query("SELECT COUNT(u) FROM UserDTO u WHERE TRUNC(u.last_login) =
+	// TRUNC(CURRENT_DATE)")
+	@Query("SELECT COUNT(u) FROM UserDTO u WHERE (TRUNC(u.last_login) = TRUNC(CURRENT_DATE) OR u.last_login IS NULL)")
+	public Long todayloge();
+
+	@Query("select count(s) from UserDTO s where (trunc(s.registration_date) = trunc(current_date))")
+	public Long newMember();
+
+	@Query("select s from UserDTO s where s.user_id=?1")
+	public List<UserDTO> findByUserIdEdit(Long user_id);
+
+	@Modifying
+	@Transactional
+	@Query("update UserDTO s set s.is_minor=?1 , s.status=?2 where s.user_id=?3")
+	public void UpdateUser(String is_minor, String status, Long user_id);
+
+	@Modifying
+	@Transactional
+	@Query("delete from UserDTO s where s.user_id=?1")
+	public void UserDelete(Long user_id);
+
+	@Modifying
+	@Transactional
+	@Query("delete FROM AccountDTO a WHERE a.owner.user_id =?1")
+	public void AccountDelete(Long user_id);
 
 }

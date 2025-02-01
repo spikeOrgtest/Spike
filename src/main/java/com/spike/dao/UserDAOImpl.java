@@ -9,12 +9,17 @@ import org.springframework.stereotype.Repository;
 
 import com.spike.dto.AccountDTO;
 import com.spike.dto.UserDTO;
+import com.spike.repository.AccountRepository;
+import com.spike.repository.UserRepository;
 
 @Repository
 public class UserDAOImpl implements UserDAO {
 
 	@Autowired
 	private UserRepository spikeRepo;
+
+	@Autowired
+	private AccountRepository accountRepo;
 
 	@Override
 	public void insetMember(UserDTO s) {
@@ -55,7 +60,6 @@ public class UserDAOImpl implements UserDAO {
 	@Override
 	public UserDTO findPwd(UserDTO s) {
 		UserDTO ps = this.spikeRepo.findUserpwd(s.getLoginId(), s.getName());
-		System.out.println(ps);
 		return ps;
 	}
 
@@ -86,7 +90,6 @@ public class UserDAOImpl implements UserDAO {
 
 	@Override
 	public void mypageEdit(UserDTO s) {
-		System.out.println(s);
 		this.spikeRepo.mypageEdit(s.getName(), s.getEmail_id(), s.getEmail_domain(), s.getPhone(), s.getPhone01(),
 				s.getPhone02(), s.getPhone03(), s.getPostcode(), s.getRoadAddress(), s.getJibunAddress(),
 				s.getDetailAddress(), s.getReferences(), s.getPassword(), s.getLoginId());
@@ -98,8 +101,53 @@ public class UserDAOImpl implements UserDAO {
 	}
 
 	@Override
-	public void secession(String loginId) {
-		this.spikeRepo.secession(loginId);
+	public void usersecession(String loginId) {
+		this.spikeRepo.usersecession(loginId);
+	}
+
+	@Override
+	public List<AccountDTO> findbyinquriy(Long userId) {
+		return this.spikeRepo.findByUserId(userId);
+	}
+
+	@Override
+	public List<String> findbyaccountnumber(Long userId) {
+		return this.spikeRepo.findbyaccountnumber(userId);
+	}
+
+	@Override
+	public Long todayloge() {
+		return this.spikeRepo.todayloge();
+	}
+
+	@Override
+	public Long newMember() {
+		return this.spikeRepo.newMember();
+	}
+
+	@Override
+	public List<UserDTO> findByUserList() {
+		return this.spikeRepo.findAll();
+	}
+
+	@Override
+	public List<UserDTO> findByUserIdEdit(Long user_id) {
+		return this.spikeRepo.findByUserIdEdit(user_id);
+	}
+
+	@Override
+	public void UpdateUser(String is_minor, String status, Long user_id) {
+		this.spikeRepo.UpdateUser(is_minor, status, user_id);
+	}
+
+	@Override
+	public void UserDelete(Long user_id) {
+		this.spikeRepo.UserDelete(user_id);
+	}
+
+	@Override
+	public void AccountDelete(Long user_id) {
+		this.spikeRepo.AccountDelete(user_id);
 	}
 
 }

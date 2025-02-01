@@ -5,9 +5,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title></title>
-<link rel="stylesheet" href="../assets/css/subpage.css">
-<link rel="stylesheet" href="../assets/css/include.css">
-<link rel="stylesheet" href="../sub/spike-savings.css">
+<link rel="stylesheet" href="../../../css/support/subpage.css">
+<link rel="stylesheet" href="../../../css/include/include.css">
+<link rel="stylesheet" href="../../../css/product/spike-savings.css">
 
 <%--/
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -38,12 +38,12 @@
 			<div class="subpage-sidebar">
 				<h3 class="subpage-sidebar-title">대출 상품</h3>
 				<ul>
-					<li><a href="Subpage_L1.jsp">SPIKE 학자금 대출</a></li>
-					<li><a href="Subpage_L2.jsp">SPIKE 비상금 대출</a></li>
-					<li><a href="Subpage_L3.jsp">SPIKE 직장인 대출</a></li>
-					<li><a href="Subpage_L4.jsp">SPIKE 대출</a></li>  <%-- 현재페이지=선택된 메뉴면 배경색 진하게, 백엔드랑 연동할예정 --%>
-					<li><a href="Subpage_L5.jsp">주택담보 대출</a></li>
-					<li><a href="Subpage_L6.jsp">소상공인 대출</a></li>
+					<li><a href="subpage_l1">SPIKE 학자금 대출</a></li>
+					<li><a href="subpage_l2">SPIKE 비상금 대출</a></li>
+					<li><a href="subpage_l3">SPIKE 직장인 대출</a></li>
+					<li><a href="subpage_l4">SPIKE 대출</a></li>
+					<li><a href="subpage_l5">주택담보 대출</a></li>
+					<li><a href="subpage_l6">소상공인 대출</a></li>
 				</ul>
 			</div>
 
@@ -141,7 +141,7 @@
 
         <section class="cta">
             <div class="container">
-                <a href="#" class="button" id="joinButton">지금 가입하기</a>
+                <a href="../newloan" class="button" id="joinButton">지금 가입하기</a>
             </div>
         </section>
     </main>

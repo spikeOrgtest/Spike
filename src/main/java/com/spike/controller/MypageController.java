@@ -2,6 +2,7 @@ package com.spike.controller;
 
 import java.io.PrintWriter;
 import java.time.LocalDate;
+import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -16,7 +17,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.spike.dto.AccountDTO;
 import com.spike.dto.UserDTO;
+import com.spike.service.AccountService;
 import com.spike.service.UserSerivce;
 
 
@@ -26,6 +29,9 @@ public class MypageController {
 
 	@Autowired
 	private UserSerivce userService;
+	
+	@Autowired
+	private AccountService accountService;
 	
 	@Autowired PasswordEncoder passwordEncoder;
 
@@ -152,16 +158,32 @@ public class MypageController {
 	}
 	
 	// 마이페이지 회원 탈퇴
-	@PostMapping("/secession")
-	public ModelAndView secession(@RequestParam("loginId") String loginId, HttpSession session, Model model) throws Exception{
+	@PostMapping("/main")
+	public ModelAndView secession(@RequestParam("loginId") String loginId, Long userId , String account_number, HttpSession session, Model model, HttpServletResponse response) throws Exception{
+		response.setContentType("text/html; charset=UTF-8");
+		PrintWriter out = response.getWriter();
 		
-		this.userService.secession(loginId);
+		UserDTO sessionUser = (UserDTO) session.getAttribute("User");
+		userId = sessionUser.getUser_id();
+		List<String> list = userService.findbyaccountnumber(userId);
 		
-		session.invalidate(); // 세션 만료
 		
-		model.addAttribute("message", "Spike를 이용해주셔서 감사합니다.");
+	    if (list.size() == 0) {
+	    	this.userService.usersecession(loginId);
+	    	session.invalidate(); // 세션 만료
+	    	model.addAttribute("message", "Spike를 이용해주셔서 감사합니다.");
+	    	return new ModelAndView("/mypage/secessionComplete");
+	    	
+	    } else {
+	    
+	    out.println("<script>");
+	    out.println("alert('계좌 정보가 존재합니다! 관리자에게 문의 후 다시 요청바랍니다.');");
+	    out.println("window.location.href = '/spike.com/mypage/main';");
+	    out.println("</script>");
+	    return null;
+	    
+	    }
 		
-		return new ModelAndView("/mypage/secessionComplete");
 	}
 	
 	// 회원 탈퇴 완료
@@ -172,9 +194,42 @@ public class MypageController {
 
     // 계좌 조회 폼
 	@GetMapping("inquiry")
-	public ModelAndView inquiry() {
+	public ModelAndView inquiry(HttpSession session, Long userId) {
+		UserDTO sessionUser = (UserDTO) session.getAttribute("User");
+		userId = sessionUser.getUser_id();
+		
+		List<AccountDTO> list = userService.findbyinquriy(userId);
 
-		return new ModelAndView("/mypage/mypageinquiry");
+		ModelAndView account = new ModelAndView("mypage/mypageinquiry");
+		account.addObject("list", list);
+		
+		return account;
+		
+	}
+	
+	// 계좌 조회 일일 한도 설정
+	@PostMapping("inquiryLimit")
+	public String inquiryLimit(Long one_limit, Long day_limit, String account_number) {
+		
+		if(one_limit != null) {
+		this.accountService.Oneupdateaccount(one_limit, account_number);
+		}
+		
+		if(day_limit != null) {
+		this.accountService.Dayupdateaccount(day_limit, account_number);
+		}
+		
+		
+		return "redirect:/spike.com/mypage/inquiry";
+	}
+	
+	// 계좌 조회 비밀번호 변경
+	@PostMapping("inquiryPassword")
+	public String inquiryPassword(String account_password, String account_number) {
+		
+		this.accountService.Passwordupdateaccount(account_password, account_number);
+
+		return "redirect:/spike.com/mypage/inquiry";
 	}
 
 	@GetMapping("property")
