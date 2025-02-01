@@ -2,6 +2,7 @@ package com.spike.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.time.LocalDate;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -98,16 +99,26 @@ public class AccountController {
 	}
 
 	@PostMapping("/account_ok")
-	public ModelAndView account_ok(AccountDTO s, HttpServletRequest request, BindingResult result, HttpSession session)
-			throws IOException {
+	public ModelAndView account_ok(AccountDTO s, HttpServletRequest request, BindingResult result, HttpSession session) {
 		UserDTO sessionUser = (UserDTO) session.getAttribute("User");
 		s.setOwner(sessionUser);
 		s.setBalance(1000000L);
 		s.setDay_limit(1000000L);
 		s.setOne_limit(100000L);
 		s.setAccount_password(passwordEncoder.encode(s.getAccount_password()));
+		
+		// 이자 관련 정보 추가
+		s.setStartDate(LocalDate.now());
+		s.setLastInterestDate(LocalDate.now());
+		
+		// 계좌 유형에 따른 이자율 설정
+		if ("예금".equals(s.getAccount_type())) {
+			s.setInterestRate(3.5);  // 예금 기본 이자율
+		} else if ("적금".equals(s.getAccount_type())) {
+			s.setInterestRate(4.0);  // 적금 기본 이자율
+		}
+		
 		this.accountService.createAccount(s);
-
 		return new ModelAndView("redirect:/spike.com/products");
 	}
 

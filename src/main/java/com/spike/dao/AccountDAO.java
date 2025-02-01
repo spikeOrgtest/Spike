@@ -1,6 +1,7 @@
 package com.spike.dao;
 
 import com.spike.dto.AccountDTO;
+import java.util.List;
 
 public interface AccountDAO{
 
@@ -14,5 +15,8 @@ public interface AccountDAO{
 
 	void accountsecession(String account_number);
 
+	void updateAccount(AccountDTO account);
+
+	List<AccountDTO> getAllActiveAccounts();
 
 }

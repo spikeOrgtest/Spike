@@ -1,7 +1,10 @@
 package com.spike.repository;
 
+import java.util.List;
+
 import javax.transaction.Transactional;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -36,5 +39,15 @@ public interface AccountRepository extends JpaRepository<AccountDTO, Long> {
 	@Transactional
 	@Query("delete from AccountDTO a where a.account_number=?1")
 	public void accountsecession(String account_number);
+
+	@Query("SELECT a FROM AccountDTO a WHERE a.deleted = false")
+	List<AccountDTO> findByDeletedFalse();
+
+	@Modifying
+	@Transactional
+	@Query("update AccountDTO a set a.balance = :#{#account.balance}, " +
+		   "a.lastInterestDate = :#{#account.lastInterestDate} " +
+		   "where a.account_id = :#{#account.account_id}")
+	void updateAccount(@Param("account") AccountDTO account);
 
 }

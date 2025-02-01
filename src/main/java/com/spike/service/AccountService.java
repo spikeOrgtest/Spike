@@ -1,7 +1,7 @@
 package com.spike.service;
 
 import com.spike.dto.AccountDTO;
-
+import java.util.List;
 
 public interface AccountService {
 
@@ -15,4 +15,9 @@ public interface AccountService {
 
 	void accountsecession(String account_number);
 	
+	void calculateDailyInterest(AccountDTO account);
+
+	void calculateDailyLoanInterest(AccountDTO loan);
+	
+	List<AccountDTO> getAllActiveAccounts();
 }

@@ -1,5 +1,7 @@
 package com.spike.dao;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -35,6 +37,16 @@ public class AccountDAOImpl implements AccountDAO {
 	@Override
 	public void accountsecession(String account_number) {
 		this.accountrepo.accountsecession(account_number);
+	}
+
+	@Override
+	public List<AccountDTO> getAllActiveAccounts() {
+		return this.accountrepo.findByDeletedFalse();
+	}
+
+	@Override
+	public void updateAccount(AccountDTO account) {
+		this.accountrepo.updateAccount(account);
 	}
 
 }
