@@ -30,29 +30,29 @@ public class AccountDTO {
       @Id
       @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "account_seq_generator")
 
-      private long account_id;
+      private Long accountId;
 
       @ManyToOne(fetch = FetchType.LAZY)
       @JoinColumn(name = "user_id")
       private UserDTO owner;
 
-      private String account_type;
+      private String accountType;
 
-      private String account_number;
+      private String accountNumber;
 
-      private String account_password;
+      private String accountPassword;
 
-      private Long one_limit;
+      private Long oneLimit;
 
-      private Long day_limit;
+      private Long dayLimit;
 
       private Long balance;
 
       @CreationTimestamp
       @Column(columnDefinition = "TIMESTAMP DEFAULT SYSDATE")
-      private LocalDate created_date;
+      private LocalDate createdDate;
 
-      private LocalDate update_date;
+      private LocalDate updateDate;
 
       private Double interestRate = 4.0; // 기본 금리 4.0%로 설정
       
@@ -71,8 +71,8 @@ public class AccountDTO {
       @PrePersist // DB 저장 전
       @PreUpdate // DB 수정 전
       public void calculateTotalRate() {
-          if (account_type != null) {
-              switch (account_type) {
+          if (accountType != null) {
+                switch (accountType) {
                   case "예금":
                       interestRate = 4.0;
                       bonusRate = 2.0;

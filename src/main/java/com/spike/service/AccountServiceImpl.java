@@ -20,23 +20,23 @@ public class AccountServiceImpl implements AccountService {
 	}
 
 	@Override
-	public void Oneupdateaccount(Long one_limit, String account_number) {
-		this.accountdao.Oneupdateaccount(one_limit, account_number);
+	public void Oneupdateaccount(Long oneLimit, String accountNumber) {
+		this.accountdao.Oneupdateaccount(oneLimit, accountNumber);
 	}
 
 	@Override
-	public void Dayupdateaccount(Long day_limit, String account_number) {
-		this.accountdao.Dayupdateaccount(day_limit, account_number);
+	public void Dayupdateaccount(Long dayLimit, String accountNumber) {
+		this.accountdao.Dayupdateaccount(dayLimit, accountNumber);
 	}
 
 	@Override
-	public void Passwordupdateaccount(String account_password, String account_number) {
-		this.accountdao.Passwordupdateaccount(account_password, account_number);
+	public void Passwordupdateaccount(String accountPassword, String accountNumber) {
+		this.accountdao.Passwordupdateaccount(accountPassword, accountNumber);
 	}
 
 	@Override
-	public void accountsecession(String account_number) {
-		this.accountdao.accountsecession(account_number);
+	public void accountsecession(String accountNumber) {
+		this.accountdao.accountsecession(accountNumber);
 	}
 
 	// 예금/적금 이자 계산

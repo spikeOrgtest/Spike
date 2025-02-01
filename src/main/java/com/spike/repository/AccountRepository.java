@@ -17,18 +17,18 @@ public interface AccountRepository extends JpaRepository<AccountDTO, Long> {
 
 	@Modifying
 	@Transactional
-	@Query("update AccountDTO a set a.one_limit = ?1 where a.account_number =?2")
-	void Oneupdateaccount(Long one_limit, String accountnumber);
+	@Query("update AccountDTO a set a.oneLimit = ?1 where a.accountNumber =?2")
+	void Oneupdateaccount(Long oneLimit, String accountNumber);
 	
 	@Modifying
 	@Transactional
-	@Query("update AccountDTO a set a.day_limit = ?1 where a.account_number =?2")
-	void Dayupdateaccount(Long day_limit, String accountnumber);
+	@Query("update AccountDTO a set a.dayLimit = ?1 where a.accountNumber =?2")
+	void Dayupdateaccount(Long dayLimit, String accountNumber);
 
 	@Modifying
 	@Transactional
-	@Query("update AccountDTO a set a.account_password = ?1 where a.account_number =?2")
-	void Passwordupdateaccount(String account_password, String account_number);
+	@Query("update AccountDTO a set a.accountPassword = ?1 where a.accountNumber =?2")
+	void Passwordupdateaccount(String accountPassword, String accountNumber);
 
 	@Modifying
 	@Transactional
@@ -37,17 +37,17 @@ public interface AccountRepository extends JpaRepository<AccountDTO, Long> {
 
 	@Modifying
 	@Transactional
-	@Query("delete from AccountDTO a where a.account_number=?1")
-	public void accountsecession(String account_number);
+	@Query("delete from AccountDTO a where a.accountNumber=?1")
+	public void accountsecession(String accountNumber);
 
 	@Query("SELECT a FROM AccountDTO a WHERE a.deleted = false")
 	List<AccountDTO> findByDeletedFalse();
 
-	@Modifying
+	@Modifying	
 	@Transactional
 	@Query("update AccountDTO a set a.balance = :#{#account.balance}, " +
 		   "a.lastInterestDate = :#{#account.lastInterestDate} " +
-		   "where a.account_id = :#{#account.account_id}")
+		   "where a.accountId = :#{#account.accountId}")
 	void updateAccount(@Param("account") AccountDTO account);
 
 }

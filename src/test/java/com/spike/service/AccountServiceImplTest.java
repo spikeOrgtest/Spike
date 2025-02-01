@@ -22,13 +22,13 @@ public class AccountServiceImplTest {
     public void testInterestCalculation() {
         // 테스트용 계좌 생성
         AccountDTO account = new AccountDTO();
-        account.setAccount_type("예금");
+        account.setAccountType("예금");
         account.setBalance(1000000L);
         account.setStartDate(LocalDate.now().minusDays(30));
         account.setLastInterestDate(LocalDate.now().minusDays(30));
-        account.setAccount_password("123123");
+        account.setAccountPassword("123123");
         
-        // AccountDTO의 PrePersist에 의해 자동으로 이자율이 설정됨
+        // AccountDTO의 PrePersist에 의해 자동으로 이자율이 설정됨 
         // 예금의 경우 기본금리 4.0% + 우대금리 2.0% = 총 6.0%
         
         // 계좌 저장
@@ -36,9 +36,9 @@ public class AccountServiceImplTest {
         
         // 이자 계산 실행
         accountService.calculateDailyInterest(savedAccount);
-        
+    
         // DB에서 계좌 다시 조회
-        AccountDTO updatedAccount = accountRepository.findById(savedAccount.getAccount_id()).orElseThrow();
+        AccountDTO updatedAccount = accountRepository.findById(savedAccount.getAccountId()).orElseThrow();
         
         // 검증
         // 30일 동안의 이자 계산: 1,000,000 * (6.0% / 365) * 30 ≈ 4,931원

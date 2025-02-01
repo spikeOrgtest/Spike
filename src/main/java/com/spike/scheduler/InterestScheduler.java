@@ -17,14 +17,13 @@ public class InterestScheduler {
     @Scheduled(cron = "0 0 0 * * *")
     public void calculateDailyInterest() {
         List<AccountDTO> accounts = accountService.getAllActiveAccounts();
-        
         for (AccountDTO account : accounts) {
-            if (account.getAccount_type().equals("예금") || account.getAccount_type().equals("적금")) {
+            if (account.getAccountType().equals("예금") || account.getAccountType().equals("적금")) {
                 accountService.calculateDailyInterest(account);
-            } else if (account.getAccount_type().equals("대출")) {
+            } else if (account.getAccountType().equals("대출")) {
                 accountService.calculateDailyLoanInterest(account);
             }
         }
 
-    }
+    }   
 } 

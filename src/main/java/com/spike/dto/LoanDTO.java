@@ -34,15 +34,15 @@ public class LoanDTO {
 			generator = "loan_seq_generator"
 			)
 	
-	private Integer loan_id;
+	private Integer loanId;
 	
 	@ManyToOne
 	private UserDTO owner;
 	
-	private String loan_name;
+	private String loanName;
 	
 	@CreationTimestamp
 	@Column(columnDefinition = "TIMESTAMP DEFAULT SYSDATE")
-	private LocalDate created_date;
+	private LocalDate createdDate;
 	
 }

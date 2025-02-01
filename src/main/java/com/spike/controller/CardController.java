@@ -78,7 +78,7 @@ public class CardController {
 		
 		UserDTO sessionUser = (UserDTO) session.getAttribute("User");
 		s.setOwner(sessionUser);
-		s.setCard_password(passwordEncoder.encode(s.getCard_password()));
+		s.setCardPassword(passwordEncoder.encode(s.getCardPassword()));
 		this.cardService.createCard(s);
 		
 		return new ModelAndView("redirect:/spike.com/products");

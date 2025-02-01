@@ -34,23 +34,23 @@ public class CardDTO {
 			generator = "card_seq_generator"
 			)
 	
-	private Integer card_id;
+	private Integer cardId;
 	
 	@ManyToOne
 	private UserDTO owner;
 	
-	private String card_name;
+	private String cardName;
 	
-	private String card_number;
+	private String cardNumber;
 	
-	private String card_password;
+	private String cardPassword;
 	
-	private String Overseas_payment;
+	private String OverseasPayment;
 	
-	private String transportation_card;
+	private String transportationCard;
 	
 	@CreationTimestamp
 	@Column(columnDefinition = "TIMESTAMP DEFAULT SYSDATE")
-	private LocalDate created_date;
+	private LocalDate createdDate;
 	
 }
