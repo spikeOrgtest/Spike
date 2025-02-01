@@ -1,0 +1,134 @@
+@charset "UTF-8";
+
+
+/*------------------------ GPT 존------------------------------------------------*/
+/* 전체 배경 스타일 */
+#transferBody {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f9f9f9; /* 부드러운 회색 배경 */
+}
+
+/* 전체 컨테이너 */
+#transferWrapper {
+    width: 90%;
+    max-width: 500px;
+    padding: 20px;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+/* 정보 섹션 스타일 */
+#infoWrapper {
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f5f5f5;
+    margin-bottom: 15px;
+    text-align:left;
+    padding-left: 25%;
+}
+
+#infoWrapper p {
+    font-size: 16px;
+    color: #333;
+    font-weight: bold;
+    margin: 8px 0;
+}
+
+/* SPIKE SHIELD 스타일 */
+#shieldWrapper {
+    padding: 15px;
+    background-color: #fff;
+    border: 2px solid #f5b700;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+#shieldWrapper:hover {
+    background-color: #fef5c4;
+}
+
+#shieldWrapper p {
+    font-weight: bold;
+    color: #f5b700;
+}
+
+/* 이미지 스타일 */
+#imgWrapper {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+#imgWrapper img {
+    width: 180px;
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out;
+}
+
+#imgWrapper img:hover {
+    transform: scale(1.1);
+}
+
+/* 폼 스타일 */
+form {
+    margin-top: 15px;
+}
+
+form p {
+    font-weight: bold;
+    font-size: 16px;
+}
+
+input[type="password"] {
+    width: 50%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+/* 버튼 스타일 */
+.buttons {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+    gap: 30px;
+}
+
+button {
+    width: 30%;
+    padding: 10px;
+    font-size: 16px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+button.confirm {
+    background-color: #007bff;
+    color: white;
+}
+
+button.confirm:hover {
+    background-color: #0056b3;
+}
+
+button[type="button"] {
+    background-color: #ccc;
+}
+
+button[type="button"]:hover {
+    background-color: #999;
+}
+
+
