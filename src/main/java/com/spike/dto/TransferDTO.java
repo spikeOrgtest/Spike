@@ -13,14 +13,16 @@ public class TransferDTO { //이체처리를 위한 데이터 전송 객체
 	private String memo;
 	private String accountPassword;
 	private String ownerName;
+	private String ownerStatus;
 	
-	public TransferDTO(Long fromAccountId, String toAccount, long amount, String memo, String accountPassword, String toAccOwner) {
+	public TransferDTO(Long fromAccountId, String toAccount, long amount, String memo, String accountPassword, String toAccOwner, String status) {
 		this.fromAccountId = fromAccountId;
 		this.toAccount = toAccount;
 		this.amount = amount;
 		this.memo = memo;
 		this.accountPassword = accountPassword;
 		this.ownerName = toAccOwner;
+		this.ownerStatus = status;
 	}
 
 }
