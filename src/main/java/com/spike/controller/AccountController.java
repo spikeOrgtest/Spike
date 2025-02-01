@@ -87,9 +87,16 @@ public class AccountController {
 	}
 
 	@GetMapping("/products/newsavings")
-	public ModelAndView newSavings(HttpSession session) {
+	public ModelAndView newSavings(HttpSession session, HttpServletResponse response) throws IOException {
+		response.setContentType("text/html; charset=UTF-8");
+		PrintWriter out = response.getWriter();
+		
 		if (session.getAttribute("User") == null) {
-			return new ModelAndView("redirect:/spike.com/login");
+			out.println("<script>");
+			out.println("alert('로그인이 필요한 서비스입니다.');");
+			out.println("location.href='/spike.com/login';");
+			out.println("</script>");
+			return null;
 		}
 
 		String[] account_type = { "적금" };
