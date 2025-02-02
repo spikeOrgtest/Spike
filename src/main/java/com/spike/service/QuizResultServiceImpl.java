@@ -65,7 +65,7 @@ public class QuizResultServiceImpl implements QuizResultService {
 
         // 퀴즈 결과 객체 생성
         QuizResultDTO result = new QuizResultDTO();
-    //    result.setUser_id(userId); // 사용자 ID 설정
+    //    result.setUserId(userId); // 사용자 ID 설정
         result.setQuiz_id(quizId); // 퀴즈 ID 설정
         result.setAnswered_correctly(answeredCorrectly); // 정답 여부 설정
         result.setEarned_points(isCorrect ? 10 : 0); // 정답이면 포인트 부여 (예: 정답 10점, 오답 0점)

@@ -42,13 +42,13 @@ public class MypageController {
 		UserDTO user = (UserDTO) session.getAttribute("User");
 
 		String name = user.getName();
-		String e_mail = user.getEmail_id();
-		String e_mail2 = user.getEmail_domain();
-		LocalDate Registrationdate = user.getRegistration_date();
+		String e_mail = user.getEmailId();
+		String e_mail2 = user.getEmailDomain();
+		LocalDate Registrationdate = user.getRegistrationDate();
 		String phone = user.getPhone();
 		String roadaddress = user.getRoadAddress();
 		String detailaddress = user.getDetailAddress();
-		LocalDate birthdate = user.getBirth_date();
+		LocalDate birthdate = user.getBirthDate();
 
 		String[] email = { "gmail.com", "naver.com", "daum.net", "nate.com", "직접입력" };
 		ModelAndView s = new ModelAndView();
@@ -67,7 +67,7 @@ public class MypageController {
 
 	// 마이페이지 메인 프로필 수정
 	@PostMapping("/profileEdit")
-	public ModelAndView profileEdit(UserDTO s, HttpSession session) {
+	public ModelAndView profileEdit(UserDTO s, HttpSession session, HttpServletResponse response) throws Exception {
 
 		// 세션에 저장된 객체 저장
 		UserDTO sessionUser = (UserDTO) session.getAttribute("User");
@@ -76,12 +76,12 @@ public class MypageController {
 		s.setLoginId(loginId);
 
 		// 이메일 도메인 처리
-		String email = s.getEmail_id() + "@" + s.getEmail_domain(); // 이메일 ID와 도메인을 합침
+		String email = s.getEmailId() + "@" + s.getEmailDomain(); // 이메일 ID와 도메인을 합침
 		if (email != null && !email.isEmpty()) {
 			String[] emailParts = email.split("@");
 			if (emailParts.length == 2) {
-				s.setEmail_id(emailParts[0]);
-				s.setEmail_domain(emailParts[1]); // email_domain 필드에 도메인 부분을 설정
+				s.setEmailId(emailParts[0]);
+				s.setEmailDomain(emailParts[1]); // EmailDomain 필드에 도메인 부분을 설정
 			}
 		}
 
@@ -93,7 +93,14 @@ public class MypageController {
 		sessionUser.setName(s.getName());
 		session.setAttribute("User", sessionUser);
 
-		return new ModelAndView("/mypage/mypageMain");
+		response.setContentType("text/html;charset=UTF-8");
+		PrintWriter out = response.getWriter();
+		out.println("<script>");
+		out.println("alert('수정되었습니다!');");
+		out.println("window.location.href = '/spike.com/';"); // 실패 시 마이페이지 수정 페이지로 리다이렉트
+		out.println("</script>");
+
+		return null;
 	}
 
 	// 마이페이지 회원정보 수정 폼
@@ -119,12 +126,12 @@ public class MypageController {
 		s.setLoginId(loginId);
 
 		// 이메일 도메인 처리
-		String email = s.getEmail_id() + "@" + s.getEmail_domain(); // 이메일 ID와 도메인을 합침
+		String email = s.getEmailId() + "@" + s.getEmailDomain(); // 이메일 ID와 도메인을 합침
 		if (email != null && !email.isEmpty()) {
 			String[] emailParts = email.split("@");
 			if (emailParts.length == 2) {
-				s.setEmail_id(emailParts[0]);
-				s.setEmail_domain(emailParts[1]); // email_domain 필드에 도메인 부분을 설정
+				s.setEmailId(emailParts[0]);
+				s.setEmailDomain(emailParts[1]); // EmailDomain 필드에 도메인 부분을 설정
 			}
 		}
 
@@ -165,7 +172,7 @@ public class MypageController {
 		PrintWriter out = response.getWriter();
 
 		UserDTO sessionUser = (UserDTO) session.getAttribute("User");
-		userId = sessionUser.getUser_id();
+		userId = sessionUser.getUserId();
 		List<String> list = userService.findbyaccountnumber(userId);
 
 		if (list.size() == 0) {
@@ -196,7 +203,7 @@ public class MypageController {
 	@GetMapping("inquiry")
 	public ModelAndView inquiry(HttpSession session, Long userId) {
 		UserDTO sessionUser = (UserDTO) session.getAttribute("User");
-		userId = sessionUser.getUser_id();
+		userId = sessionUser.getUserId();
 
 		List<AccountDTO> list = userService.findbyinquriy(userId);
 

@@ -45,7 +45,7 @@ public class QuizController {
 
      // 퀴즈 결과를 DTO 객체에 저장
         QuizResultDTO quizResult = new QuizResultDTO();
-        u.getUser_id(); // 사용자 ID 설정
+        u.getUserId(); // 사용자 ID 설정
         quizResult.setQuiz_id(quizId); // 퀴즈 ID 설정
         quizResult.setAnswered_correctly(isCorrect ? 'Y' : 'N'); // 정답 여부 설정
         quizResult.setEarned_points(isCorrect ? 10 : 0); // 정답이면 10포인트 적립, 틀리면 0포인트
@@ -106,7 +106,7 @@ public class QuizController {
     @GetMapping("/test/attemptQuiz")  // '/spike.com/test/attemptQuiz' 경로로 GET 요청
     @ResponseBody
     public String testAttemptQuiz(UserDTO u) {
-    	u.getUser_id();
+    	u.getUserId();
         int userId = 1;  // 'qwer' 사용자 ID
         int quizId = 1;  // 첫 번째 퀴즈
         String userAnswer = "O";  // 정답을 맞췄다고 가정

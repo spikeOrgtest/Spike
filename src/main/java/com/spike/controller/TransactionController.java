@@ -35,7 +35,7 @@ public class TransactionController {
 		UserDTO user = (UserDTO)session.getAttribute("User");
 		if(user != null) { //로그인 된 상태 확인 후 계좌목록, 거래기록 담아서 뷰페이지 반환
 			List<AccountDTO> accList = this.transService.getAccountList(user);
-			List<TransferHistoryDTO> histories = this.transService.getRecentTransfers(user.getUser_id());
+			List<TransferHistoryDTO> histories = this.transService.getRecentTransfers(user.getUserId());
 			
 			mv.addObject("accountList", accList);
 			mv.addObject("histories", histories);
