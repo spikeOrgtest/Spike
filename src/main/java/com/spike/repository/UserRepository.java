@@ -87,7 +87,7 @@ public interface UserRepository extends JpaRepository<UserDTO, Long> {
 	public void UserDelete(Long UserId);
 
 	@Modifying
-	@Transactional
+	@Transactional'
 	@Query("delete FROM AccountDTO a WHERE a.owner.userId =?1")
 	public void AccountDelete(Long UserId);
 
