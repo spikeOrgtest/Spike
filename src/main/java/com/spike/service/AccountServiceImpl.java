@@ -89,4 +89,5 @@ public class AccountServiceImpl implements AccountService {
 	public List<AccountDTO> getAllActiveAccounts() {
 		return accountdao.getAllActiveAccounts();
 	}
+
 }

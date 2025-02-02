@@ -17,7 +17,7 @@ public class UserDAOImpl implements UserDAO {
 
 	@Autowired
 	private UserRepository spikeRepo;
-	
+
 	@Autowired
 	private AccountRepository accountRepo;
 
@@ -105,14 +105,13 @@ public class UserDAOImpl implements UserDAO {
 		this.spikeRepo.usersecession(loginId);
 	}
 
-
 	@Override
 	public List<AccountDTO> findbyinquriy(Long userId) {
 		return this.spikeRepo.findByUserId(userId);
 	}
 
 	@Override
-	public String findbyaccountnumber(Long userId) {
+	public List<String> findbyaccountnumber(Long userId) {
 		return this.spikeRepo.findbyaccountnumber(userId);
 	}
 
@@ -120,5 +119,35 @@ public class UserDAOImpl implements UserDAO {
 	public Long todayloge() {
 		return this.spikeRepo.todayloge();
 	}
-	
+
+	@Override
+	public Long newMember() {
+		return this.spikeRepo.newMember();
+	}
+
+	@Override
+	public List<UserDTO> findByUserList() {
+		return this.spikeRepo.findAll();
+	}
+
+	@Override
+	public List<UserDTO> findByUserIdEdit(Long user_id) {
+		return this.spikeRepo.findByUserIdEdit(user_id);
+	}
+
+	@Override
+	public void UpdateUser(String is_minor, String status, Long user_id) {
+		this.spikeRepo.UpdateUser(is_minor, status, user_id);
+	}
+
+	@Override
+	public void UserDelete(Long user_id) {
+		this.spikeRepo.UserDelete(user_id);
+	}
+
+	@Override
+	public void AccountDelete(Long user_id) {
+		this.spikeRepo.AccountDelete(user_id);
+	}
+
 }

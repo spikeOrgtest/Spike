@@ -1,20 +1,28 @@
 package com.spike.repository;
 
 import java.util.List;
-
 import javax.transaction.Transactional;
-
 import org.apache.ibatis.annotations.Param;
+import java.util.Optional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import com.spike.dto.AccountDTO;
+import com.spike.dto.UserDTO;
 
 @Repository
 public interface AccountRepository extends JpaRepository<AccountDTO, Long> {
+	//UserDTO user의 계좌 리스트를 반환하는 쿼리 메서드
+	List<AccountDTO> findByOwner(UserDTO user);
+	
+	//계좌번호를 검색해서 계좌 엔티티를 반환하는 쿼리 메서드 -> 필드명이 account_number라 쿼리메서드 불가능. JPQL사용
+	@Query("SELECT a FROM AccountDTO a WHERE a.account_number = ?1")
+	Optional<AccountDTO> findByAccountNumber(String accountNumber);
 
+	
 	@Modifying
 	@Transactional
 	@Query("update AccountDTO a set a.oneLimit = ?1 where a.accountNumber =?2")
@@ -32,11 +40,6 @@ public interface AccountRepository extends JpaRepository<AccountDTO, Long> {
 
 	@Modifying
 	@Transactional
-	@Query("delete from UserDTO s where s.loginId=?1")
-	public void secession(String loginId);
-
-	@Modifying
-	@Transactional
 	@Query("delete from AccountDTO a where a.accountNumber=?1")
 	public void accountsecession(String accountNumber);
 
@@ -51,3 +54,4 @@ public interface AccountRepository extends JpaRepository<AccountDTO, Long> {
 	void updateAccount(@Param("account") AccountDTO account);
 
 }
+

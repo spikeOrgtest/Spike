@@ -20,4 +20,5 @@ public interface AccountService {
 	void calculateDailyLoanInterest(AccountDTO loan);
 	
 	List<AccountDTO> getAllActiveAccounts();
+  
 }
