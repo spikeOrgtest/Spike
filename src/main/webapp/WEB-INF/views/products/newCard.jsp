@@ -31,7 +31,7 @@
 			<div class="form-group">
 				<label for="card_name">카드선택</label>
 				<div class="card_container">
-					<select id="card_name" name="card_name">
+					<select id="card_name" name="cardName">
 						<c:forEach var="type" items="${card_name}">
 							<option value="${type}">${type}</option>
 						</c:forEach>
@@ -54,15 +54,15 @@
 						<input type="radio" id="no" name="option2" value="no"><label for="no">신청안함</label>
 					</div>
 			</div>
-			<input type="hidden" id="overseas_payment_value" name="overseas_payment" />
-<input type="hidden" id="transportation_card_value" name="transportation_card" />
+			<input type="hidden" id="overseas_payment_value" name="overseasPayment" />
+<input type="hidden" id="transportation_card_value" name="transportationCard" />
 			
 
 			<div class="form-group">
 				<label for="password">비밀번호</label>
 				<div class="password_container">
 					<input type="password" id="card_password"
-						name="card_password" required />
+						name="cardPassword" required />
 				</div>
 				<p class="password-requirements">비밀번호는 6자 숫자를 사용해야 합니다.</p>
 			</div>
@@ -89,7 +89,7 @@
 				<button type="submit">카드 발급</button>
 				<button type="button" onclick="location.href='../products'">취소</button>
 			</div>
-			<input type="hidden" id="card_number" name="card_number" />
+			<input type="hidden" id="card_number" name="cardNumber" />
 		</form>
 		<!-- 성공메시지는 alert 사용해서 띄우는 방향으로 수정하기. -->
 		<div id="cardInfo" class="hidden">

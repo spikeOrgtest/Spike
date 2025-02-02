@@ -25,9 +25,9 @@ public class QuizResultServiceImpl implements QuizResultService {
             // 새로운 퀴즈 결과 객체 생성
             QuizResultDTO result = new QuizResultDTO();
        //    result.set(userId); // 사용자 ID 설정
-            result.setQuiz_id(quizId); // 퀴즈 ID 설정
-            result.setAnswered_correctly(answeredCorrectly); // 정답 여부 설정
-            result.setEarned_points(answeredCorrectly == 'Y' ? 10 : 0); // 정답 시 포인트 부여 (예: 정답 10점, 오답 0점)
+            result.setQuizId(quizId); // 퀴즈 ID 설정
+            result.setAnsweredCorrectly(answeredCorrectly); // 정답 여부 설정
+            result.setEarnedPoints(answeredCorrectly == 'Y' ? 10 : 0); // 정답 시 포인트 부여 (예: 정답 10점, 오답 0점)
 
             // 퀴즈 결과를 DB에 저장하고 결과를 반환
             return quizResultDAO.saveQuizResult(result); // 저장된 결과 반환
@@ -66,9 +66,9 @@ public class QuizResultServiceImpl implements QuizResultService {
         // 퀴즈 결과 객체 생성
         QuizResultDTO result = new QuizResultDTO();
     //    result.setUserId(userId); // 사용자 ID 설정
-        result.setQuiz_id(quizId); // 퀴즈 ID 설정
-        result.setAnswered_correctly(answeredCorrectly); // 정답 여부 설정
-        result.setEarned_points(isCorrect ? 10 : 0); // 정답이면 포인트 부여 (예: 정답 10점, 오답 0점)
+        result.setQuizId(quizId); // 퀴즈 ID 설정
+        result.setAnsweredCorrectly(answeredCorrectly); // 정답 여부 설정
+        result.setEarnedPoints(isCorrect ? 10 : 0); // 정답이면 포인트 부여 (예: 정답 10점, 오답 0점)
 
         // 퀴즈 결과 DB에 저장
         quizResultDAO.saveQuizResult(result);

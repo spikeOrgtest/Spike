@@ -46,10 +46,10 @@ public class QuizController {
      // 퀴즈 결과를 DTO 객체에 저장
         QuizResultDTO quizResult = new QuizResultDTO();
         u.getUserId(); // 사용자 ID 설정
-        quizResult.setQuiz_id(quizId); // 퀴즈 ID 설정
-        quizResult.setAnswered_correctly(isCorrect ? 'Y' : 'N'); // 정답 여부 설정
-        quizResult.setEarned_points(isCorrect ? 10 : 0); // 정답이면 10포인트 적립, 틀리면 0포인트
-        quizResult.setAttempt_date(new Date()); // 현재 시간 설정 (퀴즈 시도 시간)
+        quizResult.setQuizId(quizId); // 퀴즈 ID 설정
+        quizResult.setAnsweredCorrectly(isCorrect ? 'Y' : 'N'); // 정답 여부 설정
+        quizResult.setEarnedPoints(isCorrect ? 10 : 0); // 정답이면 10포인트 적립, 틀리면 0포인트
+        quizResult.setAttemptDate(new Date()); // 현재 시간 설정 (퀴즈 시도 시간)
 
 
         // 퀴즈 결과를 서비스 메소드를 통해 DB에 저장

@@ -18,7 +18,7 @@ public interface NoticeRepository extends JpaRepository<NoticeDTO, Long > {
 	//public void updateLevel(int ref, int level);
 
 	@Modifying
-	@Query("update NoticeDTO n set n.notice_name=?1, notice_title=?2, notice_cont=?3, notice_file=?4 where n.notice_no=?5")
+	@Query("update NoticeDTO n set n.noticeName=?1, noticeTitle=?2, noticeCont=?3, noticeFile=?4 where n.noticeNo=?5")
 	public void updateNoti(String name, String title , String cont, String file, Long notice_no);
 	
 	

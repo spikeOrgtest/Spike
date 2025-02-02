@@ -14,6 +14,6 @@ public class NotiPageDTO {
 	private int endrow;//끝행 번호
 	
 	//검색 관련변수
-	private String find_field; // 검색필드
-	private String find_name; // 검색어
+	private String findField; // 검색필드
+	private String findName; // 검색어
 }

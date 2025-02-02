@@ -35,17 +35,17 @@ public class QuizResultDTO {
         strategy = GenerationType.SEQUENCE, // SEQUENCE 전략을 사용
         generator = "quiz_result_no_seq" // quiz_result_no_seq 시퀀스 제너레이터 사용
     )
-    private int result_id; // 퀴즈 결과 고유 ID
+    private int resultId; // 퀴즈 결과 고유 ID
     
     //private int UserId; // 사용자 ID
-    private int quiz_id; // 퀴즈 ID
+    private int quizId; // 퀴즈 ID
     
-    private char answered_correctly; // 정답 여부 (Y/N)
+    private char answeredCorrectly; // 정답 여부 (Y/N)
 
-    private Integer earned_points; // 적립된 포인트, Integer로 변경하여 0도 가능하게 설정
+    private Integer earnedPoints; // 적립된 포인트, Integer로 변경하여 0도 가능하게 설정
 
     @CreationTimestamp // 생성 시 자동으로 타임스탬프 삽입
-    private Date attempt_date; // 퀴즈 시도 일시, Date로 변경하여 정확한 날짜 저장
+    private Date attemptDate; // 퀴즈 시도 일시, Date로 변경하여 정확한 날짜 저장
 
 	
 

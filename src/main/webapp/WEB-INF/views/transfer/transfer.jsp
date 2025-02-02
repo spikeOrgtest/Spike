@@ -78,10 +78,10 @@
 												</c:when>
 												<c:otherwise>
 													<c:forEach var="account" items="${accountList}">
-														<option value="${account.account_id}"
+														<option value="${account.accountId}"
 															data-balance="${account.balance}"
-															data-available="${account.day_limit}">
-															${account.account_type}: ${account.account_number}</option>
+															data-available="${account.dayLimit}">
+															${account.accountType}: ${account.accountNumber}</option>
 													</c:forEach>
 												</c:otherwise>
 											</c:choose>
