@@ -1,5 +1,7 @@
 package com.spike.dao;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -18,19 +20,33 @@ public class AccountDAOImpl implements AccountDAO {
 	}
 
 	@Override
-	public void Oneupdateaccount(Long one_limit, String account_number) {
-		this.accountrepo.Oneupdateaccount(one_limit, account_number);
+	public void Oneupdateaccount(Long oneLimit, String accountNumber) {
+		this.accountrepo.Oneupdateaccount(oneLimit, accountNumber);
 	}
 
 	@Override
-	public void Dayupdateaccount(Long day_limit, String account_number) {
-		this.accountrepo.Dayupdateaccount(day_limit, account_number);
+	public void Dayupdateaccount(Long dayLimit, String accountNumber) {
+		this.accountrepo.Dayupdateaccount(dayLimit, accountNumber);
 	}
 
 	@Override
-	public void Passwordupdateaccount(String account_password, String account_number) {
-		this.accountrepo.Passwordupdateaccount(account_password, account_number);
+	public void Passwordupdateaccount(String accountPassword, String accountNumber) {
+		this.accountrepo.Passwordupdateaccount(accountPassword, accountNumber);
 	}
 
+	@Override
+	public void accountsecession(String accountNumber) {
+		this.accountrepo.accountsecession(accountNumber);
+	}
+
+	@Override
+	public List<AccountDTO> getAllActiveAccounts() {
+		return this.accountrepo.findByDeletedFalse();
+	}
+
+	@Override
+	public void updateAccount(AccountDTO account) {
+		this.accountrepo.updateAccount(account);
+	}
 
 }

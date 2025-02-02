@@ -125,6 +125,7 @@
 		
 		<%
 				// 세션에 이미지 경로 저장
+				session.setAttribute("selectedCard", "디지털 카드");
 				session.setAttribute("imagePath", "../../../images/product/DIGITALCARD.png");
 				%>
 		
