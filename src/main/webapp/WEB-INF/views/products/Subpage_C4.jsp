@@ -123,7 +123,8 @@
             </div>
         </section>
 <%
-				// 세션에 이미지 경로 저장
+				// SPIKE 카드
+				session.setAttribute("selectedCard", "SPIKE 카드");
 				session.setAttribute("imagePath", "../../../images/product/SPIKECARD.png");
 				%>
         <section class="cta">

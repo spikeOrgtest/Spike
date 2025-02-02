@@ -1,17 +1,25 @@
 package com.spike.dao;
 
+import java.util.List;
+
 import com.spike.dto.AccountDTO;
 
 public interface AccountDAO {
 
 	void createAccount(AccountDTO s);
 
-	void Oneupdateaccount(Long one_limit, String account_number);
+	void Oneupdateaccount(Long oneLimit, String accountNumber);
 
-	void Dayupdateaccount(Long day_limit, String account_number);
+	void Dayupdateaccount(Long dayLimit, String accountNumber);
 
 	void Passwordupdateaccount(AccountDTO a);
 
 	AccountDTO findByAccount(String account_number);
+
+	void accountsecession(String accountNumber);
+
+	void updateAccount(AccountDTO account);
+
+	List<AccountDTO> getAllActiveAccounts();
 
 }

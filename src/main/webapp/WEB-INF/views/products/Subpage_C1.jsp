@@ -130,7 +130,8 @@
 				</section>
 
 				<%
-				// 세션에 이미지 경로 저장
+				// SPIKE 청년 카드
+				session.setAttribute("selectedCard", "SPIKE 청년 카드");
 				session.setAttribute("imagePath", "../../../images/product/YOUTHCARD.png");
 				%>
 

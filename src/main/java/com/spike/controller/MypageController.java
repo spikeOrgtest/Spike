@@ -276,8 +276,8 @@ public class MypageController {
 		AccountDTO ac = this.accountService.findByAccount(account_number);
 
 		// 기존 비밀번호와 새 비밀번호가 동일한지 확인
-		String existingPassword = ac.getAccount_password(); // DB에서 가져온 기존 비밀번호
-		String encryptedNewPassword = passwordEncoder.encode(a.getAccount_password()); // 새 비밀번호를 암호화
+		String existingPassword = ac.getAccountPassword(); // DB에서 가져온 기존 비밀번호
+		String encryptedNewPassword = passwordEncoder.encode(a.getAccountPassword()); // 새 비밀번호를 암호화
 		String currentPassword = request.getParameter("currentPassword");
 
 		if (!passwordEncoder.matches(currentPassword, existingPassword)) {
@@ -291,7 +291,7 @@ public class MypageController {
 			return null;
 		}
 
-		if (passwordEncoder.matches(a.getAccount_password(), existingPassword)) {
+		if (passwordEncoder.matches(a.getAccountPassword(), existingPassword)) {
 			out.println("<script>");
 			out.println("alert('기존 비밀번호와 새 비밀번호가 동일합니다!');");
 			out.println("window.location.href = '/spike.com/mypage/inquiry';");
@@ -299,7 +299,7 @@ public class MypageController {
 			return null;
 		}
 
-		a.setAccount_password(encryptedNewPassword); // 비밀번호 변경
+		a.setAccountPassword(encryptedNewPassword); // 비밀번호 변경
 
 		this.accountService.Passwordupdateaccount(a);
 

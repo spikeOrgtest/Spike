@@ -60,7 +60,7 @@ public interface UserRepository extends JpaRepository<UserDTO, Long> {
 	@Query("SELECT a FROM AccountDTO a WHERE a.owner.userId =?1")
 	public List<AccountDTO> findByUserId(Long userId);
 
-	@Query("SELECT a.account_number FROM AccountDTO a WHERE a.owner.userId =?1")
+	@Query("SELECT a.accountNumber FROM AccountDTO a WHERE a.owner.userId =?1")
 	public List<String> findbyaccountnumber(Long userId);
 
 	// @Query("SELECT COUNT(a) FROM UserDTO a WHERE FUNCTION('DATE', a.UserId) =
