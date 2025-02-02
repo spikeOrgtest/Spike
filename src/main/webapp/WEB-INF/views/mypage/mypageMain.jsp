@@ -284,17 +284,22 @@
 						                            </select>
 						                        </div>
 						                    </div>
+						                    
+						                	<div class="form-group mb-3">
+						                        <label for="userPassword" class="form-label">현재 비밀번호</label>
+						                        <input type="password" class="form-control" id="currentPassword" name="currentPassword" placeholder="현재 비밀번호를 입력하세요" >
+						                    </div>
 											
 						                    <!-- 비밀번호 -->
 						                    <div class="form-group mb-3">
 						                        <label for="userPassword" class="form-label">비밀번호</label>
-						                        <input type="password" class="form-control" id="password" name="password" placeholder="비밀번호를 입력하세요" required>
+						                        <input type="password" class="form-control" id="password" name="password" placeholder="비밀번호를 입력하세요" >
 						                    </div>
 											
 						                    <!-- 비밀번호 확인 -->
 						                    <div class="form-group mb-3">
 						                        <label for="userPassword" class="form-label">비밀번호 확인</label>
-						                        <input type="password" class="form-control" id="password2" name="password2" placeholder="비밀번호를 다시 입력하세요" required>
+						                        <input type="password" class="form-control" id="password2" name="password2" placeholder="비밀번호를 다시 입력하세요" >
 						                    </div>
 											
 						                    <!-- 저장 버튼 -->

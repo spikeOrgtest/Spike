@@ -67,7 +67,10 @@ public class MypageController {
 
 	// 마이페이지 메인 프로필 수정
 	@PostMapping("/profileEdit")
-	public ModelAndView profileEdit(UserDTO s, HttpSession session, HttpServletResponse response) throws Exception {
+	public ModelAndView profileEdit(UserDTO s, HttpSession session, HttpServletResponse response,
+			HttpServletRequest request) throws Exception {
+		response.setContentType("text/html;charset=UTF-8");
+		PrintWriter out = response.getWriter();
 
 		// 세션에 저장된 객체 저장
 		UserDTO sessionUser = (UserDTO) session.getAttribute("User");
@@ -85,7 +88,28 @@ public class MypageController {
 			}
 		}
 
-		s.setPassword(passwordEncoder.encode(s.getPassword()));
+		// 기존 비밀번호와 새 비밀번호가 동일한지 확인
+		String existingPassword = sessionUser.getPassword(); // DB에서 가져온 기존 비밀번호
+		String encryptedNewPassword = passwordEncoder.encode(s.getPassword()); // 새 비밀번호를 암호화
+		String currentPassword = request.getParameter("currentPassword");
+
+		if (!passwordEncoder.matches(currentPassword, existingPassword)) {
+			out.println("<script>");
+			out.println("alert('현재 비밀번호가 일치하지 않습니다!');");
+			out.println("window.location.href = '/spike.com/mypage/main';");
+			out.println("</script>");
+			return null;
+		}
+
+		if (passwordEncoder.matches(sessionUser.getPassword(), existingPassword)) {
+			out.println("<script>");
+			out.println("alert('기존 비밀번호와 새 비밀번호가 동일합니다!');");
+			out.println("window.location.href = '/spike.com/mypage/main';");
+			out.println("</script>");
+			return null;
+		}
+
+		s.setPassword(encryptedNewPassword);
 
 		this.userService.profileEdit(s);
 
@@ -93,10 +117,8 @@ public class MypageController {
 		sessionUser.setName(s.getName());
 		session.setAttribute("User", sessionUser);
 
-		response.setContentType("text/html;charset=UTF-8");
-		PrintWriter out = response.getWriter();
 		out.println("<script>");
-		out.println("alert('수정되었습니다!');");
+		out.println("alert('회원정보가 수정되었습니다!');");
 		out.println("window.location.href = '/spike.com/';"); // 실패 시 마이페이지 수정 페이지로 리다이렉트
 		out.println("</script>");
 
@@ -119,7 +141,10 @@ public class MypageController {
 
 	// 마이페이지 회원정보 수정 폼
 	@PostMapping("/mypageEdit")
-	public ModelAndView mypageEdit(UserDTO s, HttpSession session, HttpServletResponse response) throws Exception {
+	public ModelAndView mypageEdit(UserDTO s, HttpSession session, HttpServletResponse response,
+			HttpServletRequest request) throws Exception {
+		response.setContentType("text/html;charset=UTF-8");
+		PrintWriter out = response.getWriter();
 		UserDTO user = (UserDTO) session.getAttribute("User");
 
 		String loginId = user.getLoginId();
@@ -142,14 +167,20 @@ public class MypageController {
 		// 기존 비밀번호와 새 비밀번호가 동일한지 확인
 		String existingPassword = user.getPassword(); // DB에서 가져온 기존 비밀번호
 		String encryptedNewPassword = passwordEncoder.encode(s.getPassword()); // 새 비밀번호를 암호화
+		String currentPassword = request.getParameter("currentPassword");
 
-		if (existingPassword.equals(encryptedNewPassword)) {
-			// 새 비밀번호가 기존 비밀번호와 동일하면 실패 처리
-			response.setContentType("text/html;charset=UTF-8");
-			PrintWriter out = response.getWriter();
+		if (!passwordEncoder.matches(currentPassword, existingPassword)) {
+			out.println("<script>");
+			out.println("alert('현재 비밀번호가 일치하지 않습니다!');");
+			out.println("window.location.href = '/spike.com/mypage/mypageEdit';");
+			out.println("</script>");
+			return null;
+		}
+
+		if (passwordEncoder.matches(user.getPassword(), existingPassword)) {
 			out.println("<script>");
 			out.println("alert('기존 비밀번호와 새 비밀번호가 동일합니다!');");
-			out.println("window.location.href = '/spike.com/mypage/mypageEdit';"); // 실패 시 마이페이지 수정 페이지로 리다이렉트
+			out.println("window.location.href = '/spike.com/mypage/mypageEdit';");
 			out.println("</script>");
 			return null;
 		}
@@ -161,7 +192,12 @@ public class MypageController {
 		user.setName(s.getName());
 		session.setAttribute("User", user);
 
-		return new ModelAndView("/mypage/mypageEdit");
+		out.println("<script>");
+		out.println("alert('회원정보가 수정되었습니다!');");
+		out.println("window.location.href = '/spike.com/mypage/mypageEdit';");
+		out.println("</script>");
+
+		return null;
 	}
 
 	// 마이페이지 회원 탈퇴
