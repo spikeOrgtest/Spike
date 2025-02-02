@@ -80,12 +80,12 @@ public class UserController {
 		s.setStatus("ACTIVE"); // 계정 상태 ACTIVE로 설정
 
 		// 이메일 도메인 처리
-		String email = s.getEmail_id() + "@" + s.getEmail_domain(); // 이메일 ID와 도메인을 합침
+		String email = s.getEmailId() + "@" + s.getEmailDomain(); // 이메일 ID와 도메인을 합침
 		if (email != null && !email.isEmpty()) {
 			String[] emailParts = email.split("@");
 			if (emailParts.length == 2) {
-				s.setEmail_id(emailParts[0]);
-				s.setEmail_domain(emailParts[1]); // email_domain 필드에 도메인 부분을 설정
+				s.setEmailId(emailParts[0]);
+				s.setEmailDomain(emailParts[1]); // EmailDomain 필드에 도메인 부분을 설정
 			}
 		}
 		
@@ -98,10 +98,10 @@ public class UserController {
 		}
 
 		// 미성년자 여부 검증
-		if (s.getBirth_date().isAfter(LocalDate.of(2007, 1, 1))) { // 생년월일을 가져와 2007년 1월 1일과 비교 이후면 true 아니면 false
-			s.setIs_minor("minor");
+		if (s.getBirthDate().isAfter(LocalDate.of(2007, 1, 1))) { // 생년월일을 가져와 2007년 1월 1일과 비교 이후면 true 아니면 false
+			s.setIsMinor("minor");
 		} else {
-			s.setIs_minor("adult");
+			s.setIsMinor("adult");
 		}
 
 		// 전화번호 합치기 (phone01 + phone02 + phone03)
@@ -139,14 +139,14 @@ public class UserController {
 
 			// DB에 저장할 파일 경로 (파일 경로만 저장)
 			String fileDBName = "/" + year + "-" + month + "-" + date + "/" + refileName;
-			s.setProfile_image_uri(fileDBName); // profile_image_uri에 경로 저장
+			s.setProfileImageUri(fileDBName); // ProfileImageUri에 경로 저장
 
 			// 파일 저장
 			File saveFile = new File(homedir + "/" + refileName);
 			file.transferTo(saveFile); // 실제 파일을 저장
 		} else {
 			// 파일이 없으면 빈 경로로 처리
-			s.setProfile_image_uri("");
+			s.setProfileImageUri("");
 		}
 
 		// 비밀번호 암호화

@@ -26,7 +26,7 @@ public class QuizResultDAOImpl implements QuizResultDAO {
     @Override
     public List<QuizResultDTO> findByUserIdAndDate(int userId, String date) {
         // 특정 사용자의 퀴즈 결과를 날짜별로 조회하는 쿼리
-        String query = "SELECT q FROM QuizResultDTO q WHERE q.user_id = :userId AND TO_CHAR(q.attempt_date, 'YYYY-MM-DD') = :date";
+        String query = "SELECT q FROM QuizResultDTO q WHERE q.UserId = :userId AND TO_CHAR(q.attempt_date, 'YYYY-MM-DD') = :date";
         return entityManager.createQuery(query, QuizResultDTO.class) // JPQL 쿼리 생성
                             .setParameter("userId", userId) // userId 파라미터 바인딩
                             .setParameter("date", date) // date 파라미터 바인딩
@@ -36,7 +36,7 @@ public class QuizResultDAOImpl implements QuizResultDAO {
     @Override
     public int countQuizAttemptsToday(int userId, String date) {
         // 오늘 날짜 기준으로 사용자가 시도한 퀴즈 횟수를 카운트하는 쿼리
-        String query = "SELECT COUNT(q) FROM QuizResultDTO q WHERE q.user_id = :userId AND TO_CHAR(q.attempt_date, 'YYYY-MM-DD') = :date";
+        String query = "SELECT COUNT(q) FROM QuizResultDTO q WHERE q.UserId = :userId AND TO_CHAR(q.attempt_date, 'YYYY-MM-DD') = :date";
         Query countQuery = entityManager.createQuery(query); // 카운트 쿼리 생성
         countQuery.setParameter("userId", userId); // userId 파라미터 바인딩
         countQuery.setParameter("date", date); // date 파라미터 바인딩
@@ -55,7 +55,7 @@ public class QuizResultDAOImpl implements QuizResultDAO {
     @Override
     public QuizResultDTO findQuizResultByUserIdAndQuizId(int userId, int quizId) {
         // 특정 퀴즈에 대한 사용자의 퀴즈 결과를 조회하는 JPQL 쿼리
-        String query = "SELECT q FROM QuizResultDTO q WHERE q.user_id = :userId AND q.quiz_id = :quizId";
+        String query = "SELECT q FROM QuizResultDTO q WHERE q.UserId = :userId AND q.quiz_id = :quizId";
         
         // 결과 조회
         List<QuizResultDTO> resultList = entityManager.createQuery(query, QuizResultDTO.class)

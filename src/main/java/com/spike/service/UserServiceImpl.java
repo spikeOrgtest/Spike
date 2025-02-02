@@ -97,23 +97,23 @@ public class UserServiceImpl implements UserSerivce {
 	}
 
 	@Override
-	public List<UserDTO> findByUserIdEdit(Long user_id) {
-		return this.spikeDao.findByUserIdEdit(user_id);
+	public List<UserDTO> findByUserIdEdit(Long UserId) {
+		return this.spikeDao.findByUserIdEdit(UserId);
 	}
 
 	@Override
-	public void UpdateUser(String is_minor, String status, Long user_id) {
-		this.spikeDao.UpdateUser(is_minor, status, user_id);
+	public void UpdateUser(String isMinor, String status, Long userId) {
+		this.spikeDao.UpdateUser(isMinor, status, userId);
 	}
 
 	@Override
-	public void UserDelete(Long user_id) {
-		this.spikeDao.UserDelete(user_id);
+	public void UserDelete(Long UserId) {
+		this.spikeDao.UserDelete(UserId);
 	}
 
 	@Override
-	public void AccountDelete(Long user_id) {
-		this.spikeDao.AccountDelete(user_id);
+	public void AccountDelete(Long UserId) {
+		this.spikeDao.AccountDelete(UserId);
 	}
 
 }

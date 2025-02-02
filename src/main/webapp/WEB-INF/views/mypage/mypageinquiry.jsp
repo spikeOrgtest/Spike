@@ -217,14 +217,14 @@
 											data-bs-dismiss="modal" aria-label="Close"></button>
 									</div>
 									<div class="modal-body">
-											<div class="mb-3">
-												<label for="currentPassword" class="form-label">현재
-													비밀번호</label> <input type="password" class="form-control"
-													id="currentPassword" required />
-											</div>
 										<form action="inquiryPassword" method="post" id="passwordChangeForm">
 										<input type="hidden" name="${_csrf.parameterName}"
 																value="${_csrf.token}" />
+											<div class="mb-3">
+												<label for="currentPassword" class="form-label">현재
+													비밀번호</label> <input type="password" class="form-control"
+													id="currentPassword" name="currentPassword" required />
+											</div>
 											<div class="mb-3">
 												<label for="newPassword" class="form-label">새 비밀번호</label> <input
 													type="password" class="form-control" id="newPassword" name="account_password"

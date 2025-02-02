@@ -1,19 +1,21 @@
 package com.spike.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import com.spike.dao.AccountDAO;
-import com.spike.dto.AccountDTO;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.spike.dao.AccountDAO;
+import com.spike.dto.AccountDTO;
 
 @Service
 public class AccountServiceImpl implements AccountService {
 
 	@Autowired
 	private AccountDAO accountdao;
-	
+
 	@Override
 	public void createAccount(AccountDTO s) {
 		this.accountdao.createAccount(s);
@@ -30,8 +32,13 @@ public class AccountServiceImpl implements AccountService {
 	}
 
 	@Override
-	public void Passwordupdateaccount(String accountPassword, String accountNumber) {
-		this.accountdao.Passwordupdateaccount(accountPassword, accountNumber);
+	public void Passwordupdateaccount(AccountDTO a) {
+		this.accountdao.Passwordupdateaccount(a);
+	}
+
+	@Override
+	public AccountDTO findByAccount(String account_number) {
+		return this.accountdao.findByAccount(account_number);
 	}
 
 	@Override
@@ -44,20 +51,20 @@ public class AccountServiceImpl implements AccountService {
 	public void calculateDailyInterest(AccountDTO account) {
 		LocalDate today = LocalDate.now();
 		LocalDate lastCalculation = account.getLastInterestDate();
-		
+
 		if (lastCalculation == null) {
 			lastCalculation = account.getStartDate();
 		}
-		
+
 		long daysBetween = ChronoUnit.DAYS.between(lastCalculation, today);
-		
+
 		if (daysBetween > 0) {
 			double dailyRate = account.getTotalRate() / 365.0 / 100.0;
 			double interest = account.getBalance() * dailyRate * daysBetween;
-			
-			account.setBalance(account.getBalance() + (long)interest);
+
+			account.setBalance(account.getBalance() + (long) interest);
 			account.setLastInterestDate(today);
-			
+
 			accountdao.updateAccount(account);
 		}
 	}
@@ -67,20 +74,20 @@ public class AccountServiceImpl implements AccountService {
 	public void calculateDailyLoanInterest(AccountDTO loan) {
 		LocalDate today = LocalDate.now();
 		LocalDate lastCalculation = loan.getLastInterestDate();
-		
+
 		if (lastCalculation == null) {
 			lastCalculation = loan.getStartDate();
 		}
-		
+
 		long daysBetween = ChronoUnit.DAYS.between(lastCalculation, today);
-		
+
 		if (daysBetween > 0) {
 			double dailyRate = loan.getInterestRate() / 365.0 / 100.0;
 			double interest = loan.getBalance() * dailyRate * daysBetween;
-			
-			loan.setBalance(loan.getBalance() + (long)interest);
+
+			loan.setBalance(loan.getBalance() + (long) interest);
 			loan.setLastInterestDate(today);
-			
+
 			accountdao.updateAccount(loan);
 		}
 	}

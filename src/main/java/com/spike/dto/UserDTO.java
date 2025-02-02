@@ -30,12 +30,12 @@ import lombok.ToString;
 @Entity
 @SequenceGenerator(name = "user_no_seq_name", sequenceName = "user_no_seq", initialValue = 1, allocationSize = 1)
 @Table(name = "UserInfo")
-@EqualsAndHashCode(of = "user_id")
+@EqualsAndHashCode(of = "UserId")
 public class UserDTO {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_no_seq_name")
-	private Long user_id;
+	private Long userId;
 
 	@NotNull
 	@Column(length = 100)
@@ -51,11 +51,11 @@ public class UserDTO {
 
 	@NotNull
 	@Column(length = 255)
-	private String email_id;
+	private String emailId;
 
 	@NotNull
 	@Column(length = 255)
-	private String email_domain;
+	private String emailDomain;
 
 	@NotNull
 	@Column(length = 15)
@@ -75,7 +75,7 @@ public class UserDTO {
 
 	@NotNull
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	private LocalDate birth_date;
+	private LocalDate birthDate;
 
 	@NotNull
 	@Column(length = 255)
@@ -95,19 +95,19 @@ public class UserDTO {
 	@Column(length = 100)
 	private String References;
 
-	private String profile_image_uri;
+	private String profileImageUri;
 
 	@Transient // DB에 저장되지 않도록 처리해주는 에노테이션
 	private MultipartFile profileImage;
 
-	private String is_minor;
+	private String isMinor;
 
 	private String status;
 
-	private LocalDateTime last_login; // 마지막 로그인
+	private LocalDateTime lastLogin; // 마지막 로그인
 
 	@CreationTimestamp
-	@Column(name = "registration_date", columnDefinition = "TIMESTAMP DEFAULT SYSDATE")
-	private LocalDate registration_date;
+	@Column(name = "RegistrationDate", columnDefinition = "TIMESTAMP DEFAULT SYSDATE")
+	private LocalDate registrationDate;
 
 }

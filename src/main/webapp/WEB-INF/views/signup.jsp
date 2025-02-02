@@ -52,10 +52,10 @@
 						name="name" required placeholder="이름을 입력하세요">
 				</div>
 				<div class="form-group">
-					<label for="email_id">이메일</label>
+					<label for="EmailId">이메일</label>
 					<div class="email-container">
-						<input name="email_id" id="email_id" /> @ <input
-							name="email_domain" id="email_domain" value="gmail.com" readonly /> <select
+						<input name="EmailId" id="EmailId" /> @ <input
+							name="EmailDomain" id="EmailDomain" value="gmail.com" readonly /> <select
 							name="mail_list" onchange="domain_list();">
 							<c:forEach var="mail" items="${email}">
 								<option value="${mail}">${mail}</option>
@@ -66,8 +66,8 @@
 				</div>
 
 				<div class="form-group">
-					<label for="birth_date">생년월일</label> <input type="date"
-						id="birth_date" name="birth_date" max="2099-12-31" required>
+					<label for="BirthDate">생년월일</label> <input type="date"
+						id="BirthDate" name="BirthDate" max="2099-12-31" required>
 				</div>
 				<span class="error-message" id="birthError"></span>
 
@@ -108,7 +108,7 @@
 
 				<!-- 프로필 이미지 추가 -->
 				<div class="form-group">
-					<label for="profile_image_uri">프로필 이미지</label> <input type="file"
+					<label for="ProfileImageUri">프로필 이미지</label> <input type="file"
 						id="profileImage" name="profileImage"
 						onchange="previewImage(event)">
 					<div class="image-preview-container">
@@ -207,9 +207,9 @@
 							document.getElementById('idcheck').textContent = '';
 
 							// 이메일 검증
-							const email = document.getElementById('email_id').value;
+							const email = document.getElementById('EmailId').value;
 							const emailDomain = document
-									.getElementById('email_domain').value;
+									.getElementById('EmailDomain').value;
 							const emailFull = email + '@' + emailDomain;
 
 							const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -252,7 +252,7 @@
 
 							// 생년월일 검증
 							const birthDate = document
-									.getElementById('birth_date').value;
+									.getElementById('BirthDate').value;
 							const birthDateObj = new Date(birthDate);
 							const today = new Date();
 							today.setHours(0, 0, 0, 0); // 현재 날짜의 시간을 00:00:00으로 설정
@@ -363,12 +363,12 @@
 
 			// "직접입력"을 선택한 경우
 			if (s.mail_list.value == "직접입력") {
-				s.email_domain.value = ""; // 입력 필드를 비워두기
-				s.email_domain.readOnly = false; // 사용자가 입력할 수 있도록 설정
-				s.email_domain.focus(); // 포커스를 주어 사용자가 입력할 수 있게 함
+				s.EmailDomain.value = ""; // 입력 필드를 비워두기
+				s.EmailDomain.readOnly = false; // 사용자가 입력할 수 있도록 설정
+				s.EmailDomain.focus(); // 포커스를 주어 사용자가 입력할 수 있게 함
 			} else {
-				s.email_domain.value = s.mail_list.options[num].value; // 선택된 값으로 이메일 도메인 설정
-				s.email_domain.readOnly = true; // 수정 불가능하게 설정
+				s.EmailDomain.value = s.mail_list.options[num].value; // 선택된 값으로 이메일 도메인 설정
+				s.EmailDomain.readOnly = true; // 수정 불가능하게 설정
 			}
 		}
 	</script>

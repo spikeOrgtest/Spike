@@ -63,9 +63,9 @@ public class ManagerController {
 	}
 
 	@GetMapping("/EditUser")
-	public ModelAndView EditUser(@RequestParam("user_id") Long user_id) {
+	public ModelAndView EditUser(@RequestParam("userId") Long UserId) {
 
-		List<UserDTO> list = this.userService.findByUserIdEdit(user_id);
+		List<UserDTO> list = this.userService.findByUserIdEdit(UserId);
 
 		System.out.println("list : " + list);
 
@@ -76,12 +76,15 @@ public class ManagerController {
 	}
 
 	@PostMapping("/UpdateUser")
-	public void UpdateUser(Long user_id, String is_minor, String status, HttpServletResponse response)
-			throws Exception {
+	public void UpdateUser(Long userId, String isMinor, String status, HttpServletResponse response) throws Exception {
 		response.setContentType("text/html; charset=UTF-8");
 		PrintWriter out = response.getWriter();
 
-		this.userService.UpdateUser(is_minor, status, user_id);
+		System.out.println(userId);
+		System.out.println(isMinor);
+		System.out.println(status);
+
+		this.userService.UpdateUser(isMinor, status, userId);
 
 		out.println("<script>");
 		out.println("alert('수정 완료했습니다.');");
@@ -91,23 +94,23 @@ public class ManagerController {
 	}
 
 	@GetMapping("/DeleteUser")
-	public void DeleteUser(@RequestParam("user_id") Long user_id, HttpServletResponse response) throws Exception {
+	public void DeleteUser(@RequestParam("userId") Long UserId, HttpServletResponse response) throws Exception {
 		response.setContentType("text/html; charset=UTF-8");
 		PrintWriter out = response.getWriter();
 
-		List<String> list = this.userService.findbyaccountnumber(user_id);
+		List<String> list = this.userService.findbyaccountnumber(UserId);
 
 		System.out.println("list : " + list);
 
 		if (list.size() == 0) {
-			this.userService.UserDelete(user_id);
+			this.userService.UserDelete(UserId);
 			out.println("<script>");
 			out.println("alert('삭제 완료했습니다.');");
 			out.println("window.location.href = '/spike.com/userManagement';");
 			out.println("</script>");
 		} else {
-			this.userService.AccountDelete(user_id);
-			this.userService.UserDelete(user_id);
+			this.userService.AccountDelete(UserId);
+			this.userService.UserDelete(UserId);
 			out.println("<script>");
 			out.println("alert('삭제 완료했습니다.');");
 			out.println("window.location.href = '/spike.com/userManagement';");
