@@ -15,10 +15,11 @@ import com.spike.dto.UserDTO;
 
 @Repository
 public interface AccountRepository extends JpaRepository<AccountDTO, Long> {
-
+	// UserDTO user의 계좌 리스트를 반환하는 쿼리 메서드
 	List<AccountDTO> findByOwner(UserDTO user);
 
-	@Query("select a from AccountDTO a where a.account_number = ?1")
+	// 계좌번호를 검색해서 계좌 엔티티를 반환하는 쿼리 메서드 -> 필드명이 account_number라 쿼리메서드 불가능. JPQL사용
+	@Query("SELECT a FROM AccountDTO a WHERE a.account_number = ?1")
 	Optional<AccountDTO> findByAccountNumber(String accountNumber);
 
 	@Modifying
