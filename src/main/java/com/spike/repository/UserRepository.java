@@ -1,6 +1,7 @@
 package com.spike.repository;
 
 import java.util.List;
+
 import java.util.Optional;
 
 import javax.transaction.Transactional;
@@ -8,6 +9,7 @@ import javax.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import com.spike.dto.AccountDTO;
 import com.spike.dto.UserDTO;
@@ -90,5 +92,14 @@ public interface UserRepository extends JpaRepository<UserDTO, Long> {
 	@Transactional
 	@Query("delete FROM AccountDTO a WHERE a.owner.userId =?1")
 	public void AccountDelete(Long UserId);
+	
+	// 포인트 추가
+		@Query("SELECT u FROM UserDTO u WHERE u.id = :id")
+	    Optional<UserDTO> findUserById(@Param("id") Integer id);
+
+		@Modifying
+		@Transactional
+		@Query("UPDATE UserDTO u SET u.point = ?2 WHERE u.userId =?1")
+		void updateUserPoint(Long userId, Integer value);
 
 }
