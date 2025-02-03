@@ -125,7 +125,7 @@
 								</div>
 
 								<div class="row mb-3">
-									<label for="password" class="col-sm-2 col-form-label">비밀번호</label>
+									<label for="password" class="col-sm-2 col-form-label">새 비밀번호</label>
 									<div class="col-sm-10">
 										<input type="password" class="form-control" id="password"
 											name="password" placeholder="새 비밀번호를 입력하세요">

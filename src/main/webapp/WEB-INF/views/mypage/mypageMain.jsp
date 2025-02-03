@@ -292,7 +292,7 @@
 											
 						                    <!-- 비밀번호 -->
 						                    <div class="form-group mb-3">
-						                        <label for="userPassword" class="form-label">비밀번호</label>
+						                        <label for="userPassword" class="form-label">새 비밀번호</label>
 						                        <input type="password" class="form-control" id="password" name="password" placeholder="비밀번호를 입력하세요" >
 						                    </div>
 											
