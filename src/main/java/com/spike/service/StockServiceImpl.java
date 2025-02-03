@@ -1,7 +1,6 @@
 package com.spike.service;
 
 import com.spike.dto.StockDTO;
-import com.spike.model.Stock;
 import com.spike.repository.StockRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -44,18 +43,18 @@ public class StockServiceImpl implements StockService {
     @Override
     public List<StockDTO> getTopStocks(int limit) {
         // 모든 주식 데이터를 가져옴
-        List<Stock> allStocks = stockRepository.findAllStocks();
+        List<StockDTO> allStocks = stockRepository.findAllStocks();
 
         // 현재가 기준으로 정렬 후 상위 limit개의 데이터를 추출
         return allStocks.stream()
-                .sorted(Comparator.comparingDouble(Stock::getCurrentPrice).reversed())
+                .sorted(Comparator.comparingDouble(StockDTO::getCurrentPrice).reversed())
                 .limit(limit)
                 .map(this::convertToDTO)
                 .collect(Collectors.toList());
     }
 
     // 엔티티를 DTO로 변환하는 메서드
-    private StockDTO convertToDTO(Stock stock) {
+    private StockDTO convertToDTO(StockDTO stock) {
         StockDTO dto = new StockDTO();
         dto.setStockId(stock.getStockId());
         dto.setStockCode(stock.getStockCode());
