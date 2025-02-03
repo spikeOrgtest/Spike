@@ -75,8 +75,11 @@ public class UserController {
 
 	// 회원 저장
 	@PostMapping("/signup_ok")
-	public ModelAndView signup_ok(UserDTO s, HttpServletRequest request, BindingResult result) throws IOException {
+	public ModelAndView signup_ok(UserDTO s, HttpServletRequest request, BindingResult result, HttpServletResponse response) throws IOException {
 
+		response.setContentType("text/html;charset=UTF-8");
+		PrintWriter out = response.getWriter();
+		
 		s.setStatus("ACTIVE"); // 계정 상태 ACTIVE로 설정
 
 		// 이메일 도메인 처리
@@ -154,9 +157,13 @@ public class UserController {
 
 		// DB에 사용자 정보 저장
 		this.spikeService.insertMember(s);
+		
+		out.println("<script>");
+		out.println("alert('SPIKE 회원이 되신걸 축하드립니다!');");
+		out.println("window.location.href = '/spike.com/login';");
+		out.println("</script>");
 
-		// 로그인 페이지로 리다이렉트
-		return new ModelAndView("redirect:/spike.com/login");
+		return null;
 	}
 
 	// 아이디 찾기 폼

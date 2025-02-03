@@ -27,7 +27,7 @@
 				<div class="form-group">
 					<label for="loginId">아이디</label>
 					<div class="id-container">
-						<input type="text" id="loginId" name="loginId" required
+						<input type="text" id="loginId" name="loginId" 
 							placeholder="아이디를 입력하세요">
 						<button type="button" onclick="id_check()">중복 확인</button>
 					</div>
@@ -36,20 +36,21 @@
 
 				<div class="form-group">
 					<label for="password">비밀번호</label> <input type="password"
-						id="password" name="password" required placeholder="비밀번호를 입력하세요">
+						id="password" name="password"  placeholder="비밀번호를 입력하세요">
 					<span class="error-message" id="passwordError"></span>
 				</div>
 
 				<div class="form-group">
 					<label for="password2">비밀번호 확인</label> <input type="password"
-						id="password2" name="password2" required
+						id="password2" name="password2" 
 						placeholder="비밀번호를 다시 입력하세요"> <span class="error-message"
 						id="confirmError"></span>
 				</div>
 
 				<div class="form-group">
 					<label for="name">이름</label> <input type="text" id="name"
-						name="name" required placeholder="이름을 입력하세요">
+						name="name"  placeholder="이름을 입력하세요">
+						<span class="error-message" id="nameError"></span>
 				</div>
 				<div class="form-group">
 					<label for="EmailId">이메일</label>
@@ -67,7 +68,7 @@
 
 				<div class="form-group">
 					<label for="BirthDate">생년월일</label> <input type="date"
-						id="BirthDate" name="BirthDate" max="2099-12-31" required>
+						id="BirthDate" name="BirthDate" max="2099-12-31" >
 				</div>
 				<span class="error-message" id="birthError"></span>
 
@@ -90,9 +91,11 @@
 						<label for="postcode">우편번호</label>
 						<div class="address-container">
 							<input type="text" id="postcode" name="postcode"
-								placeholder="우편번호" readonly> <input type="button"
+								placeholder="우편번호" readonly>
+								 <input type="button"
 								onclick="sample4_execDaumPostcode()" value="우편번호 찾기">
 						</div>
+								<span class="error-message" id="postcodeError"></span>
 
 						<label for="roadAddress">도로명주소</label> 
 						<input type="text" id="roadAddress" name="roadAddress" placeholder="도로명주소" readonly>
@@ -100,7 +103,8 @@
 						<input type="text" id="jibunAddress" name="jibunAddress" placeholder="지번주소" readonly>
 						<span id="guide" style="color: #999; display: none"></span>
 						<label for="detailAddress">상세주소</label> 
-						<input type="text" id="detailAddress" name="detailAddress" placeholder="상세주소" required> 
+						<input type="text" id="detailAddress" name="detailAddress" placeholder="상세주소" >
+						<span class="error-message" id="detailAddressError"></span>
 						<label for="sample4_extraAddress">참고항목</label>
 						<input type="text" id="References" name="References" placeholder="참고항목">
 					</div>
@@ -205,8 +209,57 @@
 							document.getElementById('phoneError').textContent = '';
 							document.getElementById('birthError').textContent = '';
 							document.getElementById('idcheck').textContent = '';
+							document.getElementById('nameError').textContent = '';
+							document.getElementById('postcodeError').textContent = '';
+							document.getElementById('detailAddressError').textContent = '';
+							
+							// 아이디 검증
+							const loginId = document.getElementById('loginId').value;
+							if (loginId === '') {
+								document.getElementById('idcheck').textContent = '아이디를 입력해주세요';
+								document.getElementById('loginId').focus();
+								isValid = false;
+							}
+							
+							// 비밀번호 검증
+							if (isValid) {
+								const password = document.getElementById('password').value;
+								if(password === '') {
+								document.getElementById('passwordError').textContent = '비밀번호를 입력해주세요';
+								document.getElementById('password').focus();
+								isValid = false;
+								} else if (password.length < 8) {
+									document.getElementById('passwordError').textContent = '비밀번호는 8자 이상이어야 합니다';
+									document.getElementById('password').focus();
+									isValid = false;
+									}
+							}
+
+							// 비밀번호 확인 검증
+							if (isValid) {
+							const password = document
+								.getElementById('password').value;
+							const confirmPassword = document
+									.getElementById('password2').value;
+							if (password !== confirmPassword) {
+								document.getElementById('confirmError').textContent = '비밀번호가 일치하지 않습니다';
+								document.getElementById('password2').focus();
+								isValid = false;
+							}
+							}
+							
+							// 이름 검증
+							if (isValid) {
+							const name = document.getElementById('name').value;
+							if (name === '') {
+								document.getElementById('nameError').textContent = '이름을 입력해주세요';
+								document.getElementById('name').focus();
+								isValid = false;
+							}
+							}
 
 							// 이메일 검증
+							if (isValid) {
 							const email = document.getElementById('EmailId').value;
 							const emailDomain = document
 									.getElementById('EmailDomain').value;
@@ -216,26 +269,32 @@
 
 							if (!emailFull || !emailRegex.test(emailFull)) {
 								document.getElementById('emailError').textContent = '올바른 이메일 형식이 아닙니다';
+								document.getElementById('EmailId').focus();
 								isValid = false;
 							}
-
-							// 비밀번호 검증
-							const password = document
-									.getElementById('password').value;
-							if (password.length < 8) {
-								document.getElementById('passwordError').textContent = '비밀번호는 8자 이상이어야 합니다';
-								isValid = false;
 							}
+							
+							// 생년월일 검증
+							if (isValid) {
+							const birthDate = document
+									.getElementById('BirthDate').value;
+							const birthDateObj = new Date(birthDate);
+							const today = new Date();
+							today.setHours(0, 0, 0, 0); // 현재 날짜의 시간을 00:00:00으로 설정
 
-							// 비밀번호 확인 검증
-							const confirmPassword = document
-									.getElementById('password2').value;
-							if (password !== confirmPassword) {
-								document.getElementById('confirmError').textContent = '비밀번호가 일치하지 않습니다';
+							if (birthDate === '') {
+								document.getElementById('birthError').textContent = '생년월일을 입력해주세요.';
+								document.getElementById('BirthDate').focus();
 								isValid = false;
+							} else if (birthDateObj > today) {
+								document.getElementById('birthError').textContent = '생년월일은 현재 날짜보다 미래일 수 없습니다.';
+								document.getElementById('BirthDate').focus();
+								isValid = false;
+								}
 							}
-
+							
 							// 핸드폰 검증
+							if (isValid) {
 							const phone01 = document.getElementById('phone01').value; // 선택된 값
 							const phone02 = document.getElementById('phone02').value;
 							const phone03 = document.getElementById('phone03').value;
@@ -243,23 +302,34 @@
 
 							if (phone02 === '' || phone03 === '') {
 								document.getElementById('phoneError').textContent = '핸드폰 번호를 모두 입력해주세요';
+								document.getElementById('phone02').focus();
 								isValid = false;
 							} else if (!phoneRegex.test(phone02)
 									|| !phoneRegex.test(phone03)) {
 								document.getElementById('phoneError').textContent = '핸드폰 번호가 올바르지 않습니다';
+								document.getElementById('phone02').focus();
 								isValid = false;
 							}
-
-							// 생년월일 검증
-							const birthDate = document
-									.getElementById('BirthDate').value;
-							const birthDateObj = new Date(birthDate);
-							const today = new Date();
-							today.setHours(0, 0, 0, 0); // 현재 날짜의 시간을 00:00:00으로 설정
-
-							if (birthDateObj > today) {
-								document.getElementById('birthError').textContent = '생년월일은 현재 날짜보다 미래일 수 없습니다.';
+							}
+							
+							// 주소 검증
+							if (isValid) {
+							const postcode = document.getElementById('postcode').value;
+							if (postcode === '') {
+								document.getElementById('postcodeError').textContent = '주소를 입력해주세요';
+								document.getElementById('postcode').focus();
 								isValid = false;
+							}
+							}
+							
+							// 상세주소 검증
+							if (isValid) {
+							const detailAddress = document.getElementById('detailAddress').value;
+							if (detailAddress === '') {
+								document.getElementById('detailAddressError').textContent = '상세주소를 입력해주세요';
+								document.getElementById('detailAddress').focus();
+								isValid = false;
+							}
 							}
 
 							// 폼 검증에 실패한 경우 제출을 막고, 에러 메시지를 표시한 필드에만 에러 메시지를 추가
