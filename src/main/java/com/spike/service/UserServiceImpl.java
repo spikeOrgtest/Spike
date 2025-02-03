@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 
 import com.spike.dao.UserDAO;
 import com.spike.dto.AccountDTO;
+import com.spike.dto.NotiPageDTO;
+import com.spike.dto.NoticeDTO;
 import com.spike.dto.UserDTO;
 
 @Service

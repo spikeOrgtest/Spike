@@ -69,5 +69,8 @@ public interface UserRepository extends JpaRepository<UserDTO, Long> {
 	@Query("SELECT COUNT(u) FROM UserDTO u WHERE (TRUNC(u.last_login) = TRUNC(CURRENT_DATE) OR u.last_login IS NULL)")
 	public Long todayloge();
 
+	@Query("SELECT u FROM UserDTO u ")
+	public int visitors();
+
 	
 }

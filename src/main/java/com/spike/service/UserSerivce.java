@@ -3,6 +3,8 @@ package com.spike.service;
 import java.util.List;
 
 import com.spike.dto.AccountDTO;
+import com.spike.dto.NotiPageDTO;
+import com.spike.dto.NoticeDTO;
 import com.spike.dto.UserDTO;
 
 public interface UserSerivce {
@@ -34,5 +36,6 @@ public interface UserSerivce {
 	String findbyaccountnumber(Long userId);
 
 	Long todayloge(); //설(관리자ManagerController 사용)
+
 
 }

@@ -11,6 +11,7 @@ import com.spike.service.ManagerService;
 import com.spike.service.UserSerivce;
 
 
+
 @Controller
 @RequestMapping("/spike.com")
 public class ManagerController {
@@ -43,11 +44,25 @@ public class ManagerController {
 		ma.addObject("tolog", tolog);  // 화면으로 전달할 데이터
 	    ma.setViewName("/manager/manager");
 		return ma;
-		
 				
 	}
 	
+	//@GetMapping("/visit")
+	//public ModelAndView visit() {
+	//	
+	//	int visi = userService.visitors();
+	//	System.out.println("\n =============== " + visi);
+	//	
+	//	ModelAndView vi = new ModelAndView();
+	//	vi.addObject("visi",visi);
+	//	vi.setViewName("/manager/visit");
+	//	return vi;
+	//}
 	
+	//("/visit")
+	//public String loan() {
+	//	return "/manager/visit";
+	//}
 	
-	
+
 }
