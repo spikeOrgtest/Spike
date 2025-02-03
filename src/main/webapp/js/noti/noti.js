@@ -50,7 +50,7 @@ function write_Change(){
 			return false;
 		}
 		
-		if($.trim($('noticeCont').val()).lenth == 0){
+		if($.trim($('#noticeCont').val()).length == 0){
 			alert('변경하실 내용을 입력하세요.')
 			$('#noticeCont').val('').focus();
 			return false;
@@ -60,9 +60,11 @@ function write_Change(){
 		    if (confirmAction1) {
 		        // 사용자가 확인을 누르면 삭제 요청 URL로 이동
 				alert('변경 완료되었습니다.');
+				window.location.href = '/spike.com/noti_cont?notice_no=' + noticeNo + '&page=' + page;
 				} else {
 			        // 사용자가 '취소'를 클릭했을 때
 			        alert('변경이 취소되었습니다.');
+					return false;
 			    }
 		
 		
