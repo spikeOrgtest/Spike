@@ -148,8 +148,6 @@ public class UserController {
 		MultipartFile file = s.getProfileImage(); // 업로드된 프로필 이미지
 		
 		if (file != null && !file.isEmpty()) {
-			System.out.println("Upload File Name: " + file.getOriginalFilename());// 업로드 된 원본파일명
-			System.out.println("Upload File Size: " + file.getSize());// 업로드 파일크기
 			// 파일을 저장할 디렉토리 경로
 			String uploadFolder = request.getSession().getServletContext().getRealPath("/upload");
 
