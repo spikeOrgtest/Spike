@@ -4,7 +4,6 @@ import java.io.PrintWriter;
 import java.time.LocalDate;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -159,24 +158,32 @@ public class MypageController {
 	}
 	
 	// 마이페이지 회원 탈퇴
-	@PostMapping("/secession")
-	public ModelAndView secession(@RequestParam("loginId") String loginId, Long userId ,String account_number, HttpSession session, Model model) throws Exception{
+	@PostMapping("/main")
+	public ModelAndView secession(@RequestParam("loginId") String loginId, Long userId , String account_number, HttpSession session, Model model, HttpServletResponse response) throws Exception{
+		response.setContentType("text/html; charset=UTF-8");
+		PrintWriter out = response.getWriter();
+		
 		UserDTO sessionUser = (UserDTO) session.getAttribute("User");
 		userId = sessionUser.getUser_id();
-		account_number = userService.findbyaccountnumber(userId);
-		System.out.println(account_number);
-	    // 계좌와 관련된 탈퇴 작업
-	    if (account_number != null && !account_number.isEmpty()) {
-	        this.accountService.accountsecession(account_number);
+		List<String> list = userService.findbyaccountnumber(userId);
+		
+		
+	    if (list.size() == 0) {
+	    	this.userService.usersecession(loginId);
+	    	session.invalidate(); // 세션 만료
+	    	model.addAttribute("message", "Spike를 이용해주셔서 감사합니다.");
+	    	return new ModelAndView("/mypage/secessionComplete");
+	    	
+	    } else {
+	    
+	    out.println("<script>");
+	    out.println("alert('계좌 정보가 존재합니다! 관리자에게 문의 후 다시 요청바랍니다.');");
+	    out.println("window.location.href = '/spike.com/mypage/main';");
+	    out.println("</script>");
+	    return null;
+	    
 	    }
 		
-		this.userService.usersecession(loginId);
-		
-		session.invalidate(); // 세션 만료
-		
-		model.addAttribute("message", "Spike를 이용해주셔서 감사합니다.");
-		
-		return new ModelAndView("/mypage/secessionComplete");
 	}
 	
 	// 회원 탈퇴 완료

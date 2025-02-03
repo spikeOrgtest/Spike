@@ -33,12 +33,12 @@
 			<div class="subpage-sidebar">
 				<h3 class="subpage-sidebar-title">적금 상품</h3>
 				<ul>
-					<li><a href="Subpage_D1.jsp">SPIKE 예금</a></li>
-					<li><a href="Subpage_D2.jsp">IRP(Individual Retirement Pension)</a></li>
-					<li><a href="Subpage_D3.jsp">1+1 예금</a></li>
-					<li><a href="Subpage_D4.jsp">정기 예금</a></li>  <%-- 현재페이지=선택된 메뉴면 배경색 진하게, 백엔드랑 연동할예정 --%>
-					<li><a href="Subpage_D5.jsp">퇴직연금예금</a></li>
-					<li><a href="Subpage_D6.jsp">평생가족 예금</a></li>
+					<li><a href="subpage_d1">SPIKE 예금</a></li>
+					<li><a href="subpage_d2">IRP(Individual Retirement Pension)</a></li>
+					<li><a href="subpage_d3">1+1 예금</a></li>
+					<li><a href="subpage_d4">정기 예금</a></li>  <%-- 현재페이지=선택된 메뉴면 배경색 진하게, 백엔드랑 연동할예정 --%>
+					<li><a href="subpage_d5">퇴직연금예금</a></li>
+					<li><a href="subpage_d6">평생가족 예금</a></li>
 				</ul>
 			</div>
 

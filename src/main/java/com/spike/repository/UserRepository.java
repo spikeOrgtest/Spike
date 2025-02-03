@@ -5,7 +5,6 @@ import java.util.Optional;
 
 import javax.transaction.Transactional;
 
-import org.apache.ibatis.annotations.Param;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -48,7 +47,7 @@ public interface UserRepository extends JpaRepository<UserDTO, Long> {
 			String detailAddress, String references, String password, String loginId);
 
 	@Query("select s from UserDTO s where s.loginId=?1")
-	Optional<UserDTO> findByLoginId(String loginId);
+	public Optional<UserDTO> findByLoginId(String loginId);
 
 	@Query("select s from UserDTO s where s.loginId=?1")
 	public UserDTO findFromSession(String loginId);
@@ -59,10 +58,12 @@ public interface UserRepository extends JpaRepository<UserDTO, Long> {
 	public void usersecession(String loginId);
 
 	@Query("SELECT a FROM AccountDTO a WHERE a.owner.user_id =?1")
-	List<AccountDTO> findByUserId(Long userId);
+	public List<AccountDTO> findByUserId(Long userId);
 
-	@Query("SELECT a FROM AccountDTO a WHERE a.owner.user_id =?1")
-	public String findbyaccountnumber(Long userId);
+	@Query("SELECT a.account_number FROM AccountDTO a WHERE a.owner.user_id =?1")
+	public List<String> findbyaccountnumber(Long userId);
+	
+	
 
 	//@Query("SELECT COUNT(a) FROM UserDTO a WHERE FUNCTION('DATE', a.user_id) = CURRENT_DATE")
 	//@Query("SELECT COUNT(u) FROM UserDTO u WHERE TRUNC(u.last_login) = TRUNC(CURRENT_DATE)")

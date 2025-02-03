@@ -56,15 +56,14 @@ document.getElementById('account_type').addEventListener('change', function() {
 
 	let options = [];
 
-	if (selectedType === '예금') {
+	if (selectedType === '입출금계좌') {
 		options = [
-			{ value: 'spike_savings', text: 'SPIKE 예금' },
-			{ value: 'housing_savings', text: '주택청약' }
+			{ value: 'spike_savings', text: 'SPIKE 입출금계좌' },
 		];
-	} else if (selectedType === '적금') {
+	} else if (selectedType === '투자계좌') {
 		options = [
-			{ value: 'spike_installment', text: 'SPIKE 적금' },
-			{ value: 'regular_installment', text: '정기적금' }
+			{ value: 'spike_installment', text: '주식' },
+			{ value: 'regular_installment', text: '가상화폐' }
 		];
 	}
 

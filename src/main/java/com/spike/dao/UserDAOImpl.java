@@ -117,7 +117,7 @@ public class UserDAOImpl implements UserDAO {
 	}
 
 	@Override
-	public String findbyaccountnumber(Long userId) {
+	public List<String> findbyaccountnumber(Long userId) {
 		return this.spikeRepo.findbyaccountnumber(userId);
 	}
 

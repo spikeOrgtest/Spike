@@ -28,8 +28,7 @@ import lombok.Setter;
       allocationSize = 1)
 
 @Table(name = "Account")
-public class AccountDTO {
-   
+public class AccountDTO {   
    @Id
    @GeneratedValue(
          strategy = GenerationType.SEQUENCE,

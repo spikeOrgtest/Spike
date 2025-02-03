@@ -33,7 +33,7 @@ public interface UserDAO {
 
 	List<AccountDTO> findbyinquriy(Long userId);
 
-	String findbyaccountnumber(Long userId);
+	List<String> findbyaccountnumber(Long userId);
 
 	Long todayloge();
 

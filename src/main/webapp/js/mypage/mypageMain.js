@@ -40,3 +40,8 @@ document.getElementById("editProfileForm").onsubmit = function(event) {
     // 모든 검사가 통과하면 폼을 제출
     return true;
 };
+
+document.getElementById('cancelButton').addEventListener('click', function() {
+  // 모달을 닫는 방법
+  $('#withdrawalModal').modal('hide');
+});
