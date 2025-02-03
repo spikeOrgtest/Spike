@@ -57,12 +57,12 @@
                     </li>
 
                     <li class="dropdown"><a href="/spike.com/transfer">이체/송금</a></li>
-                    <li class="dropdown"><a href="products.jsp">금융/투자</a>
+                    <li class="dropdown"><a href="/spike.com/products">금융/투자</a>
                         <ul class="header-dropdown-menu">
                             <li><a href="/spike.com/products/deposit">예금</a></li>
-                            <li><a href="products/savings.jsp">적금</a></li>
-                            <li><a href="products/loan.jsp">대출</a></li>
-                            <li><a href="products/card.jsp">카드</a></li>
+                            <li><a href="/spike.com/products/savings">적금</a></li>
+                            <li><a href="/spike.com/products/loan">대출</a></li>
+                            <li><a href="/spike.com/products/card">카드</a></li>
                             <li><a href="investments.jsp">투자</a></li>
                         </ul>
                     </li>
@@ -74,7 +74,10 @@
                         </ul>
                     </li>
 
-                    <li class="dropdown"><a href="mini.jsp" style="font: 25px;">mini</a></li>
+                    <li class="dropdown"><a href="/spike.com/mini" style="font: 25px;">mini</a>
+	   
+                    </li>
+                    
                 </ul>
             </nav>
         </div>

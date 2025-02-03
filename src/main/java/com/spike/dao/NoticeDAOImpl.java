@@ -46,7 +46,7 @@ public class NoticeDAOImpl implements NoticeDAO {
 		Optional<NoticeDTO> notice_hit = this.NoticeRepo.findById(notice_no); // 레코드검색
 		
 		notice_hit.ifPresent(notice_hit2 -> {
-			notice_hit2.setNotice_hit(notice_hit2.getNotice_hit()+1); //조회수 1 증가
+			notice_hit2.setNoticeHit(notice_hit2.getNoticeHit()+1); //조회수 1 증가
 			this.NoticeRepo.save(notice_hit2);
 		});
 	} // 조회수 증가
@@ -61,8 +61,8 @@ public class NoticeDAOImpl implements NoticeDAO {
 	@Override
 	public void editNoti(NoticeDTO notice) {
 		System.out.println("jpa");
-		this.NoticeRepo.updateNoti(notice.getNotice_name(), notice.getNotice_title(), notice.getNotice_cont(), 
-				notice.getNotice_file(),notice.getNotice_no());
+		this.NoticeRepo.updateNoti(notice.getNoticeName(), notice.getNoticeTitle(), notice.getNoticeCont(), 
+				notice.getNoticeFile(),notice.getNoticeNo());
 	}//자료실수정
 
 	@Override

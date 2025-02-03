@@ -79,10 +79,10 @@
 										onchange="updateAccountInfo()">
 										<option value="" disabled selected>계좌를 선택하세요</option>
 										<c:forEach var="item" items="${list}">
-											<option value="${item.account_number}:${item.account_type}"
+											<option value="${item.accountNumber}:${item.accountType}"
 												data-balance="${item.balance}"
 												data-available="${item.balance}">
-												${item.account_number}:${item.account_type}</option>
+												${item.accountNumber}:${item.accountType}</option>
 										</c:forEach>
 
 									</select>
@@ -194,7 +194,7 @@
 													한도 금액 (₩)</label> <input type="text" class="form-control" name="one_limit"
 													id="oneLimitInput" style="margin-bottom: 20px;" placeholder="출금 한도를 입력하세요" />
 											</div>
-											<input type="hidden" id="selectedAccountNumber1" name="account_number" value="" />
+											<input type="hidden" id="selectedAccountNumber1" name="accountNumber" value="" />
 											<button type="reset" class="btn btn-secondary"
 												data-bs-dismiss="modal">취소</button>
 											<button type="submit" class="btn btn-secondary"
@@ -217,19 +217,19 @@
 											data-bs-dismiss="modal" aria-label="Close"></button>
 									</div>
 									<div class="modal-body">
-											<div class="mb-3">
-												<label for="currentPassword" class="form-label">현재
-													비밀번호</label> <input type="password" class="form-control"
-													id="currentPassword" required />
-											</div>
 										<form action="inquiryPassword" method="post" id="passwordChangeForm">
 										<input type="hidden" name="${_csrf.parameterName}"
 																value="${_csrf.token}" />
 											<div class="mb-3">
+												<label for="currentPassword" class="form-label">현재
+													비밀번호</label> <input type="password" class="form-control"
+													id="currentPassword" name="currentPassword" required />
+											</div>
+											<div class="mb-3">
 												<label for="newPassword" class="form-label">새 비밀번호</label> <input
 													type="password" class="form-control" id="newPassword" name="account_password"
 													required />
-													<input type="hidden" id="selectedAccountNumber2" name="account_number" value="" />
+													<input type="hidden" id="selectedAccountNumber2" name="accountNumber" value="" />
 											</div>
 											<div class="mb-3">
 												<label for="confirmPassword" class="form-label">새
@@ -265,10 +265,10 @@
 		// 계좌 데이터 전달을 위한 JavaScript 변수 생성
 		const accountData = {};
 		<c:forEach var="item" items="${list}">
-		accountData["${item.account_number}:${item.account_type}"] = {
+		accountData["${item.accountNumber}:${item.accountType}"] = {
 			balance : "${item.balance}",
-			daylimit : "${item.day_limit}",
-			onelimit : "${item.one_limit}",
+			daylimit : "${item.dayLimit}",
+			onelimit : "${item.oneLimit}",
 			transactions : [ {
 				date : "2024-11-28",
 				type : "출금",

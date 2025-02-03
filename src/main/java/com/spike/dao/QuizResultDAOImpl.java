@@ -24,7 +24,7 @@ public class QuizResultDAOImpl implements QuizResultDAO {
     }
 
     @Override
-    public List<QuizResultDTO> findByUserIdAndDate(int userId, String date) {
+    public List<QuizResultDTO> findByUserIdAndDate(Long userId, String date) {
         // 특정 사용자의 퀴즈 결과를 날짜별로 조회하는 쿼리
         String query = "SELECT q FROM QuizResultDTO q WHERE q.user_id = :userId AND TO_CHAR(q.attempt_date, 'YYYY-MM-DD') = :date";
         return entityManager.createQuery(query, QuizResultDTO.class) // JPQL 쿼리 생성
@@ -34,7 +34,7 @@ public class QuizResultDAOImpl implements QuizResultDAO {
     }
 
     @Override
-    public int countQuizAttemptsToday(int userId, String date) {
+    public int countQuizAttemptsToday(Long userId, String date) {
         // 오늘 날짜 기준으로 사용자가 시도한 퀴즈 횟수를 카운트하는 쿼리
         String query = "SELECT COUNT(q) FROM QuizResultDTO q WHERE q.user_id = :userId AND TO_CHAR(q.attempt_date, 'YYYY-MM-DD') = :date";
         Query countQuery = entityManager.createQuery(query); // 카운트 쿼리 생성
@@ -53,7 +53,7 @@ public class QuizResultDAOImpl implements QuizResultDAO {
      * @return 조회된 퀴즈 결과를 담은 `QuizResultDTO` 객체 (결과가 없으면 null 반환)
      */
     @Override
-    public QuizResultDTO findQuizResultByUserIdAndQuizId(int userId, int quizId) {
+    public QuizResultDTO findQuizResultByUserIdAndQuizId(Long userId, int quizId) {
         // 특정 퀴즈에 대한 사용자의 퀴즈 결과를 조회하는 JPQL 쿼리
         String query = "SELECT q FROM QuizResultDTO q WHERE q.user_id = :userId AND q.quiz_id = :quizId";
         
@@ -70,4 +70,10 @@ public class QuizResultDAOImpl implements QuizResultDAO {
             return resultList.get(0); // 첫 번째 결과를 반환
         }
     }
+
+	@Override
+	public QuizResultDTO getQuizResult(Long userId, int quizId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

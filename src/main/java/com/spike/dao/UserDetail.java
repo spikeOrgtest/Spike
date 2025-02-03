@@ -34,7 +34,7 @@ public class UserDetail implements org.springframework.security.core.userdetails
                 .orElseThrow(() -> new UsernameNotFoundException("사용자를 찾을 수 없습니다 : " + loginId));
 
         // 사용자 정보 저장 (로그인 시 마다)
-        user.setLast_login(LocalDateTime.now());
+        user.setLastLogin(LocalDateTime.now());
         userRepo.save(user);  // DB에 저장
 
         // SpikeUser 객체를 반환

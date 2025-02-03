@@ -21,7 +21,7 @@ import lombok.Setter;
 @Entity
 @SequenceGenerator(	
 		name = "loan_seq_generator", 
-		sequenceName = "loan_seq", 
+		sequenceName = "loan_no_seq", 
 		initialValue = 1,
 		allocationSize = 1)
 
@@ -31,18 +31,18 @@ public class LoanDTO {
 	@Id
 	@GeneratedValue(
 			strategy = GenerationType.SEQUENCE,
-			generator = "loan_no_seq"
+			generator = "loan_seq_generator"
 			)
 	
-	private Integer loan_id;
+	private Integer loanId;
 	
 	@ManyToOne
 	private UserDTO owner;
 	
-	private String loan_name;
+	private String loanName;
 	
 	@CreationTimestamp
 	@Column(columnDefinition = "TIMESTAMP DEFAULT SYSDATE")
-	private LocalDate created_date;
+	private LocalDate createdDate;
 	
 }
