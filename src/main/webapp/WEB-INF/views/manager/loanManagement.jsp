@@ -28,7 +28,7 @@
 				</ul>
 			</div>
 			<div class="subpage-content">
-				<h2 style="margin-left: 40px;">사용자 관리</h2>
+				<h2 style="margin-left: 40px;">대출 관리</h2>
 				<table border="1" style="margin-left: 40px;">
 					<thead>
 						<tr>
@@ -37,20 +37,16 @@
 							<th>이름</th>
 							<th>이메일</th>
 							<th>상태</th>
-							<th>수정</th>
-							<th>삭제</th>
 						</tr>
 					</thead>
 					<tbody>
 						<c:forEach var = "item" items="${list}">
-						<tr>
+						<tr style=cursor:pointer; onClick="location.href='/spike.com/loanState?userId=${item.userId}'">
 							<td>${item.userId}</td>
 							<td>${item.loginId}</td>
 							<td>${item.name}</td>
 							<td>${item.emailId}@${item.emailDomain}</td>
 							<td>${item.status}</td>
-							<td><a href="/spike.com/EditUser?userId=${item.userId}">수정</a></td>
-							<td><a href="/spike.com/DeleteUser?userId=${item.userId}" onclick="return confirm('삭제 버튼을 누르면 모든 정보가 삭제됩니다.\n그래도 진행하시겠습니까?');">삭제</a></td>
 						</tr>
 						</c:forEach>
 					</tbody>

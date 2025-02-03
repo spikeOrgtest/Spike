@@ -41,8 +41,11 @@ public class LoanDTO {
 	
 	private String loanName;
 	
+	private long loanAmount;
+	
 	@CreationTimestamp
 	@Column(columnDefinition = "TIMESTAMP DEFAULT SYSDATE")
 	private LocalDate createdDate;
 	
+	private String loanState;
 }

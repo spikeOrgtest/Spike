@@ -66,6 +66,7 @@ public class LoanController {
 		
 		UserDTO sessionUser = (UserDTO) session.getAttribute("User");
 		s.setOwner(sessionUser);
+		s.setLoanState("대기 중");
 		this.loanService.createLoan(s);
 		
 		return new ModelAndView("redirect:/spike.com/products");
