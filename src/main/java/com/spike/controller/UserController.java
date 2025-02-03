@@ -191,7 +191,7 @@ public class UserController {
 		if (is == null) {
 			out.println("<script>");
 			out.println("alert('회원으로 검색되지 않습니다!\\n 올바른 회원정보를 입력하세요!');");
-			out.println("history.go();");
+			out.println("window.location.href = '/spike.com/findId';");
 			out.println("</script>");
 		} else {
 			String find_id = is.getLoginId();
