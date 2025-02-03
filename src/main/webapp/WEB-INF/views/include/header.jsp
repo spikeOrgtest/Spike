@@ -74,7 +74,10 @@
                         </ul>
                     </li>
 
-                    <li class="dropdown"><a href="mini.jsp" style="font: 25px;">mini</a></li>
+                    <li class="dropdown"><a href="/spike.com/mini" style="font: 25px;">mini</a>
+	   
+                    </li>
+                    
                 </ul>
             </nav>
         </div>
