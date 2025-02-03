@@ -35,7 +35,19 @@ public interface UserSerivce {
 
 	List<String> findbyaccountnumber(Long userId);
 
-	Long todayloge(); //설(관리자ManagerController 사용)
+	Long todayloge(); // 설(관리자ManagerController 사용)
+
+	Long newMember();
+
+	List<UserDTO> findByUserList();
+
+	List<UserDTO> findByUserIdEdit(Long UserId);
+
+	void UpdateUser(String isMinor, String status, Long userId);
+
+	void UserDelete(Long UserId);
+
+	void AccountDelete(Long UserId);
 
 
 }

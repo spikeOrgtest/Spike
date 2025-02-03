@@ -20,7 +20,7 @@
 			<div class="form-group">
 				<label for="account_type">계좌종류</label>
 				<div class="account_container">
-					<select id="account_type" name="account_type">
+					<select id="account_type" name="accountType">
 						<c:forEach var="type" items="${account_type}">
 							<option value="${type}">${type}</option>
 						</c:forEach>
@@ -30,7 +30,7 @@
 			<div class="form-group" id="product_select" class="hidden">
 				<label for="product_type">세부상품</label>
 				<div class="product_container">
-					<select id="product_type" name="product_type">
+					<select id="product_type" name="productType">
 					</select>
 				</div>
 			</div>
@@ -38,7 +38,7 @@
 				<label for="password">비밀번호</label>
 				<div class="password_container">
 					<input type="password" id="account_password"
-						name="account_password" required />
+						name="accountPassword" required />
 				</div>
 				<p class="password-requirements">비밀번호는 6자 숫자를 사용해야 합니다.</p>
 			</div>
@@ -65,7 +65,7 @@
 				<button type="submit" id="account">계좌 개설</button>
 				<button type="button" onclick="location.href='../products'">취소</button>
 			</div>
-			<input type="hidden" id="account_number" name="account_number" />
+			<input type="hidden" id="account_number" name="accountNumber" />
 		</form>
 		<!-- 성공메시지는 alert 사용해서 띄우는 방향으로 수정하기. --> 
 		<div id="accountInfo" class="hidden">

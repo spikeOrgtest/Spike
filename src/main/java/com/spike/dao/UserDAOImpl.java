@@ -20,7 +20,7 @@ public class UserDAOImpl implements UserDAO {
 	
 	@Autowired
 	private UserRepository spikeRepo;
-	
+
 	@Autowired
 	private AccountRepository accountRepo;
 
@@ -51,7 +51,7 @@ public class UserDAOImpl implements UserDAO {
 			return null; // 사용자 없음
 		}
 
-		s.setLast_login(LocalDateTime.now()); // 로그인시점 현재시간으로 대입
+		s.setLastLogin(LocalDateTime.now()); // 로그인시점 현재시간으로 대입
 		this.spikeRepo.save(s); // DB에 저장
 		return s;
 	}
@@ -89,13 +89,13 @@ public class UserDAOImpl implements UserDAO {
 
 	@Override
 	public void profileEdit(UserDTO s) {
-		this.spikeRepo.profileEdit(s.getName(), s.getEmail_id(), s.getEmail_domain(), s.getPassword(), s.getLoginId());
+		this.spikeRepo.profileEdit(s.getName(), s.getEmailId(), s.getEmailDomain(), s.getPassword(), s.getLoginId());
 
 	}
 
 	@Override
 	public void mypageEdit(UserDTO s) {
-		this.spikeRepo.mypageEdit(s.getName(), s.getEmail_id(), s.getEmail_domain(), s.getPhone(), s.getPhone01(),
+		this.spikeRepo.mypageEdit(s.getName(), s.getEmailId(), s.getEmailDomain(), s.getPhone(), s.getPhone01(),
 				s.getPhone02(), s.getPhone03(), s.getPostcode(), s.getRoadAddress(), s.getJibunAddress(),
 				s.getDetailAddress(), s.getReferences(), s.getPassword(), s.getLoginId());
 	}
@@ -109,7 +109,6 @@ public class UserDAOImpl implements UserDAO {
 	public void usersecession(String loginId) {
 		this.spikeRepo.usersecession(loginId);
 	}
-
 
 	@Override
 	public List<AccountDTO> findbyinquriy(Long userId) {
@@ -126,6 +125,35 @@ public class UserDAOImpl implements UserDAO {
 		return this.spikeRepo.todayloge();
 	}
 
+	@Override
+	public Long newMember() {
+		return this.spikeRepo.newMember();
+	}
 
-	
+	@Override
+	public List<UserDTO> findByUserList() {
+		return this.spikeRepo.findAll();
+	}
+
+	@Override
+	public List<UserDTO> findByUserIdEdit(Long UserId) {
+		return this.spikeRepo.findByUserIdEdit(UserId);
+	}
+
+	@Override
+	public void UpdateUser(String isMinor, String status, Long userId) {
+		this.spikeRepo.UpdateUser(isMinor, status, userId);
+	}
+
+	@Override
+	public void UserDelete(Long UserId) {
+		this.spikeRepo.UserDelete(UserId);
+	}
+
+	@Override
+	public void AccountDelete(Long UserId) {
+		this.spikeRepo.AccountDelete(UserId);
+	}
+
+
 }

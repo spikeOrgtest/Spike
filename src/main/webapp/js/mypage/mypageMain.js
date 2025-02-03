@@ -9,12 +9,12 @@ function domain_list() {
 
 	// "직접입력"을 선택한 경우
 	if (s.mail_list.value == "직접입력") {
-		s.email_domain.value = ""; // 입력 필드를 비워두기
-		s.email_domain.readOnly = false; // 사용자가 입력할 수 있도록 설정
-		s.email_domain.focus(); // 포커스를 주어 사용자가 입력할 수 있게 함
+		s.EmailDomain.value = ""; // 입력 필드를 비워두기
+		s.EmailDomain.readOnly = false; // 사용자가 입력할 수 있도록 설정
+		s.EmailDomain.focus(); // 포커스를 주어 사용자가 입력할 수 있게 함
 	} else {
-		s.email_domain.value = s.mail_list.options[num].value; // 선택된 값으로 이메일 도메인 설정
-		s.email_domain.readOnly = true; // 수정 불가능하게 설정
+		s.EmailDomain.value = s.mail_list.options[num].value; // 선택된 값으로 이메일 도메인 설정
+		s.EmailDomain.readOnly = true; // 수정 불가능하게 설정
 	}
 }
 

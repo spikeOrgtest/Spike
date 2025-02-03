@@ -1,6 +1,7 @@
 package com.spike.dto;
 
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -45,6 +46,8 @@ public class TransactionDTO {
 	
 	private long amount;
 	
+	private long afterBalance;
+	
 	private String transactionType;
 	
 	private String status = "PENDING"; //기본값 pending으로 지정, transaction 완료시 COMPLETED로 변경할 예정
@@ -53,6 +56,7 @@ public class TransactionDTO {
 	
 	@CreationTimestamp
 	//@Column(updatable = false) 자동 업데이트는 되지 않지만 update는 가능한 상태, 가능성 배제 위해 updatable 설정 고려
+	//private Timestamp transactionDate; LocalDateTime으로 변경 -> 뷰페이지 포매팅때문에 Timestamp로 복구
 	private Timestamp transactionDate;
 	
 	

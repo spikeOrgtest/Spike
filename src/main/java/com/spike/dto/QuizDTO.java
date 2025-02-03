@@ -35,21 +35,21 @@ public class QuizDTO {
         strategy = GenerationType.SEQUENCE, // SEQUENCE 전략을 사용
         generator = "quiz_no_seq" // quiz_no_seq 시퀀스 제너레이터 사용
     )
-    private int quiz_id; // 퀴즈 고유 ID
+    private int quizId; // 퀴즈 고유 ID
     
     private String question; // 퀴즈 질문
-    private String correct_answer; // 정답 (O 또는 X)
+    private String correctAnswer; // 정답 (O 또는 X)
     private int points; // 퀴즈 성공 시 적립 포인트
     
     @CreationTimestamp // 생성 시 자동으로 타임스탬프 삽입
     private Timestamp last_attempt_date; // 마지막 퀴즈 도전 날짜
 
 	public Object getCorrectAnswer() {
-		 return correct_answer;
+		 return correctAnswer;
     }
 
     public void setCorrect_answer(String correct_answer) {
-        this.correct_answer = correct_answer;
+        this.correctAnswer = correct_answer;
     }
 }
 

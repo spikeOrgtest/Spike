@@ -12,7 +12,7 @@ DESC sampleaccount;
 
 --샘플 데이터 insert
 INSERT INTO sampleaccount (
-    DTYPE, ID, OWNER_USER_ID, ACCOUNT_NUMBER, ACCOUNT_TYPE, BALANCE, 
+    DTYPE, ID, OWNER_UserId, ACCOUNT_NUMBER, ACCOUNT_TYPE, BALANCE, 
     CURRENCY, CREATED_AT, UPDATED_AT, ACCOUNT_PWD
 ) VALUES (
     'SampleBasicAccount', 10, 21, '123-456-789', 
@@ -20,21 +20,21 @@ INSERT INTO sampleaccount (
 );
 
 INSERT INTO sampleaccount (
-    DTYPE, ID, OWNER_USER_ID, ACCOUNT_NUMBER, ACCOUNT_TYPE, BALANCE, 
+    DTYPE, ID, OWNER_UserId, ACCOUNT_NUMBER, ACCOUNT_TYPE, BALANCE, 
     CURRENCY, CREATED_AT, UPDATED_AT, ACCOUNT_PWD
 ) VALUES (
     'SampleBasicAccount', 20, 21, '987-654-321', 
     '입출금계좌', 1000000.00, 'KRW', SYSDATE, SYSDATE, '2222'
 );
 
-update  sampleaccount set owner_user_id = 21;
+update  sampleaccount set owner_UserId = 21;
 
-SELECT * FROM sampleaccount WHERE owner_user_id = 21;
+SELECT * FROM sampleaccount WHERE owner_UserId = 21;
 
-SELECT * FROM user_info WHERE user_id = 21;
-SELECT * FROM sampleaccount WHERE owner_user_id = 21 AND dtype = 'SampleBasicAccount';
+SELECT * FROM user_info WHERE UserId = 21;
+SELECT * FROM sampleaccount WHERE owner_UserId = 21 AND dtype = 'SampleBasicAccount';
 
-SELECT count(*) FROM sampleaccount WHERE owner_user_id = 21 AND dtype = 'SampleBasicAccount';
+SELECT count(*) FROM sampleaccount WHERE owner_UserId = 21 AND dtype = 'SampleBasicAccount';
 
 SELECT constraint_name, table_name
 FROM user_constraints
@@ -50,6 +50,6 @@ JOIN user_constraints b ON a.constraint_name = b.constraint_name
 JOIN user_cons_columns c ON b.r_constraint_name = c.constraint_name
 WHERE a.table_name = 'SAMPLEACCOUNT';
 
-SELECT owner_user_id FROM sampleaccount WHERE dtype = 'SampleBasicAccount';
+SELECT owner_UserId FROM sampleaccount WHERE dtype = 'SampleBasicAccount';
 
 
