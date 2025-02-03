@@ -10,6 +10,8 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
+import org.springframework.security.web.authentication.ForwardAuthenticationFailureHandler;
 
 @Configuration
 @EnableWebSecurity
@@ -19,6 +21,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	public PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
+	
+    @Bean
+    public AuthenticationFailureHandler failureHandler(){
+        return new ForwardAuthenticationFailureHandler("/spike.com/login");
+    }
 
 	@Autowired
 	private UserDetail userDetail;
@@ -35,7 +42,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.anyRequest().permitAll() // 인증 없이 모든 경로에 접근 가능
 				.and().formLogin().loginPage("/spike.com/login") // 로그인 페이지 URL 설정
 				.loginProcessingUrl("/login") // 로그인 요청을 처리할 URL
-				.failureUrl("/login?error") // 로그인 실패 시 리디렉션할 URL 설정
+				.failureHandler(failureHandler())
 				.defaultSuccessUrl("/spike.com/", true) // 로그인 성공 후 이동할 URL
 				.usernameParameter("loginId") // 로그인 폼에서 사용하는 아이디 파라미터 이름을 "loginId"로 설정
 				.passwordParameter("password") // 로그인 폼에서 사용하는 비밀번호 파라미터 이름을 "password"로 설정

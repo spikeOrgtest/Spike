@@ -10,17 +10,25 @@ import java.util.Random;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.WebAttributes;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.spike.dto.LoginDTO;
 import com.spike.dto.UserDTO;
 import com.spike.service.UserSerivce;
 
@@ -41,6 +49,32 @@ public class UserController {
 		s.setViewName("/login");
 		return s;
 	}
+	
+	@PostMapping("/login")
+	public String postLogin(@Valid @ModelAttribute LoginDTO loginDTO, BindingResult bindingResult, HttpServletRequest request, Model model) {
+
+	    // 로그인 실패 핸들러가 넣어준 exception 객체 꺼내기
+	    AuthenticationException exception = (AuthenticationException) request.getAttribute(WebAttributes.AUTHENTICATION_EXCEPTION);
+	    
+	    // AuthenticationException 확인하고 있으면 reject
+	    if (exception instanceof BadCredentialsException) {
+	        // BadCredentials 예외를 처리하기 위해 bindingResult에 에러 추가
+	        bindingResult.reject("BadCredentials", "아이디 또는 비밀번호가 잘못되었습니다.");
+	    } else if (exception instanceof UsernameNotFoundException) {
+	        bindingResult.reject("UserNotFound", "사용자를 찾을 수 없습니다.");
+	    } else if (exception != null) {
+	        bindingResult.reject("AuthenticationException", "인증 중 오류가 발생했습니다.");
+	    }
+
+	    // 폼 검증 또는 로그인 실패로 생긴 exception이 있는 경우
+	    if (bindingResult.hasErrors()) {
+	        model.addAttribute("bindingResult", bindingResult);
+	        return "login"; // 로그인 화면으로 돌아가기
+	    }
+
+	    return "forward:/login"; // 로그인 성공 후 리다이렉션
+	}
+
 
 	// 회원가입 폼
 	@GetMapping("/signup")
