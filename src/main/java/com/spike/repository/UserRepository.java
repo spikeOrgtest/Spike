@@ -67,17 +67,15 @@ public interface UserRepository extends JpaRepository<UserDTO, Long> {
 	// CURRENT_DATE")
 	// @Query("SELECT COUNT(u) FROM UserDTO u WHERE TRUNC(u.LastLogin) =
 	// TRUNC(CURRENT_DATE)")
-	@Query("SELECT COUNT(u) FROM UserDTO u WHERE (TRUNC(u.lastLogin) = TRUNC(CURRENT_DATE) OR u.lastLogin IS NULL)")
-	public Long todayloge();
-
-
-	@Query("SELECT u FROM UserDTO u ")
-	public int visitors();
-
-	
+	@Query("SELECT COUNT(u) FROM UserDTO u WHERE TRUNC(u.lastLogin) = TRUNC(CURRENT_DATE)")
+	public Long todaylog();
 
 	@Query("select count(s) from UserDTO s where (trunc(s.registrationDate) = trunc(current_date))")
 	public Long newMember();
+
+	//@Query("SELECT u FROM UserDTO u where u.userId ")
+	//public List<UserDTO> visitors();
+    
 
 	@Query("select s from UserDTO s where s.userId=?1")
 	public List<UserDTO> findByUserIdEdit(Long UserId);
@@ -96,6 +94,7 @@ public interface UserRepository extends JpaRepository<UserDTO, Long> {
 	@Transactional
 	@Query("delete FROM AccountDTO a WHERE a.owner.userId =?1")
 	public void AccountDelete(Long UserId);
+
 
 
 }

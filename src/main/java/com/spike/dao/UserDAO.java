@@ -35,7 +35,7 @@ public interface UserDAO {
 
 	List<String> findbyaccountnumber(Long userId);
 
-	Long todayloge();
+	Long todaylog();
 
 
 	Long newMember();
@@ -49,6 +49,8 @@ public interface UserDAO {
 	void UserDelete(Long UserId);
 
 	void AccountDelete(Long UserId);
+
+	List<UserDTO> visitors();
 
 
 }

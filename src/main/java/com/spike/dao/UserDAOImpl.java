@@ -121,8 +121,8 @@ public class UserDAOImpl implements UserDAO {
 	}
 
 	@Override
-	public Long todayloge() {
-		return this.spikeRepo.todayloge();
+	public Long todaylog() {
+		return this.spikeRepo.todaylog();
 	}
 
 	@Override
@@ -153,6 +153,11 @@ public class UserDAOImpl implements UserDAO {
 	@Override
 	public void AccountDelete(Long UserId) {
 		this.spikeRepo.AccountDelete(UserId);
+	}
+
+	@Override
+	public List<UserDTO> visitors() {
+		return this.spikeRepo.findAll();
 	}
 
 

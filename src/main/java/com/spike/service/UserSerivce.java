@@ -35,7 +35,7 @@ public interface UserSerivce {
 
 	List<String> findbyaccountnumber(Long userId);
 
-	Long todayloge(); // 설(관리자ManagerController 사용)
+	Long todaylog(); // 설(관리자ManagerController 사용)
 
 	Long newMember();
 
@@ -48,6 +48,8 @@ public interface UserSerivce {
 	void UserDelete(Long UserId);
 
 	void AccountDelete(Long UserId);
+
+	List<UserDTO> visitors();
 
 
 }

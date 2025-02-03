@@ -1,7 +1,11 @@
 package com.spike.controller;
 
 import java.io.PrintWriter;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -39,7 +43,7 @@ public class ManagerController {
 	public ModelAndView mapost() {
 		System.out.println("mapost() 메서드가 호출됨");
 
-		Long tolog = userService.todayloge();
+		Long tolog = userService.todaylog();
 		System.out.println("\n ==========================  " + tolog);
 
 		Long newmember = userService.newMember();
@@ -53,25 +57,24 @@ public class ManagerController {
 				
 	}
 	
-	//@GetMapping("/visit")
-	//public ModelAndView visit() {
-	//	
-	//	int visi = userService.visitors();
-	//	System.out.println("\n =============== " + visi);
-	//	
-	//	ModelAndView vi = new ModelAndView();
-	//	vi.addObject("visi",visi);
-	//	vi.setViewName("/manager/visit");
-	//	return vi;
-	//}
-	
-	//("/visit")
-	//public String loan() {
-	//	return "/manager/visit";
-	//}
-	
-
-
+	@GetMapping("/visit")
+	public ModelAndView visit() {
+		
+		List<UserDTO> visi = this.userService.findByUserList();
+		
+		List<UserDTO> Llist = visi.stream()
+				.filter(l -> l.getLastLogin() != null && l.getLastLogin().toLocalDate().isEqual(LocalDate.now()))
+				.collect(Collectors.toList());
+		
+		//if(visi.getLastLogin().equals(LocalDateTime.now())) {
+		
+		ModelAndView vi = new ModelAndView();
+		vi.addObject("visi",visi);
+		vi.addObject("Llist",Llist);
+		vi.setViewName("/manager/visit");
+		return vi;
+	}
+			
 	
 
 	@GetMapping("/userManagement")

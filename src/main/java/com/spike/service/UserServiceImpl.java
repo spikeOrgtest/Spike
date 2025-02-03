@@ -7,8 +7,6 @@ import org.springframework.stereotype.Service;
 
 import com.spike.dao.UserDAO;
 import com.spike.dto.AccountDTO;
-import com.spike.dto.NotiPageDTO;
-import com.spike.dto.NoticeDTO;
 import com.spike.dto.UserDTO;
 
 @Service
@@ -84,8 +82,8 @@ public class UserServiceImpl implements UserSerivce {
 	}
 
 	@Override
-	public Long todayloge() {
-		return this.spikeDao.todayloge();
+	public Long todaylog() {
+		return this.spikeDao.todaylog();
 	}
 
 	@Override
@@ -116,6 +114,11 @@ public class UserServiceImpl implements UserSerivce {
 	@Override
 	public void AccountDelete(Long UserId) {
 		this.spikeDao.AccountDelete(UserId);
+	}
+
+	@Override
+	public List<UserDTO> visitors() {
+		return this.spikeDao.visitors();
 	}
 
 }

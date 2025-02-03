@@ -142,10 +142,20 @@
 									<th>이름</th>
 									<th>핸드폰번호</th>
 									<th>주소</th>
-									<th>생일</th>
+									<th>생년월일</th>
 									<th>로그인기록</th>
 								</tr>
 							</thead>
+					  <c:forEach var = "item" items="${list}">
+						<tr>
+							<td>${item.loginId}</td>
+							<td>${item.name}</td>
+							<td>${item.phone}</td>
+							<td>${item.jibunAddress}</td>
+							<td>${item.birthDate}</td>
+							<td>${item.lastLogin}</td>
+						</tr>
+						</c:forEach>
 							<tbody>
 								<c:if test="${!empty Nlist}">
 								<!--  startrow값을 이용해서 번호계산 -->

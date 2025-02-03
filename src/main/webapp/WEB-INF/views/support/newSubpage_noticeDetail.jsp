@@ -45,29 +45,29 @@
 
 			<!-- 공지사항 상세 페이지 내용 -->
 			<div class="notice-container">
-				<h2>${n.notice_title}</h2>
+				<h2>${n.noticeTitle}</h2>
 				
 				<div class= "notice_neme">
-				 <span><strong>작성자:</strong>${n.notice_name }</span>
+				 <span><strong>작성자:</strong>${n.noticeName }</span>
 				</div>
 
 				<div class="notice-info">
 					<span><strong>등록일:</strong> 
-					<fmt:formatDate value="${n.created_date}" pattern="yyyy-MM-dd" /></span>
+					<fmt:formatDate value="${n.createdDate}" pattern="yyyy-MM-dd" /></span>
 				</div>
 				
 				<div class="notice-hit">
-				<span><strong>조회수:</strong>${n.notice_hit }</span>
+				<span><strong>조회수:</strong>${n.noticeHit }</span>
 				</div>
 
 				<div class="notice-content">
-					${n.notice_cont}
+					${n.noticeCont}
 				</div>
 
 				<div class="attachments">
 					<strong>첨부파일</strong>
 					<ul>
-						<li><a href="/spike.com/downloadFile?fileName=${n.notice_file}">${n.notice_file}</a></li>
+						<li><a href="/spike.com/downloadFile?fileName=${n.noticeFile}">${n.noticeFile}</a></li>
 					</ul>
 				</div>
 
@@ -83,10 +83,10 @@
     </div>
      
 				  <div class="button-container2" style="text-align: center; margin-top: 20px;">
-        <a href="/spike.com/noti_cont?notice_no=${n.notice_no }&state=edit&page=${page}">수정</a>
+        <a href="/spike.com/noti_cont?notice_no=${n.noticeNo }&state=edit&page=${page}">수정</a>
     </div>
 				  <div class="button-container3" style="text-align: center; margin-top: 20px;">
-        <a href="javascript:void(0);" onclick="confirmDelete(${n.notice_no}, ${page})">삭제</a>
+        <a href="javascript:void(0);" onclick="confirmDelete(${n.noticeNo}, ${page})">삭제</a>
         
     </div>
     </div>
