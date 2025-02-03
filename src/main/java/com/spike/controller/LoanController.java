@@ -51,9 +51,9 @@ public class LoanController {
 			return null;
 		}
 		
-		String[] loanName = {"대출", "그냥대출"};
+		String[] loan_name = {"대출", "그냥대출"};
 		ModelAndView ss = new ModelAndView("/products/newLoan");
-		ss.addObject("loanName", loanName);
+		ss.addObject("loan_name", loan_name);
 		return ss;
 	}
 	

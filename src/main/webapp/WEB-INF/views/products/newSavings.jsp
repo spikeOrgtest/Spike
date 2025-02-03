@@ -11,7 +11,7 @@
 </head>
 <body>
 	<div class="container">
-		<h1>SPIKE 계좌 개설</h1>
+		<h1>SPIKE 적금</h1>
 		<form name="s" id="signupForm" action="/spike.com/account_ok"
 			method="POST">
 			<input type="hidden" name="${_csrf.parameterName}"
@@ -20,7 +20,7 @@
 			<div class="form-group">
 				<label for="account_type">계좌종류</label>
 				<div class="account_container">
-					<select id="account_type" name="account_type">
+					<select id="account_type" name="accountType">
 						<c:forEach var="type" items="${account_type}">
 							<option value="${type}">${type}</option>
 						</c:forEach>
@@ -31,7 +31,7 @@
 				<label for="product_type">세부상품</label>
 				<div class="product_container">
 				<select id="product_type"
-					name="product_type">
+					name="productType">
 				</select>
 				</div>
 			</div>
@@ -39,7 +39,7 @@
 				<label for="password">비밀번호</label> 
 				<div class="password_container">
 				<input type="password"
-					id="account_password" name="account_password" required />
+					id="account_password" name="accountPassword" required />
 				</div>
 				<p class="password-requirements">비밀번호는 6자 숫자를 사용해야 합니다.</p>
 			</div>

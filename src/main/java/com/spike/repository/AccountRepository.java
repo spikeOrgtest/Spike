@@ -47,7 +47,7 @@ public interface AccountRepository extends JpaRepository<AccountDTO, Long> {
 	@Query("delete from AccountDTO a where a.accountNumber=?1")
 	public void accountsecession(String accountNumber);
 
-	@Query("SELECT a FROM AccountDTO a WHERE a.deleted = false")
+	@Query("SELECT a FROM AccountDTO a WHERE a.accountState = ACTIVE")
 	List<AccountDTO> findByDeletedFalse();
 
 	@Modifying

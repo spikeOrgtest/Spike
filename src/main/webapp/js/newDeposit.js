@@ -3,7 +3,6 @@ document.addEventListener('DOMContentLoaded', function() {
 	const account_password = document.getElementById('account_password');
 	const confirmPassword = document.getElementById('confirmPassword');
 	const accountInfo = document.getElementById('accountInfo');
-	const accountNumberSpan = document.getElementById('accountNumber');
 
 	form.addEventListener('submit', function(e) {
 		e.preventDefault(); // 기본 폼 제출 방지
@@ -11,7 +10,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		if (validateForm()) {
 			const newAccountNumber = generateAccountNumber();
 			document.getElementById('account_number').value = newAccountNumber;
-			accountNumberSpan.textContent = newAccountNumber;
+			alert(`계좌발급을 축하드립니다.\n귀하의 계좌번호는 ${newAccountNumber} 입니다.`);
 			accountInfo.classList.remove('hidden');
 			form.submit();
 		}
