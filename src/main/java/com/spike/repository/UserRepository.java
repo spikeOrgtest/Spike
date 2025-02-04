@@ -33,17 +33,17 @@ public interface UserRepository extends JpaRepository<UserDTO, Long> {
 
 	@Modifying
 	@Transactional
-	@Query("update UserDTO s set s.password = ?1 where s.loginId = ?2 and s.name = ?3")
+	@Query("update UserDTO s set s.password=?1 where s.loginId=?2 and s.name=?3")
 	public int changePwd(String password, String loginId, String name);
 
 	@Modifying
 	@Transactional
-	@Query("update UserDTO s set s.name = ?1, s.emailId = ?2, s.emailDomain = ?3, s.password = ?4 where s.loginId = ?5")
+	@Query("update UserDTO s set s.name=?1, s.emailId=?2, s.emailDomain=?3, s.password=?4 where s.loginId=?5")
 	public int profileEdit(String name, String EmailId, String EmailDomain, String password, String loginId);
 
 	@Modifying
 	@Transactional
-	@Query("update UserDTO s set s.name = ?1, s.emailId = ?2, s.emailDomain = ?3, s.phone = ?4, s.phone01 = ?5, s.phone02 = ?6, s.phone03 = ?7, s.postcode = ?8, s.roadAddress = ?9, s.jibunAddress = ?10, s.detailAddress = ?11, s.References = ?12, s.password = ?13 where s.loginId = ?14")
+	@Query("update UserDTO s set s.name=?1, s.emailId=?2, s.emailDomain=?3, s.phone=?4, s.phone01=?5, s.phone02=?6, s.phone03=?7, s.postcode=?8, s.roadAddress=?9, s.jibunAddress=?10, s.detailAddress=?11, s.References=?12, s.password=?13 where s.loginId=?14")
 	public void mypageEdit(String name, String EmailId, String EmailDomain, String phone, String phone01,
 			String phone02, String phone03, String postcode, String roadAddress, String jibunAddress,
 			String detailAddress, String references, String password, String loginId);
@@ -59,10 +59,10 @@ public interface UserRepository extends JpaRepository<UserDTO, Long> {
 	@Query("delete from UserDTO s where s.loginId=?1")
 	public void usersecession(String loginId);
 
-	@Query("SELECT a FROM AccountDTO a WHERE a.owner.userId =?1")
+	@Query("SELECT a FROM AccountDTO a WHERE a.owner.userId=?1")
 	public List<AccountDTO> findByUserId(Long userId);
 
-	@Query("SELECT a.accountNumber FROM AccountDTO a WHERE a.owner.userId =?1")
+	@Query("SELECT a.accountNumber FROM AccountDTO a WHERE a.owner.userId=?1")
 	public List<String> findbyaccountnumber(Long userId);
 
 	// @Query("SELECT COUNT(a) FROM UserDTO a WHERE FUNCTION('DATE', a.UserId) =
@@ -90,16 +90,16 @@ public interface UserRepository extends JpaRepository<UserDTO, Long> {
 
 	@Modifying
 	@Transactional
-	@Query("delete FROM AccountDTO a WHERE a.owner.userId =?1")
+	@Query("delete FROM AccountDTO a WHERE a.owner.userId=?1")
 	public void AccountDelete(Long UserId);
-	
-	// 포인트 추가
-		@Query("SELECT u FROM UserDTO u WHERE u.id = :id")
-	    Optional<UserDTO> findUserById(@Param("id") Integer id);
 
-		@Modifying
-		@Transactional
-		@Query("UPDATE UserDTO u SET u.point = ?2 WHERE u.userId =?1")
-		void updateUserPoint(Long userId, Integer value);
+	// 포인트 추가
+	@Query("SELECT u FROM UserDTO u WHERE u.id=:id")
+	Optional<UserDTO> findUserById(@Param("id") Integer id);
+
+	@Modifying
+	@Transactional
+	@Query("UPDATE UserDTO u SET u.point=?2 WHERE u.userId=?1")
+	void updateUserPoint(Long userId, Integer value);
 
 }
