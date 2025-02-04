@@ -19,7 +19,7 @@ public interface QuizResultRepository extends JpaRepository<QuizResultDTO, Integ
 
 	List<QuizResultDTO> findByUser(UserDTO user);  
 
-	// 특정 사용자 ID에 대한 퀴즈 결과 조회
+	// 마이 포인트 페이지 퀴즈 랭킹 조회 쿼리
 	@Query(value = """
 			SELECT name, correctAnswered, earnedPoints FROM (
 			    SELECT u.user_id, u.name as name, COUNT(qr.answered_correctly) AS correctAnswered, SUM(qr.earned_points) AS earnedPoints
@@ -32,9 +32,7 @@ public interface QuizResultRepository extends JpaRepository<QuizResultDTO, Integ
 			WHERE ROWNUM <= 3
 			""", nativeQuery = true)
 	List<QuizRank> findTop3();
-
-
-
+	
 }
 
 

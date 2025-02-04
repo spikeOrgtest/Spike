@@ -4,6 +4,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta id="_csrf" name="_csrf" content="${_csrf.token}"/>
+<meta id="_csrf_header" name="_csrf_header" content="${_csrf.headerName}"/>
+
 <title>퀴즈 포인트샵</title>
 <link rel="stylesheet" href="../css/support/subpage.css">
 <link rel="stylesheet" href="../css/include/include.css">
@@ -34,7 +37,7 @@
 			<div class="subpage-sidebar">
 				<h3 class="subpage-sidebar-title">Point Shop</h3>
 				<ul>
-					<li><a href="minisub">mini home</a></li>
+					<li><a href="mini">mini home</a></li>
 					<li><a href="quiz">O/X Quiz</a></li>
 					<li><a href="shop">Point Shop</a></li>
 					<li><a href="point">My Point</a></li>
@@ -158,14 +161,63 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     });
 
+ // 백엔드에 구매 요청을 보내는 함수
+    function sendPurchaseRequest(itemName, itemPrice) {
+        // CSRF 토큰 가져오기
+        const csrfHeader = document.querySelector('meta[name="_csrf_header"]').content;
+        const csrfToken = document.querySelector('meta[name="_csrf"]').content;
+
+        // 요청할 데이터 구성
+        const purchaseData = {
+            itemName: itemName,
+            itemPrice: itemPrice,
+        };
+
+        console.log("서버로 보낼 데이터:", purchaseData);
+
+        // fetch API를 이용하여 백엔드에 POST 요청 전송
+        return fetch('/spike.com/purchase', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                [csrfHeader]: csrfToken, // CSRF 보호
+            },
+            body: JSON.stringify(purchaseData),
+        })
+        .then(response => {
+            console.log("응답 상태 코드:", response.status);
+            return response.json();
+        })
+        .then(data => {
+            console.log("서버 응답 데이터:", data);
+            return data; // 결과 반환 (성공 여부 확인용)
+        })
+        .catch(error => {
+            console.error("구매 요청 실패:", error);
+            throw error; // 에러 발생 시 상위 코드에서 처리할 수 있도록 던짐
+        });
+    }
+
+    
     // 구매 확인 버튼 클릭
     confirmPurchaseBtn.addEventListener("click", function() {
         const currentPoints = parseInt(userPointsElement.textContent);
         
         if (currentPoints >= selectedGiftPrice) {
-            // 포인트 차감 후 구매 처리 (여기서는 단순히 포인트 업데이트)
-            userPointsElement.textContent = currentPoints - selectedGiftPrice;
-            alert(`${selectedGiftName} 구매 완료!`);
+			//백엔드에 구매 요청 보내기
+			sendPurchaseRequest(selectedGiftName, selectedGiftPrice)
+			.then(data => {
+				if (data.success) {
+					// 성공 시 포인트 차감
+					userPointsElement.textContent = currentPoints - selectedGiftPrice;
+					alert(`${selectedGiftName} 구매 완료!`);
+				} else {
+                    alert(data.message || "구매 실패. 다시 시도해주세요.");
+                }
+            })
+            .catch(() => {
+                alert("서버 오류가 발생했습니다.");
+            });
         } else {
             alert("포인트가 부족합니다.");
         }
@@ -180,26 +232,6 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 });
 
-// 포인트 확인
-function checkUserPoints() {
-    fetch('/get-user-points', {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-    })
-    .then(response => response.json())
-    .then(data => {
-        document.getElementById('user-points').innerText = `현재 포인트: ${data.points}`;
-    })
-    .catch(error => {
-        console.error('포인트 확인 실패:', error);
-    });
-}
-
-window.onload = function() {
-    checkUserPoints();
-};
 
 </script>
 
