@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 
@@ -34,7 +35,7 @@ public class Listing {
 	private int id;
 	
 	@ManyToOne //판매자 계좌 참조
-	@Column(nullable = false) //기본값은 true, 명시적으로 지정해 주는게 좋을듯(데이터 무결성)
+	@JoinColumn(nullable = false) //기본값은 true, 명시적으로 지정해 주는게 좋을듯(데이터 무결성)
 	private SecuritiesAccountDTO seller;
 	
 	//판매하는 주식의 종류(FK로 참조), 양, 가격
