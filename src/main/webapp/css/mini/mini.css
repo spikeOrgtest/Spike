@@ -1,91 +1,80 @@
-
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
 }
 
-main{
-   margin-bottom: 150px;
+.main {
+	margin-bottom: 150px;
+	max-width: 1200px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	margin: 0 auto;
 }
 
 body {
-    font-family: Arial, sans-serif;
-    line-height: 1.6;
-    color: #333;
-    
+	font-family: Arial, sans-serif;
+	line-height: 1.6;
+	color: #333;
 }
 
 .container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
+	max-width: 1200px;
+	margin: 0 auto;
+	padding: 0 20px;
 }
 
 /* mini_main Section */
 #mini_main .mini_container {
-    display: flex;  /* flexbox로 정렬 */
-    justify-content: center;  /* 수평 중앙 정렬 */
-    align-items: center;  /* 수직 중앙 정렬 */
-    height: 100vh;  /* 화면의 전체 높이를 채워서 수직 중앙 배치 */
-    width: 100%;  /* 화면의 전체 너비 */
-    text-align: center;  /* 텍스트 중앙 정렬 */
-    max-width: 1200px;
-    flex-direction: row-reverse;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100vh;
+	width: 100%;
+	text-align: center;
+	max-width: 1200px;
+	flex-direction: row-reverse;
 }
 
 #mini_main .mini_container_img {
-    flex: 0 0 70%;  /* 이미지 영역 70% 크기 설정 */
-    display: flex;
-    justify-content: center;  /* 이미지 중앙 정렬 */
+	flex: 0 0 70%;
+	display: flex;
+	justify-content: center;
 }
 
 #mini_main .mini_container_text {
-    flex: 0 0 30%;  /* 텍스트 영역 30% 크기 설정 */
-    padding-left: 20px;  /* 텍스트와 이미지 사이에 여백 추가 */
+	flex: 0 0 30%;
+	padding-left: 20px;
 }
 
 #mini_main .mini_container_img img {
-    width: 100%;  /* 이미지가 부모 컨테이너의 크기를 채우도록 설정 */
-    height: auto;  /* 이미지 비율 유지 */
-}
-
-
-/*--------------------------------------------------------------
-# mini_main
---------------------------------------------------------------*/
-.mini_main {
-  width: 100%;
-  min-height: 70vh;
-  position: relative;
-  padding: 120px 0 60px 0;
-  display: flex;
-  align-items: center;
+	width: 100%;
+	height: auto;
 }
 
 .mini_main h2 {
-  margin: 0;
-  font-size: 48px;
-  font-weight: 700;
-  line-height: 56px;
-  color: navy;
+	margin: 0;
+	font-size: 48px;
+	font-weight: 700;
+	line-height: 56px;
+	color: navy;
 }
 
 .mini_main p {
-  color: green;
-  margin: 5px 0 10px 0;
-  font-size: 30px;
-  font-weight: bold;
-
+	color: green;
+	margin: 5px 0 10px 0;
+	font-size: 30px;
+	font-weight: bold;
 }
 
-
-/* 가로 1200px, 두께 3px인 선 */
+/* 가로선 추가 */
 .divider {
-    width: 1200px;  /* 선의 가로 길이 */
-    height: 3px;  /* 선의 두께 */
-    background-color: #000;  /* 선 색상, 필요에 따라 변경 */
-    margin: 20px auto;  /* 위아래 여백, 수평 중앙 정렬 */
+	width: 1200px;
+	height: 3px;
+	background-color: #000;
+	margin: 20px auto;
 }
 
 .mini_title h2 {
@@ -94,187 +83,108 @@ body {
 	text-align: center;
 }
 
-
-/* mini_main Section */
-#mini_main .mini_container {
-    display: flex;
-    justify-content: center;  /* 수평 중앙 정렬 */
-    align-items: center;  /* 수직 중앙 정렬 */
-    height: 100vh;  /* 화면의 전체 높이를 채워서 수직 중앙 배치 */
-    width: 100%;  /* 화면의 전체 너비 */
-    text-align: center;  /* 텍스트 중앙 정렬 */
-    max-width: 1200px;
-    flex-direction: row-reverse;
+/* mini_intro */
+.mini_intro .mini_intro_container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+	max-width: 1200px;
 }
-
-#mini_main .mini_container_img {
-    flex: 0 0 70%;  /* 이미지 영역 70% 크기 설정 */
-    display: flex;
-    justify-content: center;  /* 이미지 중앙 정렬 */
-}
-
-#mini_main .mini_container_text {
-    flex: 0 0 30%;  /* 텍스트 영역 30% 크기 설정 */
-    padding-left: 20px;  /* 텍스트와 이미지 사이에 여백 추가 */
-}
-
-#mini_main .mini_container_img img {
-    width: 100%;  /* 이미지가 부모 컨테이너의 크기를 채우도록 설정 */
-    height: auto;  /* 이미지 비율 유지 */
-}
-
-/*-------------------------------------------------------------- # mini_intro */
-
-#mini_intro .mini_intro_container {
-    display: flex;
-    justify-content: center;  /* 수평 중앙 정렬 */
-    align-items: center;  /* 수직 중앙 정렬 */
-    height: 100vh;  /* 화면의 전체 높이를 채워서 수직 중앙 배치 */
-    width: 100%;  /* 화면의 전체 너비 */
-    text-align: center;  /* 텍스트 중앙 정렬 */
-    max-width: 1200px;
-    flex-direction: row-reverse;
-}
-
-
 
 .mini_intro {
-    display: flex;
-    justify-content: center;  /* 수평 중앙 정렬 */
-    align-items: center;  /* 수직 중앙 정렬 */
-    padding: 50px 0;  /* 상하 여백 설정 */
-   max-width:1200px;
-    flex-direction: column;  /* 세로 방향으로 배치 */
-    width: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 50px 0;
+	max-width: 1200px;
+	flex-direction: column;
+	width: 100%;
 }
 
-/* mini_intro_container 크기와 배치 설정 */
+/* mini_intro_container */
 .mini_intro_container {
-    display: flex;
-    width: 100%;  /* 부모의 크기에 맞게 */
-    max-width: 1200px;  /* 최대 너비 1200px */
-    flex-direction: column;  /* 세로 방향으로 배치 */
-    gap: 30px;  /* 항목 간 간격 설정 */
+	display: flex;
+	width: 100%;
+	max-width: 1200px;
+	flex-direction: column;
+	gap: 30px;
 }
 
-
-
-/* mini_intro1 이미지와 텍스트 크기 비율 설정 */
+/* mini_intro1 & mini_intro2 */
 .mini_intro1, .mini_intro2 {
-    display: flex;
-    width: 100%;
-
-    justify-content: space-between;  /* 이미지와 텍스트 간격 조정 */
+	display: flex;
+	width: 100%;
+	justify-content: space-between;
 }
 
-/* intro1_img 크기 40% */
 .intro1_img, .intro2_img {
-    flex: 0 0 40%;  /* 40% 고정 */
-    padding-right: 20px;  /* 이미지와 텍스트 간격 */
- 
- 
+	flex: 1;
+	max-width: 40%;
+	padding-right: 20px;
 }
 
-.intro1_img img{
+.intro1_img img, .intro2_img img {
 	width: 500px;
 	height: 500px;
 }
 
-.intro2_img img{
-	width: 500px;
-	height: 500px;
-}
-
-/* intro1_text 크기 60% */
 .intro1_text, .intro2_text {
-    flex: 0 0 60%;  /* 60% 고정 */
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
 }
 
-/* 글씨 스타일 조정 (필요시) */
 .intro1_text h3, .intro2_text h3 {
-    font-size: 1.5rem;
-    margin-bottom: 10px;
+	color: #111;
+	font-size: 40px;
+	line-height: 52px;
+	font-weight: bold;
+	font-family: 'Yoon 윤고딕', sans-serif;
 }
 
 .intro1_text p, .intro2_text p {
-    font-size: 1rem;
+	font-size: 40px;
+	color: #949494;
+	font-size: 40px;
+	line-height: 52px;
+	font-weight: bold;
+	font-family: 'Yoon 윤고딕', sans-serif;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* 바로가기 버튼 */
+/* 하단 미니 바로가기 버튼 */
 .shortcut-button {
-   display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 400px;
-    height: 72px;
-    background-color: #fff8b2;  /* 연노랑색 배경 */
-    border-radius: 20px;
-    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
-    text-decoration: none;
-    transition: all 0.3s ease;
-    position: relative;
-    margin-top: 30px;  /* main 아래로 배치 */
- 
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 400px;
+	height: 72px;
+	background-color: #fff8b2;
+	border-radius: 20px;
+	box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+	text-decoration: none;
+	transition: all 0.3s ease;
+	position: relative;
+	margin: 30px auto 0; /* 중앙 정렬 */
+	margin-bottom: 50px;
 }
 
 .shortcut-button:hover {
-    background-color: #ffeb3b;  /* 호버 시 약간 더 진한 노랑색 */
-    transform: translateY(-5px);
-    box-shadow: 0 12px 20px rgba(0, 0, 0, 0.2);
+	background-color: #ffeb3b;
+	transform: translateY(-5px);
+	box-shadow: 0 12px 20px rgba(0, 0, 0, 0.2);
 }
 
 .shortcut-button .button-content {
-    text-align: center;
+	text-align: center;
 }
 
 .shortcut-button .button-text {
-    font-size: 28px;
-    color: #6b6b6b;  /* 텍스트 색은 어두운 회색 */
-    font-weight: bold;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    transition: all 0.3s ease;
-}
-
-.shortcut-button .button-text:hover {
-    color: #555;  /* 호버 시 텍스트 색상 변화 */
-}
-
-/* 돈 관련 아이콘 추가 */
-.shortcut-button::before {
-    content: "💰";  /* 돈 아이콘 */
-    position: absolute;
-    top: -35px;
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 30px;
-    transition: all 0.3s ease;
-}
-
-.shortcut-button:hover::before {
-    top: -35px;
-    font-size: 45px;
+	font-size: 28px;
+	color: #6b6b6b;
+	font-weight: bold;
+	letter-spacing: 1px;
+	text-transform: uppercase;
+	transition: all 0.3s ease;
 }
