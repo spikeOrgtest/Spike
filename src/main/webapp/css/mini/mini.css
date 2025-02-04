@@ -171,7 +171,7 @@ body {
 }
 
 .shortcut-button:hover {
-	background-color: #ffeb3b;
+	background-color: #ffffff;
 	transform: translateY(-5px);
 	box-shadow: 0 12px 20px rgba(0, 0, 0, 0.2);
 }
