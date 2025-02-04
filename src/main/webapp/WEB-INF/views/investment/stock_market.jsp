@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -8,19 +9,24 @@
 <title>주식 시장 - SPIKE</title>
 <link href="/css/investment/stock_market.css" rel="stylesheet">
 
-
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
-
- <!-- 차트 인용 CDN -->
-
+<!-- Chart.js 및 Font Awesome -->
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
 <link
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
 	rel="stylesheet">
-<script src="/Project_SPIKE/assets/js/chart.js"></script>
-
 </head>
 <body>
+	<div class="button-container">
+		<!-- 증권 계좌 개설 버튼 -->
+		<a href="/spike/securities-account/open" class="open-account-button">
+			증권 계좌 개설하기 </a>
+	</div>
+	<div class="button-container">
+		<!-- 증권 계좌 관리 버튼 -->
+		<a href="/spike/securities-account/manage" class="open-account-button">
+			증권 계좌 관리하기 </a>
+	</div>
 	<main class="main-content">
 		<!-- 주요 경제 지수 -->
 		<div class="economic-indices-container">
@@ -87,120 +93,45 @@
 		<!-- 실시간 TOP 10 -->
 		<div class="stock-list-container">
 			<h2>실시간 TOP 10</h2>
-			<div class="tabs">
-				<button class="tab active" data-tab="domestic">국내</button>
-				<button class="tab" data-tab="global">미국</button>
-			</div>
-			<div class="filters">
-				<button class="filter active">거래량</button>
-				<button class="filter">상승</button>
-				<button class="filter">하락</button>
-			</div>
 			<table class="stock-table">
 				<thead>
 					<tr>
 						<th>순위</th>
 						<th>종목</th>
 						<th>현재가</th>
-						<th>거래량 · 대금</th>
-						<th>시가총액</th>
-						<th>즐겨찾기</th>
+						<th>총 발행 주식</th>
+						<th>유통 가능한 주식</th>
 					</tr>
 				</thead>
 				<tbody>
-					<tr>
-						<td>1</td>
-						<td><img src="/assets/img/kodex.png" alt="KODEX 로고"
-							class="stock-logo"> KODEX 200선물인버스2X</td>
-						<td>2,385 <span class="change positive">(+0.00%)</span></td>
-						<td>101,170,565 <span>237억</span></td>
-						<td>1조 733억</td>
-						<td><i class="fas fa-star"></i></td>
-					</tr>
-					<tr>
-						<td>2</td>
-						<td><img src="/assets/img/mdstec.png" alt="MDS테크 로고"
-							class="stock-logo"> MDS테크</td>
-						<td>1,332 <span class="change positive">(+21.06%)</span></td>
-						<td>70,300,169 <span>1235억</span></td>
-						<td>1,235억</td>
-						<td><i class="fas fa-star"></i></td>
-					</tr>
-					<tr>
-						<td>3</td>
-						<td><img src="/assets/img/samsung.png" alt="삼성전자 로고"
-							class="stock-logo"> 삼성전자</td>
-						<td>70,000 <span class="change positive">(+1.20%)</span></td>
-						<td>53,722,824 <span>2조 266억</span></td>
-						<td>350조</td>
-						<td><i class="fas fa-star"></i></td>
-					</tr>
-					<tr>
-						<td>4</td>
-						<td><img src="/assets/img/apple.png" alt="애플 로고"
-							class="stock-logo"> 애플</td>
-						<td>150,000 <span class="change negative">(-0.50%)</span></td>
-						<td>48,339,489 <span>1조 2000억</span></td>
-						<td>200조</td>
-						<td><i class="fas fa-star"></i></td>
-					</tr>
-					<tr>
-						<td>5</td>
-						<td><img src="/assets/img/lg.png" alt="LG전자 로고"
-							class="stock-logo"> LG전자</td>
-						<td>100,000 <span class="change positive">(+0.80%)</span></td>
-						<td>40,117,115 <span>9500억</span></td>
-						<td>35조</td>
-						<td><i class="fas fa-star"></i></td>
-					</tr>
-					<tr>
-						<td>6</td>
-						<td><img src="/assets/img/naver.png" alt="네이버 로고"
-							class="stock-logo"> 네이버</td>
-						<td>200,000 <span class="change positive">(+2.00%)</span></td>
-						<td>25,000,000 <span>1조 500억</span></td>
-						<td>50조</td>
-						<td><i class="fas fa-star"></i></td>
-					</tr>
-					<tr>
-						<td>7</td>
-						<td><img src="/assets/img/kakao.png" alt="카카오 로고"
-							class="stock-logo"> 카카오</td>
-						<td>95,000 <span class="change positive">(+0.70%)</span></td>
-						<td>20,000,000 <span>8500억</span></td>
-						<td>15조</td>
-						<td><i class="fas fa-star"></i></td>
-					</tr>
-					<tr>
-						<td>8</td>
-						<td><img src="/assets/img/tesla.png" alt="테슬라 로고"
-							class="stock-logo"> 테슬라</td>
-						<td>800,000 <span class="change positive">(+3.50%)</span></td>
-						<td>10,000,000 <span>3조</span></td>
-						<td>800조</td>
-						<td><i class="fas fa-star"></i></td>
-					</tr>
-					<tr>
-						<td>9</td>
-						<td><img src="/assets/img/hyundai.png" alt="현대차 로고"
-							class="stock-logo"> 현대차</td>
-						<td>180,000 <span class="change negative">(-1.00%)</span></td>
-						<td>5,000,000 <span>1조</span></td>
-						<td>40조</td>
-						<td><i class="fas fa-star"></i></td>
-					</tr>
-					<tr>
-						<td>10</td>
-						<td><img src="/assets/img/sk.png" alt="SK 로고"
-							class="stock-logo"> SK하이닉스</td>
-						<td>130,000 <span class="change positive">(+0.60%)</span></td>
-						<td>3,500,000 <span>6000억</span></td>
-						<td>30조</td>
-						<td><i class="fas fa-star"></i></td>
-					</tr>
+					<!-- DB에서 가져온 데이터를 동적으로 표시 -->
+					<c:choose>
+						<c:when test="${not empty stockList}">
+							<c:forEach var="stock" items="${stockList}" varStatus="status">
+								<tr>
+									<td>${status.index + 1}</td>
+									<!-- 순위 -->
+									<td><a href="/spike/stock/${stock.stockCode}/order">
+											${stock.companyName} (${stock.tickerSymbol}) </a></td>
+									<!-- 종목 -->
+									<td>${stock.currentPrice}$</td>
+									<!-- 현재가 -->
+									<td>${stock.totalShares}</td>
+									<!-- 총 발행 주식 -->
+									<td>${stock.availableShares}</td>
+									<!-- 유통 가능한 주식 -->
+								</tr>
+							</c:forEach>
+						</c:when>
+						<c:otherwise>
+							<tr>
+								<td colspan="5">표시할 데이터가 없습니다.</td>
+							</tr>
+						</c:otherwise>
+					</c:choose>
 				</tbody>
+
 			</table>
-			<button class="more-button">더 보기</button>
 		</div>
 	</main>
 </body>
