@@ -1,58 +1,58 @@
 package com.spike.controller;
 
-import java.util.List;
-
+import com.spike.dto.Stock;
+import com.spike.service.StockService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.spike.model.Stock;
+import java.util.List;
 
 @Controller
+@RequestMapping("/spike.com/stock")
 public class StockController {
 
-    // 1. 주식 시장 페이지 (stock_market.jsp)
-    @GetMapping("spike/stock/home")
-    public String stockMarket(Model model) {
-        // 주식 시장 데이터를 추가로 가져와야 한다면, model에 담아 JSP로 전달합니다.
-        model.addAttribute("pageTitle", "주식 시장");
-        return "investment/stock_market"; // stock_market.jsp로 연결
-    }
+	@Autowired
+	private StockService stockService;
 
-    // 2. 주식 주문 페이지 (stock_order.jsp)
-    @GetMapping("spike/stock/order")
-    public String stockTrade(
-        @RequestParam(name = "stockId", required = false) String stockId, // URL에서 stockId 파라미터를 가져옴
-        Model model
-    ) {
-        // 특정 주식 정보를 가져와야 한다면 여기서 처리합니다.
-        if (stockId != null) {
-            model.addAttribute("stockId", stockId); // stockId를 JSP에 전달
-            model.addAttribute("pageTitle", "주식 거래");
-        }
-        return "investment/stock_order"; // stock_trade.jsp로 연결
-    }
-    
-    //3.주식 계좌 자산 페이지(stock_account_asset.jsp)
-    @GetMapping("spike/stock/account/assets")
-    public String accountAssets(Model model) {
-        // 예시 데이터 설정 (실제 DB 연동 시 교체 필요)
-        model.addAttribute("pageTitle", "자산 현황");
-        model.addAttribute("accountNumber", "123-456-789");
-        model.addAttribute("totalAssets", 50000000); // 총 자산
-        model.addAttribute("availableBalance", 10000000); // 보유 현금
-        model.addAttribute("investedAmount", 40000000); // 투자 중인 금액
-        model.addAttribute("profit", 2000000); // 수익
+	// 주식 시장 페이지
+	@GetMapping("/home")
+	public String stockMarket(Model model) {
+		try {
+			// 상위 10개 주식을 가져옵니다.
+			List<Stock> stockList = stockService.getTopStocks(10);
+			model.addAttribute("stockList", stockList);
+		} catch (Exception e) {
+			model.addAttribute("errorMessage", "Failed to load stock data: " + e.getMessage());
+		}
+		return "investment/stock_market";
+	}
 
-        // 주식 데이터 리스트 (예시)
-        List<Stock> stockList = List.of(
-            new Stock("삼성전자", 10, 70000, 700000, 10.5),
-            new Stock("LG화학", 5, 800000, 4000000, - 8.2)
-        );
-        model.addAttribute("stockList", stockList);
+	// 주식 주문 창
+	@GetMapping("/{stock_code}/order")
+	public String getStockOrderPage(@PathVariable("stock_code") String stockCode, Model model) {
+		try {
+			// stock_code로 주식 데이터를 가져옴
+			Stock stock = stockService.getStockByCode(stockCode);
+			model.addAttribute("stock", stock); // 주식 정보를 모델에 추가
+		} catch (Exception e) {
+			model.addAttribute("errorMessage", "주식 정보를 불러오는 데 실패했습니다: " + e.getMessage());
+		}
+		return "investment/stock_order"; // JSP 파일 이름
+	}
 
-        return "investment/stock_account_assets"; // JSP 파일 연결
-    }
+	// 증권 계좌 개설 페이지로 이동
+		@GetMapping("/spike/securities-account/open")
+		public String openSecuritiesAccountPage() {
+			return "investment/open_securitiesaccount"; // JSP 파일의 경로 반환
+		}
 
+		// 증권 계좌 관리 페이지로 이동
+		@GetMapping("/spike/securities-account/manage")
+		public String manageSecuritiesAccountPage() {
+			return "investment/manage_securitiesaccount"; // JSP 파일의 경로 반환
+		}
 }
