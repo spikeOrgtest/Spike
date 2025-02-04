@@ -35,7 +35,7 @@
     <div class="container">
         <h1>증권 계좌 생성</h1>
         <!-- 계좌 생성 폼 -->
-        <form id="createAccountForm" action="/api/securities-account/securitiesaccount/open" method="post" enctype="multipart/form-data" onsubmit="return validatePassword();">
+        <form id="createAccountForm" action="/spike.com/securities-account/open" method="post" enctype="multipart/form-data" onsubmit="return validatePassword();">
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
             <!-- Spring Security CSRF 토큰 -->
             <sec:csrfInput />

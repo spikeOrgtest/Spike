@@ -49,7 +49,7 @@ public class Stock {
     
     private int totalShares;
     
-    private int availableShares;
+    private int availableShares; 
     
     @Column(nullable = true)
     private int isActive = 1; //String status면 좋겠는데 기존 코드랑 충돌위험, 보류
