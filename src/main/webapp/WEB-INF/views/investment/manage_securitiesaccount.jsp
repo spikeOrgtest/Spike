@@ -42,7 +42,7 @@
 
         <!-- 홈 버튼 -->
         <div class="button-group">
-            <a href="/spike/stock/home" class="btn btn-home">🏠 홈으로</a>
+            <a href="/spike.com/stock/home" class="btn btn-home">🏠 홈으로</a>
         </div>
     </div>
 </body>
