@@ -37,7 +37,7 @@
 			<div class="subpage-sidebar">
 				<h3 class="subpage-sidebar-title">Point Shop</h3>
 				<ul>
-					<li><a href="mini">mini home</a></li>
+					<li><a href="minisub">mini home</a></li>
 					<li><a href="quiz">O/X Quiz</a></li>
 					<li><a href="shop">Point Shop</a></li>
 					<li><a href="point">My Point</a></li>

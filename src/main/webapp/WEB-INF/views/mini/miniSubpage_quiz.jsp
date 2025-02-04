@@ -26,7 +26,7 @@
 			<div class="subpage-sidebar">
 				<h3 class="subpage-sidebar-title">O/X Quiz</h3>
 				<ul>
-					<li><a href="mini">mini home</a></li>
+					<li><a href="minisub">mini home</a></li>
 					<li><a href="quiz">O/X Quiz</a></li>
 					<li><a href="shop">Point Shop</a></li>
 					<li><a href="point">My Point</a></li>
@@ -178,9 +178,16 @@
         currentQuestion = questionNumber;
     }
 
-    // 정답을 선택하고 결과를 표시하는 함수
+ // 정답을 선택하고 결과를 표시하는 함수
     function showResult(isCorrect, questionNumber) {
         let resultElement = document.getElementById('quiz-result-' + questionNumber);
+        let quizOptions = document.querySelectorAll(`#quiz${questionNumber} .quiz-option`);
+
+        // 이미 선택한 경우 경고 메시지 띄우고 함수 종료
+        if (resultElement.dataset.answered === "true") {
+            alert("이미 정답을 선택하였습니다!");
+            return;
+        }
 
         if (isCorrect) {
             correctCount += 1; // 맞춘 문제 수 증가
@@ -190,9 +197,19 @@
             resultElement.innerHTML = '<p class="quiz-result-wrong">오답입니다!</p>';
         }
 
+        // 정답 선택 후 모든 버튼 비활성화
+        quizOptions.forEach(button => {
+            button.disabled = true;
+        });
+
+        // 정답 선택 상태 저장
+        resultElement.dataset.answered = "true";
+
         // 백엔드에 점수 전송 (포인트)
         sendPointsToBackend(isCorrect);
     }
+
+
 
     // 점수를 백엔드에 전송하는 함수
     function sendPointsToBackend(isCorrect) {
