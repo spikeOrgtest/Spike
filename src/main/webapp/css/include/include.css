@@ -70,6 +70,10 @@ body{
 /* 추가적으로 UserInfo 안의 h4가 잘 정렬되도록 */
 .UserInfo h5 {
     margin-left: 30px !important;
+    font-size: 0.83em !important;
+    font-weight: bold !important;
+    margin-block-start: 1.67em !important;
+    margin-block-end: 1.67em !important;
 }
 
 .main-header {
