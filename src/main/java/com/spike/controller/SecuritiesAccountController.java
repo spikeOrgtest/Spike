@@ -14,7 +14,7 @@ import java.security.Principal;
 import java.util.List;
 
 @Controller
-@RequestMapping("/api/securities-account")
+@RequestMapping("/spike.com/securities-account")
 public class SecuritiesAccountController {
 
 	@Autowired
@@ -22,8 +22,14 @@ public class SecuritiesAccountController {
 
 	@Autowired
 	private UserRepository userRepo;
-
-	@PostMapping("/securitiesaccount/open")
+	
+	
+	@GetMapping("/open")
+    public String showOpenAccountPage() {
+        return "investment/open_securitiesaccount"; // 폼을 포함한 JSP 페이지
+    }
+	
+	@PostMapping("/open")
 	public String createAccount(
 			@RequestParam("initialDeposit") Double initialDeposit,
 			@RequestParam("currency") String currency,
@@ -108,7 +114,7 @@ public class SecuritiesAccountController {
 	}
 	
 	// 증권 계좌 관리 페이지로 이동
-	@GetMapping("/spike/securities-account/manage")
+	@GetMapping("/manage")
 	public String manageSecuritiesAccountPage(Principal principal, Model model) {
 	    try {
 	        // 로그인된 사용자 가져오기
