@@ -39,26 +39,26 @@ public class NoticeDTO {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, //사용할 전략을 시퀀스로 선택
 	                generator ="notice_no_seq") //시퀀스 생성기에서 설정한 시퀀스 제너레이터 이름
-	private Long notice_no; // id를 no로 변경
+	private Long noticeNo; // id를 no로 변경
 	
 	
 	@Column(length = 50)
-	private String notice_name; // 글쓴이
+	private String noticeName; // 글쓴이
 	
 	//@NotNull(message = "필수 항목입니다.")
 	@Column(length = 255)
-	private String notice_title; // 글제목
+	private String noticeTitle; // 글제목
 	
 	//@NotNull(message = "내용을 입력해주세요.")
 	@Column(length = 2000)
-	private String notice_cont; // 글내용
+	private String noticeCont; // 글내용
 	
 	//@NotNull
 	//@Column(length = 100)
 	//private String author;
 	
 	
-	private int notice_hit; // 조회수
+	private int noticeHit; // 조회수
 	
 	//답변글과 관련된 부분
 	//private int notice_ref; // 글그룹번호
@@ -67,14 +67,14 @@ public class NoticeDTO {
 	
 	
 	@CreationTimestamp  // 하이버네이트의 특별한 기능으로 등록시점의 날짜값을 기록
-	private Timestamp created_date; // 등록날짜
+	private Timestamp createdDate; // 등록날짜
 	
 	@UpdateTimestamp
-	private LocalDate updated_date;
+	private LocalDate updatedDate;
 	
 	
     @Column(length=4000)
-    private String notice_file; //첨부파일 경로와 파일명
+    private String noticeFile; //첨부파일 경로와 파일명
     
 
 }

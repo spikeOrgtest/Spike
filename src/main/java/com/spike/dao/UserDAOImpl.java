@@ -46,7 +46,7 @@ public class UserDAOImpl implements UserDAO {
 			return null; // 사용자 없음
 		}
 
-		s.setLast_login(LocalDateTime.now()); // 로그인시점 현재시간으로 대입
+		s.setLastLogin(LocalDateTime.now()); // 로그인시점 현재시간으로 대입
 		this.spikeRepo.save(s); // DB에 저장
 		return s;
 	}
@@ -84,13 +84,13 @@ public class UserDAOImpl implements UserDAO {
 
 	@Override
 	public void profileEdit(UserDTO s) {
-		this.spikeRepo.profileEdit(s.getName(), s.getEmail_id(), s.getEmail_domain(), s.getPassword(), s.getLoginId());
+		this.spikeRepo.profileEdit(s.getName(), s.getEmailId(), s.getEmailDomain(), s.getPassword(), s.getLoginId());
 
 	}
 
 	@Override
 	public void mypageEdit(UserDTO s) {
-		this.spikeRepo.mypageEdit(s.getName(), s.getEmail_id(), s.getEmail_domain(), s.getPhone(), s.getPhone01(),
+		this.spikeRepo.mypageEdit(s.getName(), s.getEmailId(), s.getEmailDomain(), s.getPhone(), s.getPhone01(),
 				s.getPhone02(), s.getPhone03(), s.getPostcode(), s.getRoadAddress(), s.getJibunAddress(),
 				s.getDetailAddress(), s.getReferences(), s.getPassword(), s.getLoginId());
 	}
@@ -131,23 +131,29 @@ public class UserDAOImpl implements UserDAO {
 	}
 
 	@Override
-	public List<UserDTO> findByUserIdEdit(Long user_id) {
-		return this.spikeRepo.findByUserIdEdit(user_id);
+	public List<UserDTO> findByUserIdEdit(Long UserId) {
+		return this.spikeRepo.findByUserIdEdit(UserId);
 	}
 
 	@Override
-	public void UpdateUser(String is_minor, String status, Long user_id) {
-		this.spikeRepo.UpdateUser(is_minor, status, user_id);
+	public void UpdateUser(String isMinor, String status, Long userId) {
+		this.spikeRepo.UpdateUser(isMinor, status, userId);
 	}
 
 	@Override
-	public void UserDelete(Long user_id) {
-		this.spikeRepo.UserDelete(user_id);
+	public void UserDelete(Long UserId) {
+		this.spikeRepo.UserDelete(UserId);
 	}
 
 	@Override
-	public void AccountDelete(Long user_id) {
-		this.spikeRepo.AccountDelete(user_id);
+	public void AccountDelete(Long UserId) {
+		this.spikeRepo.AccountDelete(UserId);
 	}
+	
+	// 포인트 추가
+		@Override
+		public void updateUserPoint(Long userId, Integer value) {
+			this.spikeRepo.updateUserPoint(userId, value);
+		}
 
 }

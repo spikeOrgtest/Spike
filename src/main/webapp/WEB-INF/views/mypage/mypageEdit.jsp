@@ -77,9 +77,9 @@
 								<div class="row mb-3">
 								    <label for="email" class="col-sm-2 col-form-label">이메일</label>
 								    <div class="col-sm-10 d-flex align-items-center">
-								        <input type="text" class="form-control" id="email_id" name="email_id" placeholder="이메일" style="flex-grow: 1;"/>
+								        <input type="text" class="form-control" id="EmailId" name="EmailId" placeholder="이메일" style="flex-grow: 1;"/>
 								        <span class="email-at-symbol">@</span>
-								        <input type="text" class="form-control" id="email_domain" name="email_domain" value="gmail.com" readonly style="flex-grow: 1;"/>
+								        <input type="text" class="form-control" id="EmailDomain" name="EmailDomain" value="gmail.com" readonly style="flex-grow: 1;"/>
 								        <select name="mail_list" onchange="domain_list();" style="margin-left: 10px; flex-grow: 1;">
 								            <c:forEach var="mail" items="${email}">
 								                <option value="${mail}">${mail}</option>
@@ -113,6 +113,14 @@
 										<span id="guide" style="color: #999; display: none"></span> 
 										<input type="text" class="address-full" id="detailAddress" name="detailAddress" placeholder="상세주소"> 
 										<input type="text" class="address-full" id="References" name="References" placeholder="참고항목">
+									</div>
+								</div>
+								
+								<div class="row mb-3">
+									<label for="password" class="col-sm-2 col-form-label">현재 비밀번호</label>
+									<div class="col-sm-10">
+										<input type="password" class="form-control" id="currentPassword"
+											name="currentPassword" placeholder="현재 비밀번호를 입력하세요">
 									</div>
 								</div>
 

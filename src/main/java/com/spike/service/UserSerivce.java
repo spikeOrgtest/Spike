@@ -39,12 +39,17 @@ public interface UserSerivce {
 
 	List<UserDTO> findByUserList();
 
-	List<UserDTO> findByUserIdEdit(Long user_id);
+	List<UserDTO> findByUserIdEdit(Long UserId);
 
-	void UpdateUser(String is_minor, String status, Long user_id);
+	void UpdateUser(String isMinor, String status, Long userId);
 
-	void UserDelete(Long user_id);
+	void UserDelete(Long UserId);
 
-	void AccountDelete(Long user_id);
+	void AccountDelete(Long UserId);
+	
+	// 포인트 추가 
+	void addPoints(UserDTO user, Integer value);
+		
+		
 
 }

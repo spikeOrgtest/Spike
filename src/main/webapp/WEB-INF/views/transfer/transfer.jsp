@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -30,6 +31,14 @@
 </head>
 
 <body>
+	<%-- 에러 정보가 같이 넘어온다면 에러 메시지를 먼저 출력(script 코드로 뒤로가게) --%>
+	<%-- flashScope가 아닌 requestScope로 접근해야 하는 점 유의! --%>
+	<c:if test="${not empty requestScope.errorMessage}">
+		<script>
+			alert("${requestScope.errorMessage}");
+			history.back();
+		</script>
+	</c:if>
 	<%@ include file="../include/header.jsp"%>
 	<div class="mm">
 		<div class="test" id="wrapper">
@@ -47,9 +56,10 @@
 
 					<main>
 						<!-- 송금 섹션 -->
-						<form action="/spike.com/transfer_ok"
-							method="post" onsubmit="removeComma()">
-							<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+						<form action="/spike.com/transfer_ok" method="post"
+							onsubmit="return submitForm();">
+							<input type="hidden" name="${_csrf.parameterName}"
+								value="${_csrf.token}" />
 							<section class="transfer-container container">
 								<!-- 출금계좌정보 -->
 								<div class="transfer-section mb-5 p-4 border rounded shadow">
@@ -59,8 +69,8 @@
 									<div class="mb-3">
 
 										<label for="fromAccount" class="form-label">출금계좌 선택</label> <select
-											class="form-select" id="fromAccount" name="fromAccountId" required
-											onchange="updateAccountInfo()">
+											class="form-select" id="fromAccount" name="fromAccountId"
+											required onchange="updateAccountInfo()">
 											<option value="" disabled selected>계좌를 선택하세요</option>
 											<c:choose>
 												<c:when test="${empty accountList}">
@@ -68,10 +78,10 @@
 												</c:when>
 												<c:otherwise>
 													<c:forEach var="account" items="${accountList}">
-														<option value="${account.account_id}"
+														<option value="${account.accountId}"
 															data-balance="${account.balance}"
-															data-available="${account.day_limit}">
-															${account.account_type}: ${account.account_number}</option>
+															data-available="${account.dayLimit}">
+															${account.accountType}: ${account.accountNumber}</option>
 													</c:forEach>
 												</c:otherwise>
 											</c:choose>
@@ -145,7 +155,26 @@
 							<h4>
 								<i class="bi bi-receipt"></i> 송금 내역
 							</h4>
-							<ul id="transferHistory" class="list-group"></ul>
+							<ul id="transferHistory" class="list-group">
+								<c:choose>
+									<c:when test="${not empty histories}">
+										<c:forEach var="history" items="${histories}">
+											<li
+												class="list-group-item d-flex justify-content-between align-items-center">
+												<span><fmt:formatDate value="${history.transactionDate}" pattern="yy/MM/dd HH:mm" /> | ${history.name} |
+													<fmt:formatNumber value="${history.amount}" pattern="#,###" />
+													원
+											</span> <span class="badge bg-secondary"><fmt:formatNumber
+														value="${history.afterBalance}" pattern="#,###" /> 원</span>
+											</li>
+										</c:forEach>
+									</c:when>
+									<c:otherwise>
+										<li class="list-group-item text-center text-muted">송금 내역이
+											없습니다.</li>
+									</c:otherwise>
+								</c:choose>
+							</ul>
 						</section>
 						<!-- 
 						 -->

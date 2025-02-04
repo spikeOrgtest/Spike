@@ -223,13 +223,9 @@ function changePassword(event) {
     }
 
 	document.getElementById('confirmPassword').value = '';
-	document.getElementById('currentPassword').value = '';
 	
 	document.getElementById('passwordChangeForm').submit();
 	
-    // 비밀번호 변경 처리 로직 (서버와의 통신 등)
-    alert("비밀번호가 성공적으로 변경되었습니다.");
-
     // 모달 닫기 (Bootstrap 5에서 JavaScript로 모달을 닫는 방법)
     const modalElement = document.getElementById('passwordChangeModal');  // 모달 요소 참조
     const modal = bootstrap.Modal.getInstance(modalElement);  // 이미 열린 모달의 인스턴스를 가져옵니다.

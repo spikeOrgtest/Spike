@@ -1,6 +1,6 @@
 CREATE TABLE Account (
     account_id NUMBER PRIMARY KEY,
-    user_id NUMBER,
+    UserId NUMBER,
     account_number VARCHAR2(20) NOT NULL UNIQUE,
     account_type VARCHAR2(20) NOT NULL,
     balance NUMBER(15) DEFAULT 0,
@@ -12,7 +12,7 @@ CREATE TABLE account (
     account_number VARCHAR2(20) UNIQUE NOT NULL,
     account_type VARCHAR2(50),
     balance NUMBER DEFAULT 0,
-    user_id NUMBER NOT NULL,
+    UserId NUMBER NOT NULL,
     created_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -51,7 +51,7 @@ CREATE TABLE Loan(
 
 CREATE TABLE Card(
 	card_id	NUMBER PRIMARY KEY,
-	user_id NUMBER,
+	UserId NUMBER,
 	card_number VARCHAR2(20) NOT NULL UNIQUE,
 	card_type VARCHAR2(20) NOT NULL,
 	credit_limit NUMBER(15, 2),

@@ -34,8 +34,8 @@
 						value="${_csrf.token}" />
 					<c:forEach var="item" items="${list}">
 						<div class="form-group">
-							<label for="user_id">사용자 번호</label> <input type="text"
-								id="user_id" name="user_id" value="${item.user_id}" readonly>
+							<label for="UserId">사용자 번호</label> <input type="text"
+								id="UserId" name="userId" value="${item.userId}" readonly>
 						</div>
 
 						<div class="form-group">
@@ -49,14 +49,14 @@
 						</div>
 
 						<div class="form-group">
-							<label for="birth_date">생년월일</label> <input type="text"
-								id="birth_date" name="birth_date" value="${item.birth_date}"
+							<label for="BirthDate">생년월일</label> <input type="text"
+								id="BirthDate" name="BirthDate" value="${item.birthDate}"
 								readonly>
 						</div>
 
 						<div class="form-group">
-							<label for="email_id">이메일</label> <input type="text"
-								id="email_id" value="${item.email_id}@${item.email_domain}"
+							<label for="EmailId">이메일</label> <input type="text"
+								id="EmailId" value="${item.emailId}@${item.emailDomain}"
 								readonly>
 						</div>
 
@@ -84,13 +84,22 @@
 						</div>
 
 						<div class="form-group">
-							<label for="is_minor">미성년자 여부</label> <input type="text"
-								id="is_minor" name="is_minor" value="${item.is_minor}">
+							<label for="IsMinor">미성년자 여부</label>
+								<select name="isMinor">
+									<option value="" disabled selected>${item.isMinor}(현재 상태)</option>
+									<option value="adult">adult</option>
+									<option value="minor">minor</option>
+								</select>
 						</div>
 
 						<div class="form-group">
-							<label for="status">상태</label> <input type="text" id="status"
-								name="status" value="${item.status}">
+							<label for="status">상태</label> 
+								<select name="status">
+									<option value="" disabled selected>${item.status}(현재 상태)</option>
+									<option value="ACTIVE">ACTIVE</option>
+									<option value="INACTIVE">INACTIVE</option>
+									<option value="BLOCK">BLOCK</option>
+								</select>
 						</div>
 					</c:forEach>
 

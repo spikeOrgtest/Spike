@@ -89,7 +89,7 @@ public class NoticeController {
 			String refileName = "Notice"+year+month+date+random+"."+fileExtendsion;//새로운 첨부파일명을 구함.
 			String fileDBName = "/"+year+"-"+month+"-"+date+"/"+refileName;//테이터베이스에 저장될 값
 			
-			notice.setNotice_file(fileDBName);
+			notice.setNoticeFile(fileDBName);
 			
 			File saveFile = new File(homedir+"/"+refileName);
 			
@@ -100,7 +100,7 @@ public class NoticeController {
 			}
 		}else {//첨부파일이 없는 경우
 			String fileDBName = "";
-			notice.setNotice_file(fileDBName);
+			notice.setNoticeFile(fileDBName);
 		}
 		
 		this.noticeService.insertnotice(notice);//자료실 저장
@@ -134,8 +134,8 @@ public class NoticeController {
 		String find_field = request.getParameter("find_field"); // 검색필드
 		
 		//검색어와 필드를 dto에 셋팅
-		p.setFind_field(find_field);
-		p.setFind_name("%"+find_name+"%");
+		p.setFindField(find_field);
+		p.setFindName("%"+find_name+"%");
 		
 		//전체 게시물 수 구하기
 		int totalCount = this.noticeService.getRowCount(p);
@@ -193,10 +193,10 @@ public class NoticeController {
 			}else {//내용보기가 아닌 경우 답변폼,수정폼,삭제폼일때는 조회수 증가 안함.
 				n = this.noticeService.getNoticeCont2(notice_no);
 			}
-			String noti_cont = n.getNotice_cont().replace("\n", "<br/>");
+			String noti_cont = n.getNoticeCont().replace("\n", "<br/>");
 			//textarea에서 엔터키를 친 부분을 줄바꿈 한다.
 			System.out.println("테스트<=======================================");
-			System.out.println(n.getNotice_cont());
+			System.out.println(n.getNoticeCont());
 			
 			ModelAndView co = new ModelAndView();
 			co.addObject("n", n);
@@ -254,7 +254,7 @@ public class NoticeController {
 			}
 			
 			
-			NoticeDTO db_pwd = this.noticeService.getNoticeCont2(notice.getNotice_no());//조회수가 증가되지 않은 상태에서 오라클로 DB로 부터 비번을
+			NoticeDTO db_pwd = this.noticeService.getNoticeCont2(notice.getNoticeNo());//조회수가 증가되지 않은 상태에서 오라클로 DB로 부터 비번을
 			//가져온다.
 			
 			/*
@@ -269,7 +269,7 @@ public class NoticeController {
 				
 				if(!uploadFile.isEmpty()) {//수정 첨부파일이 있는 경우
 					String fileName = uploadFile.getOriginalFilename();//수정 첨부된 원본파일명를 구함
-					File delFile = new File(uploadFolder + db_pwd.getNotice_file());//삭제할 파일 객체 생성
+					File delFile = new File(uploadFolder + db_pwd.getNoticeFile());//삭제할 파일 객체 생성
 					if(delFile.exists()) {//기존 삭제할 파일이 있다면
 						delFile.delete();//기존 첨부파일만 삭제
 					}
@@ -293,7 +293,7 @@ public class NoticeController {
 					String refileName = "notice"+year+month+date+random+"."+fileExtendsion;//변경된 첨부파일명
 					String fileDBName = "/"+year+"-"+month+"-"+date+"/"+refileName;//오라클에 저장된 레코드 값
 					
-					notice.setNotice_file(fileDBName);
+					notice.setNoticeFile(fileDBName);
 					
 					File saveFile = new File(homedir+"/", refileName);
 					try {
@@ -303,17 +303,17 @@ public class NoticeController {
 					}
 				}else {//수정 첨부파일이 없는 경우
 					String fileDBName = "";
-					if(db_pwd.getNotice_file() != null) {//기존 첨부파일이 있는 경우
-						notice.setNotice_file(db_pwd.getNotice_file());
+					if(db_pwd.getNoticeFile() != null) {//기존 첨부파일이 있는 경우
+						notice.setNoticeFile(db_pwd.getNoticeFile());
 					}else {
-						notice.setNotice_file(uploadFolder);
+						notice.setNoticeFile(uploadFolder);
 					}
 				}//if else
 				
 				this.noticeService.editNoti(notice);//자료실 수정
 				
 				ModelAndView em = new ModelAndView("redirect:/spike.com/noti_cont");
-				em.addObject("notice_no", notice.getNotice_no());
+				em.addObject("notice_no", notice.getNoticeNo());
 				em.addObject("page", page);
 				em.addObject("state", "cont");
 				return em; //주소창에 노출되는 get방식으로 다음과 같이 전달된다. bbs_cont?bbs_no=번호&page=쪽번호&state=cont
@@ -334,8 +334,8 @@ public class NoticeController {
 			NoticeDTO db_pwd = this.noticeService.getNoticeCont2(notice_no); // 삭제할 공지사항 가져오기
 			this.noticeService.delNoti(notice_no);//오라클로부터 레코드 삭제
 				
-				if(db_pwd.getNotice_file() != null) {//기존 첨부파일이 있다면
-					File delFile = new File(delFolder+db_pwd.getNotice_file());//삭제할 파일 객체 생성
+				if(db_pwd.getNoticeFile() != null) {//기존 첨부파일이 있다면
+					File delFile = new File(delFolder+db_pwd.getNoticeFile());//삭제할 파일 객체 생성
 					delFile.delete();//폴더는 삭제 안되고, 기존 첨부파일만 삭제된다.
 				}
 				

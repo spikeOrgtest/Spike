@@ -274,9 +274,9 @@
 						                    <div class="form-group mb-3">
 						                        <label for="userEmail" class="form-label">이메일</label>
 						                        <div class="input-group">
-						                            <input type="text" class="form-control" id="email_id" name="email_id" placeholder="이메일">
+						                            <input type="text" class="form-control" id="EmailId" name="EmailId" placeholder="이메일">
 						                            <span class="email-at-symbol">@</span>
-						                            <input type="text" class="form-control" id="email_domain" name="email_domain" value="gmail.com" readonly />
+						                            <input type="text" class="form-control" id="EmailDomain" name="EmailDomain" value="gmail.com" readonly />
 						                            <select name="mail_list" onchange="domain_list();" style="margin-left: 10px;">
 						                                <c:forEach var="mail" items="${email}">
 						                                    <option value="${mail}">${mail}</option>
@@ -284,17 +284,22 @@
 						                            </select>
 						                        </div>
 						                    </div>
+						                    
+						                	<div class="form-group mb-3">
+						                        <label for="userPassword" class="form-label">현재 비밀번호</label>
+						                        <input type="password" class="form-control" id="currentPassword" name="currentPassword" placeholder="현재 비밀번호를 입력하세요" >
+						                    </div>
 											
 						                    <!-- 비밀번호 -->
 						                    <div class="form-group mb-3">
 						                        <label for="userPassword" class="form-label">비밀번호</label>
-						                        <input type="password" class="form-control" id="password" name="password" placeholder="비밀번호를 입력하세요" required>
+						                        <input type="password" class="form-control" id="password" name="password" placeholder="비밀번호를 입력하세요" >
 						                    </div>
 											
 						                    <!-- 비밀번호 확인 -->
 						                    <div class="form-group mb-3">
 						                        <label for="userPassword" class="form-label">비밀번호 확인</label>
-						                        <input type="password" class="form-control" id="password2" name="password2" placeholder="비밀번호를 다시 입력하세요" required>
+						                        <input type="password" class="form-control" id="password2" name="password2" placeholder="비밀번호를 다시 입력하세요" >
 						                    </div>
 											
 						                    <!-- 저장 버튼 -->
