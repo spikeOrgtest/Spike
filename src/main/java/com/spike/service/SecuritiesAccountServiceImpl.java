@@ -41,7 +41,7 @@ public class SecuritiesAccountServiceImpl implements SecuritiesAccountService {
     private String generateRandomAccountNumber() {
         // 랜덤한 12자리 숫자를 생성
         StringBuilder accountNumber = new StringBuilder();
-        for (int i = 0; i < 12; i++) {
+        for (int i = 0; i < 13; i++) {
             accountNumber.append(RANDOM.nextInt(10)); // 0~9 중 랜덤 숫자 추가
         }
         return accountNumber.toString();
