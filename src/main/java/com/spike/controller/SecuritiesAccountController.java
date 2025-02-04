@@ -1,6 +1,6 @@
 package com.spike.controller;
 
-import com.spike.dao.UserRepository;
+import com.spike.repository.UserRepository;
 import com.spike.dto.SecuritiesAccountDTO;
 import com.spike.dto.UserDTO;
 import com.spike.service.SecuritiesAccountService;
@@ -62,7 +62,7 @@ public class SecuritiesAccountController {
 	public List<SecuritiesAccountDTO> getAccountsByUserId(@PathVariable Long userId) {
 		// UserDTO 객체 생성 및 설정
 		UserDTO user = new UserDTO();
-		user.setUser_id(userId);
+		user.setUserId(userId);
 		return accountService.getAccountsByUser(user);
 	}
 

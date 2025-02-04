@@ -1,7 +1,6 @@
 package com.spike.service;
 
-import com.spike.dto.StockDTO;
-import com.spike.model.Stock;
+import com.spike.dto.Stock;
 import com.spike.repository.StockRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,7 +17,7 @@ public class StockServiceImpl implements StockService {
 
     // 모든 주식 데이터를 가져오는 메서드
     @Override
-    public List<StockDTO> getAllStocks() {
+    public List<Stock> getAllStocks() {
         return stockRepository.findAll().stream()
                 .map(this::convertToDTO)
                 .collect(Collectors.toList());
@@ -26,7 +25,7 @@ public class StockServiceImpl implements StockService {
 
     // 주식 ID로 특정 주식 데이터를 가져오는 메서드
     @Override
-    public StockDTO getStockById(int stockId) {
+    public Stock getStockById(int stockId) {
         return stockRepository.findById(stockId)
                 .map(this::convertToDTO)
                 .orElseThrow(() -> new RuntimeException("Stock not found with ID: " + stockId));
@@ -34,7 +33,7 @@ public class StockServiceImpl implements StockService {
 
     // stock_code로 특정 주식 데이터를 가져오는 메서드
     @Override
-    public StockDTO getStockByCode(String stockCode) {
+    public Stock getStockByCode(String stockCode) {
         return stockRepository.findByStockCode(stockCode)
                 .map(this::convertToDTO)
                 .orElseThrow(() -> new RuntimeException("Stock not found with Code: " + stockCode));
@@ -42,7 +41,7 @@ public class StockServiceImpl implements StockService {
 
     // 상위 N개의 주식을 가져오는 메서드
     @Override
-    public List<StockDTO> getTopStocks(int limit) {
+    public List<Stock> getTopStocks(int limit) {
         // 모든 주식 데이터를 가져옴
         List<Stock> allStocks = stockRepository.findAllStocks();
 
@@ -54,9 +53,9 @@ public class StockServiceImpl implements StockService {
                 .collect(Collectors.toList());
     }
 
-    // 엔티티를 DTO로 변환하는 메서드
-    private StockDTO convertToDTO(Stock stock) {
-        StockDTO dto = new StockDTO();
+    // 엔티티를 DTO로 변환하는 메서드 -> 필요성 논의해야 할듯
+    private Stock convertToDTO(Stock stock) {
+        Stock dto = new Stock();
         dto.setStockId(stock.getStockId());
         dto.setStockCode(stock.getStockCode());
         dto.setCompanyName(stock.getCompanyName());

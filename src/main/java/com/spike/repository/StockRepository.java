@@ -6,7 +6,7 @@ import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
-import com.spike.model.Stock;
+import com.spike.dto.Stock;
 
 public interface StockRepository extends JpaRepository<Stock, Integer> {
 

@@ -1,6 +1,6 @@
 package com.spike.controller;
 
-import com.spike.dto.StockDTO;
+import com.spike.dto.Stock;
 import com.spike.service.StockService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,7 +21,7 @@ public class StockController {
 	public String stockMarket(Model model) {
 		try {
 			// 상위 10개 주식을 가져옵니다.
-			List<StockDTO> stockList = stockService.getTopStocks(10);
+			List<Stock> stockList = stockService.getTopStocks(10);
 			model.addAttribute("stockList", stockList);
 		} catch (Exception e) {
 			model.addAttribute("errorMessage", "Failed to load stock data: " + e.getMessage());
@@ -34,7 +34,7 @@ public class StockController {
 	public String getStockOrderPage(@PathVariable("stock_code") String stockCode, Model model) {
 		try {
 			// stock_code로 주식 데이터를 가져옴
-			StockDTO stock = stockService.getStockByCode(stockCode);
+			Stock stock = stockService.getStockByCode(stockCode);
 			model.addAttribute("stock", stock); // 주식 정보를 모델에 추가
 		} catch (Exception e) {
 			model.addAttribute("errorMessage", "주식 정보를 불러오는 데 실패했습니다: " + e.getMessage());
