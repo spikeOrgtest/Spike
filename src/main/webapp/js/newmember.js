@@ -4,6 +4,12 @@ document.addEventListener('DOMContentLoaded', function() {
 	const confirmPassword = document.getElementById('confirmPassword');
 	const accountInfo = document.getElementById('accountInfo');
 	const accountNumberSpan = document.getElementById('accountNumber');
+	const accountTypeSelect = document.getElementById('account_type');
+	const titleElement = document.querySelector('h1');
+
+	// 기본값 설정
+	accountTypeSelect.value = '입출금계좌';
+	accountTypeSelect.dispatchEvent(new Event('change'));
 
 	form.addEventListener('submit', function(e) {
 		e.preventDefault(); // 기본 폼 제출 방지
@@ -50,6 +56,7 @@ document.getElementById('account_type').addEventListener('change', function() {
 	const selectedType = this.value;
 	const productSelect = document.getElementById('product_type');
 	const productSelectContainer = document.getElementById('product_select');
+	const titleElement = document.querySelector('h1');
 
 	// 기존 옵션 초기화
 	productSelect.innerHTML = '';
@@ -60,11 +67,13 @@ document.getElementById('account_type').addEventListener('change', function() {
 		options = [
 			{ value: 'spike_savings', text: 'SPIKE 입출금계좌' },
 		];
+		titleElement.textContent = 'SPIKE 입출금계좌';
 	} else if (selectedType === '투자계좌') {
 		options = [
 			{ value: 'spike_installment', text: '주식' },
 			{ value: 'regular_installment', text: '가상화폐' }
 		];
+		titleElement.textContent = '투자계좌';
 	}
 
 	// 옵션 추가

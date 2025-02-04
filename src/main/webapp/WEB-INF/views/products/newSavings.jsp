@@ -66,7 +66,7 @@
 				<button type="submit">계좌 개설</button>
 				<button type="button" onclick="location.href='../products'">취소</button>
 			</div>
-			<input type="hidden" id="account_number" name="account_number" />
+			<input type="hidden" id="account_number" name="accountNumber" />
 		</form>
 		<!-- 성공메시지는 alert 사용해서 띄우는 방향으로 수정하기. -->
 		<div id="accountInfo" class="hidden">

@@ -34,7 +34,7 @@ public class LoanDTO {
 			generator = "loan_seq_generator"
 			)
 	
-	private Integer loanId;
+	private Long loanId;
 	
 	@ManyToOne
 	private UserDTO owner;

@@ -3,6 +3,8 @@ document.addEventListener('DOMContentLoaded', function() {
 	const account_password = document.getElementById('account_password');
 	const confirmPassword = document.getElementById('confirmPassword');
 	const accountInfo = document.getElementById('accountInfo');
+	const accountNumberSpan = document.getElementById('accountNumber');
+	
 
 	form.addEventListener('submit', function(e) {
 		e.preventDefault(); // 기본 폼 제출 방지
@@ -11,7 +13,6 @@ document.addEventListener('DOMContentLoaded', function() {
 			const newAccountNumber = generateAccountNumber();
 			document.getElementById('account_number').value = newAccountNumber;
 			alert(`계좌발급을 축하드립니다.\n귀하의 계좌번호는 ${newAccountNumber} 입니다.`);
-			accountInfo.classList.remove('hidden');
 			form.submit();
 		}
 	});
@@ -109,4 +110,12 @@ window.addEventListener('load', function() {
 	const accountTypeSelect = document.getElementById('account_type');
 	accountTypeSelect.value = '적금';
 	accountTypeSelect.dispatchEvent(new Event('change'));
+
+	const urlParams = new URLSearchParams(window.location.search);
+	const selectedProduct = urlParams.get('selectedProduct');
+	if (selectedProduct) {
+		const productSelect = document.getElementById('product_type');
+		productSelect.value = selectedProduct; // 상품 선택
+		productSelect.dispatchEvent(new Event('change')); // 변경 이벤트 발생
+	}
 });
