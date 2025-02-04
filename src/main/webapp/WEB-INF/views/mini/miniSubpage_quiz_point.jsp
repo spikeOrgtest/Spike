@@ -62,7 +62,7 @@
 					</div>
 				</div>
 
-				<!-- 추가적인 섹션: 예시로 다른 퀴즈나 관련 정보 표시 -->
+				<!-- 퀴즈 랭킹 시작 -->
 				<div class="quiz-ranking">
 					<h3>퀴즈 랭킹</h3>
 					<table>
@@ -84,13 +84,15 @@
 											class="fas fa-star"></i></span>
 									</td>
 									<td>${rank.correctAnswered}</td>
-									<td>${rank.earnedPoints} P</td>
+									<td>${rank.earnedPoints}P</td>
 								</tr>
 							</c:forEach>
 
 						</tbody>
 					</table>
 				</div>
+
+				<!-- 퀴즈 랭킹 끝 -->
 
 			</div>
 		</div>
