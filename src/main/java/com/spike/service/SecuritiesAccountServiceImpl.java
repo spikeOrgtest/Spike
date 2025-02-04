@@ -4,6 +4,7 @@ import com.spike.dto.SecuritiesAccountDTO;
 import com.spike.dto.UserDTO;
 import com.spike.repository.SecuritiesAccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,6 +16,9 @@ public class SecuritiesAccountServiceImpl implements SecuritiesAccountService {
 
 	@Autowired
 	private SecuritiesAccountRepository accountRepository;
+
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 
 	private static final SecureRandom RANDOM = new SecureRandom();
 
@@ -61,31 +65,44 @@ public class SecuritiesAccountServiceImpl implements SecuritiesAccountService {
 	}
 
 
+	//계좌 비밀번호 변경
 	@Override
 	@Transactional
-	public void changeAccountPassword(Long accountId, String newPassword) {
+	public void changeAccountPassword(Long accountId, String currentPassword, String newPassword) {
 		// 계좌 조회
 		SecuritiesAccountDTO account = accountRepository.findById(accountId)
-				.orElseThrow(() -> new RuntimeException("계좌를 찾을 수 없습니다."));
+				.orElseThrow(() -> new IllegalArgumentException("계좌를 찾을 수 없습니다."));
 
-		// 비밀번호 검증
-		if (!newPassword.matches("\\d{6}")) {
-			throw new IllegalArgumentException("비밀번호는 6자리 숫자여야 합니다.");
+		// 기존 비밀번호 확인 (저장된 비밀번호는 암호화되어 있음)
+		if (!passwordEncoder.matches(currentPassword, account.getAccountPassword())) {
+			throw new IllegalArgumentException("기존 비밀번호가 일치하지 않습니다.");
 		}
 
-		// 비밀번호 변경
-		account.setAccountPassword(newPassword);
+		// 새 비밀번호 검증 (6자리 숫자)
+		if (!newPassword.matches("\\d{6}")) {
+			throw new IllegalArgumentException("새 비밀번호는 6자리 숫자여야 합니다.");
+		}
+
+		// 새 비밀번호 암호화 후 변경
+		String encodedPassword = passwordEncoder.encode(newPassword);
+		account.setAccountPassword(encodedPassword);
 		accountRepository.save(account);
 	}
 
+
 	@Override
 	@Transactional
-	public void deleteAccount(Long accountId) {
-		// 계좌 존재 여부 확인
-		SecuritiesAccountDTO account = accountRepository.findById(accountId)
-				.orElseThrow(() -> new RuntimeException("계좌를 찾을 수 없습니다."));
+	public void deleteAccount(Long accountId, String currentPassword) {
+	    // 계좌 조회
+	    SecuritiesAccountDTO account = accountRepository.findById(accountId)
+	            .orElseThrow(() -> new IllegalArgumentException("계좌를 찾을 수 없습니다."));
 
-		// 계좌 삭제
-		accountRepository.delete(account);
+	    // 🔥 비밀번호 확인 (저장된 비밀번호는 암호화되어 있음)
+	    if (!passwordEncoder.matches(currentPassword, account.getAccountPassword())) {
+	        throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
+	    }
+
+	    // 🔥 비밀번호가 일치하면 계좌 삭제
+	    accountRepository.delete(account);
 	}
 }

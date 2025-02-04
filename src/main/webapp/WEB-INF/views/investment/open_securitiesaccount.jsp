@@ -63,9 +63,22 @@
 
             <!-- 제출 버튼 -->
             <button type="submit">계좌 생성</button>
+            
+            <!-- 홈 버튼 -->
+            <a href="/spike.com/stock/home" class="btn btn-home">🏠 홈으로</a>
         </form>
         <!-- 메시지 표시 -->
         <div id="message"></div>
     </div>
+    
+    <script>
+    window.onload = function() {
+        var message = "${message}";
+        if (message) {
+            alert(message);
+        }
+    };
+</script>
+    
 </body>
 </html>
