@@ -69,10 +69,10 @@ public class UserController {
 	    // 폼 검증 또는 로그인 실패로 생긴 exception이 있는 경우
 	    if (bindingResult.hasErrors()) {
 	        model.addAttribute("bindingResult", bindingResult);
-	        return "login"; // 로그인 화면으로 돌아가기
+	        return "/login"; // 로그인 화면으로 돌아가기
 	    }
 
-	    return "forward:/login"; // 로그인 성공 후 리다이렉션
+	    return "forward:/spike.com/login"; // 로그인 성공 후 리다이렉션
 	}
 
 

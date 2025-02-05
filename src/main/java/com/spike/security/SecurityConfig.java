@@ -41,7 +41,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .and()
             .formLogin()
                 .loginPage("/spike.com/login")  
-                .loginProcessingUrl("/login")  
+                .loginProcessingUrl("/spike.com/login")  
                 .failureHandler(failureHandler()) 
                 .defaultSuccessUrl("/spike.com/", true)  
                 .usernameParameter("loginId")  
