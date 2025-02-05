@@ -9,19 +9,19 @@
 <meta name="keywords" content="">
 <title>번개같이 빠른 송금, 스파이크!</title>
 
-<link href="assets/css/customer.css" rel="stylesheet" type="text/css" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
-<!-- Main CSS File -->
-<link href="assets/css/main.css" rel="stylesheet">
-<link href="assets/css/include.css" rel="stylesheet">
-
+<!-- CSS File -->
+<link rel="stylesheet" href="../css/include/include.css">
+<link rel="stylesheet" href="../css/support/customer.css">
+<link rel="stylesheet" href="../css/support/main.css">
 
 
 </head>
 
 <body>
-	<jsp:include page="../include/header.jsp" />
+	<%@ include file="../include/header.jsp"%>
+
 
 
 
@@ -56,27 +56,27 @@
 			<ul class="subMenuLink">
 				<li><a href="supportSubpage_.jsp" id="sublink"> <span
 						class="icoImg"><img
-							src="assets/img/customer/submenu_custom_ico_1.png" alt=""></span>
+							src="../images/customer/submenu_custom_ico_1.png" alt=""></span>
 						<span class="tit">ARS안내</span>
 				</a></li>
 				<li><a href="supportSubpage_.jsp" id="sublink"> <span
 						class="icoImg"><img
-							src="assets/img/customer/submenu_custom_ico_21.png" alt=""></span>
+							src="../images/customer/submenu_custom_ico_21.png" alt=""></span>
 						<span class="tit">문자상담</span>
 				</a></li>
 				<li><a href="supportSubpage_.jsp" id="sublink"> <span
 						class="icoImg"><img
-							src="assets/img/customer/submenu_custom_ico_3.png" alt=""></span>
+							src="../images/customer/submenu_custom_ico_3.png" alt=""></span>
 						<span class="tit">수어상담</span>
 				</a></li>
 				<li><a href="supportSubpage_.jsp" id="sublink"> <span
 						class="icoImg"><img
-							src="assets/img/customer/submenu_custom_ico_4.png?v=1" alt=""></span>
+							src="../images/customer/submenu_custom_ico_4.png?v=1" alt=""></span>
 						<span class="tit">스파이크 챗봇</span>
 				</a></li>
 				<li id="CustomVoice"><a href="supportSubpage_.jsp" id="sublink">
 						<span class="icoImg"><img
-							src="assets/img/customer/submenu_custom_ico_5.png" alt=""></span>
+							src="../images/customer/submenu_custom_ico_5.png" alt=""></span>
 						<span class="tit">고객의 소리</span>
 				</a></li>
 			</ul>
@@ -115,11 +115,6 @@
     </div>
 </section>
 
-
-
-
-
-
 <!-- 자주하는 질문 -->
 	<section id="faq-2" class="faq-2 section light-background">
     <div class="container section-title">
@@ -157,9 +152,8 @@
     </div>
 </section>
 
-
-
-		<jsp:include page="../include/footer.jsp" />
-		<script src="assets/js/customer.js"></script>
+		<%@ include file="../include/footer.jsp"%>
+		<script src="../js/support/customer.js"></script>
+	
 </body>
 </html>
