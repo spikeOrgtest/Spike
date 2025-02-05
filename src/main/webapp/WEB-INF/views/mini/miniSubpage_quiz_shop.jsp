@@ -235,8 +235,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 </script>
 
-	<p id="user-points">현재 포인트: 0</p>
-
+	
 
 	<%@ include file="../include/shortfooter.jsp"%>
 </body>
