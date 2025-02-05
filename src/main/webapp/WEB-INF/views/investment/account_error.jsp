@@ -13,7 +13,7 @@
     <div class="container">
         <h1 class="error-header">❌ 계좌 생성 오류</h1>
         <p>${errorMessage}</p>
-        <a href="/spike/stock/home" class="btn btn-home">🏠 홈으로</a>
+        <a href="/spike.com/stock/home" class="btn btn-home">🏠 홈으로</a>
     </div>
 </body>
 </html>

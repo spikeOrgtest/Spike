@@ -6,11 +6,12 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface SecuritiesAccountRepository extends JpaRepository<SecuritiesAccountDTO, Long> {
 
 	// UserDTO 객체 기반으로 계좌 조회
-	List<SecuritiesAccountDTO> findByUser(UserDTO user);
+	 Optional<SecuritiesAccountDTO> findByUser(UserDTO user);
 
 }
