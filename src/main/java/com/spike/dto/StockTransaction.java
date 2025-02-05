@@ -45,7 +45,7 @@ public class StockTransaction {
 
     @ManyToOne
     @JoinColumn(nullable = false)
-    private Stock stock;
+    private StockDTO stock;
 
     private int quantity;
 
