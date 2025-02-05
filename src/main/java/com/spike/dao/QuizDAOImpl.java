@@ -2,10 +2,12 @@ package com.spike.dao;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.spike.dto.QuizDTO;
+import com.spike.repository.QuizRepository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -13,7 +15,10 @@ import javax.persistence.PersistenceContext;
 @Repository // 이 클래스가 DAO 컴포넌트임을 나타내는 어노테이션
 public class QuizDAOImpl implements QuizDAO {
 
-    @PersistenceContext // JPA에서 데이터베이스와 상호작용하기 위한 EntityManager를 주입받습니다.
+	@Autowired
+	private QuizRepository quizRepo;
+	
+	@PersistenceContext // JPA에서 데이터베이스와 상호작용하기 위한 EntityManager를 주입받습니다.
     private EntityManager entityManager; // EntityManager는 JPA에서 데이터베이스와 직접 연결되어 작업을 수행하는 객체입니다.
 
     @Override
@@ -29,7 +34,9 @@ public class QuizDAOImpl implements QuizDAO {
         // JPQL(Java Persistence Query Language)을 사용하여 모든 퀴즈를 조회합니다.
         // "FROM QuizDTO"는 QuizDTO 엔티티에 매핑된 모든 데이터를 조회하는 쿼리입니다.
         // getResultList()는 쿼리 결과를 List 형태로 반환합니다.
-        return entityManager.createQuery("FROM QuizDTO", QuizDTO.class).getResultList(); 
+    	List<QuizDTO> data = quizRepo.findAll();
+    	
+        return quizRepo.findAll();
     }
 
     @Override
@@ -51,7 +58,7 @@ public class QuizDAOImpl implements QuizDAO {
         if (quiz != null) {
             // 현재 시간으로 last_attempt_date를 업데이트합니다. 
             // new java.sql.Timestamp(System.currentTimeMillis())는 현재 시간을 Timestamp 형식으로 생성합니다.
-            quiz.setLast_attempt_date(new java.sql.Timestamp(System.currentTimeMillis())); // 현재 시간을 설정
+            quiz.setLastAttemptDate(null); // 현재 시간을 설정
             
             // entityManager.merge(quiz)는 수정된 quiz 객체를 데이터베이스에 반영합니다. 
             // 변경된 데이터를 저장하거나 업데이트하는 작업입니다.

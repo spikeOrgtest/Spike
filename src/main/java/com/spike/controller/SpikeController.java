@@ -56,5 +56,16 @@ public class SpikeController {
 	public String showMainpage() {
 		return "login";
 	}
+	
+	 @GetMapping("/support")
+	    public String support() {
+	        return "support/support";
+	    }
+	 
+	 @GetMapping("/newsSubpage_news")
+	    public String newsSubpage_news() {
+	        return "support/newsSubpage_news";
+	    }
+	    
 
 }

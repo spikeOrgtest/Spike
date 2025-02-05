@@ -9,10 +9,12 @@ public interface QuizResultDAO {
     QuizResultDTO saveQuizResult(QuizResultDTO quizResultDTO);
     
     // 특정 사용자와 날짜에 대해 퀴즈 결과를 조회하는 메서드
-    List<QuizResultDTO> findByUserIdAndDate(int userId, String date);
+    List<QuizResultDTO> findByUserIdAndDate(Long userId, String date);
 
     // 특정 사용자와 날짜에 대해 오늘 퀴즈 시도 횟수를 카운트하는 메서드
-    int countQuizAttemptsToday(int userId, String date);
+    int countQuizAttemptsToday(Long userId, String date);
 
-	QuizResultDTO findQuizResultByUserIdAndQuizId(int userId, int quizId);
+	QuizResultDTO findQuizResultByUserIdAndQuizId(Long userId, int quizId);
+
+	QuizResultDTO getQuizResult(Long userId, int quizId);
 }

@@ -46,5 +46,10 @@ public interface UserSerivce {
 	void UserDelete(Long UserId);
 
 	void AccountDelete(Long UserId);
+	
+	// 포인트 추가 
+	void addPoints(UserDTO user, Integer value);
+		
+		
 
 }

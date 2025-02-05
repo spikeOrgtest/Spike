@@ -14,114 +14,139 @@
 	<%@ include file="../include/header.jsp"%>
 
 	<main class="main">
-		<!-- Hero Section -->
-		<section id="hero" class="hero section">
+		<div id="miniCont">
+			<!-- mini_main Section -->
+			<section id="mini_main" class="mini_main section">
 
-			<div class="container">
-				<div class="row gy-4">
-					<div class="col-lg-1 order-lg-last hero-img" data-aos="zoom-out"
+				<div class="mini_container">
+					<div class="mini_container_img" data-aos="zoom-out"
 						data-aos-delay="100">
-						<img src="../images/mini/mini_main.gif"
-							class="img-fluid animated" alt="">
+						<img src="../images/mini/mini_main.gif" class="img-fluid animated"
+							alt="mini 메인">
 					</div>
-					<div
-						class="col-lg-2  d-flex flex-column justify-content-center text-center text-md-start"
-						data-aos="fade-in">
+					<div class="mini_container_text" data-aos="fade-in">
 						<h2>스 - 하!</h2>
 						<p>
 							나의 첫 은행!<br /> 잘 부탁해!<br /> 스파이크 mini
 						</p>
-
 					</div>
 				</div>
-			</div>
+			</section>
+			<!-- /mini_main Section -->
 
-		</section>
-		<!-- /Hero Section -->
-		<hr />
-		<br /> <br /> <br />
+			<!-- 가로선 추가 -->
+			<div class="divider"></div>
 
 
-		<!-- Features Section -->
-		<section id="features" class="features section">
-
-			<!-- Section Title -->
-			<div class="container section-title" data-aos="fade-up">
-				<h2>spike mini를 소개합니다.</h2>
+			<!-- mini Title -->
+			<section>
+				<div class="mini_title">
+					<h2>spike mini를 소개합니다.</h2>
 				</div>
-		</section>
-		<!-- /Features Section -->
+			</section>
 
-		<!-- Feature Details Section -->
-		<section id="feature-details" class="feature-details section">
 
-			<div class="container">
+			<!-- mini_intro 시작 -->
 
-				<div class="row gy-4 align-items-center features-item">
-					<div class="col-md-1 d-flex align-items-center" data-aos="zoom-out"
-						data-aos-delay="100">
-						<img src="../images/mini/sign_up.gif" class="img-fluid"
-							alt="회원가입">
-					</div>
-					<div class="col-md-2" data-aos="fade-up" data-aos-delay="100">
-						<h3>30초면 가능한 간편한 회원가입!</h3>
-						<p class="fst-italic">
-							미성년자라도 30초면 손쉽게 <br /> 회원가입이 가능합니다!
-						</p>
+			<!-- mini_intro1 -->
+
+			<section id="mini_intro" class="mini_intro section">
+				<div class="mini_intro_container">
+					<div class="mini_intro1">
+						<div class="intro1_img" data-aos="zoom-out" data-aos-delay="100">
+							<img src="../images/mini/sign_up.gif" class="img-fluid"
+								alt="회원가입">
+						</div>
+						<div class="intro1_text" data-aos="fade-up" data-aos-delay="100">
+							<h3>30초면 가능한 간편한 회원가입!</h3>
+							<p class="intro_text1">
+								미성년자라도 30초면 손쉽게 <br /> 회원가입이 가능합니다!
+							</p>
+						</div>
 					</div>
 				</div>
-				<!-- Features Item 1 -->
+			</section>
 
-				<div class="row gy-4 align-items-center features-item">
-					<div class="col-md-1 order-1 order-md-2 d-flex align-items-center"
-						data-aos="zoom-out" data-aos-delay="100">
-						<img src="../images/mini/저금통.gif" class="img-fluid" alt="저금통">
-					</div>
-					<div class="col-md-2 order-2 order-md-1" data-aos="fade-up"
-						data-aos-delay="100">
-						<h3>명절 용돈! 이제는 내 은행에 보관!</h3>
-						<p class="fst-italic">
-							명절 용돈! 부모님 은행은 그만~ <br /> 나만의 은행에 보관할 수 있어요! <br /> 입금과 출금이
-							간편해요!
-						</p>
+			<!-- mini_intro2 -->
+			<section id="mini_intro" class="mini_intro section">
+				<div class="mini_intro_container">
+					<div class="mini_intro2">
+						<div class="intro2_img" data-aos="zoom-out" data-aos-delay="100">
+							<img src="../images/mini/저금통.gif" class="img-fluid" alt="저금통">
+						</div>
+						<div class="intro2_text" data-aos="fade-up" data-aos-delay="100">
+							<h3>명절 용돈! 부모님 은행은 그만~ </h3>
+							<p class="intro_text2">
+								 나만의 은행에 보관할 수 있어요! <br /> 입금과 출금이
+								간편해요!
+							</p>
+						</div>
 					</div>
 				</div>
-				<!-- Features Item 2 -->
+			</section>
 
-				<div class="row gy-4 align-items-center features-item">
-					<div class="col-md-1 d-flex align-items-center" data-aos="zoom-out">
-						<img src="../images/mini/지갑.gif" class="img-fluid" alt="지갑">
-					</div>
-					<div class="col-md-2" data-aos="fade-up">
-						<h3>남은 금액은 얼마?</h3>
-						<p>
-							잔액이 부족할까봐 걱정했던 날은 이제 안녕~<br /> 통장 잔액 '최소 금액'을 설정하면 알림이 가요!
-						</p>
+
+			<!-- mini_intro1 -->
+			<section id="mini_intro" class="mini_intro section">
+				<div class="mini_intro_container">
+					<div class="mini_intro1">
+						<div class="intro1_img" data-aos="zoom-out">
+							<img src="../images/mini/지갑.gif" class="img-fluid" alt="지갑">
+						</div>
+						<div class="intro1_text" data-aos="fade-up">
+							<h3>퀴즈 풀고 용돈 벌자!</h3>
+							<p class="intro_text1">
+								쉬운 경제 퀴즈 풀고,<br /> 포인트는 쏠쏠하게! 
+							</p>
+						</div>
 					</div>
 				</div>
-				<!-- Features Item 3 -->
+			</section>
 
-				<div class="row gy-4 align-items-center features-item">
-					<div class="col-md-1 order-1 order-md-2 d-flex align-items-center"
-						data-aos="zoom-out">
-						<img src="../images/mini/경제.gif" class="img-fluid" alt="">
-					</div>
-					<div class="col-md-2 order-2 order-md-1" data-aos="fade-up">
-						<h3>미리 배우는 경제활동!</h3>
-						<p class="fst-italic">
-							성인이 되기 전에 미리 습득하는 경제 상식! <br /> 간단 퀴즈로 매일 포인트도 쌓고, <br /> 돈 관리도
-							똑똑하게 할 수 있어요!
-						</p>
+			<!-- mini_intro2 -->
+			<section id="mini_intro" class="mini_intro section">
+				<div class="mini_intro_container">
+					<div class="mini_intro2">
+						<div class="intro2_img" data-aos="zoom-out">
+							<img src="../images/mini/경제.gif" class="img-fluid" alt="">
+						</div>
+						<div class="intro2_text" data-aos="fade-up">
+							<h3>미리 배우는 경제활동!</h3>
+							<p class="intro_text2">
+								언제 어디서나 함께하는 <br />  
+								재밌는 경제교육 & O/X 퀴즈!
+								<br /> 
+							</p>
+						</div>
 					</div>
 				</div>
-				<!-- Features Item 4 -->
-			</div>
-		</section>
-		<!-- /Feature Details Section -->
+			</section>
+
+
+
+		</div>
 	</main>
 
-	
-<%@ include file="../include/footer.jsp"%>
+	<!-- 바로가기 버튼 -->
+	<a href="minisub" class="shortcut-button">
+		<div class="button-content">
+			<span class="button-text">mini 바로가기 </span>
+		</div>
+	</a>
+	<%@ include file="../include/footer.jsp"%>
+<script>
 
+//퀴즈 관련 페이지 반환 알림창
+window.onload = function() {
+    // 쿼리 파라미터에서 'message'를 가져오기
+    const urlParams = new URLSearchParams(window.location.search);
+    const message = urlParams.get('message');
+
+    // 메시지가 있으면 알림창을 띄움
+    if (message) {
+        alert(message);
+    }
+}
+</script>
 </body>
 </html>

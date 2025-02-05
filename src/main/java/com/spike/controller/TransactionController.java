@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,6 +23,9 @@ import com.spike.service.TransactionService;
 @RequestMapping("/spike.com")
 public class TransactionController {
 
+	@Autowired
+	PasswordEncoder passwordEncoder;
+	
 	@Autowired
 	private TransactionService transService;
 
@@ -65,9 +69,7 @@ public class TransactionController {
 			// String status = this.transService.getOwnerStatus(toAccount);
 
 			// 비밀번호 서버에서 검증 후 에러처리, 틀린 계좌번호와 같은 방식
-			if (!accountPassword.equals(password)) {
-				System.out.println("==========================\n\n입력 비밀번호: " + accountPassword);
-				System.out.println("계좌 비밀번호: " + password);
+			if (!passwordEncoder.matches(accountPassword, password)) {
 				redirectAttributes.addFlashAttribute("errorMessage", "계좌 비밀번호가 일치하지 않습니다. 비밀번호를 확인해 주세요!");
 				return "redirect:/spike.com/transfer";
 			}

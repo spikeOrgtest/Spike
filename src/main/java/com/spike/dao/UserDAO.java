@@ -2,6 +2,7 @@ package com.spike.dao;
 
 import java.util.List;
 
+
 import com.spike.dto.AccountDTO;
 import com.spike.dto.UserDTO;
 
@@ -46,5 +47,9 @@ public interface UserDAO {
 	void UserDelete(Long UserId);
 
 	void AccountDelete(Long UserId);
+	
+	// 퀴즈 포인트 쌓기 
+		void updateUserPoint(Long userId, Integer value);
+
 
 }
