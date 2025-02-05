@@ -61,7 +61,7 @@ public class LoanController {
 		UserDTO user = (UserDTO) session.getAttribute("User");
 	    List<AccountDTO> accounts = accountService.getActiveAccountsForUser(user); // ACTIVE 계좌만 가져오기
 		
-		String[] loan_name = {"대출", "그냥대출"};
+		String[] loan_name = {"대출상품"};
 		ModelAndView ss = new ModelAndView("/products/newLoan");
 		ss.addObject("loan_name", loan_name);
 		ss.addObject("accounts", accounts);

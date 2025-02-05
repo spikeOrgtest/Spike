@@ -38,10 +38,21 @@ document.addEventListener('DOMContentLoaded', function() {
 		return isValid;
 	}
 
-	// 계좌번호 랜덤 생성
+	// 계좌번호 생성 및 중복 방지
+	const generatedAccountNumbers = [];
+
 	function generateAccountNumber() {
-		const numbers = Array.from({ length: 13 }, () => Math.floor(Math.random() * 10));
-		return `${numbers.slice(0, 3).join('')}-${numbers.slice(3, 7).join('')}-${numbers.slice(7, 11).join('')}-${numbers.slice(11).join('')}`;
+	    let accountNumber;
+	    
+	    // 중복 방지를 위해 계좌번호가 이미 존재하는지 확인
+	    do {
+	        const numbers = Array.from({ length: 13 }, () => Math.floor(Math.random() * 10));
+	        accountNumber = `${numbers.slice(0, 3).join('')}-${numbers.slice(3, 7).join('')}-${numbers.slice(7, 11).join('')}-${numbers.slice(11).join('')}`;
+	    } while (generatedAccountNumbers.includes(accountNumber));
+
+	    // 새로운 계좌번호를 배열에 저장
+	    generatedAccountNumbers.push(accountNumber);
+	    return accountNumber;
 	}
 });
 
