@@ -8,22 +8,6 @@
 <title>아이디 찾기</title>
 <script src="https://code.jquery.com/jquery-latest.min.js"></script>
 <link rel="stylesheet" href="../css/findId.css">
-<script>
-function id_check() {
-    if($.trim($("#name").val()) == "") {  // #name을 jQuery로 선택
-        alert("이름을 입력하세요");
-        $("#name").val("").focus();  // jQuery로 value 설정 후 focus
-        return false;  // 잘못된 'retrun'을 'return'으로 수정
-    }
-    
-    if($.trim($("#phone").val()) == "") {  // #phone을 jQuery로 선택
-        alert("핸드폰 번호를 입력하세요");
-        $("#phone").val("").focus();  // jQuery로 value 설정 후 focus
-        return false;  // 잘못된 'retrun'을 'return'으로 수정
-    }
-}
-
-</script>
 </head>
 <body>
 	<div class="content">
@@ -31,13 +15,13 @@ function id_check() {
 			<div class="find-container">
 				<h2>아이디 찾기</h2>
 				<form name="s" action="findId_ok" method="post" class="findId-form"
-					onsubmit="return id_chekc();">
+					 id="findIdForm">
 					<input type="hidden" name="${_csrf.parameterName}"
 						value="${_csrf.token}" /> <label for="name">이름</label>
 					<div class="input-container">
 						<div class="input-name">
-							<input type="text" name="name" id="name" placeholder="이름을 입력하세요"
-								required>
+							<input type="text" name="name" id="name" placeholder="이름을 입력하세요">
+							<span class="error-message" id="nameError" style="color:red;"></span>
 						</div>
 					</div>
 
@@ -50,9 +34,10 @@ function id_check() {
 									<option value="${p}">${p}</option>
 								</c:forEach>
 							</select> - <input type="text" name="phone02" id="phone02" size="4"
-								maxlength="4" required> - <input type="text"
-								name="phone03" id="phone03" size="4" maxlength="4" required>
+								maxlength="4"> - <input type="text"
+								name="phone03" id="phone03" size="4" maxlength="4" >
 						</div>
+								<span class="error-message" id="phoneError" style="color:red;"></span>
 					</div>
 						<button type="reset" onclick="$('#name').focus();">취소</button>
 						<button type="submit" class="findId-btn">아이디 찾기</button>
@@ -62,4 +47,44 @@ function id_check() {
 		</div>
 	</div>
 </body>
+<script>
+document.getElementById('findIdForm').addEventListener('submit', function(e) {
+    let isValid = true;
+
+
+    document.getElementById('nameError').textContent = '';
+    document.getElementById('phoneError').textContent = '';
+
+    // 이름 필드 검증
+    const name = document.getElementById('name').value;
+    if (name === '') {
+        document.getElementById('nameError').textContent = '이름을 입력해주세요';
+        document.getElementById('name').focus();
+        isValid = false;
+    }
+
+    // 전화번호 필드 검증
+    if (isValid) {
+        const phone01 = document.getElementById('phone01').value;
+        const phone02 = document.getElementById('phone02').value;
+        const phone03 = document.getElementById('phone03').value;
+        const phoneRegex = /^[0-9]{4}$/;
+
+        if (phone02 === '' || phone03 === '') {
+            document.getElementById('phoneError').textContent = '핸드폰 번호를 입력해주세요';
+            document.getElementById('phone02').focus();
+            isValid = false;
+        } else if (!phoneRegex.test(phone02) || !phoneRegex.test(phone03)) {
+            document.getElementById('phoneError').textContent = '핸드폰 번호가 올바르지 않습니다';
+            document.getElementById('phone02').focus();
+            isValid = false;
+        }
+    }
+
+
+    if (!isValid) {
+        e.preventDefault();
+    }
+});
+</script>
 </html>

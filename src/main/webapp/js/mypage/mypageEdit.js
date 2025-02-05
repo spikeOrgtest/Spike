@@ -18,28 +18,127 @@ function domain_list() {
 	}
 }
 
-document.getElementById("editProfileForm").onsubmit = function(event) {
-    // 비밀번호와 비밀번호 확인 값 가져오기
-    var password = document.getElementById("password").value;
-    var password2 = document.getElementById("password2").value;
+document.getElementById("editProfileForm").addEventListener('submit', function(e) {
+	
+	let isValid = true;
 
-    // 비밀번호가 8자리 이상인지 확인
-    if (password.length < 8) {
-        alert("비밀번호는 8자리 이상이어야 합니다.");
-        event.preventDefault();  // 폼 제출 방지
-        return false;
-    }
+        // 모든 오류 메시지 초기화
+        document.getElementById('nameError').textContent = '';
+        document.getElementById('emailError').textContent = '';  
+        document.getElementById('currentpasswordError').textContent = '';
+        document.getElementById('passwordError').textContent = '';
+        document.getElementById('password2Error').textContent = '';
 
-    // 비밀번호와 비밀번호 확인이 일치하는지 확인
-    if (password !== password2) {
-        alert("비밀번호와 비밀번호 확인이 일치하지 않습니다.");
-        event.preventDefault();  // 폼 제출 방지
-        return false;
-    }
+        // 이름 유효성 검사
+        const name = document.getElementById('name').value;
+        if (name === '') {
+            document.getElementById('nameError').textContent = '이름을 입력해주세요';
+            document.getElementById('name').focus();
+            isValid = false;
+        }
 
-    // 모든 검사가 통과하면 폼을 제출
-    return true;
-};
+        // 이메일 유효성 검사
+        if (isValid) {
+            const email = document.getElementById('EmailId').value;
+            const emailDomain = document.getElementById('EmailDomain').value;
+            const emailFull = email + '@' + emailDomain;
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+            if (!emailFull || !emailRegex.test(emailFull)) {
+                document.getElementById('emailError').textContent = '올바른 이메일 형식이 아닙니다';
+                document.getElementById('EmailId').focus();
+                isValid = false;
+            }
+        }
+		
+		// 핸드폰 검증
+		if (isValid) {
+		const phone01 = document.getElementById('phone01').value; // 선택된 값
+		const phone02 = document.getElementById('phone02').value;
+		const phone03 = document.getElementById('phone03').value;
+		const phoneRegex = /^[0-9]{4}$/;
+
+		if (phone02 === '' || phone03 === '') {
+			document.getElementById('phoneError').textContent = '핸드폰 번호를 모두 입력해주세요';
+			document.getElementById('phone02').focus();
+			isValid = false;
+		} else if (!phoneRegex.test(phone02)
+				|| !phoneRegex.test(phone03)) {
+			document.getElementById('phoneError').textContent = '핸드폰 번호가 올바르지 않습니다';
+			document.getElementById('phone02').focus();
+			isValid = false;
+			}
+		}
+		
+		// 주소 검증
+		if (isValid) {
+		const postcode = document.getElementById('postcode').value;
+		if (postcode === '') {
+			document.getElementById('addressError').textContent = '주소를 입력해주세요';
+			document.getElementById('postcode').focus();
+			isValid = false;
+			}
+		}
+		
+		// 상세주소 검증
+		if (isValid) {
+		const detailAddress = document.getElementById('detailAddress').value;
+		if (detailAddress === '') {
+			document.getElementById('addressError').textContent = '상세주소를 입력해주세요';
+			document.getElementById('detailAddress').focus();
+			isValid = false;
+		}
+		}
+
+        // 현재 비밀번호 유효성 검사
+        if (isValid) {
+            const currentPassword = document.getElementById('currentPassword').value;
+            if (currentPassword === '') {
+                document.getElementById('currentpasswordError').textContent = '비밀번호를 입력해주세요';
+                document.getElementById('currentPassword').focus();
+                isValid = false;
+            } else if (currentPassword.length < 8) {
+                document.getElementById('currentpasswordError').textContent = '비밀번호는 8자 이상이어야 합니다';
+                document.getElementById('currentPassword').focus();
+                isValid = false;
+            }
+        }
+
+        // 새 비밀번호 유효성 검사
+        if (isValid) {
+            const password = document.getElementById('password').value;
+			const currentPassword = document.getElementById('currentPassword').value;
+            if (password === '') {
+                document.getElementById('passwordError').textContent = '비밀번호를 입력해주세요';
+                document.getElementById('password').focus();
+                isValid = false;
+            } else if (password.length < 8) {
+                document.getElementById('passwordError').textContent = '비밀번호는 8자 이상이어야 합니다';
+                document.getElementById('password').focus();
+                isValid = false;
+            } else if (password === currentPassword) {
+				document.getElementById('passwordError').textContent = '현재 비밀번호와 일치합니다.';
+				document.getElementById('password').focus();
+				isValid = false;
+			}
+        }
+
+        // 비밀번호 확인 유효성 검사
+        if (isValid) {
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('password2').value;
+            if (password !== confirmPassword) {
+                document.getElementById('password2Error').textContent = '새 비밀번호와 일치하지 않습니다';
+                document.getElementById('password2').focus();
+                isValid = false;
+            }
+        }
+
+        // 유효성 검사가 실패하면 폼 제출 방지
+        if (!isValid) {
+            e.preventDefault(); // 이 부분이 폼 제출을 막는 부분입니다.
+        }
+    });
 
 function sample4_execDaumPostcode() {
 			new daum.Postcode(

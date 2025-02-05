@@ -10,17 +10,25 @@ import java.util.Random;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.WebAttributes;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.spike.dto.LoginDTO;
 import com.spike.dto.UserDTO;
 import com.spike.service.UserSerivce;
 
@@ -41,6 +49,32 @@ public class UserController {
 		s.setViewName("/login");
 		return s;
 	}
+	
+	@PostMapping("/login")
+	public String postLogin(@Valid @ModelAttribute LoginDTO loginDTO, BindingResult bindingResult, HttpServletRequest request, Model model) {
+
+	    // 로그인 실패 핸들러가 넣어준 exception 객체 꺼내기
+	    AuthenticationException exception = (AuthenticationException) request.getAttribute(WebAttributes.AUTHENTICATION_EXCEPTION);
+	    
+	    // AuthenticationException 확인하고 있으면 reject
+	    if (exception instanceof BadCredentialsException) {
+	        // BadCredentials 예외를 처리하기 위해 bindingResult에 에러 추가
+	        bindingResult.reject("BadCredentials", "아이디 또는 비밀번호가 잘못되었습니다.");
+	    } else if (exception instanceof UsernameNotFoundException) {
+	        bindingResult.reject("UserNotFound", "사용자를 찾을 수 없습니다.");
+	    } else if (exception != null) {
+	        bindingResult.reject("AuthenticationException", "인증 중 오류가 발생했습니다.");
+	    }
+
+	    // 폼 검증 또는 로그인 실패로 생긴 exception이 있는 경우
+	    if (bindingResult.hasErrors()) {
+	        model.addAttribute("bindingResult", bindingResult);
+	        return "/login"; // 로그인 화면으로 돌아가기
+	    }
+
+	    return "forward:/spike.com/login"; // 로그인 성공 후 리다이렉션
+	}
+
 
 	// 회원가입 폼
 	@GetMapping("/signup")
@@ -75,8 +109,11 @@ public class UserController {
 
 	// 회원 저장
 	@PostMapping("/signup_ok")
-	public ModelAndView signup_ok(UserDTO s, HttpServletRequest request, BindingResult result) throws IOException {
+	public ModelAndView signup_ok(UserDTO s, HttpServletRequest request, BindingResult result, HttpServletResponse response) throws IOException {
 
+		response.setContentType("text/html;charset=UTF-8");
+		PrintWriter out = response.getWriter();
+		
 		s.setStatus("ACTIVE"); // 계정 상태 ACTIVE로 설정
 
 		// 이메일 도메인 처리
@@ -111,8 +148,6 @@ public class UserController {
 		MultipartFile file = s.getProfileImage(); // 업로드된 프로필 이미지
 		
 		if (file != null && !file.isEmpty()) {
-			System.out.println("Upload File Name: " + file.getOriginalFilename());// 업로드 된 원본파일명
-			System.out.println("Upload File Size: " + file.getSize());// 업로드 파일크기
 			// 파일을 저장할 디렉토리 경로
 			String uploadFolder = request.getSession().getServletContext().getRealPath("/upload");
 
@@ -154,9 +189,13 @@ public class UserController {
 
 		// DB에 사용자 정보 저장
 		this.spikeService.insertMember(s);
+		
+		out.println("<script>");
+		out.println("alert('SPIKE 회원이 되신걸 축하드립니다!');");
+		out.println("window.location.href = '/spike.com/login';");
+		out.println("</script>");
 
-		// 로그인 페이지로 리다이렉트
-		return new ModelAndView("redirect:/spike.com/login");
+		return null;
 	}
 
 	// 아이디 찾기 폼
@@ -184,7 +223,7 @@ public class UserController {
 		if (is == null) {
 			out.println("<script>");
 			out.println("alert('회원으로 검색되지 않습니다!\\n 올바른 회원정보를 입력하세요!');");
-			out.println("history.go();");
+			out.println("window.location.href = '/spike.com/findId';");
 			out.println("</script>");
 		} else {
 			String find_id = is.getLoginId();
@@ -257,12 +296,11 @@ public class UserController {
 
 		// 현재 사용자의 기존 비밀번호를 DB에서 조회
 		UserDTO existingUser = this.spikeService.findPwd(s); // 비밀번호 조회 서비스 호출
-		System.out.println(existingUser);
 		// 기존 비밀번호와 새 비밀번호가 동일한지 확인
 		String existingPassword = existingUser.getPassword(); // DB에서 가져온 기존 비밀번호
 		String encryptedNewPassword = passwordEncoder.encode(newPassword); // 새 비밀번호를 암호화
 
-		if (existingPassword.equals(encryptedNewPassword)) {
+		if (passwordEncoder.matches(newPassword, existingPassword)) {
 			// 새 비밀번호가 기존 비밀번호와 동일하면 실패 처리
 			response.setContentType("text/html;charset=UTF-8");
 			PrintWriter out = response.getWriter();

@@ -61,20 +61,74 @@ body{
 }
 
 .UserInfo {
-	width: 500px;
     margin-left: 20px; /* 로고와 UserInfo 사이의 간격을 설정 */
     display: flex;
     align-items: center; /* 수직 가운데 정렬 */
 }
 
-/* 추가적으로 UserInfo 안의 h4가 잘 정렬되도록 */
-.UserInfo h5 {
-    margin-left: 30px !important;
-    font-size: 0.83em !important;
-    font-weight: bold !important;
-    margin-block-start: 1.67em !important;
-    margin-block-end: 1.67em !important;
+
+/* 환영 메시지와 남은 시간 메시지를 같은 줄에 정렬 */
+.welcome-message-container{
+    display: inline-flex !important;              /* 가로로 나열 */
+    align-items: center !important;               /* 세로 중앙 정렬 */
+    justify-content: space-between !important;    /* 요소들 사이에 공간을 균등하게 배분 */
+    width: 100% !important;                       /* 전체 너비 사용 */
+    margin-bottom: 10px !important;               /* 아래 여백 */
 }
+
+/* 환영 메시지 스타일 */
+.welcome-message{
+    margin-left: 30px !important;                 /* 왼쪽 여백 */
+    font-family: 'Arial', sans-serif !important;  /* 폰트 */
+    font-size: 14px !important;                   /* 기본 글자 크기 */
+    color: #333 !important;                       /* 글자 색 */
+    font-weight: bold !important;                 /* 굵은 글씨 */
+    margin-right: 20px !important;   
+         
+            /* 오른쪽 여백 */
+}
+
+/* 남은 시간 스타일 */
+.time-left {
+    background-color: #f8f9fa !important;         /* 밝은 회색 배경 */
+    padding: 10px 10px !important;                /* 패딩 */
+    border-radius: 5px !important;                /* 둥근 테두리 */
+    display: inline-flex !important;              /* 가로로 나열 */
+    align-items: center !important;               /* 세로 중앙 정렬 */
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1) !important; /* 부드러운 그림자 */
+}
+
+/* 남은 시간 메시지 스타일 */
+.time-left-message {
+    font-size: 14px !important;                   /* 글자 크기 */
+    color: #333 !important;                       /* 글자 색 */
+    margin: 0 !important;                          /* 여백 제거 */
+}
+
+/* 남은 시간 강조 스타일 */
+.time-left span {
+    font-size: 14px !important;                   /* 남은 시간 강조 글자 크기 */
+    font-weight: bold !important;                 /* 굵은 글씨 */
+    color: #808080 !important;                    /* 회색 강조 */
+    margin-left: 5px !important;                  /* 왼쪽 여백 */
+}
+
+
+/* 작은 화면에서 스타일을 위한 반응형 */
+@media (max-width: 600px) {
+    .welcome-message {
+        font-size: 16px !important;               /* 작은 화면에서는 글자 크기 줄이기 */
+    }
+
+    .time-left-message {
+        font-size: 14px !important;               /* 작은 화면에서는 글자 크기 줄이기 */
+    }
+
+    .time-left span {
+        font-size: 16px !important;               /* 작은 화면에서 남은 시간 강조 글자 크기 줄이기 */
+    }
+}
+
 
 .main-header {
     background-color: #fff;

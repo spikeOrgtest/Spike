@@ -40,10 +40,15 @@
 							aria-expanded="true">Home</button>
 						<div class="collapse show" id="home-collapse">
 							<ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-								<li><a href="javascript:location='/spike.com/mypage/mypageEdit';" class="link-dark rounded">회원정보수정</a></li>
-								<li><a href="javascript:location='/spike.com/mypage/inquiry';" class="link-dark rounded">나의
-										계좌</a></li>
-								<li><a href="javascript:location='/spike.com/mypage/property';" class="link-dark rounded">자산조회</a></li>
+								<li><a
+									href="javascript:location='/spike.com/mypage/mypageEdit';"
+									class="link-dark rounded">회원정보수정</a></li>
+								<li><a
+									href="javascript:location='/spike.com/mypage/inquiry';"
+									class="link-dark rounded">나의 계좌</a></li>
+								<li><a
+									href="javascript:location='/spike.com/mypage/property';"
+									class="link-dark rounded">자산조회</a></li>
 								<li><a href="#" class="link-dark rounded">목표 금액 설정</a></li>
 							</ul>
 						</div>
@@ -66,8 +71,8 @@
 								<div class="row">
 									<div class="col-md-4">
 										<div class="card">
-											<img src="../../images/mypage/profile.jpg" class="card-img-top"
-												alt="프로필 이미지">
+											<img src="../../images/mypage/profile.jpg"
+												class="card-img-top" alt="프로필 이미지">
 											<div class="card-body">
 												<button class="btn btn-primary" style="width: 100%"
 													data-bs-toggle="modal" data-bs-target="#editProfileModal">프로필
@@ -78,12 +83,18 @@
 									<div class="col-md-8">
 										<h2>개인정보</h2>
 										<ul class="list-group">
-											<li class="list-group-item"><strong>사용자 이름:</strong> ${name}</li>
-											<li class="list-group-item"><strong>이메일:</strong> ${e_mail}@${e_mail2}</li>
-											<li class="list-group-item"><strong>가입일:</strong> ${Registrationdate}</li>
-											<li class="list-group-item"><strong>전화번호:</strong> ${phone}</li>
-											<li class="list-group-item"><strong>주소:</strong> ${roadaddress} ${detailaddress}</li>
-											<li class="list-group-item"><strong>생년월일:</strong> ${birthdate}</li>
+											<li class="list-group-item"><strong>사용자 이름:</strong>
+												${name}</li>
+											<li class="list-group-item"><strong>이메일:</strong>
+												${e_mail}@${e_mail2}</li>
+											<li class="list-group-item"><strong>가입일:</strong>
+												${Registrationdate}</li>
+											<li class="list-group-item"><strong>전화번호:</strong>
+												${phone}</li>
+											<li class="list-group-item"><strong>주소:</strong>
+												${roadaddress} ${detailaddress}</li>
+											<li class="list-group-item"><strong>생년월일:</strong>
+												${birthdate}</li>
 										</ul>
 									</div>
 
@@ -162,7 +173,8 @@
 											<div class="card-body">
 												<p>현재 계정에서 로그아웃하려면 아래 버튼을 클릭하세요. 로그아웃 후 다시 로그인하려면 인증이
 													필요합니다.</p>
-												<button class="btn btn-secondary" onclick="location='/spike.com/logout';">로그아웃</button>
+												<button class="btn btn-secondary"
+													onclick="location='/spike.com/logout';">로그아웃</button>
 											</div>
 										</div>
 									</div>
@@ -174,7 +186,8 @@
 											<div class="card-body">
 												<p>회원 탈퇴 시 모든 계정 정보와 연결된 데이터가 삭제됩니다. 탈퇴 후 계정 복구는 불가능합니다.
 													신중히 결정하세요.</p>
-												<button class="btn btn-secondary" id="openWithdrawalModal" data-bs-toggle="modal" data-bs-target="#withdrawalModal">탈퇴하기</button>
+												<button class="btn btn-secondary" id="openWithdrawalModal"
+													data-bs-toggle="modal" data-bs-target="#withdrawalModal">탈퇴하기</button>
 
 											</div>
 										</div>
@@ -231,18 +244,22 @@
 											</div>
 
 											<!-- 탈퇴 확인 폼 -->
-											<form action= "/spike.com/mypage/main" id="withdrawal-form" class="text-center" method="POST">
-											<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-						
+											<form action="/spike.com/mypage/main" id="withdrawal-form"
+												class="text-center" method="POST">
+												<input type="hidden" name="${_csrf.parameterName}"
+													value="${_csrf.token}" />
+
 												<div class="form-check mb-3">
 													<input class="form-check-input" type="checkbox"
 														id="confirmCheck"> <label
 														class="form-check-label memberout" for="confirmCheck">
 														회원탈퇴에 따른 모든 내용을 확인하였으며, 이에 동의합니다. </label>
 												</div>
-												<input type="hidden" name="loginId" value="${sessionScope.User.loginId}">
+												<input type="hidden" name="loginId"
+													value="${sessionScope.User.loginId}">
 												<button type="submit" class="btn btn-danger btn-lg">탈퇴하기</button>
-												<button type ="button" class="btn btn-secondary btn-lg ms-3" id="cancelButton">취소</button>
+												<button type="button" class="btn btn-secondary btn-lg ms-3"
+													id="cancelButton">취소</button>
 											</form>
 										</div>
 									</div>
@@ -251,65 +268,84 @@
 						</div>
 
 						<!-- 프로필 수정 모달 -->
-						<div class="modal fade" id="editProfileModal" tabindex="-1" aria-labelledby="editProfileModalLabel" aria-hidden="true">
-						    <div class="modal-dialog">
-						        <div class="modal-content">
-						            <!-- 모달 헤더 -->
-						            <div class="modal-header">
-						                <h5 class="modal-title" id="editProfileModalLabel">프로필 수정</h5>
-						                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-						            </div>
-						            <!-- 모달 본문 -->
-						            <div class="modal-body">
-						                <form name="s" action="profileEdit" method="post" id="editProfileForm">
+						<div class="modal fade" id="editProfileModal" tabindex="-1"
+							aria-labelledby="editProfileModalLabel" aria-hidden="true">
+							<div class="modal-dialog">
+								<div class="modal-content">
+									<!-- 모달 헤더 -->
+									<div class="modal-header">
+										<h5 class="modal-title" id="editProfileModalLabel">프로필 수정</h5>
+										<button type="button" class="btn-close"
+											data-bs-dismiss="modal" aria-label="Close"></button>
+									</div>
+									<!-- 모달 본문 -->
+									<div class="modal-body">
+										<form name="s" action="profileEdit" method="post"
+											id="editProfileForm">
 											<input type="hidden" name="${_csrf.parameterName}"
-																value="${_csrf.token}" />
-						                    <!-- 사용자 이름 -->
-						                    <div class="form-group mb-3">
-						                        <label for="userName" class="form-label">사용자 이름</label>
-						                        <input type="text" class="form-control" id="name" name="name" placeholder="사용자 이름">
-						                    </div>
-											
-						                    <!-- 이메일 -->
-						                    <div class="form-group mb-3">
-						                        <label for="userEmail" class="form-label">이메일</label>
-						                        <div class="input-group">
-						                            <input type="text" class="form-control" id="EmailId" name="EmailId" placeholder="이메일">
-						                            <span class="email-at-symbol">@</span>
-						                            <input type="text" class="form-control" id="EmailDomain" name="EmailDomain" value="gmail.com" readonly />
-						                            <select name="mail_list" onchange="domain_list();" style="margin-left: 10px;">
-						                                <c:forEach var="mail" items="${email}">
-						                                    <option value="${mail}">${mail}</option>
-						                                </c:forEach>
-						                            </select>
-						                        </div>
-						                    </div>
-						                    
-						                	<div class="form-group mb-3">
-						                        <label for="userPassword" class="form-label">현재 비밀번호</label>
-						                        <input type="password" class="form-control" id="currentPassword" name="currentPassword" placeholder="현재 비밀번호를 입력하세요" >
-						                    </div>
-											
-						                    <!-- 비밀번호 -->
-						                    <div class="form-group mb-3">
-						                        <label for="userPassword" class="form-label">비밀번호</label>
-						                        <input type="password" class="form-control" id="password" name="password" placeholder="비밀번호를 입력하세요" >
-						                    </div>
-											
-						                    <!-- 비밀번호 확인 -->
-						                    <div class="form-group mb-3">
-						                        <label for="userPassword" class="form-label">비밀번호 확인</label>
-						                        <input type="password" class="form-control" id="password2" name="password2" placeholder="비밀번호를 다시 입력하세요" >
-						                    </div>
-											
-						                    <!-- 저장 버튼 -->
-						                    <div class="form-group mb-3">
-						                        <button type="submit" class="btn btn-primary w-100">저장</button>
-						                    </div>
-						                </form>
-						            </div>
-						        </div>
-						    </div>
+												value="${_csrf.token}" />
+											<!-- 사용자 이름 -->
+											<div class="form-group mb-3">
+												<label for="userName" class="form-label">사용자 이름</label> <input
+													type="text" class="form-control" id="name" name="name"
+													placeholder="사용자 이름"> <span
+													id="nameError" style="color: red;"></span>
+											</div>
+
+											<!-- 이메일 -->
+											<div class="form-group mb-3">
+												<label for="userEmail" class="form-label">이메일</label>
+												<div class="input-group">
+													<input type="text" class="form-control" id="EmailId"
+														name="EmailId" placeholder="이메일"> <span
+														class="email-at-symbol">@</span> <input type="text"
+														class="form-control" id="EmailDomain" name="EmailDomain"
+														value="gmail.com" readonly /> <select name="mail_list"
+														onchange="domain_list();" style="margin-left: 10px;">
+														<c:forEach var="mail" items="${email}">
+															<option value="${mail}">${mail}</option>
+														</c:forEach>
+													</select> 
+												</div>
+												<span id="emailError" style="color: red;"></span>
+											</div>
+
+											<!-- 비밀번호 입력 -->
+											<div class="form-group mb-3">
+												<label for="userPassword" class="form-label">현재 비밀번호</label>
+												<input type="password" class="form-control"
+													id="currentPassword" name="currentPassword"
+													placeholder="현재 비밀번호를 입력하세요"> <span
+													id="currentpasswordError"
+													style="color: red;"></span>
+											</div>
+
+											<!-- 비밀번호 -->
+											<div class="form-group mb-3">
+												<label for="userPassword" class="form-label">새 비밀번호</label>
+												<input type="password" class="form-control" id="password"
+													name="password" placeholder="비밀번호를 입력하세요"> <span
+													id="passwordError"
+													style="color: red;"></span>
+											</div>
+
+											<!-- 비밀번호 확인 -->
+											<div class="form-group mb-3">
+												<label for="userPassword" class="form-label">비밀번호 확인</label>
+												<input type="password" class="form-control" id="password2"
+													name="password2" placeholder="비밀번호를 다시 입력하세요"> <span
+													id="password2Error"
+													style="color: red;"></span>
+											</div>
+
+											<!-- 저장 버튼 -->
+											<div class="form-group mb-3">
+												<button type="submit" class="btn btn-primary w-100">저장</button>
+											</div>
+										</form>
+									</div>
+								</div>
+							</div>
 						</div>
 
 
@@ -323,9 +359,9 @@
 
 	<jsp:include page="../include/footer.jsp" />
 
-	
-    <!-- Bootstrap JS, Chart.js -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+	<!-- Bootstrap JS, Chart.js -->
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
