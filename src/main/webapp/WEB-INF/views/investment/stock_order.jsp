@@ -13,7 +13,7 @@
         <div class="chart-section">
             <div class="chart-header">
                 <h3>${stock.companyName} (${stock.tickerSymbol})</h3>
-                <p>시작가: ${stock.initialPrice}$ | 현재가: ${stock.currentPrice}$</p>
+                <p>시작가: ${stock.initialPrice}&#8361 | 현재가: ${stock.currentPrice}&#8361</p>
             </div>
             <div class="chart-box">
                 <canvas id="candleChart" width="800" height="400"></canvas>
@@ -24,7 +24,7 @@
         <div class="details-section">
             <div class="details-header">
                 <h3>${stock.companyName} 실시간 시세</h3>
-                <p>전체 발행 주식: ${stock.totalShares}</p>
+                <p>전체 발행 주식: ${stock.totalShares}주</p>  
             </div>
             <table class="details-table">
                 <tr>
@@ -33,12 +33,12 @@
                     <th>등락률</th>
                 </tr>
                 <tr>
-                    <td>${stock.currentPrice}원</td>
+                    <td>${stock.currentPrice}&#8361</td>
                     <td>1,000</td>
                     <td>+1.23%</td>
                 </tr>
                 <tr>
-                    <td>${stock.currentPrice}원</td>
+                    <td>${stock.currentPrice}&#8361</td>
                     <td>2,500</td>
                     <td>-0.89%</td>
                 </tr>
@@ -69,8 +69,8 @@
             </div>
             <div class="summary">
                 <p>미수거래 (현금 30%)</p>
-                <p>구매 가능 금액: 0$</p>
-                <p>총 주문 금액: 0$</p>
+                <p>구매 가능 금액: 0&#8361</p>
+                <p>총 주문 금액: 0&#8361</p>
             </div>
             <button class="buy-btn">구매하기</button>
         </div>
