@@ -40,7 +40,7 @@ public class Listing {
 	
 	//판매하는 주식의 종류(FK로 참조), 양, 가격
 	@ManyToOne
-	private Stock stock;
+	private StockDTO stock;
 	
 	private int quantity;
 	

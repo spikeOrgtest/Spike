@@ -37,6 +37,12 @@ public class QuizResultDTO {
     private Integer earnedPoints;  // 적립된 포인트
     private Date attemptDate;   // 퀴즈 시도 일자
     
+    // 엔티티가 처음 저장될 때 현재 시간 설정
+    @PrePersist
+    protected void onCreate() {
+        this.attemptDate = new Date();
+    }
+    
     // user_id를 반환하는 메서드 (user 객체에서 가져오기)
     public Long getUser_id() {
         return user != null ? user.getUserId() : 0; // user가 null일 경우 0 반환

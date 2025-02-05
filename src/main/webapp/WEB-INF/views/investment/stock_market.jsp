@@ -15,17 +15,20 @@
 <link
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
 	rel="stylesheet">
+<link rel="stylesheet" href="/css/include/include.css">
 </head>
 <body>
+	<jsp:include page="../include/header.jsp" />
+	<br />
 	<div class="button-container">
 		<!-- 증권 계좌 개설 버튼 -->
-		<a href="/spike.com/securities-account/open" class="open-account-button">
-			증권 계좌 개설하기 </a>
+		<a href="/spike.com/securities-account/open"
+			class="open-account-button"> 증권 계좌 개설하기 </a>
 	</div>
 	<div class="button-container">
 		<!-- 증권 계좌 관리 버튼 -->
-		<a href="/spike.com/securities-account/manage" class="open-account-button">
-			증권 계좌 관리하기 </a>
+		<a href="/spike.com/securities-account/manage"
+			class="open-account-button"> 증권 계좌 관리하기 </a>
 	</div>
 	<main class="main-content">
 		<!-- 주요 경제 지수 -->
@@ -100,7 +103,7 @@
 						<th>종목</th>
 						<th>현재가</th>
 						<th>총 발행 주식</th>
-						<th>유통 가능한 주식</th>
+						
 					</tr>
 				</thead>
 				<tbody>
@@ -111,15 +114,14 @@
 								<tr>
 									<td>${status.index + 1}</td>
 									<!-- 순위 -->
-									<td><a href="/spike/stock/${stock.stockCode}/order">
+									<td><a href="/spike.com/stock/${stock.stockId}/order">
 											${stock.companyName} (${stock.tickerSymbol}) </a></td>
 									<!-- 종목 -->
 									<td>${stock.currentPrice}$</td>
 									<!-- 현재가 -->
 									<td>${stock.totalShares}</td>
 									<!-- 총 발행 주식 -->
-									<td>${stock.availableShares}</td>
-									<!-- 유통 가능한 주식 -->
+									
 								</tr>
 							</c:forEach>
 						</c:when>
@@ -130,9 +132,10 @@
 						</c:otherwise>
 					</c:choose>
 				</tbody>
-
 			</table>
 		</div>
+
 	</main>
+	<jsp:include page="../include/footer.jsp" />
 </body>
 </html>
