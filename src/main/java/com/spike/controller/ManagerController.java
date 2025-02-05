@@ -67,8 +67,6 @@ public class ManagerController {
 
 		List<UserDTO> list = this.userService.findByUserIdEdit(UserId);
 
-		System.out.println("list : " + list);
-
 		ModelAndView em = new ModelAndView("manager/EditUser");
 		em.addObject("list", list);
 
@@ -79,10 +77,6 @@ public class ManagerController {
 	public void UpdateUser(Long userId, String isMinor, String status, HttpServletResponse response) throws Exception {
 		response.setContentType("text/html; charset=UTF-8");
 		PrintWriter out = response.getWriter();
-
-		System.out.println(userId);
-		System.out.println(isMinor);
-		System.out.println(status);
 
 		this.userService.UpdateUser(isMinor, status, userId);
 
@@ -99,8 +93,6 @@ public class ManagerController {
 		PrintWriter out = response.getWriter();
 
 		List<String> list = this.userService.findbyaccountnumber(UserId);
-
-		System.out.println("list : " + list);
 
 		if (list.size() == 0) {
 			this.userService.UserDelete(UserId);

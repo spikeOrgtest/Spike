@@ -15,7 +15,7 @@
 		<div class="login-wrapper">
 			<div class="login-container">
 				<h2>로그인</h2>
-				<form name="s" action="/login" method="post" class="login-form">
+				<form name="s" action="login" method="post" class="login-form">
 					<input type="hidden" name="${_csrf.parameterName}"
 						value="${_csrf.token}" />
 					<div class="input-group">
@@ -26,9 +26,16 @@
 						<input type="password" name="password" id="password"
 							placeholder="비밀번호를 입력하세요" required>
 					</div>
+					<!-- 에러 메시지 출력 -->
+					<c:if test="${not empty bindingResult}">
+							<c:forEach var="error" items="${bindingResult.allErrors}">
+								<p style="color:red;">${error.defaultMessage}</p>
+							</c:forEach>
+					</c:if>
+
 					<div class="login-options">
-						<label class="remember-me"> 
-						<input type="checkbox" name="remember" id="rememberMe"> <span>아이디 저장</span>
+						<label class="remember-me"> <input type="checkbox"
+							name="remember" id="rememberMe"> <span>아이디 저장</span>
 						</label>
 						<div class="auth-links">
 							<a href="javascript:void(0);" onclick="openWindow('findId')">아이디
