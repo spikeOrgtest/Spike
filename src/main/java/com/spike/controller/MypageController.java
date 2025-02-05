@@ -100,7 +100,7 @@ public class MypageController {
 		String existingPassword = sessionUser.getPassword(); // DB에서 가져온 기존 비밀번호
 		String encryptedNewPassword = passwordEncoder.encode(s.getPassword()); // 새 비밀번호를 암호화
 		String currentPassword = request.getParameter("currentPassword");
-
+		
 		if (!passwordEncoder.matches(currentPassword, existingPassword)) {
 			out.println("<script>");
 			out.println("alert('현재 비밀번호가 일치하지 않습니다!');");
@@ -109,7 +109,7 @@ public class MypageController {
 			return null;
 		}
 
-		if (passwordEncoder.matches(sessionUser.getPassword(), existingPassword)) {
+		if (passwordEncoder.matches(s.getPassword(), existingPassword)) {
 			out.println("<script>");
 			out.println("alert('기존 비밀번호와 새 비밀번호가 동일합니다!');");
 			out.println("window.location.href = '/spike.com/mypage/main';");
@@ -185,7 +185,7 @@ public class MypageController {
 			return null;
 		}
 
-		if (passwordEncoder.matches(user.getPassword(), existingPassword)) {
+		if (passwordEncoder.matches(s.getPassword(), existingPassword)) {
 			out.println("<script>");
 			out.println("alert('기존 비밀번호와 새 비밀번호가 동일합니다!');");
 			out.println("window.location.href = '/spike.com/mypage/mypageEdit';");

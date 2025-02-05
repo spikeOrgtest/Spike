@@ -25,17 +25,17 @@ public interface AccountRepository extends JpaRepository<AccountDTO, Long> {
 
 	@Modifying
 	@Transactional
-	@Query("update AccountDTO a set a.oneLimit = ?1 where a.accountNumber =?2")
+	@Query("update AccountDTO a set a.oneLimit=?1 where a.accountNumber=?2")
 	void Oneupdateaccount(Long oneLimit, String accountNumber);
 
 	@Modifying
 	@Transactional
-	@Query("update AccountDTO a set a.dayLimit = ?1 where a.accountNumber =?2")
+	@Query("update AccountDTO a set a.dayLimit=?1 where a.accountNumber=?2")
 	void Dayupdateaccount(Long dayLimit, String accountNumber);
 
 	@Modifying
 	@Transactional
-	@Query("update AccountDTO a set a.accountPassword = ?1 where a.accountNumber =?2")
+	@Query("update AccountDTO a set a.accountPassword=?1 where a.accountNumber=?2")
 	void Passwordupdateaccount(String accountPassword, String accountNumber);
 
 	@Transactional // 여러번 패스워드 변경 시 조회 실패하는거 방지
@@ -47,13 +47,13 @@ public interface AccountRepository extends JpaRepository<AccountDTO, Long> {
 	@Query("delete from AccountDTO a where a.accountNumber=?1")
 	public void accountsecession(String accountNumber);
 
-	@Query("SELECT a FROM AccountDTO a WHERE a.deleted = false")
+	@Query("SELECT a FROM AccountDTO a WHERE a.accountState=ACTIVE")
 	List<AccountDTO> findByDeletedFalse();
 
 	@Modifying
 	@Transactional
-	@Query("update AccountDTO a set a.balance = :#{#account.balance}, "
-			+ "a.lastInterestDate = :#{#account.lastInterestDate} " + "where a.accountId = :#{#account.accountId}")
+	@Query("update AccountDTO a set a.balance=:#{#account.balance}, "
+			+ "a.lastInterestDate=:#{#account.lastInterestDate} " + "where a.accountId=:#{#account.accountId}")
 	void updateAccount(@Param("account") AccountDTO account);
 
 }

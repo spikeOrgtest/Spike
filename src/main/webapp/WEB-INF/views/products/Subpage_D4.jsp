@@ -140,7 +140,7 @@
 
         <section class="cta">
             <div class="container">
-                <a href="../newdeposit" class="button" id="joinButton">지금 가입하기</a>
+                <a href="../newdeposit?selectedProduct=regular" class="button" id="joinButton">지금 가입하기</a>
             </div>
         </section>
     </main>

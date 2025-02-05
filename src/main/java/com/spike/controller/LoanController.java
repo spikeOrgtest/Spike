@@ -2,6 +2,7 @@ package com.spike.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -14,10 +15,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.spike.dto.AccountDTO;
 import com.spike.dto.LoanDTO;
 import com.spike.dto.UserDTO;
+import com.spike.service.AccountService;
 import com.spike.service.LoanService;
 
 @Controller
@@ -26,6 +30,9 @@ public class LoanController {
 
 	@Autowired
 	private LoanService loanService;
+	
+	@Autowired
+	private AccountService accountService;
 		
 	@GetMapping("/products/loan")
 	public String loan() {
@@ -51,9 +58,13 @@ public class LoanController {
 			return null;
 		}
 		
-		String[] loanName = {"대출", "그냥대출"};
+		UserDTO user = (UserDTO) session.getAttribute("User");
+	    List<AccountDTO> accounts = accountService.getActiveAccountsForUser(user); // ACTIVE 계좌만 가져오기
+		
+		String[] loan_name = {"대출상품"};
 		ModelAndView ss = new ModelAndView("/products/newLoan");
-		ss.addObject("loanName", loanName);
+		ss.addObject("loan_name", loan_name);
+		ss.addObject("accounts", accounts);
 		return ss;
 	}
 	
@@ -66,6 +77,7 @@ public class LoanController {
 		
 		UserDTO sessionUser = (UserDTO) session.getAttribute("User");
 		s.setOwner(sessionUser);
+		s.setLoanState("대기 중");
 		this.loanService.createLoan(s);
 		
 		return new ModelAndView("redirect:/spike.com/products");

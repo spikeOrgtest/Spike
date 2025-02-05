@@ -9,7 +9,7 @@
 
 <link rel="stylesheet" href="/css/include/include.css">
 <link rel="stylesheet" href="/css/support/subpage.css">
-<link rel="stylesheet" href="/css/manager/EditUser.css">
+<link rel="stylesheet" href="/css/manager/loanState.css">
 </head>
 <body>
 	<%@ include file="../include/header.jsp"%>
@@ -104,8 +104,9 @@
 					</c:forEach>
 
 					<div class="form-buttons">
-						<button type="submit" class="submit-btn">수정</button>
-						<button type="reset" class="reset-btn">취소</button>
+						<button type="submit" class="submit-btn">수락</button>
+						<button type="reset" class="reject-btn">거절</button>
+						<button type="reset" class="reset-btn">목록</button>
 					</div>
 				</form>
 

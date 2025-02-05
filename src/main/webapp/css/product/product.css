@@ -15,26 +15,6 @@ body {
     margin: 0 auto;
 }
 
-.top-bar {
-    background-color: #f8f8f8;
-    padding: 5px 0;
-    font-size: 0.8rem;
-    
-    
-}
-
-.top-bar .container {
-    display: flex;
-    justify-content: flex-end;
-    gap: 20px;
-    padding-right: 20px;  /* 오른쪽에 약간의 패딩 추가 */
-}
-
-.top-bar a {
-    color: #666;
-    text-decoration: none;
-}
-
 .main-header {
     background-color: #fff;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
