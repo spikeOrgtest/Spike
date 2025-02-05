@@ -28,10 +28,10 @@ public class SecuritiesAccountDTO {
 	private String accountNumber;
 
 	@Column(name = "balance", nullable = false)
-	private Double balance = 0.0;
+	private long balance = 0;
 
 	@Column(name = "currency", nullable = false, length = 10)
-	private String currency = "USD";
+	private String currency = "KRW";
 
 	@Column(name = "status", nullable = false, length = 20)
 	private String status = "Active";
@@ -47,11 +47,11 @@ public class SecuritiesAccountDTO {
 	private String accountPassword;
 
 	@Transient
-	private Double initialDeposit;
+	private long initialDeposit;
 
-	public void setInitialDeposit(Double initialDeposit) {
+	public void setInitialDeposit(long initialDeposit) {
 		this.initialDeposit = initialDeposit;
-		if (initialDeposit != null) {
+		if (initialDeposit != 0) {
 			this.balance = initialDeposit;
 		}
 	}

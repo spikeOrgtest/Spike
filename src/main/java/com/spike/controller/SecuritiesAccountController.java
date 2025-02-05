@@ -41,7 +41,7 @@ public class SecuritiesAccountController {
 
 	@PostMapping("/open")
 	public String createAccount(
-			@RequestParam("initialDeposit") Double initialDeposit,
+			@RequestParam("initialDeposit") long initialDeposit,
 			@RequestParam("currency") String currency,
 			@RequestParam("accountPassword") String accountPassword,
 			Principal principal,
