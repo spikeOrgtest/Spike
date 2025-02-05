@@ -89,6 +89,19 @@
 			window.open(url, "popupWindow",
 					"width=600,height=400,scrollbars=yes,resizable=yes");
 		}
-	</script>
+		
+		//퀴즈 관련 페이지 반환 알림창
+        window.onload = function() {
+            // 쿼리 파라미터에서 'message'를 가져오기
+            const urlParams = new URLSearchParams(window.location.search);
+            const message = urlParams.get('message');
+
+            // 메시지가 있으면 알림창을 띄움
+            if (message) {
+                alert(message);
+            }
+        }
+    </script>
+	
 </body>
 </html>

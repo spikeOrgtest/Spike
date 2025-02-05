@@ -106,5 +106,7 @@ public interface QuizResultService {
 		List<QuizResultDTO> getTotalQuizResult(UserDTO user);
 		
 		List<QuizRank> getTopRankUser();
+
+		
 	}
 

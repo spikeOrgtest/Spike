@@ -23,7 +23,7 @@
         <!-- 버튼 영역 -->
         <div class="button-group">
             <!-- 홈으로 돌아가는 버튼 -->
-            <a href="/spike/stock/home" class="btn btn-home">🏠 주식 시장 홈으로</a>
+            <a href="/spike.com/stock/home" class="btn btn-home">🏠 주식 시장 홈으로</a>
         </div>
     </div>
 </body>

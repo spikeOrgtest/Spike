@@ -5,7 +5,6 @@
 <meta charset="UTF-8">
 <meta id="_csrf" name="_csrf" content="${_csrf.token}"/>
 <meta id="_csrf_header" name="_csrf_header" content="${_csrf.headerName}"/>
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>OX 퀴즈</title>
 <link rel="stylesheet" href="../css/support/subpage.css">
@@ -14,6 +13,7 @@
 </head>
 
 <body class="subpage">
+ 
 	<%@ include file="../include/header.jsp"%>
 	<%@ include file="../include/subnav.jsp"%>
 
@@ -53,8 +53,7 @@
 									빠르게 자신의 '금융지식'을 <br /> 테스트 해볼 수 있습니다.
 								</h2>
 
-								<button class="quiz-next-question" onclick="nextQuestion(2)">문제
-									풀기</button>
+								<button class="quiz-start-button" onclick="startQuiz(2)">문제 풀기</button>
 								<div class="quiz-result" id="quiz-result-1"></div>
 							</div>
 						</div>
@@ -161,10 +160,42 @@
     let correctCount;      // 맞춘 문제 수
     let totalPoints;       // 획득한 포인트
 
-	// 문제를 넘기는 함수
+ // 퀴즈 시작 함수
+    function startQuiz(questionNumber) {
+        // '문제 풀기' 버튼을 숨깁니다.
+        const startButton = document.querySelector('.quiz-start-button');
+        if (startButton) {
+            startButton.style.display = 'none';  // 문제 풀기 버튼 숨김
+        }
+
+        // 현재 슬라이드 숨기고 첫 번째 문제 슬라이드 표시
+        const currentQuiz = document.querySelector('.quiz-question.active');
+        if (currentQuiz) {
+            currentQuiz.classList.remove('active');  // 현재 문제 슬라이드 숨기기
+        }
+
+        // 첫 번째 문제 슬라이드 활성화
+        const quiz = document.getElementById('quiz' + questionNumber);
+        if (quiz) {
+            quiz.classList.add('active');  // 첫 번째 문제 슬라이드 활성화
+        }
+
+        // 퀴즈 번호 갱신
+        currentQuestion = questionNumber;
+    }
+
+    // 문제를 넘기는 함수 (정답을 선택했는지 확인)
     function nextQuestion(questionNumber) {
-        // 현재 문제 숨기기
         const currentQuiz = document.getElementById('quiz' + currentQuestion);
+        const resultElement = document.getElementById('quiz-result-' + currentQuestion);
+        
+        // 정답을 선택하지 않은 경우 경고창 띄우기
+        if (!resultElement.dataset.answered) {
+            alert("정답을 선택해주세요!");
+            return;  // 정답을 선택하지 않으면 함수 종료
+        }
+        
+        // 현재 문제 숨기기
         if (currentQuiz) {
             currentQuiz.classList.remove('active');
         }
@@ -181,6 +212,13 @@
     // 정답을 선택하고 결과를 표시하는 함수
     function showResult(isCorrect, questionNumber) {
         let resultElement = document.getElementById('quiz-result-' + questionNumber);
+        let quizOptions = document.querySelectorAll(`#quiz${questionNumber} .quiz-option`);
+
+        // 이미 선택한 경우 경고 메시지 띄우고 함수 종료
+        if (resultElement.dataset.answered === "true") {
+            alert("이미 정답을 선택하였습니다!");
+            return;
+        }
 
         if (isCorrect) {
             correctCount += 1; // 맞춘 문제 수 증가
@@ -190,21 +228,29 @@
             resultElement.innerHTML = '<p class="quiz-result-wrong">오답입니다!</p>';
         }
 
+        // 정답 선택 후 모든 버튼 비활성화
+        quizOptions.forEach(button => {
+            button.disabled = true;
+        });
+
+        // 정답 선택 상태 저장
+        resultElement.dataset.answered = "true";
+
         // 백엔드에 점수 전송 (포인트)
         sendPointsToBackend(isCorrect);
     }
 
     // 점수를 백엔드에 전송하는 함수
     function sendPointsToBackend(isCorrect) {
-    	const header = document.querySelector('meta[name="_csrf_header"]').content;
+        const header = document.querySelector('meta[name="_csrf_header"]').content;
         const token = document.querySelector('meta[name="_csrf"]').content;
-    	
+        
         fetch('/spike.com/update-score', {
             method: 'POST',
             headers: {
-            	'header': header,
+                'header': header,
                 'Content-Type': 'application/json',
-                'X-CSRF-TOKEN':  token
+                'X-CSRF-TOKEN': token
             },
             body: JSON.stringify({
                 quizId: currentQuestion, // 현재 퀴즈 ID
@@ -220,7 +266,7 @@
             console.error('포인트 업데이트 실패:', error);
         });
     }
-    
+
     	
     // 정답과 맞춘 문제 수 슬라이드로 보여주는 함수
     function showScoreSlide() {

@@ -18,7 +18,7 @@ import lombok.Setter;
 @Getter
 @Entity
 @Table(name = "STOCK")
-public class Stock {
+public class StockDTO {
 	
 	@Id
 	@SequenceGenerator(
@@ -33,10 +33,6 @@ public class Stock {
 			)
     private int stockId;
 	
-	
-    private String stockCode; // 새로운 필드 추가
-	
-	
     private String companyName; //제약조건 나중에 주는걸로
     
     private String tickerSymbol;
@@ -49,19 +45,10 @@ public class Stock {
     
     private int totalShares;
     
-    private int availableShares;
-    
     @Column(nullable = true)
     private int isActive = 1; //String status면 좋겠는데 기존 코드랑 충돌위험, 보류
     
     private Timestamp createdDate;
 
-    //트리거 대신 prepersist 어노테이션으로 똑같은 기능 구현, pre(이전)persist(insert)
-    //stockId는 생성시 시퀀스가 지정해주니 트리거 필요x 
-    @PrePersist
-    public void generateStockCode() {
-        if (this.stockCode == null) {
-            this.stockCode = String.format("%08d", this.stockId);
-        }
-    }
+    
 }

@@ -16,8 +16,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -41,7 +41,7 @@ public class QuizController {
 
     @PostMapping("update-score")
     public ResponseEntity<Map<String, Object>> updateScore(@RequestBody QuizResultDTO quizResultDto, HttpSession session) {
-        System.out.println("Hello");
+     
     	Map<String, Object> response = new HashMap<>();
 
         try {
@@ -53,10 +53,13 @@ public class QuizController {
             quizResultService.saveQuizResult(quizResultDto);
             
             userService.addPoints(sessionUser, quizResultDto.getEarnedPoints());
-
-            // User의 포인트 업데이트
-         // UserSerivce.updateUserPoints(quizResultDto.getUser_id(), quizResultDto.getEarned_points());
-
+			
+            // 0204 포인트가 업데이트된 최신 UserDTO 가져오기
+            UserDTO updatedUser = userService.findId(sessionUser);
+            
+            // 0204 업데이트된 유저 정보를 세션에 다시 저장
+            session.setAttribute("User", updatedUser);
+            
             response.put("status", "success");
             response.put("message", "포인트가 성공적으로 업데이트되었습니다.");
             return ResponseEntity.ok(response);
@@ -66,7 +69,55 @@ public class QuizController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
         }
     }
+    
+    // 0204 추가-기프티콘 구매 시, 포인트 차감 요청
+    @PostMapping("/purchase")
+    @ResponseBody
+    public ResponseEntity<Map<String, Object>> purchaseItem(@RequestBody Map<String, Object> purchaseData, HttpSession session) {
+        Map<String, Object> response = new HashMap<>();
+        
+        try {
+            // 세션에서 로그인한 사용자 정보 가져오기
+            UserDTO user = (UserDTO) session.getAttribute("User");
 
+            if (user == null) {
+                response.put("success", false);
+                response.put("message", "로그인이 필요합니다.");
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
+            }
+
+            // 구매하려는 상품 정보 가져오기
+            String itemName = (String) purchaseData.get("itemName");
+            int itemPrice = (int) purchaseData.get("itemPrice");
+
+            // 사용자 정보 갱신
+            UserDTO realUser = userService.findId(user);
+            int userPoints = realUser.getPoint(); // 현재 포인트 조회
+
+            if (userPoints < itemPrice) {
+                response.put("success", false);
+                response.put("message", "포인트가 부족합니다.");
+                return ResponseEntity.badRequest().body(response);
+            }
+
+            // 포인트 차감 로직 실행
+            userService.addPoints(user, -itemPrice);
+
+            response.put("success", true);
+            response.put("message", itemName + " 구매 성공!");
+            return ResponseEntity.ok(response);
+        } catch (IllegalArgumentException e) {
+        	response.put("success", false);
+        	response.put("message", e.getMessage());
+        	return ResponseEntity.badRequest().body(response);
+        } catch (Exception e) {
+            response.put("success", false);
+            response.put("message", "구매 처리 중 오류가 발생했습니다.");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+        }
+    }
+
+    
     // 퀴즈 목록 반환
     @GetMapping("/quizlist")
     @ResponseBody
@@ -92,34 +143,34 @@ public class QuizController {
         return "mini/miniSubpage_edu";
     }
     
-    //로그인 체크 함수 
-    private ModelAndView checkSession(HttpSession session, String defaultPage) {
-    	UserDTO sessionUser = (UserDTO)session.getAttribute("User"); //로그인 유저 정보를 가져오는 코드
-    	
-    	if (sessionUser == null) { //로그인 안 하고 퀴즈 페이즈 접근시 로그인 페이지로 반환
-    		return new ModelAndView("redirect:/spike.com/login");
-    	}
-    	
-    	if (!sessionUser.getIsMinor().equals("minor")) {
-    		return new ModelAndView("redirect:/spike.com/mini");
-    	}
-    	
-    	ModelAndView mv = new ModelAndView();
-    	
-    	mv.setViewName(defaultPage);
-    	
+    //퀴즈 페이지
+    @GetMapping("/quiz")
+    public ModelAndView miniquiz(HttpSession session, RedirectAttributes redirectAttributes) {
+        return checkSession(session, redirectAttributes, "mini/miniSubpage_quiz");
+    }
+
+    private ModelAndView checkSession(HttpSession session, RedirectAttributes redirectAttributes, String defaultPage) {
+        UserDTO sessionUser = (UserDTO) session.getAttribute("User");
+
+        // 로그인 안 하고 퀴즈 페이지 접근 시
+        if (sessionUser == null) {
+            redirectAttributes.addAttribute("message", "로그인이 필요합니다!");  // 알림 메시지 추가
+            return new ModelAndView("redirect:/spike.com/login"); // 로그인 페이지로 리다이렉트
+        }
+
+        if (!sessionUser.getIsMinor().equals("minor")) {
+        	redirectAttributes.addAttribute("message", "mini 회원이 아닙니다.");  // 알림 메시지 추가
+            return new ModelAndView("redirect:/spike.com/mini");
+        }
+
+        ModelAndView mv = new ModelAndView();
+        mv.setViewName(defaultPage);
         return mv;
     }
-    
-    // 퀴즈 페이지
-    @GetMapping("/quiz")
-    public ModelAndView miniquiz(HttpSession session) {
-        return checkSession(session, "mini/miniSubpage_quiz");
-    } 
 
     // 포인트샵 페이지
     @GetMapping("/shop")
-    public ModelAndView minishop(HttpSession session) {
+    public ModelAndView minishop(HttpSession session, RedirectAttributes redirectAttributes) {
     	UserDTO user = (UserDTO) session.getAttribute("User");
     	
     	if (user == null) {
@@ -140,6 +191,8 @@ public class QuizController {
         return mav;
     }
     
+
+
     // 포인트 확인 페이지
     @GetMapping("/point")
     public ModelAndView mypoint(HttpSession session) {
@@ -155,13 +208,14 @@ public class QuizController {
     	
     	ModelAndView mav = new ModelAndView();
     	
+    	// DB에서 세션값을 통해 바로 포인트를 땡겨옴
+    	Integer totalPoint = userService.findId(user).getPoint();
+    	
     	List<QuizResultDTO> results = quizResultService.getTotalQuizResult(user);
 
-    	Integer totalPoint = 0;
     	Integer totalAttempts = 0;
     	Integer correctNum = 0;
 		for (QuizResultDTO qr : results) {
-			totalPoint += qr.getEarnedPoints();
 			totalAttempts += 1;
 			if (qr.getAnsweredCorrectly() == 'Y') {
 				correctNum += 1;
@@ -182,40 +236,7 @@ public class QuizController {
         return mav;
     }
 
-    // 퀴즈 시도 처리
-    @PostMapping("/quiz/attempt")
-    @ResponseBody
-    public String attemptQuiz(@RequestParam int quizId, @RequestParam String userAnswer, HttpSession session) {
-        // 세션에서 로그인된 사용자 ID 가져오기
-        Long userId = (Long) session.getAttribute("userId");  // 세션에 저장된 로그인된 사용자 ID
-
-        if (userId == null) {
-            return "로그인 후 시도해주세요.";
-        }
-
-        // 퀴즈 결과 처리
-        boolean isCorrect = quizResultService.attemptQuiz(userId, quizId, userAnswer);
-
-        // QuizResultDTO 객체 생성 및 저장
-        QuizResultDTO quizResult = new QuizResultDTO();
-        UserDTO userDTO = new UserDTO();
-        userDTO.getUserId();
-        userDTO.getPoint();
-        quizResult.setUser(userDTO);  // 사용자 정보 설정
-        quizResult.setQuiz(quizService.getQuizById(quizId));  // 퀴즈 정보 설정
-        quizResult.setAnsweredCorrectly(isCorrect ? 'Y' : 'N');
-        quizResult.setEarnedPoints(isCorrect ? 100 : 0);  // 정답일 경우 100포인트 지급
-        quizResult.setAttemptDate(new Date());
-
-        quizResultService.saveQuizResult(quizResult);
-
-        // 포인트 업데이트
-        updateUserPoints(userId, isCorrect ? 100 : 0);
-
-        // 결과 반환 (서버에 결과 전송 후 프론트에 보여줄 메시지)
-        return isCorrect ? "정답입니다! 100 포인트가 적립되었습니다." : "틀렸습니다. 다시 시도해주세요.";
-    }
-
+  
     // 사용자 포인트 조회
     @GetMapping("/quiz/mypoint")
     @ResponseBody

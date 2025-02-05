@@ -49,7 +49,7 @@ public interface UserDAO {
 	void AccountDelete(Long UserId);
 	
 	// 퀴즈 포인트 쌓기 
-	void updateUserPoint(Long userId, Integer value);
+		void updateUserPoint(Long userId, Integer value);
 
 
 }

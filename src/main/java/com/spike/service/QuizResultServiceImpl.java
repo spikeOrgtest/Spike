@@ -1,8 +1,7 @@
 package com.spike.service;
 
 import com.spike.dao.QuizResultDAO;
-
-
+import com.spike.dao.UserDAO;
 import com.spike.dto.QuizResultDTO;
 
 import com.spike.dto.UserDTO;
@@ -24,6 +23,9 @@ import java.text.SimpleDateFormat;
 @Service
 public class QuizResultServiceImpl implements QuizResultService {
 
+	@Autowired
+	private UserDAO spikeDao;
+	
 	@Autowired
 	private QuizResultDAO quizResultDAO;
 
@@ -92,17 +94,8 @@ public class QuizResultServiceImpl implements QuizResultService {
 		return quiz.getCorrectAnswer().equals(userAnswer);  // 실제 정답 비교
 	}
 
-		//퀴즈 풀고 획득한 포인트 합
-	@Override
-	public Integer getUserTotalPoints(UserDTO user) {
-		List<QuizResultDTO> results = quizResultRepository.findByUser(user);
-		
-		Integer sum = 0;
-		for (QuizResultDTO qr : results) {
-			sum += qr.getEarnedPoints();
-		}
-		return sum;
-	}
+		//퀴즈 풀고 획득한 포인트 합 >> 남은 포인트로 로직 변경(0204)
+	
 
 	@Override
 	public void updateUserPoints(Long userId, int earnedPoints) {
@@ -144,7 +137,22 @@ public class QuizResultServiceImpl implements QuizResultService {
 	public List<QuizRank> getTopRankUser() {
 		return quizResultRepository.findTop3();
 	}
-	
+
+	@Override
+	public Integer getUserTotalPoints(UserDTO user) {
+		/*UserDTO realUser = this.spikeDao.findId(user);
+			
+			// 유저가 존재하지 않으면 0 반환
+			if (realUser == null) {
+				return 0;			
+			}
+			return this.spikeDao.updateUserPoint(user.getUserId(), user.getPoint());
+		 } */
+		return null;
+	}
+
+
+
 	
 }
 

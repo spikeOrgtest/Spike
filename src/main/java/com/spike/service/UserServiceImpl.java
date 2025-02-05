@@ -119,6 +119,7 @@ public class UserServiceImpl implements UserSerivce {
 	public void AccountDelete(Long UserId) {
 		this.spikeDao.AccountDelete(UserId);
 	}
+<<<<<<< HEAD
 
 	// 퀴즈 포인트 적립
 	@Override
@@ -132,5 +133,23 @@ public class UserServiceImpl implements UserSerivce {
 		// userId로 UserDTO를 찾아 반환
 		return userRepository.findById(userId).orElse(null);
 	}
+=======
+	
+	// 퀴즈 포인트 적립 및 차감
+		@Override
+		public void addPoints(UserDTO user, Integer value) { //로그인 유저에 포인트 더해주는 코드
+			UserDTO realUser = this.spikeDao.findId(user);
+			
+			// 포인트 업데이트 (value가 음수면 차감, 양수면 적립)
+			int updatedPoints = realUser.getPoint() + value;
+			
+			// 포인트가 0 미만이 되는 경우 방지
+			if (updatedPoints < 0) {
+				throw new IllegalArgumentException("포인트가 부족합니다.");
+			}
+			
+			this.spikeDao.updateUserPoint(user.getUserId(), updatedPoints);
+		}
+>>>>>>> develop
 
 }
