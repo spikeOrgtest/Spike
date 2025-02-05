@@ -136,50 +136,6 @@ body {
     margin-bottom: 10px;
     color: #0078d7; /* 아이콘 색상 */
 }
-/* 포인트 사용 내역*/
-
-.point-detail {
-    width: 930px;
-    background-color: #ffffff;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    margin-top: 30px;
-}
-
-.point-detail h3 {
-    font-size: 24px;
-    color: #0078d7;
-    margin-bottom: 15px;
-}
-
-.point-detail table {
-    width: 100%;
-    border-collapse: collapse;
-}
-
-.point-detail th, .point-detail td {
-    padding: 10px;
-    text-align: center;
-    border: 1px solid #ddd;
-}
-
-.point-detail th {
-    background-color: #0078d7;
-    color: white;
-}
-
-.point-detail tr:nth-child(even) {
-    background-color: #f9f9f9;
-}
-
-.point-detail tr:hover {
-    background-color: #f1f1f1;
-}
-
-
-
-
 
 /* 퀴즈 랭킹 */
 .quiz-ranking {
