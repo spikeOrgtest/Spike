@@ -1,5 +1,7 @@
 package com.spike.dto;
 
+import java.time.LocalDateTime;
+
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -18,7 +20,7 @@ import lombok.ToString;
 @Getter
 @ToString
 @Entity
-@Table(name = "login_history")
+@Table(name = "loginHistory")
 @SequenceGenerator(
 		name = "login_his_seq", //시퀀스 제네레이터 이름
 		sequenceName = "loginhis_seq", // 시퀀스 이름
@@ -33,11 +35,10 @@ public class ManagerDTO {
 	                 generator = "login_his_seq") //시퀀스 생성기에서 설정한 시퀀스 제너레이터 이름
 	 private Integer logNo;
 	 
-	 //@Column(length = 100)
-	 //private 
-	 
 	 @ManyToOne(fetch = FetchType.LAZY)
-	 @JoinColumn(name = "user_id")
-	 private UserDTO logner;
+	 @JoinColumn(name = "userId")
+	 private UserDTO logHis;
+	 
+	 private LocalDateTime allTime;
 	 
 }

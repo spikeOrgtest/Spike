@@ -133,7 +133,7 @@
 
 <div class="subpage-content-wrap">
 				<form method="get" action="/spike.com/notice">
-					<h2>공지사항</h2>
+					<h2>오늘의 방문자</h2>
 					<div class="notice-board">
 						<table class="notice-table">
 							<thead>
@@ -146,16 +146,19 @@
 									<th>로그인기록</th>
 								</tr>
 							</thead>
-					  <c:forEach var = "item" items="${list}">
+							<thead>
+					  <c:forEach var = "item" items="${Llist}">
 						<tr>
 							<td>${item.loginId}</td>
 							<td>${item.name}</td>
 							<td>${item.phone}</td>
 							<td>${item.jibunAddress}</td>
 							<td>${item.birthDate}</td>
-							<td>${item.lastLogin}</td>
+							<!-- <td><a href="/spike.com/ma">${item.lastLogin}</a></td> -->
+							<td><a href="/spike.com/userLoginHistory?loginId=${item.loginId}">${item.lastLogin}</a></td>
 						</tr>
 						</c:forEach>
+						</thead>
 							<tbody>
 								<c:if test="${!empty Nlist}">
 								<!--  startrow값을 이용해서 번호계산 -->

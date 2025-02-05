@@ -89,3 +89,20 @@ a:hover {
     color: blue;            /* 마우스 오버 시 파란색으로 변경 */
     text-decoration: underline;  /* 마우스 오버 시 밑줄 추가 */
 }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+    th, td {
+        padding: 10px;
+        border: 1px solid #ddd;
+        text-align: center; /* 기본적으로 왼쪽 정렬 */
+    }
+    th {
+        background-color: #f4f4f4;
+    }
+    td:last-child {
+        text-align: center; /* 로그인 기록은 가운데 정렬 */
+    }
+

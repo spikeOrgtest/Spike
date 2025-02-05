@@ -2,8 +2,6 @@ package com.spike.controller;
 
 import java.io.PrintWriter;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -11,14 +9,16 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.spike.dto.ManagerDTO;
 import com.spike.dto.UserDTO;
-import com.spike.service.ManagerService;
+import com.spike.service.LoginHistoryService;
 import com.spike.service.UserSerivce;
 
 
@@ -30,7 +30,7 @@ public class ManagerController {
 	private UserSerivce userService;
 
 	@Autowired
-	private ManagerService managerService;
+    private LoginHistoryService loginHistoryService;
 
 	// @GetMapping("/ma")
 	// public ModelAndView manager(HttpServletRequest request) {
@@ -72,6 +72,7 @@ public class ManagerController {
 		vi.addObject("visi",visi);
 		vi.addObject("Llist",Llist);
 		vi.setViewName("/manager/visit");
+		System.out.println("이름이다" + visi);
 		return vi;
 	}
 			
@@ -142,8 +143,26 @@ public class ManagerController {
 			out.println("window.location.href = '/spike.com/userManagement';");
 			out.println("</script>");
 		}
-
 	}
-
-
+		//설 로그인시간보는것
+	
+		
+		@GetMapping("/userLoginHistory")
+		public ModelAndView showLoginHistory(@RequestParam("loginId") String loginId) {
+		    // 로그인 기록 조회
+		    List<ManagerDTO> loginHistoryList = loginHistoryService.getLoginHistory(loginId);
+		    
+		    // ModelAndView 객체 생성
+		    ModelAndView mv = new ModelAndView("manager/userLoginHistory");
+		    
+		    System.out.println("총 시간 -----------------------" + loginHistoryList);
+		    // 로그인 기록 리스트를 모델에 추가
+		    mv.addObject("loginHistoryList", loginHistoryList);
+		    
+		    // ModelAndView 반환
+		    return mv;
+		}
 }
+
+
+
