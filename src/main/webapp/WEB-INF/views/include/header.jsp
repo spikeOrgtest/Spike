@@ -21,6 +21,23 @@
 				</c:otherwise>
 			</c:choose>
 
+<<<<<<< HEAD
+            <a href="newsSubpage_notice.jsp">공지사항</a>
+            <a href="/spike.com/ma">FAQ</a>
+            <a href="#board">게시판</a>
+        </div>
+    </div>
+    <header class="main-header">
+        <div class="header-container">
+            <div class="UserInfo">
+                <a href="/spike.com" class="logo"><img alt="로고" src="/images/newlogo.png"></a>
+                <c:choose>
+                    <c:when test="${sessionScope.User.name == null}">
+                        <!-- 로그인 전 -->
+                    </c:when>
+                    <c:otherwise>
+                        <h5>${sessionScope.User.name}님 환영합니다.</h5>
+=======
 			<a href="newsSubpage_notice.jsp">공지사항</a> <a
 				href="supportSubpage_FAQ.jsp">FAQ</a> <a href="#board">게시판</a>
 		</div>
@@ -37,6 +54,7 @@
 					<c:otherwise>
 						<h5 class="welcome-message">${sessionScope.User.name}님,
 							환영합니다.</h5>
+>>>>>>> develop
 
 						<c:if test="${not empty sessionScope.remainingTime}">
 							<div class="time-left">

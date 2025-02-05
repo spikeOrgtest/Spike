@@ -50,6 +50,6 @@ public interface UserSerivce {
 	// 포인트 추가 
 	void addPoints(UserDTO user, Integer value);
 		
-		
+	UserDTO findById(Long userId);
 
 }

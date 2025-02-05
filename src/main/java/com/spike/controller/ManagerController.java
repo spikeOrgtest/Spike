@@ -110,5 +110,31 @@ public class ManagerController {
 		}
 
 	}
+	
+	@GetMapping("/loanManagement")
+	public ModelAndView loanManagement() {
+		
+		List<UserDTO> list = this.userService.findByUserList();
+		
+		ModelAndView um = new ModelAndView("manager/loanManagement");
+		um.addObject("list", list);
+		
+		return um;
+	}
+	
+	@GetMapping("/loanState")
+	public ModelAndView loanState(@RequestParam("userId") Long UserId) {
+
+		List<UserDTO> list = this.userService.findByUserIdEdit(UserId);
+
+		System.out.println("list : " + list);
+
+		ModelAndView em = new ModelAndView("manager/loanState");
+		em.addObject("list", list);
+
+		return em;
+	}
+	
+	
 
 }
