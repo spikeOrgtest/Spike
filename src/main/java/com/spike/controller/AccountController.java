@@ -141,7 +141,7 @@ public class AccountController {
 		}
 
 		this.accountService.createAccount(s);
-		return new ModelAndView("redirect:/spike.com/products");
+		return new ModelAndView("redirect:/spike.com/mypage/inquiry");
 	}
 
 }

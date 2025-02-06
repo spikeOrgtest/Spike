@@ -176,7 +176,7 @@ public class NoticeController {
 		listP.addObject("startrow",p.getStartrow());
 		listP.addObject("endR",p.getEndrow());
 		listP.addObject("index",index);
-		listP.setViewName("support/newsSubpage_notice"); 
+		listP.setViewName("/support/newsSubpage_notice"); 
 		
 		return listP;
 		

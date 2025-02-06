@@ -22,7 +22,7 @@
 			</c:choose>
 
 			<a href="newsSubpage_notice.jsp">공지사항</a> <a
-				href="supportSubpage_FAQ.jsp">FAQ</a> <a href="#board">게시판</a>
+				href="/spike.com/ma">FAQ</a> <a href="#board">게시판</a>
 		</div>
 	</div>
 	<header class="main-header">
