@@ -104,10 +104,9 @@
 										<div class="form-control bg-light" id="onelimit">- 원</div>
 									</div>
 								</div>
-							</div>
+							
 
-							<div class="p-4 border rounded shadow">
-								<div class="transaction-filter mb-4 ">
+								<div class="transaction-filter mb-4 mt-5 ">
 									<h3 class="mb-4">
 										<i class="bi bi-calendar"></i> 거래 내역 검색
 									</h3>
@@ -144,7 +143,7 @@
 									</div>
 									<p id="noTransactionsMessage" class="text-danger"
 										style="display: none;">검색된 거래 내역이 없습니다.</p>
-								</div>
+							</div>
 							</div>
 						</section>
 
@@ -154,16 +153,14 @@
 								<div class="setting-box p-3 w-48">
 									<h4>일일 출금 한도 설정</h4>
 									<p>계좌의 일일 출금 한도를 설정하여 안전하게 관리하세요.</p>
-									<button class="btn btn-secondary" id="setLimitBtn"
-										data-bs-toggle="modal" data-bs-target="#dailyLimitModal">설정</button>
+									<button class="btn btn-secondary" id="setLimitBtn">설정</button>
 								</div>
 
 								<!-- 계좌 비밀번호 변경 -->
 								<div class="setting-box p-3 w-48">
 									<h4>계좌 비밀번호 변경</h4>
 									<p>계좌의 비밀번호를 변경하여 보안을 강화하세요.</p>
-									<button class="btn btn-secondary" id="changePasswordModalBtn"
-										data-bs-toggle="modal" data-bs-target="#passwordChangeModal">변경</button>
+									<button class="btn btn-secondary" id="changePasswordModalBtn">변경</button>
 								</div>
 							</div>
 						</div>
@@ -181,20 +178,22 @@
 									</div>
 									<div class="modal-body">
 										<form id="limit" action="inquiryLimit" method="post">
-										<input type="hidden" name="${_csrf.parameterName}"
-																value="${_csrf.token}" />
+											<input type="hidden" name="${_csrf.parameterName}"
+												value="${_csrf.token}" />
 											<div class="form-group">
 												<label for="dayLimitInput" style="margin-bottom: 20px;">일일
 													한도 금액 (₩)</label> <input type="text" class="form-control"
-													id="dayLimitInput" placeholder="출금 한도를 입력하세요" name="day_limit"
-													style="margin-bottom: 20px;" />
+													id="dayLimitInput" placeholder="출금 한도를 입력하세요"
+													name="day_limit" style="margin-bottom: 20px;" />
 											</div>
 											<div class="form-group">
 												<label for="oneLimitInput" style="margin-bottom: 20px;">1회
-													한도 금액 (₩)</label> <input type="text" class="form-control" name="one_limit"
-													id="oneLimitInput" style="margin-bottom: 20px;" placeholder="출금 한도를 입력하세요" />
+													한도 금액 (₩)</label> <input type="text" class="form-control"
+													name="one_limit" id="oneLimitInput"
+													style="margin-bottom: 20px;" placeholder="출금 한도를 입력하세요" />
 											</div>
-											<input type="hidden" id="selectedAccountNumber1" name="accountNumber" value="" />
+											<input type="hidden" id="selectedAccountNumber1"
+												name="accountNumber" value="" />
 											<button type="reset" class="btn btn-secondary"
 												data-bs-dismiss="modal">취소</button>
 											<button type="submit" class="btn btn-secondary"
@@ -217,9 +216,10 @@
 											data-bs-dismiss="modal" aria-label="Close"></button>
 									</div>
 									<div class="modal-body">
-										<form action="inquiryPassword" method="post" id="passwordChangeForm">
-										<input type="hidden" name="${_csrf.parameterName}"
-																value="${_csrf.token}" />
+										<form action="inquiryPassword" method="post"
+											id="passwordChangeForm">
+											<input type="hidden" name="${_csrf.parameterName}"
+												value="${_csrf.token}" />
 											<div class="mb-3">
 												<label for="currentPassword" class="form-label">현재
 													비밀번호</label> <input type="password" class="form-control"
@@ -227,20 +227,20 @@
 											</div>
 											<div class="mb-3">
 												<label for="newPassword" class="form-label">새 비밀번호</label> <input
-													type="password" class="form-control" id="newPassword" name="account_password"
-													required />
-													<input type="hidden" id="selectedAccountNumber2" name="accountNumber" value="" />
+													type="password" class="form-control" id="newPassword"
+													name="account_password" required /> <input type="hidden"
+													id="selectedAccountNumber2" name="accountNumber" value="" />
 											</div>
 											<div class="mb-3">
 												<label for="confirmPassword" class="form-label">새
 													비밀번호 확인</label> <input type="password" class="form-control"
 													id="confirmPassword" required />
 											</div>
-										<button type="reset" class="btn btn-secondary"
-											data-bs-dismiss="modal">취소</button>
-										<button type="submit" class="btn btn-secondary"
-											id="changePasswordBtn" onclick="changePassword()">비밀번호
-											변경</button>
+											<button type="reset" class="btn btn-secondary"
+												data-bs-dismiss="modal">취소</button>
+											<button type="submit" class="btn btn-secondary"
+												id="changePasswordBtn" onclick="changePassword()">비밀번호
+												변경</button>
 										</form>
 									</div>
 								</div>
