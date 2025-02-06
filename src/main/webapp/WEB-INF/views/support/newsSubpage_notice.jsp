@@ -60,10 +60,10 @@
 										<tr>
 											<td> ${i} </td>
 											
-											<td><a href="/spike.com/noti_cont?notice_no=${n.notice_no}&state=cont&page=${page}">${n.notice_title}</a></td>
-											<td>${n.notice_name}</td>
-											<td><fmt:formatDate value="${n.created_date}" pattern="yyyy-MM-dd" /></td>
-											<td align="center">${n.notice_hit}</td>
+											<td><a href="/spike.com/noti_cont?notice_no=${n.noticeNo}&state=cont&page=${page}">${n.noticeTitle}</a></td>
+											<td>${n.noticeName}</td>
+											<td><fmt:formatDate value="${n.createdDate}" pattern="yyyy-MM-dd" /></td>
+											<td align="center">${n.noticeHit}</td>
 											<c:set var="i" value="${i - 1}" />
 										</tr>
 										
@@ -75,7 +75,7 @@
 
 					<div id="Nlist_paging">
 						<c:choose>
-							<c:when test="${empty find_field && empty find_name}">
+							<c:when test="${empty findField && empty findName}">
 								<c:if test="${page > 1}">
 									<a href="/spike.com/notice?page=${page-1}">[이전]</a>&nbsp;
 								</c:if>
@@ -96,7 +96,7 @@
 
 							<c:otherwise>
 								<c:if test="${page > 1}">
-									<a href="/spike.com/notice?page=${page-1}&find_field=${find_field}&find_name=${find_name}">[이전]</a>&nbsp;
+									<a href="/spike.com/notice?page=${page-1}&findField=${findField}&findName=${findName}">[이전]</a>&nbsp;
 								</c:if>
 
 								<c:forEach var="a" begin="${startpage}" end="${endpage}" step="1">
@@ -104,23 +104,23 @@
 										[${a}]
 									</c:if>
 									<c:if test="${a != page}">
-										<a href="/spike.com/notice?page=${a}&find_field=${find_field}&find_name=${find_name}">[${a}]</a>&nbsp;
+										<a href="/spike.com/notice?page=${a}&findField=${findField}&findName=${findName}">[${a}]</a>&nbsp;
 									</c:if>
 								</c:forEach>
 
 								<c:if test="${page < maxpage}">
-									<a href="/spike.com/notice?page=${page+1}&find_field=${find_field}&find_name=${find_name}">[다음]</a>
+									<a href="/spike.com/notice?page=${page+1}&findField=${findField}&findName=${findName}">[다음]</a>
 								</c:if>
 							</c:otherwise>
 						</c:choose>
 					</div>
 
 					<div id="nFind_wrap">
-						<select name="find_field">
-							<option value="notice_title" <c:if test="${find_field == 'notice_title'}">selected</c:if>>제목</option>
-							<option value="notice_cont" <c:if test="${find_field == 'notice_cont'}">selected</c:if>>내용</option>
+						<select name="findField">
+							<option value="noticeTitle" <c:if test="${findField == 'notice_title'}">selected</c:if>>제목</option>
+							<option value="noticeCont" <c:if test="${findField == 'notice_cont'}">selected</c:if>>내용</option>
 						</select>
-						<input type="search" name="find_name" size="14" value="${find_name}" />
+						<input type="search" name="findName" size="14" value="${findName}" />
 						<button type="submit">검색</button>
 					</div>
 

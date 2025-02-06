@@ -1,21 +1,26 @@
 package com.spike.controller;
 
 import java.io.PrintWriter;
+import java.time.LocalDate;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.spike.dto.ManagerDTO;
 import com.spike.dto.UserDTO;
-import com.spike.service.ManagerService;
+import com.spike.service.LoginHistoryService;
 import com.spike.service.UserSerivce;
+
 
 @Controller
 @RequestMapping("/spike.com")
@@ -25,7 +30,7 @@ public class ManagerController {
 	private UserSerivce userService;
 
 	@Autowired
-	private ManagerService managerService;
+    private LoginHistoryService loginHistoryService;
 
 	// @GetMapping("/ma")
 	// public ModelAndView manager(HttpServletRequest request) {
@@ -38,7 +43,7 @@ public class ManagerController {
 	public ModelAndView mapost() {
 		System.out.println("mapost() 메서드가 호출됨");
 
-		Long tolog = userService.todayloge();
+		Long tolog = userService.todaylog();
 		System.out.println("\n ==========================  " + tolog);
 
 		Long newmember = userService.newMember();
@@ -49,7 +54,28 @@ public class ManagerController {
 		ma.setViewName("/manager/manager");
 		return ma;
 
+				
 	}
+	
+	@GetMapping("/visit")
+	public ModelAndView visit() {
+		
+		List<UserDTO> visi = this.userService.findByUserList();
+		
+		List<UserDTO> Llist = visi.stream()
+				.filter(l -> l.getLastLogin() != null && l.getLastLogin().toLocalDate().isEqual(LocalDate.now()))
+				.collect(Collectors.toList());
+		
+		//if(visi.getLastLogin().equals(LocalDateTime.now())) {
+		
+		ModelAndView vi = new ModelAndView();
+		vi.addObject("visi",visi);
+		vi.addObject("Llist",Llist);
+		vi.setViewName("/manager/visit");
+		return vi;
+	}
+			
+	
 
 	@GetMapping("/userManagement")
 	public ModelAndView userManagement() {
@@ -108,8 +134,25 @@ public class ManagerController {
 			out.println("window.location.href = '/spike.com/userManagement';");
 			out.println("</script>");
 		}
-
 	}
+
+		//설 로그인시간보는것
+	
+		
+		@GetMapping("/userLoginHistory")
+		public ModelAndView userLoginHistory() {
+		    // 로그인 기록 조회
+		    List<ManagerDTO> LHlist = this.loginHistoryService.findByLoginIdday();
+		    
+		    // ModelAndView 객체 생성
+		    ModelAndView mv = new ModelAndView("manager/userLoginHistory");
+		    
+		    mv.addObject("LHlist",LHlist);
+		    // ModelAndView 반환
+		    return mv;
+		}
+		
+
 	
 	@GetMapping("/loanManagement")
 	public ModelAndView loanManagement() {
@@ -138,3 +181,6 @@ public class ManagerController {
 	
 
 }
+
+
+
