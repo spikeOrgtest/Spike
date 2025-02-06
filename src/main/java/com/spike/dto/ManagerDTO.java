@@ -40,5 +40,5 @@ public class ManagerDTO {
 	 private UserDTO logHis;
 	 
 	 private LocalDateTime allTime;
-	 
+		
 }

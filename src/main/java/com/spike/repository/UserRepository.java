@@ -107,6 +107,8 @@ public interface UserRepository extends JpaRepository<UserDTO, Long> {
 	@Query("UPDATE UserDTO u SET u.point=?2 WHERE u.userId=?1")
 	void updateUserPoint(Long userId, Integer value);
 
+    
+	
 }
 
 

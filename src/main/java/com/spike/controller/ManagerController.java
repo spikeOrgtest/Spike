@@ -72,7 +72,6 @@ public class ManagerController {
 		vi.addObject("visi",visi);
 		vi.addObject("Llist",Llist);
 		vi.setViewName("/manager/visit");
-		System.out.println("이름이다" + visi);
 		return vi;
 	}
 			
@@ -141,20 +140,18 @@ public class ManagerController {
 	
 		
 		@GetMapping("/userLoginHistory")
-		public ModelAndView showLoginHistory(@RequestParam("loginId") String loginId) {
+		public ModelAndView userLoginHistory() {
 		    // 로그인 기록 조회
-		    List<ManagerDTO> loginHistoryList = loginHistoryService.getLoginHistory(loginId);
+		    List<ManagerDTO> LHlist = this.loginHistoryService.findByLoginIdday();
 		    
 		    // ModelAndView 객체 생성
 		    ModelAndView mv = new ModelAndView("manager/userLoginHistory");
 		    
-		    System.out.println("총 시간 -----------------------" + loginHistoryList);
-		    // 로그인 기록 리스트를 모델에 추가
-		    mv.addObject("loginHistoryList", loginHistoryList);
-		    
+		    mv.addObject("LHlist",LHlist);
 		    // ModelAndView 반환
 		    return mv;
 		}
+		
 
 	
 	@GetMapping("/loanManagement")
