@@ -49,7 +49,6 @@
 								<li><a
 									href="javascript:location='/spike.com/mypage/property';"
 									class="link-dark rounded">자산조회</a></li>
-								<li><a href="#" class="link-dark rounded">목표 금액 설정</a></li>
 							</ul>
 						</div>
 					</li>
@@ -124,23 +123,6 @@
 										</div>
 									</div>
 
-									<!-- 목표 금액 알림 설정 카드 -->
-									<div class="col-md-6">
-										<div class="card d-flex align-items-stretch">
-											<div class="card-header">목표 금액 알림 설정</div>
-											<div class="card-body">
-												<p>설정하신 목표 금액보다 잔고가 줄어들시 알림을 받을지 선택하세요.</p>
-												<div class="form-check">
-													<input class="form-check-input" type="checkbox" value=""
-														id="goalAmountNotifications"> <label
-														class="form-check-label" for="goalAmountNotifications">
-														알림 받기 </label>
-													<div id="goalNotificationStatus" class="mt-2 text-muted"></div>
-												</div>
-											</div>
-										</div>
-									</div>
-
 									<!-- 계좌 정보 수정 카드 -->
 									<div class="col-md-6">
 										<div class="card d-flex align-items-stretch"
@@ -148,7 +130,7 @@
 											<div class="card-header">계좌 정보 수정</div>
 											<div class="card-body" style="margin-top: 15px;">
 												<p>여기서 계좌 정보를 수정하실 수 있습니다. 비밀번호 변경이나 결제 수단 업데이트도 가능합니다.</p>
-												<a href="#accountInfo" class="btn btn-secondary">계좌 정보
+												<a href="/spike.com/mypage/inquiry" class="btn btn-secondary">계좌 정보
 													수정</a>
 											</div>
 										</div>
@@ -251,7 +233,7 @@
 
 												<div class="form-check mb-3">
 													<input class="form-check-input" type="checkbox"
-														id="confirmCheck"> <label
+														id="confirmCheck" required> <label
 														class="form-check-label memberout" for="confirmCheck">
 														회원탈퇴에 따른 모든 내용을 확인하였으며, 이에 동의합니다. </label>
 												</div>

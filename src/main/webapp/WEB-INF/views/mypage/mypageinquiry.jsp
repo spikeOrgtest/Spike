@@ -47,7 +47,6 @@
 								<li><a
 									href="javascript:location='/spike.com/mypage/property';"
 									class="link-dark rounded">자산조회</a></li>
-								<li><a href="#" class="link-dark rounded">목표 금액 설정</a></li>
 							</ul>
 						</div>
 					</li>
@@ -104,7 +103,9 @@
 										<div class="form-control bg-light" id="onelimit">- 원</div>
 									</div>
 								</div>
-							
+								<br/>
+								<br/>
+								<hr/>
 
 								<div class="transaction-filter mb-4 mt-5 ">
 									<h3 class="mb-4">
