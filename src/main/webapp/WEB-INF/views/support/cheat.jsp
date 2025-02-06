@@ -82,10 +82,12 @@
 
 		<%-- 검색바 --%>
 		<div class="search-bar">
-			<input type="text" placeholder="핸드폰번호 또는 계좌번호를 입력하세요."
+		<form action="search" method="post">
+		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+			<input type="text" name="detailValue" placeholder="핸드폰번호 또는 계좌번호를 입력하세요."
 				class="input-field">
-			<button class="search-button">검색</button>
-
+			<button type="submit" class="search-button">검색</button>
+		</form>
 		</div>
 		<br />
 		<h5>피해자가 되기 전에 먼저 알아보고 이체하는 습관을 가져주시기 바랍니다.</h5>

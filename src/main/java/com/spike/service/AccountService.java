@@ -24,4 +24,6 @@ public interface AccountService {
 
 	List<AccountDTO> getAllActiveAccounts();
 
+	List<AccountDTO> findbyAccountInfo(String detailValue);
+
 }

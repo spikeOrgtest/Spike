@@ -31,14 +31,23 @@ public class CheatReportDTO {
 	private Long reportId;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name ="userId")
-	private UserDTO reporterId;
+	@JoinColumn(name ="accountId")
+	private AccountDTO accountId;
 	
 	@CreationTimestamp
 	private LocalDateTime reportDate;
 	
 	@NotNull
+	@Column(length = 1000)
 	private String content;
+	
+	@NotNull
+	private String reportType;
+	
+	@NotNull
+	private String reportValue;
+	
+	private Long cnt;
 	
 	private String status;
 }
