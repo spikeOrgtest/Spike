@@ -4,6 +4,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta id="_csrf" name="_csrf" content="${_csrf.token}"/>
+<meta id="_csrf_header" name="_csrf_header" content="${_csrf.headerName}"/>
+
 <title>퀴즈 포인트샵</title>
 <link rel="stylesheet" href="../css/support/subpage.css">
 <link rel="stylesheet" href="../css/include/include.css">
@@ -32,32 +35,35 @@
 
 			<%-- 사이드바 --%>
 			<div class="subpage-sidebar">
-				<h3 class="subpage-sidebar-title">Spike Mini Quiz</h3>
+				<h3 class="subpage-sidebar-title">Point Shop</h3>
 				<ul>
-					<li><a href="minisubpage_Quiz.jsp">OX Quiz</a></li>
-					<li><a href="miniSubpage_quiz_shop.jsp">Point Shop</a></li>
-					<li><a href=".jsp">My Point</a></li>
+					<li><a href="minisub">mini home</a></li>
+					<li><a href="quiz">O/X Quiz</a></li>
+					<li><a href="shop">Point Shop</a></li>
+					<li><a href="point">My Point</a></li>
 				</ul>
 			</div>
 
 
 
-			<div class="subpage-content-wrap">
-				<!-- 퀴즈 풀고 얻은 포인트로 기프티콘 구매 -->
-				<div class="shop">
-					<div class="shop-header">
-						<i class="fas fa-coins coin-icon"></i>
-						<!-- 동전 아이콘 -->
-						<h1>Point Shop</h1>
-					</div>
-					<div class="user-info">
-						<span>현재 포인트: <strong id="userPoints">100000</strong>P
-						</span>
-					</div>
-				</div>
 
 
-				<main>
+
+			<main>
+
+				<div class="subpage-content-wrap">
+					<!-- 퀴즈 풀고 얻은 포인트로 기프티콘 구매 -->
+					<div class="shop">
+						<div class="shop-header">
+							<i class="fas fa-coins coin-icon"></i>
+							<!-- 동전 아이콘 -->
+							<h1>Point Shop</h1>
+						</div>
+						<div class="user-info">
+							<span>현재 포인트: <strong id="userPoints">${point}</strong>P
+							</span>
+						</div>
+					</div>
 					<section class="gift-cards">
 						<div class="gift-card" data-name="배스킨라빈스" data-price="10000">
 							<img src="../images/mini/gift1.jpg" alt="기프티콘 1">
@@ -108,24 +114,24 @@
 							</div>
 						</div>
 					</section>
+				</div>
+			</main>
 
-				</main>
-
-				<!-- 포인트로 구매하는 모달 창 -->
-				<div id="purchaseModal" class="modal">
-					<div class="modal-content">
-						<h2>구매 확인</h2>
-						<p id="modalMessage"></p>
-						<div class="modal-buttons">
-							<button id="confirmPurchaseBtn">구매</button>
-							<button id="cancelPurchaseBtn">취소</button>
-						</div>
+			<!-- 포인트로 구매하는 모달 창 -->
+			<div id="purchaseModal" class="modal">
+				<div class="modal-content">
+					<h2>구매 확인</h2>
+					<p id="modalMessage"></p>
+					<div class="modal-buttons">
+						<button id="confirmPurchaseBtn">구매</button>
+						<button id="cancelPurchaseBtn">취소</button>
 					</div>
 				</div>
-
 			</div>
+
 		</div>
 	</div>
+
 
 	<script>
 document.addEventListener("DOMContentLoaded", function() {
@@ -148,21 +154,70 @@ document.addEventListener("DOMContentLoaded", function() {
             selectedGiftPrice = parseInt(giftCard.getAttribute("data-price"));
 
             // 모달 메시지 업데이트
-            modalMessage.textContent = `${selectedGiftName}을 구매하시겠습니까? (가격: ${selectedGiftPrice}P)`;
+            modalMessage.textContent = `구매하시겠습니까?`;
 
             // 모달 창 표시
             modal.style.display = "flex";
         });
     });
 
+ // 백엔드에 구매 요청을 보내는 함수
+    function sendPurchaseRequest(itemName, itemPrice) {
+        // CSRF 토큰 가져오기
+        const csrfHeader = document.querySelector('meta[name="_csrf_header"]').content;
+        const csrfToken = document.querySelector('meta[name="_csrf"]').content;
+
+        // 요청할 데이터 구성
+        const purchaseData = {
+            itemName: itemName,
+            itemPrice: itemPrice,
+        };
+
+        console.log("서버로 보낼 데이터:", purchaseData);
+
+        // fetch API를 이용하여 백엔드에 POST 요청 전송
+        return fetch('/spike.com/purchase', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                [csrfHeader]: csrfToken, // CSRF 보호
+            },
+            body: JSON.stringify(purchaseData),
+        })
+        .then(response => {
+            console.log("응답 상태 코드:", response.status);
+            return response.json();
+        })
+        .then(data => {
+            console.log("서버 응답 데이터:", data);
+            return data; // 결과 반환 (성공 여부 확인용)
+        })
+        .catch(error => {
+            console.error("구매 요청 실패:", error);
+            throw error; // 에러 발생 시 상위 코드에서 처리할 수 있도록 던짐
+        });
+    }
+
+    
     // 구매 확인 버튼 클릭
     confirmPurchaseBtn.addEventListener("click", function() {
         const currentPoints = parseInt(userPointsElement.textContent);
         
         if (currentPoints >= selectedGiftPrice) {
-            // 포인트 차감 후 구매 처리 (여기서는 단순히 포인트 업데이트)
-            userPointsElement.textContent = currentPoints - selectedGiftPrice;
-            alert(`${selectedGiftName} 구매 완료!`);
+			//백엔드에 구매 요청 보내기
+			sendPurchaseRequest(selectedGiftName, selectedGiftPrice)
+			.then(data => {
+				if (data.success) {
+					// 성공 시 포인트 차감
+					userPointsElement.textContent = currentPoints - selectedGiftPrice;
+					alert(`${selectedGiftName} 구매 완료!`);
+				} else {
+                    alert(data.message || "구매 실패. 다시 시도해주세요.");
+                }
+            })
+            .catch(() => {
+                alert("서버 오류가 발생했습니다.");
+            });
         } else {
             alert("포인트가 부족합니다.");
         }
@@ -179,6 +234,8 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 </script>
+
+	
 
 	<%@ include file="../include/shortfooter.jsp"%>
 </body>

@@ -27,78 +27,7 @@ function formatNumber(number) {
 	return number.replace(/\B(?=(\d{3})+(?!\d))/g, ',');  // 3자리마다 쉼표 추가
 }
 
-// 거래 내역을 화면에 업데이트하는 함수
-function updateTransactionHistory(transactions) {
-    const transactionHistory = document.getElementById('transactionHistory');
-    transactionHistory.innerHTML = ""; // 기존 거래 내역을 비웁니다.
 
-    transactions.forEach(transaction => {
-        const transactionItem = document.createElement('li');
-        transactionItem.classList.add('list-group-item', 'd-flex', 'justify-content-between', 'align-items-center');
-        
-        // 첫 번째: 입금/출금 여부
-        let transactionDetails = `
-            <span class="badge ${transaction.type === "입금" ? 'bg-success' : 'bg-danger'}">
-                ${transaction.type === "입금" ? '입금' : '출금'}
-            </span>
-        `;
-
-        // 두 번째: 거래 대상 (출금/입금)
-        if (transaction.type === "출금") {
-            // 출금일 경우
-            let destination = "";
-            switch (transaction.destination) {
-                case "증권":
-                    destination = "증권사 계좌";
-                    break;
-                case "편의점":
-                    destination = "편의점 결제";
-                    break;
-                case "인터넷":
-                    destination = "인터넷 결제";
-                    break;
-                default:
-                    destination = "기타";
-            }
-            transactionDetails += `
-                <span class="transaction-content">
-                    출금된 곳: ${destination} - ₩${transaction.amount.toLocaleString()}
-                </span>
-            `;
-        } else if (transaction.type === "입금") {
-            // 입금일 경우
-            let source = "";
-            switch (transaction.source) {
-                case "급여":
-                    source = "급여 계좌";
-                    break;
-                case "이체":
-                    source = "타 계좌 이체";
-                    break;
-                case "가상화폐":
-                    source = "가상화폐 거래소";
-                    break;
-                default:
-                    source = "기타";
-            }
-            transactionDetails += `
-                <span class="transaction-content">
-                    입금된 곳: ${source} - ₩${transaction.amount.toLocaleString()}
-                </span>
-            `;
-        }
-
-        // 세 번째: 거래 날짜
-        transactionDetails += `
-            <span class="transaction-date">
-                ${transaction.date}
-            </span>
-        `;
-        
-        transactionItem.innerHTML = transactionDetails;
-        transactionHistory.appendChild(transactionItem);
-    });
-}
 
 window.addEventListener('DOMContentLoaded', function() {
     const transactionHistoryContainer = document.getElementById('transactionHistoryContainer');
@@ -110,6 +39,59 @@ document.getElementById('filterBtn').addEventListener('click', function() {
     filterTransactionHistory();
 });
 
+function filterTransactionHistory() {
+    const selectedAccount = document.getElementById('accountSelect').value;
+    const startDate = document.getElementById('startDate').value;
+    const endDate = document.getElementById('endDate').value;
+    const transactionHistoryContainer = document.getElementById('transactionHistoryContainer');
+    const noTransactionsMessage = document.getElementById('noTransactionsMessage');
+
+    // 거래 내역 리스트를 초기화
+    const transactionHistoryList = document.getElementById("transactionHistory");
+    transactionHistoryList.innerHTML = ""; 
+
+    if (!selectedAccount) {
+        alert("계좌를 선택해주세요.");
+        return;
+    }
+
+    if (!startDate || !endDate) {
+        alert("시작일과 종료일을 모두 선택해주세요.");
+        return;
+    }
+
+    // 계좌 데이터를 가져와 날짜 필터링
+    const account = accountData[selectedAccount];
+    let filteredTransactions = account.transactions.filter(transaction => {
+        const transactionDate = new Date(transaction.date);
+        return transactionDate >= new Date(startDate) && transactionDate <= new Date(endDate);
+    });
+
+    if (filteredTransactions.length > 0) {
+        filteredTransactions.forEach(transaction => {
+            const listItem = document.createElement("li");
+            listItem.classList.add("list-group-item", "d-flex", "justify-content-between", "align-items-center");
+
+            listItem.innerHTML = `
+                <span>${transaction.date} - ${transaction.memo}</span>
+                <span class="fw-bold ${transaction.amount < 0 ? 'text-danger' : 'text-success'}">
+                    ${transaction.amount.toLocaleString()} 원
+                </span>
+            `;
+
+            transactionHistoryList.appendChild(listItem);
+        });
+
+        transactionHistoryContainer.style.display = "block";
+        noTransactionsMessage.style.display = "none";
+    } else {
+        transactionHistoryContainer.style.display = "none";
+        noTransactionsMessage.style.display = "block";
+    }
+}
+
+
+/*
 function filterTransactionHistory() {
     const selectedAccount = document.getElementById('accountSelect').value;
     const startDate = document.getElementById('startDate').value;
@@ -156,7 +138,7 @@ function filterTransactionHistory() {
         noTransactionsMessage.style.display = 'block'; // "검색된 거래 내역 없음" 메시지를 표시합니다.
     }
 }
-
+*/
 
 document.getElementById('startDate').addEventListener('change', function() {
     const transactionHistoryContainer = document.getElementById('transactionHistoryContainer');

@@ -154,6 +154,12 @@ public class UserDAOImpl implements UserDAO {
 	public void AccountDelete(Long UserId) {
 		this.spikeRepo.AccountDelete(UserId);
 	}
+	
+	// 포인트 추가
+		@Override
+		public void updateUserPoint(Long userId, Integer value) {
+			this.spikeRepo.updateUserPoint(userId, value);
+		}
 
 	@Override
 	public List<UserDTO> visitors() {

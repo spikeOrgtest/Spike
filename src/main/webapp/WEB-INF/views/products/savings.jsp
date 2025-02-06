@@ -7,7 +7,6 @@
 <title>SPIKE 적금</title>
 <link rel="stylesheet" href="../../css/product/savings.css" />
 <link rel="stylesheet" href="../../css/include/include.css"> 
-<script src="https://unpkg.com/lucide@latest"></script>
 </head>
 <body>
 	

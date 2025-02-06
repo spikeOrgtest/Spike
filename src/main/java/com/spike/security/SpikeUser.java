@@ -1,4 +1,4 @@
-package com.spike.dao;
+package com.spike.security;
 
 import java.util.Collection;
 import org.springframework.security.core.GrantedAuthority;

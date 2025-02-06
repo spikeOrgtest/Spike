@@ -94,8 +94,6 @@ public class ManagerController {
 
 		List<UserDTO> list = this.userService.findByUserIdEdit(UserId);
 
-		System.out.println("list : " + list);
-
 		ModelAndView em = new ModelAndView("manager/EditUser");
 		em.addObject("list", list);
 
@@ -106,10 +104,6 @@ public class ManagerController {
 	public void UpdateUser(Long userId, String isMinor, String status, HttpServletResponse response) throws Exception {
 		response.setContentType("text/html; charset=UTF-8");
 		PrintWriter out = response.getWriter();
-
-		System.out.println(userId);
-		System.out.println(isMinor);
-		System.out.println(status);
 
 		this.userService.UpdateUser(isMinor, status, userId);
 
@@ -127,8 +121,6 @@ public class ManagerController {
 
 		List<String> list = this.userService.findbyaccountnumber(UserId);
 
-		System.out.println("list : " + list);
-
 		if (list.size() == 0) {
 			this.userService.UserDelete(UserId);
 			out.println("<script>");
@@ -144,6 +136,7 @@ public class ManagerController {
 			out.println("</script>");
 		}
 	}
+
 		//설 로그인시간보는것
 	
 		
@@ -162,6 +155,34 @@ public class ManagerController {
 		    // ModelAndView 반환
 		    return mv;
 		}
+
+	
+	@GetMapping("/loanManagement")
+	public ModelAndView loanManagement() {
+		
+		List<UserDTO> list = this.userService.findByUserList();
+		
+		ModelAndView um = new ModelAndView("manager/loanManagement");
+		um.addObject("list", list);
+		
+		return um;
+	}
+	
+	@GetMapping("/loanState")
+	public ModelAndView loanState(@RequestParam("userId") Long UserId) {
+
+		List<UserDTO> list = this.userService.findByUserIdEdit(UserId);
+
+		System.out.println("list : " + list);
+
+		ModelAndView em = new ModelAndView("manager/loanState");
+		em.addObject("list", list);
+
+		return em;
+	}
+	
+	
+
 }
 
 

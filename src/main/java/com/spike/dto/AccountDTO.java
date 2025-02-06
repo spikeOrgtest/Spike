@@ -64,13 +64,11 @@ public class AccountDTO {
 
 	private LocalDate lastInterestDate; // 마지막 이자 계산일
 
-	private LocalDate startDate; // 계좌 시작일
+	private LocalDate startDate; // 계좌 이자 시작일
 
-	@Column(columnDefinition = "NUMBER(1) DEFAULT 0 NOT NULL")
-	private boolean deleted = false; // 계좌 삭제 여부
+	private String accountState = "ACTIVE"; // 계좌 상태 여부
 
 	@PrePersist // DB 저장 전
-	@PreUpdate // DB 수정 전
 	public void calculateTotalRate() {
 		if (accountType != null) {
 			switch (accountType) {

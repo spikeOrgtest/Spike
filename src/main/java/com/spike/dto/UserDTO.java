@@ -2,12 +2,16 @@ package com.spike.dto;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -109,5 +113,12 @@ public class UserDTO {
 	@CreationTimestamp
 	@Column(name = "RegistrationDate", columnDefinition = "TIMESTAMP DEFAULT SYSDATE")
 	private LocalDate registrationDate;
+	
+	//mini 퀴즈 포인트 추가
+    private int point = 0;
+    
+    // QuizResult와의 연관 관계 (1:N 관계)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<QuizResultDTO> quizResults; // 유저가 푼 퀴즈 결과들
 
 }

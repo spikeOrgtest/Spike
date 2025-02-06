@@ -1,0 +1,72 @@
+
+
+/* 배너 별 색상 */
+.banner-quiz {
+    border-color: #ffd700;
+    background-color: #fffbea;
+}
+
+.banner-education {
+    border-color: #4caf50;
+    background-color: #f0f9f4;
+}
+
+.banner {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    background-color: #f9f9f9;
+    border: 2px solid #e0e0e0;
+    border-radius: 10px;
+    padding: 15px;
+    margin: 20px 0;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease, background-color 0.2s ease;
+    cursor: pointer;
+}
+
+.banner:hover {
+    background-color: #f1f1f1;
+    transform: translateY(-5px);
+}
+
+.banner-icon {
+    width: 64px; /* 아이콘 크기 */
+    height: 64px;
+    margin-right: 10px;
+}
+
+.banner-text h2 {
+    font-size: 1.5em;
+    color: #333;
+    margin: 0;
+}
+
+.banner-text p {
+    font-size: 1em;
+    color: #666;
+    margin: 5px 0;
+}
+
+.banner-btn {
+    display: inline-block;
+    padding: 10px 15px;
+    font-size: 1em;
+    color: #fff;
+    background-color: #007bff;
+    text-decoration: none;
+    border-radius: 5px;
+    margin-top: 5px;
+    transition: background-color 0.2s ease;
+}
+
+.banner-btn:hover {
+    background-color: #0056b3;
+}
+
+/* 클릭 애니메이션 */
+.banner-clicked {
+    transform: scale(0.95);
+    background-color: #e0e0e0;
+}
+
