@@ -33,7 +33,8 @@ public class ListingServiceImpl implements ListingService {
         }
 
         // 판매자가 주식 보유량 확인
-        int ownedQuantity = stockHoldingRepository.getStockQuantity(seller, stock);
+        int ownedQuantity = stockHoldingRepository.getStockQuantity(seller.getAccountId(), stock.getStockId());
+
         
 
         if (ownedQuantity < quantity) {

@@ -4,6 +4,7 @@ import com.spike.dto.SecuritiesAccountDTO;
 import com.spike.dto.UserDTO;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface SecuritiesAccountService {
 
@@ -21,6 +22,12 @@ public interface SecuritiesAccountService {
 
 	// 계좌 삭제
 	void deleteAccount(Long accountId, String currentPassword);
+	
+	//계좌 찾기
+	Optional<SecuritiesAccountDTO> getAccountById(Long accountId);
+	
+	//userid찾기
+	Optional<SecuritiesAccountDTO> getAccountByUserId(Long userId);
 
 
 }

@@ -53,16 +53,16 @@ public class ListingController {
             StockDTO stock = stockService.getStockById(stockId)
                     .orElseThrow(() -> new IllegalArgumentException("❌ 주식 정보를 찾을 수 없습니다."));
             
-            
-            int availableQuantity = stockHoldingService.getStockQuantity(seller, stock);
+           
+
 
 
             // 유효성 검사: 판매 수량 및 가격
             if (quantity <= 0) return ResponseEntity.badRequest().body("❌ 최소 1주 이상 판매해야 합니다.");
             if (price <= 0) return ResponseEntity.badRequest().body("❌ 판매 가격은 1원 이상이어야 합니다.");
             
-            // 보유 주식 수량 확인
-            Integer stockQuantity = stockHoldingService.getStockQuantity(seller, stock);
+            //보유한 주식 수량 확인
+            int availableQuantity = stockHoldingService.getStockQuantity(seller.getAccountId(), stock.getStockId());
 
             if (availableQuantity < quantity) {
                 return ResponseEntity.badRequest().body("❌ 보유한 주식보다 많이 판매할 수 없습니다. (보유량: " + availableQuantity + "주)");
