@@ -130,12 +130,12 @@ public class NoticeController {
 		}
 		
 		// 검색 조건 설정---
-		String find_name = request.getParameter("find_name"); //검색어
-		String find_field = request.getParameter("find_field"); // 검색필드
+		String findName = request.getParameter("findName"); //검색어
+		String findField = request.getParameter("findField"); // 검색필드
 		
 		//검색어와 필드를 dto에 셋팅
-		p.setFindField(find_field);
-		p.setFindName("%"+find_name+"%");
+		p.setFindField(findField);
+		p.setFindName("%"+findName+"%");
 		
 		//전체 게시물 수 구하기
 		int totalCount = this.noticeService.getRowCount(p);
@@ -171,12 +171,13 @@ public class NoticeController {
 		listP.addObject("endpage",endpage);
 		listP.addObject("maxpage",maxpage);
 		listP.addObject("totalCount",totalCount);
-		listP.addObject("find_field",find_field);
-		listP.addObject("find_name",find_name);
+		listP.addObject("findField",findField);
+		listP.addObject("findName",findName);
 		listP.addObject("startrow",p.getStartrow());
 		listP.addObject("endR",p.getEndrow());
 		listP.addObject("index",index);
 		listP.setViewName("support/newsSubpage_notice"); 
+		System.out.println("리스트" + Nlist);
 		
 		return listP;
 		
@@ -325,14 +326,14 @@ public class NoticeController {
 		
 		//자료실 삭제
 		@RequestMapping("/noti_del_ok") //get or post방식으로 전송되는 매핑주소 처리
-		public String noti_del_ok(Long notice_no, int page,
+		public String noti_del_ok(Long noticeNo, int page,
 		HttpServletResponse response,HttpServletRequest request) throws Exception{
 			response.setContentType("text/html;charset=UTF-8");
 			PrintWriter out = response.getWriter();
 			String delFolder = request.getSession().getServletContext().getRealPath("upload");//upload 실제 경로 반환
 			
-			NoticeDTO db_pwd = this.noticeService.getNoticeCont2(notice_no); // 삭제할 공지사항 가져오기
-			this.noticeService.delNoti(notice_no);//오라클로부터 레코드 삭제
+			NoticeDTO db_pwd = this.noticeService.getNoticeCont2(noticeNo); // 삭제할 공지사항 가져오기
+			this.noticeService.delNoti(noticeNo);//오라클로부터 레코드 삭제
 				
 				if(db_pwd.getNoticeFile() != null) {//기존 첨부파일이 있다면
 					File delFile = new File(delFolder+db_pwd.getNoticeFile());//삭제할 파일 객체 생성
