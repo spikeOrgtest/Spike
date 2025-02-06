@@ -5,7 +5,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>사기 계좌 조회</title>
-<link href="assets/css/scam.css" rel="stylesheet">
+<link href="/css/support/cheat.css" rel="stylesheet">
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 <link
@@ -17,12 +17,12 @@
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
 	integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
 	crossorigin="anonymous"></script>
-	<link rel="stylesheet" href="assets/css/include.css">
+	<link rel="stylesheet" href="/css/include/include.css">
 </head>
 
 
 
-<jsp:include page="include/header.jsp"/>
+<%@ include file="../include/header.jsp"%>
 
 <body>
 	<div class="main-section">
@@ -186,22 +186,30 @@
 								aria-label="Close"></button>
 						</div>
 						<div class="modal-body">
-							<form>
+							<form action="cheat" method="post">
+							<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+								<div class="mb-3">
+									<label for="type" class="col-form-label">신고 유형 선택</label><br/>
+        								<select id="buttonSelect" name="detailType" class="form-control">
+            								<option value="phone">전화번호</option>
+            								<option value="account">계좌번호</option>
+        								</select>
+        						</div>
 								<div class="mb-3">
 									<label for="recipient-name" class="col-form-label">전화번호
 										또는 계좌번호 입력:</label> <input type="text" class="form-control"
-										id="recipient-name">
+										id="recipient-name" name="detailValue">
 								</div>
 								<div class="mb-3">
 									<label for="message-text" class="col-form-label">신고 내용:</label>
-									<textarea class="form-control" id="message-text"></textarea>
+									<textarea class="form-control" id="message-text" name="content"></textarea>
 								</div>
-							</form>
-						</div>
 						<div class="modal-footer">
-							<button type="button" class="btn btn-secondary"
+							<button type="reset" class="btn btn-secondary"
 								data-bs-dismiss="modal">취소</button>
-							<button type="button" class="btn btn-primary">신고 완료</button>
+							<button type="submit" class="btn btn-primary">신고 완료</button>
+						</div>
+							</form>
 						</div>
 					</div>
 				</div>
@@ -222,10 +230,10 @@
   });
 
   
-  cancelButton.addEventListener('click', function() {
-    mdoModal.hide(); 
-    exampleModal.hide(); 
-  });
+  //cancelButton.addEventListener('click', function() {
+    //mdoModal.hide(); 
+    //exampleModal.hide(); 
+  //});
 </script>
 
 
@@ -247,7 +255,7 @@
 	<%-- 래퍼 --%>
 
 
-	<jsp:include page="include/footer.jsp" />
+	<%@ include file="../include/shortfooter.jsp"%>
 
 </body>
 </html>
