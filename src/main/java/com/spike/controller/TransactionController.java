@@ -31,7 +31,7 @@ public class TransactionController {
 
 	// 이체 페이지
 	@GetMapping("transfer")
-	public ModelAndView transferPage(HttpSession session) {
+	public ModelAndView transferPage(HttpSession session, RedirectAttributes redirectAttributes) {
 
 		ModelAndView mv = new ModelAndView();
 		UserDTO user = (UserDTO) session.getAttribute("User");
@@ -41,9 +41,12 @@ public class TransactionController {
 
 			mv.addObject("accountList", accList);
 			mv.addObject("histories", histories);
+		}else { //로그인 하지 않고 사용시 예외처리(기존 코드 재활용)
+			mv.addObject("errorMessage", "로그인이 필요한 페이지입니다.");
 		}
-
 		mv.setViewName("transfer/transfer");
+
+		
 		return mv;
 	}
 

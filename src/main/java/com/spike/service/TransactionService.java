@@ -24,4 +24,6 @@ public interface TransactionService {
 
 	List<TransferHistoryDTO> getRecentTransfers(Long userId);
 
+	List<TransferHistoryDTO> getTransferHistoryByAccountId(Long accountId);
+
 }
