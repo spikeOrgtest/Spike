@@ -117,8 +117,8 @@
 
 					<div id="nFind_wrap">
 						<select name="findField">
-							<option value="noticeTitle" <c:if test="${findField == 'notice_title'}">selected</c:if>>제목</option>
-							<option value="noticeCont" <c:if test="${findField == 'notice_cont'}">selected</c:if>>내용</option>
+							<option value="notice_title" <c:if test="${findField == 'notice_title'}">selected</c:if>>제목</option>
+							<option value="notice_cont" <c:if test="${findField == 'notice_cont'}">selected</c:if>>내용</option>
 						</select>
 						<input type="search" name="findName" size="14" value="${findName}" />
 						<button type="submit">검색</button>
