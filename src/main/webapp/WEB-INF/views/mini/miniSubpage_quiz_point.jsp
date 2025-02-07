@@ -75,8 +75,6 @@
 							</tr>
 						</thead>
 						<tbody>
-
-
 							<c:forEach var="rank" items="${ranks}" varStatus="status">
 								<tr>
 									<td>${status.count}</td>
@@ -91,7 +89,6 @@
 						</tbody>
 					</table>
 				</div>
-
 				<!-- 퀴즈 랭킹 끝 -->
 
 			</div>

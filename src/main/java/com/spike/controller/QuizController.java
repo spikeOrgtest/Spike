@@ -1,15 +1,12 @@
 package com.spike.controller;
 
 import com.spike.service.QuizResultService;
-
-
 import com.spike.service.QuizService;
 import com.spike.service.UserSerivce;
 import com.spike.dto.QuizDTO;
 import com.spike.dto.QuizRank;
 import com.spike.dto.QuizResultDTO;
 import com.spike.dto.UserDTO;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,10 +15,10 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import javax.servlet.http.HttpSession;
 
 @Controller
@@ -37,8 +34,6 @@ public class QuizController {
     @Autowired
     private QuizService quizService;
     
-
-
     @PostMapping("update-score")
     public ResponseEntity<Map<String, Object>> updateScore(@RequestBody QuizResultDTO quizResultDto, HttpSession session) {
      
@@ -191,8 +186,6 @@ public class QuizController {
         return mav;
     }
     
-
-
     // 포인트 확인 페이지
     @GetMapping("/point")
     public ModelAndView mypoint(HttpSession session) {
@@ -228,7 +221,6 @@ public class QuizController {
     	
     	List<QuizRank> ranks = quizResultService.getTopRankUser();
     	
-    	
     	mav.addObject("ranks", ranks);
     	
     	mav.setViewName("mini/miniSubpage_quiz_point");
@@ -236,7 +228,6 @@ public class QuizController {
         return mav;
     }
 
-  
     // 사용자 포인트 조회
     @GetMapping("/quiz/mypoint")
     @ResponseBody
@@ -250,8 +241,6 @@ public class QuizController {
         return quizResultService.getUserTotalPoints(user);
     }
     
-    
-
     // 퀴즈 결과 조회
     @GetMapping("/quiz/result")
     @ResponseBody
