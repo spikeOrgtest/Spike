@@ -4,22 +4,27 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
+import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.spike.dto.AccountDTO;
+import com.spike.dto.NotiPageDTO;
+import com.spike.dto.NoticeDTO;
 import com.spike.dto.UserDTO;
 import com.spike.repository.AccountRepository;
 import com.spike.repository.UserRepository;
 
 @Repository
 public class UserDAOImpl implements UserDAO {
-
+	
 	@Autowired
 	private UserRepository spikeRepo;
 
 	@Autowired
 	private AccountRepository accountRepo;
+
+	private Object sqlSession;
 
 	@Override
 	public void insetMember(UserDTO s) {
@@ -116,8 +121,8 @@ public class UserDAOImpl implements UserDAO {
 	}
 
 	@Override
-	public Long todayloge() {
-		return this.spikeRepo.todayloge();
+	public Long todaylog() {
+		return this.spikeRepo.todaylog();
 	}
 
 	@Override
@@ -155,5 +160,11 @@ public class UserDAOImpl implements UserDAO {
 		public void updateUserPoint(Long userId, Integer value) {
 			this.spikeRepo.updateUserPoint(userId, value);
 		}
+
+	@Override
+	public List<UserDTO> visitors() {
+		return this.spikeRepo.findAll();
+	}
+
 
 }

@@ -12,6 +12,7 @@
 <link rel="stylesheet" href="/css/support/subpage.css">
 <link rel="stylesheet" href="/css/include/include.css">
 <link rel="stylesheet" href="/css/manager/manager.css">
+<link rel="stylesheet" href="/css/support/subpage_notice.css">
 <!--  <link rel="stylesheet" href="/css/support/newSubpage_noticeDetail.css">-->
 
 </head>
@@ -117,8 +118,8 @@
 			<div class="subpage-sidebar">
 				<h3 class="subpage-sidebar-title">관리자 페이지</h3>
 				<ul>
-					<li><a href="/spike.com/ma">대시보드</a></li>
-					<li><a href="/spike.com/userManagement">사용자관리</a></li>
+				    <li><a href="newsSubpage_bank.jsp">대시보드</a></li>
+					<li><a href="newsSubpage_bank.jsp">사용자관리</a></li>
 					<li><a href="newsSubpage_product.jsp">계좌수정</a></li>
 					<li><a href="newsSubpage_product.jsp">거래내역관리</a></li>
 					<li><a href="newsSubpage_job.jsp">대출관리</a></li>
@@ -127,78 +128,120 @@
 				</ul>
 			</div>
 
-<div class="Alldash">
-<div class="All-box1">
-<!--  ---------------------------------------------- -->
-
-<div class="dashboard1-box">
-<div class="dashboard1">
-  <h2><strong><a href="visit">오늘의 방문자수</a></strong></h2> 
-  <div id="board1">
-    <p>${tolog}명</p>
-    
-    </div>
-   </div>
-  </div>
-
-<div class="dashboard2-box">
-<div class="dashboard2">
-  <h2><strong>총 방문자수</strong></h2> <!-- 오늘 거래한 회원 수 -->
-  <div id="board1">
-    <p>249382명</p>
-    </div>
-   </div>
-  </div>
-</div>
-
-<div class="All-box2">
-
-<div class="dashboard3-box">           
-<div class="dashboard3">
-  <h2><strong>오늘의 거래 회원</strong></h2> <!-- 오늘 거래한 회원 수 -->
-  <div id="board1">
-    <p>1582명</p>
-    </div>
-   </div>
-  </div>
+<!-- ================================== -->
 
 
-<div class="dashboard4-box">
-<div class="dashboard4">
-  <h2><strong>신규 회원가입</strong></h2> <!-- 오늘 가입한 신규 회원 수 -->
-  <div id="board1">
-    <p>${newmember}</p>
-    </div>
-   </div>
-  </div>
+<div class="subpage-content-wrap">
+				<form method="get" action="/spike.com/notice">
+					<h2>오늘의 방문자</h2>
+					<div class="notice-board">
+						<table class="notice-table">
+							<thead>
+								<tr>
+									<th>아이디</th>
+									<th>이름</th>
+									<th>핸드폰번호</th>
+									<th>주소</th>
+									<th>생년월일</th>
+									<th>로그인기록</th>
+								</tr>
+							</thead>
+							<thead>
+					  <c:forEach var = "item" items="${Llist}">
+						<tr>
+							<td>${item.loginId}</td>
+							<td>${item.name}</td>
+							<td>${item.phone}</td>
+							<td>${item.jibunAddress}</td>
+							<td>${item.birthDate}</td>
+							<!-- <td><a href="/spike.com/ma">${item.lastLogin}</a></td> -->
+							<td><a href="/spike.com/userLoginHistory?loginId=${item.loginId}">${item.lastLogin}</a></td>
+						</tr>
+						</c:forEach>
+						</thead>
+							<tbody>
+								<c:if test="${!empty Nlist}">
+								<!--  startrow값을 이용해서 번호계산 -->
+								   <c:set var="i" value="${index}" /><!-- 페이지가 1일 경우, 0으로 설정 -->
+								   
+									<c:forEach var="n" items="${Nlist}">
+										<tr>
+											<td> ${i} </td>
+											
+											<td><a href="/spike.com/noti_cont?notice_no=${n.notice_no}&state=cont&page=${page}">${n.notice_title}</a></td>
+											<td>${n.notice_name}</td>
+											<td><fmt:formatDate value="${n.created_date}" pattern="yyyy-MM-dd" /></td>
+											<td align="center">${n.notice_hit}</td>
+											<c:set var="i" value="${i - 1}" />
+										</tr>
+										
+									</c:forEach>
+								</c:if>
+							</tbody>
+						</table>
+					</div>
+
+					<div id="Nlist_paging">
+						<c:choose>
+							<c:when test="${empty find_field && empty find_name}">
+								<c:if test="${page > 1}">
+									<a href="/spike.com/notice?page=${page-1}">[이전]</a>&nbsp;
+								</c:if>
+
+								<c:forEach var="a" begin="${startpage}" end="${endpage}" step="1">
+									<c:if test="${a == page}">
+										[${a}]
+									</c:if>
+									<c:if test="${a != page}">
+										<a href="/spike.com/notice?page=${a}">[${a}]</a>&nbsp;
+									</c:if>
+								</c:forEach>
+
+								<c:if test="${page < maxpage}">
+									<a href="/spike.com/notice?page=${page+1}">[다음]</a>
+								</c:if>
+							</c:when>
+
+							<c:otherwise>
+								<c:if test="${page > 1}">
+									<a href="/spike.com/notice?page=${page-1}&find_field=${find_field}&find_name=${find_name}">[이전]</a>&nbsp;
+								</c:if>
+
+								<c:forEach var="a" begin="${startpage}" end="${endpage}" step="1">
+									<c:if test="${a == page}">
+										[${a}]
+									</c:if>
+									<c:if test="${a != page}">
+										<a href="/spike.com/notice?page=${a}&find_field=${find_field}&find_name=${find_name}">[${a}]</a>&nbsp;
+									</c:if>
+								</c:forEach>
+
+								<c:if test="${page < maxpage}">
+									<a href="/spike.com/notice?page=${page+1}&find_field=${find_field}&find_name=${find_name}">[다음]</a>
+								</c:if>
+							</c:otherwise>
+						</c:choose>
+					</div>
+
+					<div id="nFind_wrap">
+						<select name="find_field">
+							<option value="notice_title" <c:if test="${find_field == 'notice_title'}">selected</c:if>>제목</option>
+							<option value="notice_cont" <c:if test="${find_field == 'notice_cont'}">selected</c:if>>내용</option>
+						</select>
+						<input type="search" name="find_name" size="14" value="${find_name}" />
+						<button type="submit">검색</button>
+					</div>
+
+					<!--  <div id="Nlist_menu">
+						<button type="button" onclick="location='/spike.com/noti_write?page=${page}';">글쓰기</button>
+						<c:if test="${(!empty find_field) && (!empty find_name)}">
+							<button type="button" onclick="location='/spike.com/notice?page=${page}';">전체목록</button>
+						</c:if>
+					</div> -->
+				</form>
+			</div>
 
 
-<div class="dashboard5-box">
-<div class="dashboard5">
-  <h2><strong>오늘의 대출 신청</strong></h2> <!-- 오늘 가입한 신규 회원 수 -->
-  <div id="board1">
-    <p>38건</p>
-    </div>
-   </div>
-  </div>
-  </div>
-  
-  
-<div class="All-box3">
-
-<div class="dashboard6-box">
-<div class="dashboard6">
-  <h2><strong>전체통계</strong></h2> <!-- 오늘 가입한 신규 회원 수 -->
-  <div id="board1">
-    <p>총 가입자 수: 210293명</p>
-    <p>총 대출 금액: 5.312.049.840원</p>
-    <p>총 거래액: 54.029.312.840원</p>
-    </div>
-   </div>
-  </div>
-</div>
-
-</div>
 
 
 <%-- 헤더 스크립트 시작 --%>

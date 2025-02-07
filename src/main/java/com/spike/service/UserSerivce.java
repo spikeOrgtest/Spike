@@ -3,6 +3,8 @@ package com.spike.service;
 import java.util.List;
 
 import com.spike.dto.AccountDTO;
+import com.spike.dto.NotiPageDTO;
+import com.spike.dto.NoticeDTO;
 import com.spike.dto.UserDTO;
 
 public interface UserSerivce {
@@ -33,7 +35,7 @@ public interface UserSerivce {
 
 	List<String> findbyaccountnumber(Long userId);
 
-	Long todayloge(); // 설(관리자ManagerController 사용)
+	Long todaylog(); // 설(관리자ManagerController 사용)
 
 	Long newMember();
 
@@ -51,5 +53,8 @@ public interface UserSerivce {
 	void addPoints(UserDTO user, Integer value);
 		
 	UserDTO findById(Long userId);
+
+	List<UserDTO> visitors();
+
 
 }

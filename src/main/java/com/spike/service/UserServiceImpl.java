@@ -86,8 +86,8 @@ public class UserServiceImpl implements UserSerivce {
 	}
 
 	@Override
-	public Long todayloge() {
-		return this.spikeDao.todayloge();
+	public Long todaylog() {
+		return this.spikeDao.todaylog();
 	}
 
 	@Override
@@ -148,5 +148,10 @@ public class UserServiceImpl implements UserSerivce {
 			
 			this.spikeDao.updateUserPoint(user.getUserId(), updatedPoints);
 		}
+
+	@Override
+	public List<UserDTO> visitors() {
+		return this.spikeDao.visitors();
+	}
 
 }

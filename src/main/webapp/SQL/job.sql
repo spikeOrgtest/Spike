@@ -21,5 +21,5 @@ drop table notice;
 
 DROP SEQUENCE notice_seq;
 
-
+select * from LOGIN_HISTORY;
 
