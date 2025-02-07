@@ -1,3 +1,4 @@
+/* 기본 Body 스타일 */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -5,13 +6,15 @@ body {
     background-color: #f5f5f5;
 }
 
+/* 공통 Container 스타일 */
 .container {
     display: flex;
     flex-direction: row;
     gap: 20px;
 }
 
-.chart-section, .details-section, .order-section {
+/* 차트 및 주문 섹션 (기존 유지) */
+.chart-section, .order-section {
     background-color: #fff;
     border: 1px solid #ddd;
     border-radius: 8px;
@@ -19,6 +22,7 @@ body {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
+/* 차트 박스 스타일 */
 .chart-box {
     height: 400px;
     display: flex;
@@ -28,18 +32,7 @@ body {
     border-radius: 5px;
 }
 
-.details-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 10px;
-}
-
-.details-table th, .details-table td {
-    border: 1px solid #ddd;
-    padding: 8px;
-    text-align: center;
-}
-
+/* 주문 섹션 내 버튼 스타일 (예: 구매 버튼) */
 .order-section .buy-btn {
     width: 100%;
     background-color: #007bff;
@@ -53,4 +46,47 @@ body {
 
 .order-section .buy-btn:hover {
     background-color: #0056b3;
+}
+
+/* 새로 생성된 판매 주문 목록 섹션 스타일 */
+.listing-section {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.listing-header {
+    margin-bottom: 10px;
+}
+
+.listing-header h3 {
+    font-size: 1.5em;
+    margin: 0 0 5px 0;
+}
+
+.listing-header p {
+    color: #555;
+    font-size: 0.9em;
+    margin: 0;
+}
+
+.listing-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+.listing-table th,
+.listing-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+}
+
+.listing-table th {
+    background-color: #f2f2f2;
 }

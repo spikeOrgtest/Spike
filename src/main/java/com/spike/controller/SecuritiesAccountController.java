@@ -176,17 +176,6 @@ public class SecuritiesAccountController {
 
 
 
-	// 사용자 계좌 조회
-	/*
-	@GetMapping("/user/{userId}/account")
-	@ResponseBody
-	public List<SecuritiesAccountDTO> getAccountsByUserId(@PathVariable Long userId) {
-		// UserDTO 객체 생성 및 설정
-		UserDTO user = new UserDTO();
-		user.setUserId(userId);
-		return accountService.getAccountByUser(user);
-	}*/
-
 
 
 }
