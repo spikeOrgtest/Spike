@@ -39,7 +39,7 @@ public class StockController {
         } catch (Exception e) {
             model.addAttribute("errorMessage", "Failed to load stock data: " + e.getMessage());
         }
-        return "investment/stock_market";
+        return "investment/stock_home";
     }
 
     @GetMapping("/{stock_id}/order")

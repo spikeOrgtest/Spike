@@ -7,7 +7,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>주식 시장 - SPIKE</title>
-<link href="/css/investment/stock_market.css" rel="stylesheet">
+<link href="/css/investment/stock_home.css" rel="stylesheet">
 
 <!-- Chart.js 및 Font Awesome -->
 <script
