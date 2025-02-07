@@ -7,7 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.spike.dto.AccountDTO;
+import com.spike.dto.UserDTO;
 import com.spike.repository.AccountRepository;
+
 
 @Repository
 public class AccountDAOImpl implements AccountDAO {
@@ -62,5 +64,11 @@ public class AccountDAOImpl implements AccountDAO {
 	public void updateAccount(AccountDTO account) {
 		this.accountrepo.updateAccount(account);
 	}
+
+	@Override
+	public List<AccountDTO> findActiveAccountsByUser(UserDTO user) {
+		return this.accountrepo.findByOwner(user);
+	}
+
 
 }
