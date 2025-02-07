@@ -133,7 +133,7 @@
 
 <div class="dashboard1-box">
 <div class="dashboard1">
-  <h2><strong>오늘의 방문자수</strong></h2> 
+  <h2><strong><a href="visit">오늘의 방문자수</a></strong></h2> 
   <div id="board1">
     <p>${tolog}명</p>
     

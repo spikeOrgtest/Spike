@@ -104,6 +104,17 @@
 	font-size: 15px; /* 작은 글자 크기 */
 	color: #555555; /* 연한 색상 */
 }
+.quiz-start-button {
+	background-color: #0078d7;
+	color: white;
+	border: none;
+	border-radius: 5px;
+	padding: 10px 20px;
+	font-size: 1em;
+	cursor: pointer;
+	font-weight: bold;
+	transition: background-color 0.3s ease, transform 0.2s ease;
+}
 
 .quiz-buttons {
 	display: flex;
@@ -202,6 +213,7 @@
     text-align: center;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
+
 
 
 

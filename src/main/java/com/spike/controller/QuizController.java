@@ -16,6 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.HashMap;
 import java.util.List;
@@ -142,34 +143,34 @@ public class QuizController {
         return "mini/miniSubpage_edu";
     }
     
-    //로그인 체크 함수 
-    private ModelAndView checkSession(HttpSession session, String defaultPage) {
-    	UserDTO sessionUser = (UserDTO)session.getAttribute("User"); //로그인 유저 정보를 가져오는 코드
-    	
-    	if (sessionUser == null) { //로그인 안 하고 퀴즈 페이즈 접근시 로그인 페이지로 반환
-    		return new ModelAndView("redirect:/spike.com/login");
-    	}
-    	
-    	if (!sessionUser.getIsMinor().equals("minor")) {
-    		return new ModelAndView("redirect:/spike.com/mini");
-    	}
-    	
-    	ModelAndView mv = new ModelAndView();
-    	
-    	mv.setViewName(defaultPage);
-    	
+    //퀴즈 페이지
+    @GetMapping("/quiz")
+    public ModelAndView miniquiz(HttpSession session, RedirectAttributes redirectAttributes) {
+        return checkSession(session, redirectAttributes, "mini/miniSubpage_quiz");
+    }
+
+    private ModelAndView checkSession(HttpSession session, RedirectAttributes redirectAttributes, String defaultPage) {
+        UserDTO sessionUser = (UserDTO) session.getAttribute("User");
+
+        // 로그인 안 하고 퀴즈 페이지 접근 시
+        if (sessionUser == null) {
+            redirectAttributes.addAttribute("message", "로그인이 필요합니다!");  // 알림 메시지 추가
+            return new ModelAndView("redirect:/spike.com/login"); // 로그인 페이지로 리다이렉트
+        }
+
+        if (!sessionUser.getIsMinor().equals("minor")) {
+        	redirectAttributes.addAttribute("message", "mini 회원이 아닙니다.");  // 알림 메시지 추가
+            return new ModelAndView("redirect:/spike.com/mini");
+        }
+
+        ModelAndView mv = new ModelAndView();
+        mv.setViewName(defaultPage);
         return mv;
     }
-    
-    // 퀴즈 페이지
-    @GetMapping("/quiz")
-    public ModelAndView miniquiz(HttpSession session) {
-        return checkSession(session, "mini/miniSubpage_quiz");
-    } 
 
     // 포인트샵 페이지
     @GetMapping("/shop")
-    public ModelAndView minishop(HttpSession session) {
+    public ModelAndView minishop(HttpSession session, RedirectAttributes redirectAttributes) {
     	UserDTO user = (UserDTO) session.getAttribute("User");
     	
     	if (user == null) {

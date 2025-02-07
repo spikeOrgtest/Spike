@@ -2,7 +2,9 @@ package com.spike.controller;
 
 import java.io.PrintWriter;
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -19,8 +21,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.spike.dto.AccountDTO;
+import com.spike.dto.TransactionDTO;
+import com.spike.dto.TransferHistoryDTO;
 import com.spike.dto.UserDTO;
 import com.spike.service.AccountService;
+import com.spike.service.TransactionService;
 import com.spike.service.UserSerivce;
 
 @Controller
@@ -33,6 +38,9 @@ public class MypageController {
 	@Autowired
 	private AccountService accountService;
 
+	@Autowired
+	private TransactionService transService;
+	
 	@Autowired
 	PasswordEncoder passwordEncoder;
 
@@ -92,7 +100,7 @@ public class MypageController {
 		String existingPassword = sessionUser.getPassword(); // DB에서 가져온 기존 비밀번호
 		String encryptedNewPassword = passwordEncoder.encode(s.getPassword()); // 새 비밀번호를 암호화
 		String currentPassword = request.getParameter("currentPassword");
-
+		
 		if (!passwordEncoder.matches(currentPassword, existingPassword)) {
 			out.println("<script>");
 			out.println("alert('현재 비밀번호가 일치하지 않습니다!');");
@@ -101,7 +109,7 @@ public class MypageController {
 			return null;
 		}
 
-		if (passwordEncoder.matches(sessionUser.getPassword(), existingPassword)) {
+		if (passwordEncoder.matches(s.getPassword(), existingPassword)) {
 			out.println("<script>");
 			out.println("alert('기존 비밀번호와 새 비밀번호가 동일합니다!');");
 			out.println("window.location.href = '/spike.com/mypage/main';");
@@ -177,7 +185,7 @@ public class MypageController {
 			return null;
 		}
 
-		if (passwordEncoder.matches(user.getPassword(), existingPassword)) {
+		if (passwordEncoder.matches(s.getPassword(), existingPassword)) {
 			out.println("<script>");
 			out.println("alert('기존 비밀번호와 새 비밀번호가 동일합니다!');");
 			out.println("window.location.href = '/spike.com/mypage/mypageEdit';");
@@ -241,9 +249,19 @@ public class MypageController {
 		UserDTO sessionUser = (UserDTO) session.getAttribute("User");
 		userId = sessionUser.getUserId();
 
+		
 		List<AccountDTO> list = userService.findbyinquriy(userId);
 
+		// 각 계좌별 송금 + 입금 내역을 저장할 Map 생성
+        Map<Long, List<TransferHistoryDTO>> transactionMap = new HashMap<>();
+        for (AccountDTO account : list) {
+            List<TransferHistoryDTO> histories = this.transService.getTransferHistoryByAccountId(account.getAccountId());
+            transactionMap.put(account.getAccountId(), histories);
+        }
+
 		ModelAndView account = new ModelAndView("mypage/mypageinquiry");
+		
+		account.addObject("transactionMap", transactionMap); // 계좌별 거래 내역 전달
 		account.addObject("list", list);
 
 		return account;
@@ -315,6 +333,15 @@ public class MypageController {
 	public ModelAndView property() {
 
 		return new ModelAndView("/mypage/mypageproperty");
+	}
+
+	// 대출현황 폼 (만드는 중 2/6)
+	@GetMapping("/loan")
+	public ModelAndView loan(HttpSession session, Long userId) {
+		UserDTO sessionUser = (UserDTO) session.getAttribute("User");
+		userId = sessionUser.getUserId();
+		
+		return new ModelAndView("/mypage/mypageLoan");
 	}
 
 }

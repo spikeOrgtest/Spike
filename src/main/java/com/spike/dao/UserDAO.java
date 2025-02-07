@@ -4,6 +4,8 @@ import java.util.List;
 
 
 import com.spike.dto.AccountDTO;
+import com.spike.dto.NotiPageDTO;
+import com.spike.dto.NoticeDTO;
 import com.spike.dto.UserDTO;
 
 public interface UserDAO {
@@ -34,7 +36,8 @@ public interface UserDAO {
 
 	List<String> findbyaccountnumber(Long userId);
 
-	Long todayloge();
+	Long todaylog();
+
 
 	Long newMember();
 
@@ -50,6 +53,9 @@ public interface UserDAO {
 	
 	// 퀴즈 포인트 쌓기 
 		void updateUserPoint(Long userId, Integer value);
+
+
+	List<UserDTO> visitors();
 
 
 }

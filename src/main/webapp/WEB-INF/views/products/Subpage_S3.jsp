@@ -134,7 +134,7 @@
 
         <section class="cta">
             <div class="container">
-                <a href="../newsavings" class="button" id="joinButton">지금 가입하기</a>
+                <a href="../newsavings?selectedProduct=home" class="button" id="joinButton">지금 가입하기</a>
             </div>
         </section>
     </main>

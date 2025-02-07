@@ -15,10 +15,10 @@
 				value="${_csrf.token}" /> <input type="hidden" name="loginId"
 				value="${find_id}" /> <input type="hidden" name="name"
 				value="${find_name}" /> <label for="newPassword">새 비밀번호</label> <input
-				type="password" id="newPassword" name="newPassword" required /> <span
+				type="password" id="newPassword" name="newPassword"  /> <span
 				class="error-message" id="passwordError1"></span> <label
 				for="confirmPassword">비밀번호 확인</label> <input type="password"
-				id="confirmPassword" name="confirmPassword" required /> <span
+				id="confirmPassword" name="confirmPassword"  /> <span
 				class="error-message" id="passwordError2"></span>
 
 			<button type="submit">비밀번호 변경</button>
@@ -38,17 +38,22 @@
 			// 비밀번호 검증
 			const password = document
 					.getElementById('newPassword').value;
-			if (password.length < 8) {
+			if (password === '') {
+				document.getElementById('passwordError1').textContent = '비밀번호를 입력해주세요';
+				isValid = false;
+			} else if (password.length < 8) {
 				document.getElementById('passwordError1').textContent = '비밀번호는 8자 이상이어야 합니다';
 				isValid = false;
 			}
 
 			// 비밀번호 확인 검증
+			    if (isValid) {
 			const confirmPassword = document
 					.getElementById('confirmPassword').value;
 			if (password !== confirmPassword) {
 				document.getElementById('passwordError2').textContent = '비밀번호가 일치하지 않습니다';
 				isValid = false;
+				}
 			}
 			
 			if (!isValid) {

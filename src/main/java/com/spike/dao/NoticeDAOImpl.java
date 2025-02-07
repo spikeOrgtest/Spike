@@ -53,7 +53,7 @@ public class NoticeDAOImpl implements NoticeDAO {
 
 	@Override
 	public NoticeDTO getNoti_cont(Long notice_no) {
-		System.out.println("jpa");
+		System.out.println("jpatttt");
 		NoticeDTO nt = this.NoticeRepo.getReferenceById(notice_no);
 		return nt;
 	}//내용보기

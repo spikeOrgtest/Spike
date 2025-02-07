@@ -1,18 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
 
-	const topBar = document.querySelector('.top-bar');
-    const mainHeader = document.querySelector('.main-header');
-    let lastScrollY = window.scrollY;
-
-    window.addEventListener('scroll', function() {
-        if (window.scrollY > lastScrollY) {
-            topBar.style.transform = 'translateY(-100%)';
-        } else {
-            topBar.style.transform = 'translateY(0)';
-        }
-        lastScrollY = window.scrollY;
-    });
-	
     // Carousel
     const carouselItems = [
         { title: "SPIKE 대출 상품", description: "대출이 필요할 때 SPIKE와 함께 하세요." },

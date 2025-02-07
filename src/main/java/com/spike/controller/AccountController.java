@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.spike.dto.AccountDTO;
@@ -59,7 +60,18 @@ public class AccountController {
 	}
 
 	@GetMapping("/products/newmember")
-	public ModelAndView newmember() {
+	public ModelAndView newmember(HttpSession session, HttpServletResponse response) throws IOException {
+		response.setContentType("text/html; charset=UTF-8");
+		PrintWriter out = response.getWriter();
+
+		if (session.getAttribute("User") == null) {
+			out.println("<script>");
+			out.println("alert('로그인이 필요한 서비스입니다.');");
+			out.println("location.href='/spike.com/login';");
+			out.println("</script>");
+			return null;
+		}
+
 		String[] account_type = { "입출금계좌", "투자계좌" };
 
 		ModelAndView ss = new ModelAndView("/products/newmember");
@@ -68,10 +80,11 @@ public class AccountController {
 	}
 
 	@GetMapping("/products/newdeposit")
-	public ModelAndView newDeposit(HttpSession session, HttpServletResponse response) throws IOException {
+	public ModelAndView newDeposit(HttpSession session, HttpServletResponse response,
+			@RequestParam(required = false) String selectedProduct) throws IOException {
 		response.setContentType("text/html; charset=UTF-8");
 		PrintWriter out = response.getWriter();
-		
+
 		if (session.getAttribute("User") == null) {
 			out.println("<script>");
 			out.println("alert('로그인이 필요한 서비스입니다.');");
@@ -79,10 +92,11 @@ public class AccountController {
 			out.println("</script>");
 			return null;
 		}
-		
+
 		String[] account_type = { "예금" };
 		ModelAndView ss = new ModelAndView("/products/newDeposit");
 		ss.addObject("account_type", account_type);
+		ss.addObject("selectedProduct", selectedProduct);
 		return ss;
 	}
 
@@ -90,7 +104,7 @@ public class AccountController {
 	public ModelAndView newSavings(HttpSession session, HttpServletResponse response) throws IOException {
 		response.setContentType("text/html; charset=UTF-8");
 		PrintWriter out = response.getWriter();
-		
+
 		if (session.getAttribute("User") == null) {
 			out.println("<script>");
 			out.println("alert('로그인이 필요한 서비스입니다.');");
@@ -106,27 +120,28 @@ public class AccountController {
 	}
 
 	@PostMapping("/account_ok")
-	public ModelAndView account_ok(AccountDTO s, HttpServletRequest request, BindingResult result, HttpSession session) {
+	public ModelAndView account_ok(AccountDTO s, HttpServletRequest request, BindingResult result,
+			HttpSession session) {
 		UserDTO sessionUser = (UserDTO) session.getAttribute("User");
 		s.setOwner(sessionUser);
 		s.setBalance(1000000L);
 		s.setDayLimit(1000000L);
 		s.setOneLimit(100000L);
 		s.setAccountPassword(passwordEncoder.encode(s.getAccountPassword()));
-		
+
 		// 이자 관련 정보 추가
 		s.setStartDate(LocalDate.now());
 		s.setLastInterestDate(LocalDate.now());
-		
+
 		// 계좌 유형에 따른 이자율 설정
 		if ("예금".equals(s.getAccountType())) {
-			s.setInterestRate(3.5);  // 예금 기본 이자율
+			s.setInterestRate(3.5); // 예금 기본 이자율
 		} else if ("적금".equals(s.getAccountType())) {
-			s.setInterestRate(4.0);  // 적금 기본 이자율
+			s.setInterestRate(4.0); // 적금 기본 이자율
 		}
-		
+
 		this.accountService.createAccount(s);
-		return new ModelAndView("redirect:/spike.com/products");
+		return new ModelAndView("redirect:/spike.com/mypage/inquiry");
 	}
-	
+
 }

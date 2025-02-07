@@ -44,7 +44,6 @@
 								<li><a href="javascript:location='/spike.com/mypage/inquiry';" class="link-dark rounded">나의
 										계좌</a></li>
 								<li><a href="javascript:location='/spike.com/mypage/property';" class="link-dark rounded">자산조회</a></li>
-								<li><a href="#" class="link-dark rounded">목표 금액 설정</a></li>
 							</ul>
 						</div>
 					</li>
@@ -71,6 +70,7 @@
 									<div class="col-sm-10">
 										<input type="text" class="form-control" id="name" name="name"
 											placeholder="이름을 입력하세요">
+											<span id="nameError" style="color: red;"></span>
 									</div>
 								</div>
 
@@ -86,6 +86,7 @@
 								            </c:forEach>
 								        </select>
 								    </div>
+								    <span id="emailError" style="color: red; margin-left: 150px;"></span>
 								</div>
 
 								<div class="row mb-3">
@@ -101,6 +102,7 @@
 											 -
 											<input name="phone03" id="phone03" size="4" maxlength="4" />
 									</div>
+									<span id="phoneError" style="color: red; margin-left: 150px;"></span>
 								</div>
 
 								<div class="row mb-3">
@@ -114,6 +116,7 @@
 										<input type="text" class="address-full" id="detailAddress" name="detailAddress" placeholder="상세주소"> 
 										<input type="text" class="address-full" id="References" name="References" placeholder="참고항목">
 									</div>
+									<span id="addressError" style="color: red;"></span>
 								</div>
 								
 								<div class="row mb-3">
@@ -121,14 +124,16 @@
 									<div class="col-sm-10">
 										<input type="password" class="form-control" id="currentPassword"
 											name="currentPassword" placeholder="현재 비밀번호를 입력하세요">
+											<span id="currentpasswordError" style="color: red;"></span>
 									</div>
 								</div>
 
 								<div class="row mb-3">
-									<label for="password" class="col-sm-2 col-form-label">비밀번호</label>
+									<label for="password" class="col-sm-2 col-form-label">새 비밀번호</label>
 									<div class="col-sm-10">
 										<input type="password" class="form-control" id="password"
 											name="password" placeholder="새 비밀번호를 입력하세요">
+											<span id="passwordError" style="color: red;"></span>
 									</div>
 								</div>
 
@@ -139,6 +144,7 @@
 										<input type="password" class="form-control"
 											id="password2" name="password2"
 											placeholder="비밀번호를 확인하세요">
+											<span id="password2Error" style="color: red;"></span>
 									</div>
 								</div>
 
