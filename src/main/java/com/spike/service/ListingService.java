@@ -23,4 +23,7 @@ public interface ListingService {
 
     // 매물 삭제 (거래 완료 후 제거)
     void deleteListing(int listingId);
+    
+    //매물 구매
+    public boolean processPurchase(SecuritiesAccountDTO buyer, Listing listing, int quantity);
 }
