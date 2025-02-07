@@ -28,6 +28,12 @@ public interface SecuritiesAccountService {
 	
 	//userid찾기
 	Optional<SecuritiesAccountDTO> getAccountByUserId(Long userId);
+	
+	//잔액 차감(구매시)
+	public void decreaseBalance(SecuritiesAccountDTO account, int amount);
+	
+	//잔액 증가(판매시)
+	public void increaseBalance(SecuritiesAccountDTO account, int amount);
 
 
 }

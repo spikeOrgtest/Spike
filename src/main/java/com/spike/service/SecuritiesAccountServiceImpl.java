@@ -117,4 +117,25 @@ public class SecuritiesAccountServiceImpl implements SecuritiesAccountService {
     public Optional<SecuritiesAccountDTO> getAccountByUserId(Long userId) {
         return accountRepository.findByUser_UserId(userId);
     }
+	
+	// 잔액 차감 (구매 시 사용)
+    @Override
+    @Transactional
+    public void decreaseBalance(SecuritiesAccountDTO account, int amount) {
+        long newBalance = account.getBalance() - amount;
+        if (newBalance < 0) {
+            throw new IllegalArgumentException("잔액이 부족합니다.");
+        }
+        account.setBalance(newBalance);
+        accountRepository.save(account);
+    }
+
+    // 잔액 증가 (판매 시 사용)
+    @Override
+    @Transactional
+    public void increaseBalance(SecuritiesAccountDTO account, int amount) {
+        long newBalance = account.getBalance() + amount;
+        account.setBalance(newBalance);
+        accountRepository.save(account);
+    }
 }
