@@ -155,7 +155,7 @@
 							<td>${item.jibunAddress}</td>
 							<td>${item.birthDate}</td>
 							<!-- <td><a href="/spike.com/ma">${item.lastLogin}</a></td> -->
-							<td><a href="/spike.com/userLoginHistory?loginId=${item.loginId}">${item.lastLogin}</a></td>
+							<td><a href="/spike.com/userLoginHistory?userId=${item.userId}">${item.lastLogin}</a></td>
 						</tr>
 						</c:forEach>
 						</thead>

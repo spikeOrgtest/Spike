@@ -128,85 +128,12 @@
 						</tr>
 						</c:forEach>
 						</thead>
-							<tbody>
-								<c:if test="${!empty Nlist}">
-								<!--  startrow값을 이용해서 번호계산 -->
-								   <c:set var="i" value="${index}" /><!-- 페이지가 1일 경우, 0으로 설정 -->
-								   
-									<c:forEach var="n" items="${Nlist}">
-										<tr>
-											<td> ${i} </td>
-											
-											<td><a href="/spike.com/noti_cont?notice_no=${n.notice_no}&state=cont&page=${page}">${n.notice_title}</a></td>
-											<td>${n.notice_name}</td>
-											<td><fmt:formatDate value="${n.created_date}" pattern="yyyy-MM-dd" /></td>
-											<td align="center">${n.notice_hit}</td>
-											<c:set var="i" value="${i - 1}" />
-										</tr>
-										
-									</c:forEach>
-								</c:if>
-							</tbody>
+							
 						</table>
 					</div>
 
-					<div id="Nlist_paging">
-						<c:choose>
-							<c:when test="${empty find_field && empty find_name}">
-								<c:if test="${page > 1}">
-									<a href="/spike.com/notice?page=${page-1}">[이전]</a>&nbsp;
-								</c:if>
-
-								<c:forEach var="a" begin="${startpage}" end="${endpage}" step="1">
-									<c:if test="${a == page}">
-										[${a}]
-									</c:if>
-									<c:if test="${a != page}">
-										<a href="/spike.com/notice?page=${a}">[${a}]</a>&nbsp;
-									</c:if>
-								</c:forEach>
-
-								<c:if test="${page < maxpage}">
-									<a href="/spike.com/notice?page=${page+1}">[다음]</a>
-								</c:if>
-							</c:when>
-
-							<c:otherwise>
-								<c:if test="${page > 1}">
-									<a href="/spike.com/notice?page=${page-1}&find_field=${find_field}&find_name=${find_name}">[이전]</a>&nbsp;
-								</c:if>
-
-								<c:forEach var="a" begin="${startpage}" end="${endpage}" step="1">
-									<c:if test="${a == page}">
-										[${a}]
-									</c:if>
-									<c:if test="${a != page}">
-										<a href="/spike.com/notice?page=${a}&find_field=${find_field}&find_name=${find_name}">[${a}]</a>&nbsp;
-									</c:if>
-								</c:forEach>
-
-								<c:if test="${page < maxpage}">
-									<a href="/spike.com/notice?page=${page+1}&find_field=${find_field}&find_name=${find_name}">[다음]</a>
-								</c:if>
-							</c:otherwise>
-						</c:choose>
-					</div>
-
-					<div id="nFind_wrap">
-						<select name="find_field">
-							<option value="notice_title" <c:if test="${find_field == 'notice_title'}">selected</c:if>>제목</option>
-							<option value="notice_cont" <c:if test="${find_field == 'notice_cont'}">selected</c:if>>내용</option>
-						</select>
-						<input type="search" name="find_name" size="14" value="${find_name}" />
-						<button type="submit">검색</button>
-					</div>
-
-					<!--  <div id="Nlist_menu">
-						<button type="button" onclick="location='/spike.com/noti_write?page=${page}';">글쓰기</button>
-						<c:if test="${(!empty find_field) && (!empty find_name)}">
-							<button type="button" onclick="location='/spike.com/notice?page=${page}';">전체목록</button>
-						</c:if>
-					</div> -->
+					
+					
 				</form>
 			</div>
     

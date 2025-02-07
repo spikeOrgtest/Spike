@@ -140,9 +140,9 @@ public class ManagerController {
 	
 		
 		@GetMapping("/userLoginHistory")
-		public ModelAndView userLoginHistory() {
+		public ModelAndView userLoginHistory(@RequestParam("userId") Long UserId) {
 		    // 로그인 기록 조회
-		    List<ManagerDTO> LHlist = this.loginHistoryService.findByLoginIdday();
+		    List<ManagerDTO> LHlist = this.loginHistoryService.findByLoginIdday(UserId);
 		    
 		    // ModelAndView 객체 생성
 		    ModelAndView mv = new ModelAndView("manager/userLoginHistory");

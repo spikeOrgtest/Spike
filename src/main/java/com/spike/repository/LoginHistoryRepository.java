@@ -11,9 +11,9 @@ import com.spike.dto.ManagerDTO;
 
 
 @Repository
-public interface LoginHistoryRepository extends JpaRepository<ManagerDTO, Long> {
-    //List<ManagerDTO> findByLogHis_LoginIdOrderByAllTimeDesc(String loginId);
-    //@Query("SELECT l FROM LoginHistory l WHERE l.loginId = :loginId")
-    //List<ManagerDTO> findLoginHistory(@Param("loginId") String loginId);
+public interface LoginHistoryRepository extends JpaRepository<ManagerDTO, Integer> {
+    
+	@Query("select u from ManagerDTO u where u.logHis.userId=?1")
+	List<ManagerDTO> findByLoginIdday(Long UserId);
 
 }

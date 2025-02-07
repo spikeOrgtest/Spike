@@ -6,7 +6,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.spike.dao.LoginHistoryDAO;
 import com.spike.dto.ManagerDTO;
 import com.spike.dto.UserDTO;
 import com.spike.repository.LoginHistoryRepository;
@@ -21,8 +20,6 @@ public class LoginHistoryServiceImpl implements LoginHistoryService {
 	 @Autowired
 	 private LoginHistoryRepository loginHistoryRepository;
 	 
-	 @Autowired
-	 private LoginHistoryDAO loginHistoryDAO;
 
 	/* @Override
 	   public void recordLogin(String loginId) {
@@ -48,8 +45,8 @@ public class LoginHistoryServiceImpl implements LoginHistoryService {
 	}
 
 	@Override
-	public List<ManagerDTO> findByLoginIdday() {
-		return this.loginHistoryDAO.findByLoginIdday();
+	public List<ManagerDTO> findByLoginIdday(Long UserId) {
+		return this.loginHistoryRepository.findByLoginIdday(UserId);
 	}
 	
 
