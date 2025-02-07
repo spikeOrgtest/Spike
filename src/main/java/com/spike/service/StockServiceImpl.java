@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -25,14 +26,10 @@ public class StockServiceImpl implements StockService {
 
     // 주식 ID로 특정 주식 데이터를 가져오는 메서드 
     @Override
-    public StockDTO getStockById(int stockId) {
-        return stockRepository.findById(stockId)
-                .map(this::convertToDTO)
-                .orElseThrow(() -> new RuntimeException("Stock not found with ID: " + stockId));
+    public Optional<StockDTO> getStockById(int stockId) {
+        return stockRepository.findById(stockId); // Optional 반환
     }
 
- 
-    
     // 상위 N개의 주식을 가져오는 메서드
     @Override
     public List<StockDTO> getTopStocks(int limit) {

@@ -31,7 +31,7 @@ public class StockHolding {
 	private int id;
 	
 	@ManyToOne
-	private UserDTO holder;
+	private SecuritiesAccountDTO holder;
 	
 	@ManyToOne
 	private StockDTO stock;

@@ -1,7 +1,15 @@
 select * from stock;
+select * from securities_account;
+select * from user_info;
+select * from stock_holding;   
+select * from account;
+select * from listing;
 
-drop table stock;
+--판매 테스트용 주식 삽입
+INSERT INTO Stock_Holding (id, holder_account_id, stock_stock_id, quantity) 
+VALUES (Stockholding_seq.NEXTVAL, 1, 6, 10000);
 
+--주식 삽입
 INSERT INTO STOCK (STOCK_ID, COMPANY_NAME, TICKER_SYMBOL, SECTOR, INITIAL_PRICE, CURRENT_PRICE, TOTAL_SHARES,  IS_ACTIVE, CREATED_DATE) 
 VALUES (1, 'Apple Inc.', 'AAPL', 'Technology', 169000, 210000, 16000000,  1, SYSDATE);
 
@@ -39,3 +47,16 @@ INSERT INTO STOCK (STOCK_ID, COMPANY_NAME, TICKER_SYMBOL, SECTOR, INITIAL_PRICE,
 VALUES (12, 'Amazon.com Inc.', 'AMZN', 'Retail', 300000, 325000, 15000000,  1, SYSDATE);
 
 commit;
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -99,6 +99,11 @@ public class AccountServiceImpl implements AccountService {
 	}
 
 	@Override
+	public List<AccountDTO> findbyAccountInfo(String detailValue) {
+		return this.accountdao.findbyAccountInfo(detailValue);
+  }
+
+  @Override
 	public List<AccountDTO> getActiveAccountsForUser(UserDTO user) {
 		return accountdao.findActiveAccountsByUser(user);
 	}

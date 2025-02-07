@@ -3,13 +3,14 @@ package com.spike.service;
 import com.spike.dto.StockDTO;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface StockService {
 	// 모든 주식 데이터를 가져오는 메서드
 	List<StockDTO> getAllStocks();
 
 	// stock ID로 특정 주식 데이터를 가져오는 메서드
-	StockDTO getStockById(int stockId);
+	 Optional<StockDTO> getStockById(int stockId);
 
 	// 상위 N개의 주식을 가져오는 메서드 정의
 	List<StockDTO> getTopStocks(int limit);
