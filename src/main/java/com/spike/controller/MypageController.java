@@ -335,4 +335,13 @@ public class MypageController {
 		return new ModelAndView("/mypage/mypageproperty");
 	}
 
+	// 대출현황 폼 (만드는 중 2/6)
+	@GetMapping("/loan")
+	public ModelAndView loan(HttpSession session, Long userId) {
+		UserDTO sessionUser = (UserDTO) session.getAttribute("User");
+		userId = sessionUser.getUserId();
+		
+		return new ModelAndView("/mypage/mypageLoan");
+	}
+
 }

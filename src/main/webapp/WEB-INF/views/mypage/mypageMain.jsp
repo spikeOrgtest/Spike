@@ -49,7 +49,6 @@
 								<li><a
 									href="javascript:location='/spike.com/mypage/property';"
 									class="link-dark rounded">자산조회</a></li>
-								<li><a href="#" class="link-dark rounded">목표 금액 설정</a></li>
 							</ul>
 						</div>
 					</li>
@@ -124,23 +123,6 @@
 										</div>
 									</div>
 
-									<!-- 목표 금액 알림 설정 카드 -->
-									<div class="col-md-6">
-										<div class="card d-flex align-items-stretch">
-											<div class="card-header">목표 금액 알림 설정</div>
-											<div class="card-body">
-												<p>설정하신 목표 금액보다 잔고가 줄어들시 알림을 받을지 선택하세요.</p>
-												<div class="form-check">
-													<input class="form-check-input" type="checkbox" value=""
-														id="goalAmountNotifications"> <label
-														class="form-check-label" for="goalAmountNotifications">
-														알림 받기 </label>
-													<div id="goalNotificationStatus" class="mt-2 text-muted"></div>
-												</div>
-											</div>
-										</div>
-									</div>
-
 									<!-- 계좌 정보 수정 카드 -->
 									<div class="col-md-6">
 										<div class="card d-flex align-items-stretch"
@@ -148,7 +130,7 @@
 											<div class="card-header">계좌 정보 수정</div>
 											<div class="card-body" style="margin-top: 15px;">
 												<p>여기서 계좌 정보를 수정하실 수 있습니다. 비밀번호 변경이나 결제 수단 업데이트도 가능합니다.</p>
-												<a href="#accountInfo" class="btn btn-secondary">계좌 정보
+												<a href="/spike.com/mypage/inquiry" class="btn btn-secondary">계좌 정보
 													수정</a>
 											</div>
 										</div>
@@ -251,7 +233,7 @@
 
 												<div class="form-check mb-3">
 													<input class="form-check-input" type="checkbox"
-														id="confirmCheck"> <label
+														id="confirmCheck" required> <label
 														class="form-check-label memberout" for="confirmCheck">
 														회원탈퇴에 따른 모든 내용을 확인하였으며, 이에 동의합니다. </label>
 												</div>
@@ -288,8 +270,8 @@
 											<div class="form-group mb-3">
 												<label for="userName" class="form-label">사용자 이름</label> <input
 													type="text" class="form-control" id="name" name="name"
-													placeholder="사용자 이름"> <span
-													id="nameError" style="color: red;"></span>
+													placeholder="사용자 이름"> <span id="nameError"
+													style="color: red;"></span>
 											</div>
 
 											<!-- 이메일 -->
@@ -305,7 +287,7 @@
 														<c:forEach var="mail" items="${email}">
 															<option value="${mail}">${mail}</option>
 														</c:forEach>
-													</select> 
+													</select>
 												</div>
 												<span id="emailError" style="color: red;"></span>
 											</div>
@@ -316,8 +298,7 @@
 												<input type="password" class="form-control"
 													id="currentPassword" name="currentPassword"
 													placeholder="현재 비밀번호를 입력하세요"> <span
-													id="currentpasswordError"
-													style="color: red;"></span>
+													id="currentpasswordError" style="color: red;"></span>
 											</div>
 
 											<!-- 비밀번호 -->
@@ -325,8 +306,7 @@
 												<label for="userPassword" class="form-label">새 비밀번호</label>
 												<input type="password" class="form-control" id="password"
 													name="password" placeholder="비밀번호를 입력하세요"> <span
-													id="passwordError"
-													style="color: red;"></span>
+													id="passwordError" style="color: red;"></span>
 											</div>
 
 											<!-- 비밀번호 확인 -->
@@ -334,8 +314,7 @@
 												<label for="userPassword" class="form-label">비밀번호 확인</label>
 												<input type="password" class="form-control" id="password2"
 													name="password2" placeholder="비밀번호를 다시 입력하세요"> <span
-													id="password2Error"
-													style="color: red;"></span>
+													id="password2Error" style="color: red;"></span>
 											</div>
 
 											<!-- 저장 버튼 -->

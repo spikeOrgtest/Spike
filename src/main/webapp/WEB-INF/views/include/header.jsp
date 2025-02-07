@@ -21,9 +21,8 @@
 				</c:otherwise>
 			</c:choose>
 
-
 			<a href="newsSubpage_notice.jsp">공지사항</a> <a
-				href="supportSubpage_FAQ.jsp">FAQ</a> <a href="#board">게시판</a>
+				href="/spike.com/ma">FAQ</a> <a href="#board">게시판</a>
 		</div>
 	</div>
 	<header class="main-header">
@@ -38,7 +37,6 @@
 					<c:otherwise>
 						<h5 class="welcome-message">${sessionScope.User.name}님,
 							환영합니다.</h5>
-
 
 						<c:if test="${not empty sessionScope.remainingTime}">
 							<div class="time-left">
