@@ -43,7 +43,7 @@
 				<label for="overseas_payment">해외결제</label>
 					<div class="payment">
 						<input type="radio" id="visa" name="option" value="visa"><label for="visa">VISA</label>
-						<input type="radio" id="internal" name="option" value="in"><label for="in">국내전용</label>
+						<input type="radio" id="internal" name="option" value="internal"><label for="internal">국내전용</label>
 					</div>
 			</div>
 

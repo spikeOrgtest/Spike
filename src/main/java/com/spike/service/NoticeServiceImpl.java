@@ -44,6 +44,7 @@ public class NoticeServiceImpl implements NoticeService {
 
 	@Override
 	public NoticeDTO getNoticeCont2(Long notice_no) {
+		System.out.println("서비스다" + notice_no);
 		return this.noticeDAO.getNoti_cont(notice_no);
 	}
 

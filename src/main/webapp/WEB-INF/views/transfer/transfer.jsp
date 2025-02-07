@@ -32,10 +32,10 @@
 
 <body>
 	<%-- 에러 정보가 같이 넘어온다면 에러 메시지를 먼저 출력(script 코드로 뒤로가게) --%>
-	<%-- flashScope가 아닌 requestScope로 접근해야 하는 점 유의! --%>
-	<c:if test="${not empty requestScope.errorMessage}">
+	<%-- flashAttribute를 사용한다면 flashScope가 아닌 requestScope로 접근해야 하는 점 유의! --%>
+	<c:if test="${not empty requestScope.errorMessage or not empty errorMessage}">
 		<script>
-			alert("${requestScope.errorMessage}");
+        	alert("${requestScope.errorMessage != null ? requestScope.errorMessage : errorMessage}");
 			history.back();
 		</script>
 	</c:if>

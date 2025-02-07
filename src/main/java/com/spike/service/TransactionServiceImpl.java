@@ -29,8 +29,6 @@ public class TransactionServiceImpl implements TransactionService {
 	@Autowired
 	private TransactionRepository transactionRepo;
 
-	@Autowired
-	private UserRepository userRepo;
 
 	// 사용자 계좌 목록 조회
 	@Override
@@ -119,6 +117,7 @@ public class TransactionServiceImpl implements TransactionService {
 
 	}
 
+	//이체 페이지용 계정의 최근 5건(송금만) 조회
 	@Override
 	public List<TransferHistoryDTO> getRecentTransfers(Long userId) {
 
@@ -153,6 +152,24 @@ public class TransactionServiceImpl implements TransactionService {
 		 * .balanceAfterTransaction(transaction.getFromAccount().getBalance()) .build())
 		 * .collect(Collectors.toList());
 		 */
+	}
+
+	//마이페이지용 입출금 전체 조회
+	@Override
+	public List<TransferHistoryDTO> getTransferHistoryByAccountId(Long accountId) {
+		
+		List<TransactionDTO> transactions = this.transactionRepo.getTransferHistoryByAccountId(accountId);
+		List<TransferHistoryDTO> histories = new ArrayList<>();
+		for (TransactionDTO transaction : transactions) {
+			TransferHistoryDTO history = TransferHistoryDTO.builder()
+					.name(transaction.getToAccount().getOwner().getName())
+					.transactionDate(transaction.getTransactionDate()).amount(transaction.getAmount())
+					.afterBalance(transaction.getAfterBalance()).build();
+			histories.add(history);
+			// if(histories.size() == 5) break; 페이징으로 db에서 5개만 가져와서 필요없어짐. 효율 good
+		}
+
+		return histories;
 	}
 
 }

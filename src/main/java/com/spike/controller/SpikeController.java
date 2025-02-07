@@ -8,7 +8,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.spike.dto.ManagerDTO;
 import com.spike.dto.UserDTO;
+import com.spike.service.LoginHistoryService;
 import com.spike.service.TestService;
 import com.spike.service.UserSerivce;
 
@@ -21,6 +23,9 @@ public class SpikeController {
 
 	@Autowired
 	private UserSerivce userService;
+	
+	@Autowired
+    private LoginHistoryService loginHistoryService;
 
 	@GetMapping("")
 	public String showIndex(HttpSession session) {
@@ -42,6 +47,16 @@ public class SpikeController {
 				// 세션 만료 시간을 1시간으로 설정 (단위: 초)
 				session.setMaxInactiveInterval(60 * 60); // 1시간
 				session.setAttribute("remainingTime", session.getMaxInactiveInterval());
+				
+				System.out.println("스파이크컨트롤러 시간"+ u.getLastLogin());
+				
+				ManagerDTO Mlist = new ManagerDTO();
+				
+				Mlist.setLogHis(u);
+				Mlist.setAllTime(u.getLastLogin());
+				
+			    loginHistoryService.saveLoginHistory(Mlist);
+				
 
 			}
 		} else {

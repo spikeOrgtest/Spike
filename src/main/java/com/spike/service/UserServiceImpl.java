@@ -8,12 +8,16 @@ import org.springframework.stereotype.Service;
 import com.spike.dao.UserDAO;
 import com.spike.dto.AccountDTO;
 import com.spike.dto.UserDTO;
+import com.spike.repository.UserRepository;
 
 @Service
 public class UserServiceImpl implements UserSerivce {
 
 	@Autowired
 	private UserDAO spikeDao;
+	
+	@Autowired
+    private UserRepository userRepository;
 
 	@Override
 	public void insertMember(UserDTO s) {
@@ -82,8 +86,8 @@ public class UserServiceImpl implements UserSerivce {
 	}
 
 	@Override
-	public Long todayloge() {
-		return this.spikeDao.todayloge();
+	public Long todaylog() {
+		return this.spikeDao.todaylog();
 	}
 
 	@Override
@@ -115,6 +119,19 @@ public class UserServiceImpl implements UserSerivce {
 	public void AccountDelete(Long UserId) {
 		this.spikeDao.AccountDelete(UserId);
 	}
+/*
+	// 퀴즈 포인트 적립
+	@Override
+	public void addPoints(UserDTO user, Integer value) { // 로그인 유저에 포인트 더해주는 코드
+		UserDTO realUser = this.spikeDao.findId(user);
+		this.spikeDao.updateUserPoint(user.getUserId(), realUser.getPoint() + value);
+	}
+*/
+	@Override
+	public UserDTO findById(Long userId) {
+		// userId로 UserDTO를 찾아 반환
+		return userRepository.findById(userId).orElse(null);
+	}
 	
 	// 퀴즈 포인트 적립 및 차감
 		@Override
@@ -131,5 +148,10 @@ public class UserServiceImpl implements UserSerivce {
 			
 			this.spikeDao.updateUserPoint(user.getUserId(), updatedPoints);
 		}
+
+	@Override
+	public List<UserDTO> visitors() {
+		return this.spikeDao.visitors();
+	}
 
 }

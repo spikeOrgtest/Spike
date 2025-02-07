@@ -10,16 +10,21 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-
-import com.spike.dao.UserDetail;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
+import org.springframework.security.web.authentication.ForwardAuthenticationFailureHandler;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
+	@Bean
+	public PasswordEncoder passwordEncoder() {
+		return new BCryptPasswordEncoder();
+	}
+	
     @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
+    public AuthenticationFailureHandler failureHandler(){
+        return new ForwardAuthenticationFailureHandler("/spike.com/login");
     }
 
     @Autowired
@@ -36,8 +41,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .and()
             .formLogin()
                 .loginPage("/spike.com/login")  
-                .loginProcessingUrl("/login")  
-                .failureUrl("/login?error")  
+                .loginProcessingUrl("/spike.com/login")  
+                .failureHandler(failureHandler()) 
                 .defaultSuccessUrl("/spike.com/", true)  
                 .usernameParameter("loginId")  
                 .passwordParameter("password")  

@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	const confirmPassword = document.getElementById('confirmPassword');
 	const accountInfo = document.getElementById('accountInfo');
 	const accountNumberSpan = document.getElementById('accountNumber');
+	
 
 	form.addEventListener('submit', function(e) {
 		e.preventDefault(); // 기본 폼 제출 방지
@@ -11,8 +12,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		if (validateForm()) {
 			const newAccountNumber = generateAccountNumber();
 			document.getElementById('account_number').value = newAccountNumber;
-			accountNumberSpan.textContent = newAccountNumber;
-			accountInfo.classList.remove('hidden');
+			alert(`계좌발급을 축하드립니다.\n귀하의 계좌번호는 ${newAccountNumber} 입니다.`);
 			form.submit();
 		}
 	});
@@ -38,10 +38,21 @@ document.addEventListener('DOMContentLoaded', function() {
 		return isValid;
 	}
 
-	// 계좌번호 랜덤 생성
+	// 계좌번호 생성 및 중복 방지
+	const generatedAccountNumbers = [];
+
 	function generateAccountNumber() {
-		const numbers = Array.from({ length: 13 }, () => Math.floor(Math.random() * 10));
-		return `${numbers.slice(0, 3).join('')}-${numbers.slice(3, 7).join('')}-${numbers.slice(7, 11).join('')}-${numbers.slice(11).join('')}`;
+	    let accountNumber;
+	    
+	    // 중복 방지를 위해 계좌번호가 이미 존재하는지 확인
+	    do {
+	        const numbers = Array.from({ length: 13 }, () => Math.floor(Math.random() * 10));
+	        accountNumber = `${numbers.slice(0, 3).join('')}-${numbers.slice(3, 7).join('')}-${numbers.slice(7, 11).join('')}-${numbers.slice(11).join('')}`;
+	    } while (generatedAccountNumbers.includes(accountNumber));
+
+	    // 새로운 계좌번호를 배열에 저장
+	    generatedAccountNumbers.push(accountNumber);
+	    return accountNumber;
 	}
 });
 
@@ -110,4 +121,12 @@ window.addEventListener('load', function() {
 	const accountTypeSelect = document.getElementById('account_type');
 	accountTypeSelect.value = '적금';
 	accountTypeSelect.dispatchEvent(new Event('change'));
+
+	const urlParams = new URLSearchParams(window.location.search);
+	const selectedProduct = urlParams.get('selectedProduct');
+	if (selectedProduct) {
+		const productSelect = document.getElementById('product_type');
+		productSelect.value = selectedProduct; // 상품 선택
+		productSelect.dispatchEvent(new Event('change')); // 변경 이벤트 발생
+	}
 });

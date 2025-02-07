@@ -3,7 +3,7 @@ package com.spike.dao;
 import java.util.List;
 
 import com.spike.dto.AccountDTO;
-
+import com.spike.dto.UserDTO;
 public interface AccountDAO {
 
 	void createAccount(AccountDTO s);
@@ -21,5 +21,8 @@ public interface AccountDAO {
 	void updateAccount(AccountDTO account);
 
 	List<AccountDTO> getAllActiveAccounts();
+
+	List<AccountDTO> findActiveAccountsByUser(UserDTO user);
+
 
 }

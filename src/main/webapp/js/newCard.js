@@ -86,8 +86,19 @@ function validatePasswordMatch() {
     return isValid;
 }
 
-// 카드번호 생성 함수
+// 카드번호 생성 및 중복 방지
+const generatedCardNumbers = [];
+
 function generateCardNumber() {
-    const numbers = Array.from({ length: 16 }, () => Math.floor(Math.random() * 10));
-    return `${numbers.slice(0, 4).join('')}-${numbers.slice(4, 8).join('')}-${numbers.slice(8, 12).join('')}-${numbers.slice(12).join('')}`;
+    let cardNumber;
+
+    // 중복 방지를 위해 카드번호가 이미 존재하는지 확인
+    do {
+        const numbers = Array.from({ length: 16 }, () => Math.floor(Math.random() * 10));
+        cardNumber = `${numbers.slice(0, 4).join('')}-${numbers.slice(4, 8).join('')}-${numbers.slice(8, 12).join('')}-${numbers.slice(12).join('')}`;
+    } while (generatedCardNumbers.includes(cardNumber));
+
+    // 새로운 카드번호를 배열에 저장
+    generatedCardNumbers.push(cardNumber);
+    return cardNumber;
 }

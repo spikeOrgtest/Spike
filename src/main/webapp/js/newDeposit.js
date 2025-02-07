@@ -4,15 +4,44 @@ document.addEventListener('DOMContentLoaded', function() {
 	const confirmPassword = document.getElementById('confirmPassword');
 	const accountInfo = document.getElementById('accountInfo');
 	const accountNumberSpan = document.getElementById('accountNumber');
+	const accountTypeSelect = document.getElementById('account_type');
+	const productSelect = document.getElementById('product_type');
+	const productSelectContainer = document.getElementById('product_select');
 
+	// URL에서 쿼리 파라미터를 읽어오는 함수
+	function getQueryParameter(name) {
+		const urlParams = new URLSearchParams(window.location.search);
+		return urlParams.get(name);
+	}
+
+	// 페이지 로드 시 계좌 유형 및 상품 설정
+	window.addEventListener('load', function() {
+		const productType = getQueryParameter('productType'); // 상품 유형 가져오기
+		const selectedProduct = getQueryParameter('selectedProduct'); // 선택된 상품 가져오기
+
+		// 계좌 유형 설정
+		if (productType) {
+			accountTypeSelect.value = productType; // 상품 유형에 맞게 선택
+		} else {
+			accountTypeSelect.value = '예금'; // 기본값 '예금'으로 설정
+		}
+		accountTypeSelect.dispatchEvent(new Event('change')); // 'change' 이벤트 강제 실행
+
+		// 상품 유형에 맞는 세부 상품 선택
+		if (selectedProduct) {
+			productSelect.value = selectedProduct; // 선택된 상품으로 설정
+		}
+		productSelect.dispatchEvent(new Event('change')); // 'change' 이벤트 강제 실행
+	});
+
+	// 폼 제출 시 처리
 	form.addEventListener('submit', function(e) {
 		e.preventDefault(); // 기본 폼 제출 방지
 
 		if (validateForm()) {
 			const newAccountNumber = generateAccountNumber();
 			document.getElementById('account_number').value = newAccountNumber;
-			accountNumberSpan.textContent = newAccountNumber;
-			accountInfo.classList.remove('hidden');
+			alert(`계좌발급을 축하드립니다.\n귀하의 계좌번호는 ${newAccountNumber} 입니다.`);
 			form.submit();
 		}
 	});
@@ -38,76 +67,76 @@ document.addEventListener('DOMContentLoaded', function() {
 		return isValid;
 	}
 
-	// 계좌번호 랜덤 생성
+	// 계좌번호 생성 및 중복 방지
+	const generatedAccountNumbers = [];
+
 	function generateAccountNumber() {
-		const numbers = Array.from({ length: 13 }, () => Math.floor(Math.random() * 10));
-		return `${numbers.slice(0, 3).join('')}-${numbers.slice(3, 7).join('')}-${numbers.slice(7, 11).join('')}-${numbers.slice(11).join('')}`;
-	}
-});
+	    let accountNumber;
+	    
+	    // 중복 방지를 위해 계좌번호가 이미 존재하는지 확인
+	    do {
+	        const numbers = Array.from({ length: 13 }, () => Math.floor(Math.random() * 10));
+	        accountNumber = `${numbers.slice(0, 3).join('')}-${numbers.slice(3, 7).join('')}-${numbers.slice(7, 11).join('')}-${numbers.slice(11).join('')}`;
+	    } while (generatedAccountNumbers.includes(accountNumber));
 
-// 세부상품선택
-document.getElementById('account_type').addEventListener('change', function() {
-	const selectedType = this.value;
-	const productSelect = document.getElementById('product_type');
-	const productSelectContainer = document.getElementById('product_select');
-
-	// 기존 옵션 초기화
-	productSelect.innerHTML = '';
-
-	let options = [];
-
-	if (selectedType === '예금') {
-		options = [
-			{ value: 'spikeDeposit', text: 'SPIKE 예금' },
-			{ value: 'IRP', text: 'IRP (Individual Retirement Pension)' },
-			{ value: 'plus', text: '1+1 예금' },
-			{ value: 'regular', text: '정기 예금' },
-			{ value: 'spike', text: '~~예금' },
-			{ value: 'family', text: '평생가족 예금' }
-		];
+	    // 새로운 계좌번호를 배열에 저장
+	    generatedAccountNumbers.push(accountNumber);
+	    return accountNumber;
 	}
 
-	// 옵션 추가
-	options.forEach(option => {
-		const newOption = document.createElement('option');
-		newOption.value = option.value;
-		newOption.textContent = option.text;
-		productSelect.appendChild(newOption);
+	// 세부상품선택
+	accountTypeSelect.addEventListener('change', function() {
+		const selectedType = this.value;
+		productSelect.innerHTML = ''; // 기존 옵션 초기화
+
+		let options = [];
+
+		if (selectedType === '예금') {
+			options = [
+				{ value: 'spikeDeposit', text: 'SPIKE 예금' },
+				{ value: 'IRP', text: 'IRP (Individual Retirement Pension)' },
+				{ value: 'plus', text: '1+1 예금' },
+				{ value: 'regular', text: '정기 예금' },
+				{ value: 'spike', text: '~~예금' },
+				{ value: 'family', text: '평생가족 예금' }
+			];
+		}
+
+		// 옵션 추가
+		options.forEach(option => {
+			const newOption = document.createElement('option');
+			newOption.value = option.value;
+			newOption.textContent = option.text;
+			productSelect.appendChild(newOption);
+		});
+
+		// 세부 상품 선택 영역 보여주기
+		productSelectContainer.style.display = options.length > 0 ? 'block' : 'none';
+		productSelect.dispatchEvent(new Event('change'));
 	});
-	
-	// 세부 상품 선택 영역 보여주기
-	productSelectContainer.style.display = options.length > 0 ? 'block' : 'none';
-	
-	productSelect.dispatchEvent(new Event('change'));
-});
 
-// 옵션 변경시 H1 태그 변경
-document.getElementById('product_type').addEventListener('change', function() {
-	const selectedProduct = this.value;
-	const header = document.querySelector('h1'); // <h1> 태그를 선택
-	let headerText = '';
+	// 옵션 변경시 H1 태그 변경
+	productSelect.addEventListener('change', function() {
+		const selectedProduct = this.value;
+		const header = document.querySelector('h1'); // <h1> 태그를 선택
+		let headerText = '';
 
-	if (selectedProduct === 'spikeDeposit') {
-		headerText = 'SPIKE 예금'; // SPIKE 예금 또는 적금 선택 시
-	} else if (selectedProduct === 'IRP') {
-		headerText = 'IRP (Individual Retirement Pension)'; // 주택청약 선택 시
-	} else if (selectedProduct === 'plus') {
-		headerText = '1+1 예금'; // 정기적금 선택 시
-	} else if (selectedProduct === 'regular') {
-		headerText = '정기 예금'; // 정기적금 선택 시
-	} else if (selectedProduct === 'spike') {
-		headerText = '~~예금'; // 정기적금 선택 시
-	} else if (selectedProduct === 'family') {
-		headerText = '평생가족 예금'; // 정기적금 선택 시
-	}
+		if (selectedProduct === 'spikeDeposit') {
+			headerText = 'SPIKE 예금';
+		} else if (selectedProduct === 'IRP') {
+			headerText = 'IRP (Individual Retirement Pension)';
+		} else if (selectedProduct === 'plus') {
+			headerText = '1+1 예금';
+		} else if (selectedProduct === 'regular') {
+			headerText = '정기 예금';
+		} else if (selectedProduct === 'spike') {
+			headerText = '~~예금';
+		} else if (selectedProduct === 'family') {
+			headerText = '평생가족 예금';
+		}
 
-	if (header) {
-		header.textContent = headerText;
-	}
-});
-
-window.addEventListener('load', function() {
-	const accountTypeSelect = document.getElementById('account_type');
-	accountTypeSelect.value = '예금';  // 기본값 '예금'으로 설정
-	accountTypeSelect.dispatchEvent(new Event('change'));  // 'change' 이벤트 강제 실행
+		if (header) {
+			header.textContent = headerText;
+		}
+	});
 });
