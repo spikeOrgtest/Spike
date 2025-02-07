@@ -117,10 +117,9 @@ public class TransactionController {
 
 		this.transService.transfer(tData);
 
-		// 이체 성공시 세션에서 Data 속성 제거
-		session.removeAttribute("Data");
+		
 
-		return "redirect:/spike.com/transfer";
+		return "redirect:/spike.com/transfer_success";
 	}
 
 	// 송금 취소시 Data 제거 후 송금 페이지로 이동
@@ -129,5 +128,12 @@ public class TransactionController {
 
 		session.removeAttribute("Data");
 		return "redirect:/spike.com/transfer";
+	}
+	
+	@GetMapping("transfer_success")
+	public String transfer_success(HttpSession session) {
+		
+		
+		return "transfer/transfer_success";
 	}
 }
