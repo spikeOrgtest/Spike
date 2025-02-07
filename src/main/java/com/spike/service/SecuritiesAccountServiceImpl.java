@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.security.SecureRandom;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class SecuritiesAccountServiceImpl implements SecuritiesAccountService {
@@ -89,7 +90,7 @@ public class SecuritiesAccountServiceImpl implements SecuritiesAccountService {
 		accountRepository.save(account);
 	}
 
-
+	//계좌 삭제
 	@Override
 	@Transactional
 	public void deleteAccount(Long accountId, String currentPassword) {
@@ -97,12 +98,44 @@ public class SecuritiesAccountServiceImpl implements SecuritiesAccountService {
 	    SecuritiesAccountDTO account = accountRepository.findById(accountId)
 	            .orElseThrow(() -> new IllegalArgumentException("계좌를 찾을 수 없습니다."));
 
-	    // 🔥 비밀번호 확인 (저장된 비밀번호는 암호화되어 있음)
+	    // 비밀번호 확인 (저장된 비밀번호는 암호화되어 있음)
 	    if (!passwordEncoder.matches(currentPassword, account.getAccountPassword())) {
 	        throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
 	    }
 
-	    // 🔥 비밀번호가 일치하면 계좌 삭제
+	    // 비밀번호가 일치하면 계좌 삭제
 	    accountRepository.delete(account);
 	}
+	//계좌 찾기
+	@Override
+    public Optional<SecuritiesAccountDTO> getAccountById(Long accountId) {
+        return accountRepository.findById(accountId);
+    }
+	
+	//userid 찾기
+	@Override
+    public Optional<SecuritiesAccountDTO> getAccountByUserId(Long userId) {
+        return accountRepository.findByUser_UserId(userId);
+    }
+	
+	// 잔액 차감 (구매 시 사용)
+    @Override
+    @Transactional
+    public void decreaseBalance(SecuritiesAccountDTO account, int amount) {
+        long newBalance = account.getBalance() - amount;
+        if (newBalance < 0) {
+            throw new IllegalArgumentException("잔액이 부족합니다.");
+        }
+        account.setBalance(newBalance);
+        accountRepository.save(account);
+    }
+
+    // 잔액 증가 (판매 시 사용)
+    @Override
+    @Transactional
+    public void increaseBalance(SecuritiesAccountDTO account, int amount) {
+        long newBalance = account.getBalance() + amount;
+        account.setBalance(newBalance);
+        accountRepository.save(account);
+    }
 }

@@ -66,9 +66,13 @@ public class AccountDAOImpl implements AccountDAO {
 	}
 
 	@Override
+	public List<AccountDTO> findbyAccountInfo(String detailValue) {
+		return this.accountrepo.findbyAccountInfo(detailValue);
+	}
+
+  @Override
 	public List<AccountDTO> findActiveAccountsByUser(UserDTO user) {
 		return this.accountrepo.findByOwner(user);
 	}
-
 
 }

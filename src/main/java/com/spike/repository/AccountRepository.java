@@ -56,4 +56,7 @@ public interface AccountRepository extends JpaRepository<AccountDTO, Long> {
 			+ "a.lastInterestDate=:#{#account.lastInterestDate} " + "where a.accountId=:#{#account.accountId}")
 	void updateAccount(@Param("account") AccountDTO account);
 
+	@Query("select a from AccountDTO a where a.accountNumber=?1")
+	List<AccountDTO> findbyAccountInfo(String detailValue);
+
 }
