@@ -1,21 +1,17 @@
 package com.spike.service;
 
-import java.time.LocalDateTime;
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.spike.dto.ManagerDTO;
-import com.spike.dto.UserDTO;
 import com.spike.repository.LoginHistoryRepository;
 import com.spike.repository.UserRepository;
 
 @Service
 public class LoginHistoryServiceImpl implements LoginHistoryService {
 
-	 @Autowired
-	 private UserRepository userRepository;
 	 
 	 @Autowired
 	 private LoginHistoryRepository loginHistoryRepository;
@@ -45,8 +41,8 @@ public class LoginHistoryServiceImpl implements LoginHistoryService {
 	}
 
 	@Override
-	public List<ManagerDTO> findByLoginIdday(Long UserId) {
-		return this.loginHistoryRepository.findByLoginIdday(UserId);
+	public Page<ManagerDTO> findByLoginIdday(Long UserId, Pageable pageable) {
+		return this.loginHistoryRepository.findByLoginIdday(UserId, pageable);
 	}
 	
 

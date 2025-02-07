@@ -141,11 +141,11 @@
    </div>
   </div>
 
-<div class="dashboard2-box">
-<div class="dashboard2">
-  <h2><strong>총 방문자수</strong></h2> <!-- 오늘 거래한 회원 수 -->
+<div class="dashboard1-box">
+<div class="dashboard1">
+  <h2><strong>신규 회원가입</strong></h2> <!-- 오늘 가입한 신규 회원 수 -->
   <div id="board1">
-    <p>249382명</p>
+    <p>${newmember}</p>
     </div>
    </div>
   </div>
@@ -153,8 +153,8 @@
 
 <div class="All-box2">
 
-<div class="dashboard3-box">           
-<div class="dashboard3">
+<div class="dashboard1-box">           
+<div class="dashboard1">
   <h2><strong>오늘의 거래 회원</strong></h2> <!-- 오늘 거래한 회원 수 -->
   <div id="board1">
     <p>1582명</p>
@@ -163,18 +163,8 @@
   </div>
 
 
-<div class="dashboard4-box">
-<div class="dashboard4">
-  <h2><strong>신규 회원가입</strong></h2> <!-- 오늘 가입한 신규 회원 수 -->
-  <div id="board1">
-    <p>${newmember}</p>
-    </div>
-   </div>
-  </div>
-
-
-<div class="dashboard5-box">
-<div class="dashboard5">
+<div class="dashboard1-box">
+<div class="dashboard1">
   <h2><strong>오늘의 대출 신청</strong></h2> <!-- 오늘 가입한 신규 회원 수 -->
   <div id="board1">
     <p>38건</p>
@@ -190,9 +180,9 @@
 <div class="dashboard6">
   <h2><strong>전체통계</strong></h2> <!-- 오늘 가입한 신규 회원 수 -->
   <div id="board1">
-    <p>총 가입자 수: 210293명</p>
+    <p>총 가입자 수: ${allvisit}명</p>
     <p>총 대출 금액: 5.312.049.840원</p>
-    <p>총 거래액: 54.029.312.840원</p>
+    <p>총 거래액: ${allamount}원</p>
     </div>
    </div>
   </div>

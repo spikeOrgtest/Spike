@@ -2,6 +2,9 @@ package com.spike.service;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 import com.spike.dto.AccountDTO;
 import com.spike.dto.NotiPageDTO;
 import com.spike.dto.NoticeDTO;
@@ -55,6 +58,12 @@ public interface UserSerivce {
 	UserDTO findById(Long userId);
 
 	List<UserDTO> visitors();
+
+	Page<UserDTO> getTodaylist(Pageable visipage);
+
+	Long getallvisit();
+
+	Long getallamount();
 
 
 }

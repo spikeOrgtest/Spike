@@ -8,8 +8,12 @@ import java.util.stream.Collectors;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -47,34 +51,57 @@ public class ManagerController {
 		System.out.println("\n ==========================  " + tolog);
 
 		Long newmember = userService.newMember();
+		Long allvisit = userService.getallvisit();
+		Long allamount = userService.getallamount();
 
 		ModelAndView ma = new ModelAndView();
 		ma.addObject("tolog", tolog); // 화면으로 전달할 데이터
 		ma.addObject("newmember", newmember);
+		ma.addObject("allvisit",allvisit);
+		ma.addObject("allamount",allamount);
 		ma.setViewName("/manager/manager");
 		return ma;
 
 				
 	}
-	
+			
 	@GetMapping("/visit")
-	public ModelAndView visit() {
+	public ModelAndView visit(@RequestParam(defaultValue = "1") int page,
+			@RequestParam(defaultValue = "5") int size) {
 		
-		List<UserDTO> visi = this.userService.findByUserList();
+		Pageable visipage = PageRequest.of(page-1, size, Sort.by("userId").descending());
 		
-		List<UserDTO> Llist = visi.stream()
-				.filter(l -> l.getLastLogin() != null && l.getLastLogin().toLocalDate().isEqual(LocalDate.now()))
-				.collect(Collectors.toList());
+		Page<UserDTO> Todaylist = userService.getTodaylist(visipage);
 		
-		//if(visi.getLastLogin().equals(LocalDateTime.now())) {
-		
+		System.out.println("============================\n" + Todaylist.getSize());
 		ModelAndView vi = new ModelAndView();
-		vi.addObject("visi",visi);
-		vi.addObject("Llist",Llist);
+		vi.addObject("Todaylist", Todaylist);
 		vi.setViewName("/manager/visit");
 		return vi;
 	}
-			
+	
+	//설 로그인시간보는것
+	
+	
+	@GetMapping("/userLoginHistory")
+	public ModelAndView userLoginHistory(@RequestParam("userId") Long UserId,
+			@RequestParam(defaultValue = "1") int page,
+			@RequestParam(defaultValue = "10") int size) {
+		
+		//페이징 객체설정
+		Pageable pageable = PageRequest.of(page-1, size, Sort.by("allTime").descending());
+		
+		// 로그인 기록 조회(페이징까지)
+		Page<ManagerDTO> LHlist = loginHistoryService.findByLoginIdday(UserId,pageable);
+		
+		// ModelAndView 객체 생성
+		ModelAndView mv = new ModelAndView("manager/userLoginHistory");
+		
+		mv.addObject("LHlist",LHlist);
+		mv.addObject("userId", UserId);
+		// ModelAndView 반환
+		return mv;
+	}
 	
 
 	@GetMapping("/userManagement")
@@ -135,22 +162,8 @@ public class ManagerController {
 			out.println("</script>");
 		}
 	}
-
-		//설 로그인시간보는것
 	
-		
-		@GetMapping("/userLoginHistory")
-		public ModelAndView userLoginHistory(@RequestParam("userId") Long UserId) {
-		    // 로그인 기록 조회
-		    List<ManagerDTO> LHlist = this.loginHistoryService.findByLoginIdday(UserId);
-		    
-		    // ModelAndView 객체 생성
-		    ModelAndView mv = new ModelAndView("manager/userLoginHistory");
-		    
-		    mv.addObject("LHlist",LHlist);
-		    // ModelAndView 반환
-		    return mv;
-		}
+	
 		
 
 	

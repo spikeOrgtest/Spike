@@ -122,7 +122,7 @@
 								</tr>
 							</thead>
 							<thead>
-					  <c:forEach var = "item" items="${LHlist}">
+					  <c:forEach var = "item" items="${LHlist.content}">
 						<tr>
 							<td>${item.allTime}</td>
 						</tr>
@@ -130,10 +130,23 @@
 						</thead>
 							
 						</table>
-					</div>
+						
+						<!-- 페이지 네비게이션 -->
+<div>
+    <c:if test="${LHlist.hasPrevious()}">
+        <a href="?userId=${userId}&page=${LHlist.number }&size=${LHlist.size}">이전</a>
+    </c:if>
 
-					
-					
+    <c:forEach begin="1" end="${LHlist.totalPages }" var="i">
+        <a href="?userId=${userId}&page=${i}&size=${LHlist.size}">${i }</a>
+    </c:forEach>
+
+    <c:if test="${LHlist.hasNext()}">
+        <a href="?userId=${userId}&page=${LHlist.number +2}&size=${LHlist.size}">다음</a>
+    </c:if>
+</div>
+						
+					</div>
 				</form>
 			</div>
     

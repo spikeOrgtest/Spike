@@ -6,6 +6,8 @@ import java.util.Optional;
 import javax.transaction.Transactional;
 
 import org.apache.ibatis.annotations.Param;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -107,7 +109,14 @@ public interface UserRepository extends JpaRepository<UserDTO, Long> {
 	@Query("UPDATE UserDTO u SET u.point=?2 WHERE u.userId=?1")
 	void updateUserPoint(Long userId, Integer value);
 
-    
+	@Query("select u FROM UserDTO u WHERE u.lastLogin IS NOT NULL AND TRUNC(u.lastLogin) = TRUNC(CURRENT_DATE)")
+	public Page<UserDTO> getTodaylist(Pageable visipage);
+
+	@Query("select Count(u.userId) from UserDTO u")
+	public Long getallvisit();
+
+	@Query("select sum(u.amount) from TransactionDTO u")
+	public Long getallamount();
 	
 }
 

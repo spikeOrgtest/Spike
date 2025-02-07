@@ -3,6 +3,8 @@ package com.spike.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.spike.dao.UserDAO;
@@ -152,6 +154,21 @@ public class UserServiceImpl implements UserSerivce {
 	@Override
 	public List<UserDTO> visitors() {
 		return this.spikeDao.visitors();
+	}
+
+	@Override
+	public Page<UserDTO> getTodaylist(Pageable visipage) {
+		return this.userRepository.getTodaylist(visipage);
+	}
+
+	@Override
+	public Long getallvisit() {
+		return this.userRepository.getallvisit();
+	}
+
+	@Override
+	public Long getallamount() {
+		return this.userRepository.getallamount();
 	}
 
 }
