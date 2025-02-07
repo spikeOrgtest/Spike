@@ -1,8 +1,11 @@
 package com.spike.controller;
 
+import com.spike.dto.Listing;
 import com.spike.dto.SecuritiesAccountDTO;
+
 import com.spike.dto.StockDTO;
 import com.spike.dto.UserDTO;
+import com.spike.service.ListingService;
 import com.spike.service.SecuritiesAccountService;
 import com.spike.service.StockService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +31,9 @@ public class StockController {
     
     @Autowired
     private SecuritiesAccountService securitiesAccountService;
+    
+    @Autowired
+    private ListingService listingService;
 
     // 주식 시장 페이지
     @GetMapping("/home")
@@ -74,6 +80,17 @@ public class StockController {
             }
             model.addAttribute("securitiesAccount", accountOpt.get());
             System.out.println("✅ [디버깅] 증권 계좌 조회 성공: " + accountOpt.get().getAccountId());
+            
+            //해당 주식의 판매 주문(매물) 조회
+            List<Listing> saleOrders = listingService.getListingsByStockId(stockId);
+            model.addAttribute("saleOrders", saleOrders);
+            System.out.println("✅ [디버깅] Sale Orders Size: " + saleOrders.size());
+            for (Listing order : saleOrders) {
+                System.out.println("Listing ID: " + order.getId() +
+                                   ", Stock ID: " + order.getStock().getStockId() +
+                                   ", Price: " + order.getPrice() +
+                                   ", Quantity: " + order.getQuantity());
+            }
 
         } catch (Exception e) {
             System.err.println("🔥 [예외 발생] " + e.getMessage());
