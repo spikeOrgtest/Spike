@@ -270,8 +270,8 @@
 											<div class="form-group mb-3">
 												<label for="userName" class="form-label">사용자 이름</label> <input
 													type="text" class="form-control" id="name" name="name"
-													placeholder="사용자 이름"> <span
-													id="nameError" style="color: red;"></span>
+													placeholder="사용자 이름"> <span id="nameError"
+													style="color: red;"></span>
 											</div>
 
 											<!-- 이메일 -->
@@ -287,7 +287,7 @@
 														<c:forEach var="mail" items="${email}">
 															<option value="${mail}">${mail}</option>
 														</c:forEach>
-													</select> 
+													</select>
 												</div>
 												<span id="emailError" style="color: red;"></span>
 											</div>
@@ -298,8 +298,7 @@
 												<input type="password" class="form-control"
 													id="currentPassword" name="currentPassword"
 													placeholder="현재 비밀번호를 입력하세요"> <span
-													id="currentpasswordError"
-													style="color: red;"></span>
+													id="currentpasswordError" style="color: red;"></span>
 											</div>
 
 											<!-- 비밀번호 -->
@@ -307,8 +306,7 @@
 												<label for="userPassword" class="form-label">새 비밀번호</label>
 												<input type="password" class="form-control" id="password"
 													name="password" placeholder="비밀번호를 입력하세요"> <span
-													id="passwordError"
-													style="color: red;"></span>
+													id="passwordError" style="color: red;"></span>
 											</div>
 
 											<!-- 비밀번호 확인 -->
@@ -316,8 +314,7 @@
 												<label for="userPassword" class="form-label">비밀번호 확인</label>
 												<input type="password" class="form-control" id="password2"
 													name="password2" placeholder="비밀번호를 다시 입력하세요"> <span
-													id="password2Error"
-													style="color: red;"></span>
+													id="password2Error" style="color: red;"></span>
 											</div>
 
 											<!-- 저장 버튼 -->
