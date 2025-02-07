@@ -4,8 +4,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta id="_csrf" name="_csrf" content="${_csrf.token}"/>
-<meta id="_csrf_header" name="_csrf_header" content="${_csrf.headerName}"/>
+<meta id="_csrf" name="_csrf" content="${_csrf.token}" />
+<meta id="_csrf_header" name="_csrf_header"
+	content="${_csrf.headerName}" />
 
 <title>퀴즈 포인트샵</title>
 <link rel="stylesheet" href="../css/support/subpage.css">
@@ -44,13 +45,7 @@
 				</ul>
 			</div>
 
-
-
-
-
-
 			<main>
-
 				<div class="subpage-content-wrap">
 					<!-- 퀴즈 풀고 얻은 포인트로 기프티콘 구매 -->
 					<div class="shop">
@@ -65,54 +60,16 @@
 						</div>
 					</div>
 					<section class="gift-cards">
-						<div class="gift-card" data-name="배스킨라빈스" data-price="10000">
-							<img src="../images/mini/gift1.jpg" alt="기프티콘 1">
-							<div class="gift-info">
-								<h3>배스킨라빈스</h3>
-								<p>가격: 10,000P</p>
-								<button class="buy-btn">구매</button>
+						<c:forEach var="gift" items="${gift}">
+							<div class="gift-card" data-name="${gift.giftconName}" data-price="${gift.price}">
+								<img src="../images/mini/gift${gift.giftconId}.jpg">
+								<div class="gift-info">
+									<h3>${gift.giftconName}</h3>
+									<p>가격: ${gift.price}P</p>
+									<button class="buy-btn">구매</button>
+								</div>
 							</div>
-						</div>
-						<div class="gift-card" data-name="공차" data-price="4000">
-							<img src="../images/mini/gift2.jpg" alt="기프티콘 2">
-							<div class="gift-info">
-								<h3>공차</h3>
-								<p>가격: 4,000P</p>
-								<button class="buy-btn">구매</button>
-							</div>
-						</div>
-						<div class="gift-card" data-name="파리바게뜨" data-price="32000">
-							<img src="../images/mini/gift3.jpg" alt="기프티콘 3">
-							<div class="gift-info">
-								<h3>파리바게뜨</h3>
-								<p>가격: 32,000P</p>
-								<button class="buy-btn">구매</button>
-							</div>
-						</div>
-						<div class="gift-card" data-name="버거킹" data-price="9900">
-							<img src="../images/mini/gift4.jpg" alt="기프티콘 4">
-							<div class="gift-info">
-								<h3>버거킹</h3>
-								<p>가격: 9,900P</p>
-								<button class="buy-btn">구매</button>
-							</div>
-						</div>
-						<div class="gift-card" data-name="도미노피자" data-price="35000">
-							<img src="../images/mini/gift5.jpg" alt="기프티콘 5">
-							<div class="gift-info">
-								<h3>도미노피자</h3>
-								<p>가격: 35,000P</p>
-								<button class="buy-btn">구매</button>
-							</div>
-						</div>
-						<div class="gift-card" data-name="bhc 치킨" data-price="25000">
-							<img src="../images/mini/gift6.jpg" alt="기프티콘 6">
-							<div class="gift-info">
-								<h3>bhc 치킨</h3>
-								<p>가격: 25,000P</p>
-								<button class="buy-btn">구매</button>
-							</div>
-						</div>
+						</c:forEach>
 					</section>
 				</div>
 			</main>
@@ -128,7 +85,6 @@
 					</div>
 				</div>
 			</div>
-
 		</div>
 	</div>
 
@@ -199,19 +155,19 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     
-    // 구매 확인 버튼 클릭
+ // 구매 확인 버튼 클릭
     confirmPurchaseBtn.addEventListener("click", function() {
         const currentPoints = parseInt(userPointsElement.textContent);
-        
+
         if (currentPoints >= selectedGiftPrice) {
-			//백엔드에 구매 요청 보내기
-			sendPurchaseRequest(selectedGiftName, selectedGiftPrice)
-			.then(data => {
-				if (data.success) {
-					// 성공 시 포인트 차감
-					userPointsElement.textContent = currentPoints - selectedGiftPrice;
-					alert(`${selectedGiftName} 구매 완료!`);
-				} else {
+            // 백엔드에 구매 요청 보내기
+            sendPurchaseRequest(selectedGiftName, selectedGiftPrice)
+            .then(data => {
+                if (data.success) {
+                    // 성공 시 포인트 차감
+                    userPointsElement.textContent = currentPoints - selectedGiftPrice;
+                    alert(`${selectedGiftName} 구매 완료!`);
+                } else {
                     alert(data.message || "구매 실패. 다시 시도해주세요.");
                 }
             })
@@ -226,16 +182,13 @@ document.addEventListener("DOMContentLoaded", function() {
         modal.style.display = "none";
     });
 
+
     // 구매 취소 버튼 클릭
     cancelPurchaseBtn.addEventListener("click", function() {
         modal.style.display = "none";
     });
 });
-
-
 </script>
-
-	
 
 	<%@ include file="../include/shortfooter.jsp"%>
 </body>

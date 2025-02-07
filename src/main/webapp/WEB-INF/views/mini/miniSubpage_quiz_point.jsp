@@ -61,6 +61,33 @@
 						<p>${correctNum}/${totalAttempts}</p>
 					</div>
 				</div>
+				<!-- 포인트 사용 내역 시작 -->
+				<div class="point-history">
+					<h3>포인트 사용 내역</h3>
+					<table>
+						<thead>
+							<tr>
+								<th>날짜</th>
+								<th>기프티콘 이름</th>
+								<th>차감 포인트</th>
+								<th>남은 포인트</th>
+							</tr>
+						</thead>
+						<tbody>
+							<!-- PointHistory 객체 리스트 반복하여 출력 -->
+							<c:forEach var="history" items="${history}">
+								<tr>
+									<td>${history.useDate}<!-- 포인트 사용 날짜 --></td>
+									<td>${gift.giftconName}<!-- 구매한 기프티콘 이름 --></td>
+									<td>${gift.price}P<!-- 사용한 포인트 --></td>
+									<td>${user.point}P<!-- 남은 포인트 --></td>
+								</tr>
+							</c:forEach>
+						</tbody>
+					</table>
+				</div>
+				<!-- 포인트 사용 내역 끝 -->
+
 
 				<!-- 퀴즈 랭킹 시작 -->
 				<div class="quiz-ranking">
