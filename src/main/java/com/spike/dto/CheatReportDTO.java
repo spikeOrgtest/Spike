@@ -1,6 +1,6 @@
 package com.spike.dto;
 
-import java.time.LocalDateTime;
+import java.sql.Timestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -35,7 +35,7 @@ public class CheatReportDTO {
 	private AccountDTO accountId;
 	
 	@CreationTimestamp
-	private LocalDateTime reportDate;
+	private Timestamp reportDate;
 	
 	@NotNull
 	@Column(length = 1000)
@@ -46,8 +46,6 @@ public class CheatReportDTO {
 	
 	@NotNull
 	private String reportValue;
-	
-	private Long cnt;
 	
 	private String status;
 }

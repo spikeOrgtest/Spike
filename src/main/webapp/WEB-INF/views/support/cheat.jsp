@@ -82,9 +82,9 @@
 
 		<%-- 검색바 --%>
 		<div class="search-bar">
-		<form action="search" method="post">
+		<form action="search" method="GET">
 		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-			<input type="text" name="detailValue" placeholder="핸드폰번호 또는 계좌번호를 입력하세요."
+			<input type="text" name="detailValue" placeholder="계좌번호를 입력하세요."
 				class="input-field">
 			<button type="submit" class="search-button">검색</button>
 		</form>
@@ -191,16 +191,8 @@
 							<form action="cheat" method="post">
 							<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 								<div class="mb-3">
-									<label for="type" class="col-form-label">신고 유형 선택</label><br/>
-        								<select id="buttonSelect" name="detailType" class="form-control">
-            								<option value="phone">전화번호</option>
-            								<option value="account">계좌번호</option>
-        								</select>
-        						</div>
-								<div class="mb-3">
-									<label for="recipient-name" class="col-form-label">전화번호
-										또는 계좌번호 입력:</label> <input type="text" class="form-control"
-										id="recipient-name" name="detailValue">
+									<label for="recipient-name" class="col-form-label">계좌번호 입력:</label> 
+									<input type="text" class="form-control" id="recipient-name" name="detailValue">
 								</div>
 								<div class="mb-3">
 									<label for="message-text" class="col-form-label">신고 내용:</label>

@@ -64,6 +64,11 @@
 							<label for="phone">핸드폰</label> <input type="text" id="phone"
 								value="${item.phone}" readonly>
 						</div>
+						
+						<div class="form-group">
+							<label for="phone">가입일자</label> <input type="text" id="Registrationdate"
+								value="${item.registrationDate}" readonly>
+						</div>
 
 						<div class="form-group">
 							<label for="postcode">주소</label> <input type="text"
