@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.spike.dto.CheatReportDTO;
 import com.spike.dto.ManagerDTO;
 import com.spike.dto.UserDTO;
 import com.spike.service.LoginHistoryService;
@@ -78,16 +80,22 @@ public class ManagerController {
 	
 
 	@GetMapping("/userManagement")
-	public ModelAndView userManagement() {
+	public ModelAndView userManagement(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "5") int size) {
 
-		List<UserDTO> list = this.userService.findByUserList();
+		//List<UserDTO> list = this.userService.findByUserList();
+		
+		Page<UserDTO> paging = this.userService.findByUserList(page, size);
 
 		ModelAndView um = new ModelAndView("manager/userManagement");
-		um.addObject("list", list);
+		um.addObject("paging", paging);
+	    um.addObject("totalPages", paging.getTotalPages());
+	    um.addObject("totalElements", paging.getTotalElements());
+	    um.addObject("currentPage", page);
+	    um.addObject("pageSize", size);
 
 		return um;
 	}
-
+	
 	@GetMapping("/EditUser")
 	public ModelAndView EditUser(@RequestParam("userId") Long UserId) {
 

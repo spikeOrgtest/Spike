@@ -2,6 +2,8 @@ package com.spike.service;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+
 import com.spike.dto.AccountDTO;
 import com.spike.dto.NotiPageDTO;
 import com.spike.dto.NoticeDTO;
@@ -39,7 +41,7 @@ public interface UserSerivce {
 
 	Long newMember();
 
-	List<UserDTO> findByUserList();
+	Page<UserDTO> findByUserList(int page, int size);
 
 	List<UserDTO> findByUserIdEdit(Long UserId);
 

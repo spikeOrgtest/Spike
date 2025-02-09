@@ -6,9 +6,14 @@ import java.util.Optional;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
 
 import com.spike.dto.AccountDTO;
+import com.spike.dto.CheatReportDTO;
 import com.spike.dto.NotiPageDTO;
 import com.spike.dto.NoticeDTO;
 import com.spike.dto.UserDTO;
@@ -131,10 +136,11 @@ public class UserDAOImpl implements UserDAO {
 	}
 
 	@Override
-	public List<UserDTO> findByUserList() {
-		return this.spikeRepo.findAll();
+	public Page<UserDTO> findByUserList(int page, int size) {
+		Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Order.asc("userId"))); // reportId 기준으로 오름차순 정렬
+		return this.spikeRepo.findByUserList(pageable);
 	}
-
+	
 	@Override
 	public List<UserDTO> findByUserIdEdit(Long UserId) {
 		return this.spikeRepo.findByUserIdEdit(UserId);

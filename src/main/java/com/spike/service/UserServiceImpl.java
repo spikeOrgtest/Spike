@@ -3,6 +3,7 @@ package com.spike.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import com.spike.dao.UserDAO;
@@ -96,8 +97,8 @@ public class UserServiceImpl implements UserSerivce {
 	}
 
 	@Override
-	public List<UserDTO> findByUserList() {
-		return this.spikeDao.findByUserList();
+	public Page<UserDTO> findByUserList(int page, int size) {
+		return this.spikeDao.findByUserList(page, size);
 	}
 
 	@Override

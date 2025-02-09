@@ -42,21 +42,41 @@
 						</tr>
 					</thead>
 					<tbody>
-						<c:forEach var = "item" items="${list}">
-						<tr>
-							<td>${item.userId}</td>
-							<td>${item.loginId}</td>
-							<td>${item.name}</td>
-							<td>${item.emailId}@${item.emailDomain}</td>
-							<td>${item.status}</td>
-							<td><a href="/spike.com/EditUser?userId=${item.userId}">수정</a></td>
-							<td><a href="/spike.com/DeleteUser?userId=${item.userId}" onclick="return confirm('삭제 버튼을 누르면 모든 정보가 삭제됩니다.\n그래도 진행하시겠습니까?');">삭제</a></td>
-						</tr>
+							<c:if test="${empty paging.content}">
+								<div class="alert">조회된 데이터가 없습니다.</div>
+							</c:if>
+						<c:forEach var="item" items="${paging.content}">
+							<tr>
+								<td>${item.userId}</td>
+								<td>${item.loginId}</td>
+								<td>${item.name}</td>
+								<td>${item.emailId}@${item.emailDomain}</td>
+								<td>${item.status}</td>
+								<td><a href="/spike.com/EditUser?userId=${item.userId}">수정</a></td>
+								<td><a href="/spike.com/DeleteUser?userId=${item.userId}"
+									onclick="return confirm('삭제 버튼을 누르면 모든 정보가 삭제됩니다.\n그래도 진행하시겠습니까?');">삭제</a></td>
+							</tr>
 						</c:forEach>
 					</tbody>
 				</table>
-			</div>			
-			
+				<div class="pagination" style="margin-left: 40px; margin-top: 20px;">
+					<c:if test="${currentPage > 0}">
+						<a href="?page=${currentPage - 1}&size=${pageSize}" style="margin-right: 10px; color: black;">이전</a>
+					</c:if>
+					<c:forEach begin="0" end="${totalPages - 1}" var="i">
+						<a
+							href="?page=${i}&size=${pageSize}"
+							class="<c:if test='${i == currentPage}'>active</c:if>" style="margin-right: 10px; color: black;"> ${i + 1}
+						</a>
+					</c:forEach>
+
+					<c:if test="${currentPage < totalPages - 1}">
+						<a
+							href="?page=${currentPage + 1}&size=${pageSize}" style="color: black;">다음</a>
+					</c:if>
+				</div>
+			</div>
+
 		</div>
 	</div>
 	<%@ include file="../include/shortfooter.jsp"%>
