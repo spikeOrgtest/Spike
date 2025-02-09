@@ -33,10 +33,14 @@
 <body>
 	<%-- 에러 정보가 같이 넘어온다면 에러 메시지를 먼저 출력(script 코드로 뒤로가게) --%>
 	<%-- flashAttribute를 사용한다면 flashScope가 아닌 requestScope로 접근해야 하는 점 유의! --%>
-	<c:if test="${not empty requestScope.errorMessage or not empty errorMessage}">
+	<%-- requestScope.errorMessage와 errorMessage를 구별하지 못하는 현상 발생,  --%>
+	<c:if test="${not empty errorMessage}"> <%-- not empty requestScope.errorMessage or  --%>
 		<script>
-        	alert("${requestScope.errorMessage != null ? requestScope.errorMessage : errorMessage}");
-			history.back();
+        	alert("${errorMessage}");
+			//javascript if 조건에 EL을 사용할 때 if(${needRedirection}) 으로 사용하면 판정이 불가능한 현상 발생(이론상 if(true)로 판정해야 하는데 문법오류처럼 동작)
+			//에러 종류에 따른 동작 제어 방법 찾아야 할 듯(별도 에러 페이지 or 핸들러 클래스)
+        	if(${not empty needRedirection}) window.location.href = "/spike.com/login";
+			else history.back();
 		</script>
 	</c:if>
 	<%@ include file="../include/header.jsp"%>
@@ -56,7 +60,7 @@
 
 					<main>
 						<!-- 송금 섹션 -->
-						<form action="/spike.com/transfer_ok" method="post"
+						<form action="/spike.com/transfer" method="post"
 							onsubmit="return submitForm();">
 							<input type="hidden" name="${_csrf.parameterName}"
 								value="${_csrf.token}" />
