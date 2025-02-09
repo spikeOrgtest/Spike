@@ -25,7 +25,7 @@ import com.spike.service.UserSerivce;
 
 
 @Controller
-@RequestMapping("/spike.com")
+@RequestMapping("/spike.com/admin")
 public class ManagerController {
 
 	@Autowired
