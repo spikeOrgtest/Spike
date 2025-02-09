@@ -32,11 +32,6 @@ public class UserServiceImpl implements UserSerivce {
 	}
 
 	@Override
-	public UserDTO loginCheck(String loginId) {
-		return this.spikeDao.loginCheck(loginId);
-	}
-
-	@Override
 	public UserDTO findId(UserDTO s) {
 		return this.spikeDao.findId(s);
 	}

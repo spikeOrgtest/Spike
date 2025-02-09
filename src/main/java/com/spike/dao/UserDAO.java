@@ -15,8 +15,6 @@ public interface UserDAO {
 
 	UserDTO idCheck(String id);
 
-	UserDTO loginCheck(String loginId);
-
 	UserDTO findId(UserDTO s);
 
 	UserDTO findPwd(UserDTO s);

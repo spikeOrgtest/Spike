@@ -72,7 +72,8 @@
 									<li><a href="/spike.com/newsSubpage_news">Spike소식</a></li>
 									<li><a href="supportSubpage_ars.jsp">고객지원</a></li>
 								</ul></li>
-							<li class="dropdown"><a href="/spike.com/mini" style="font: 25px;">mini</a></li>
+							<li class="dropdown"><a href="/spike.com/mini" style="line-height: 1.7;">MINI</a></li>
+							<li class="dropdown"><a href="/spike.com/support/cheat" style="line-height: 1.7;">SHIELD</a></li>
 						</c:when>
 						<c:otherwise>
 							<li class="dropdown"><a href="/spike.com/ma">대시보드</a></li>

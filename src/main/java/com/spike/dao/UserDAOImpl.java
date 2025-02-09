@@ -49,19 +49,6 @@ public class UserDAOImpl implements UserDAO {
 	}
 
 	@Override
-	public UserDTO loginCheck(String loginId) {
-		UserDTO s = this.spikeRepo.loginCheck(loginId); // 입력한 ID와 DB에 저장되있는 ID 비교
-
-		if (s == null) {
-			return null; // 사용자 없음
-		}
-
-		s.setLastLogin(LocalDateTime.now()); // 로그인시점 현재시간으로 대입
-		this.spikeRepo.save(s); // DB에 저장
-		return s;
-	}
-
-	@Override
 	public UserDTO findId(UserDTO s) {
 		UserDTO is = this.spikeRepo.findUserid(s.getName(), s.getPhone());
 		return is;
