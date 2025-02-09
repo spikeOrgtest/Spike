@@ -2,6 +2,7 @@ package com.spike.service;
 
 import java.util.List;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +18,12 @@ public class GifticonServiceImpl implements GifticonService {
 	@Override
 	public List<GiftIconDTO> findgifticon() {
 		return gifticonrepo.findAll();
+	}
+
+	@Override
+	public GiftIconDTO findGiftIconByName(String giftIconName) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 }

@@ -74,13 +74,18 @@
 							</tr>
 						</thead>
 						<tbody>
+
+
+
+
+
 							<!-- PointHistory 객체 리스트 반복하여 출력 -->
 							<c:forEach var="history" items="${history}">
 								<tr>
-									<td>${history.useDate}<!-- 포인트 사용 날짜 --></td>
-									<td>${gift.giftconName}<!-- 구매한 기프티콘 이름 --></td>
-									<td>${gift.price}P<!-- 사용한 포인트 --></td>
-									<td>${user.point}P<!-- 남은 포인트 --></td>
+									<td>${history.useDate}</td>
+									<td>${history.giftIconName}</td>
+									<td>${history.usedPoints}P</td>
+									<td>${history.remainingPoints}P</td>
 								</tr>
 							</c:forEach>
 						</tbody>
@@ -162,6 +167,7 @@ window.onload = function () {
             // 에러가 생기면 알림
         	console.error('요청중 에러발생');
         });
+
 };
 </script>
 </html>

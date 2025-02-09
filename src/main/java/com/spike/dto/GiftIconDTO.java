@@ -20,7 +20,7 @@ public class GiftIconDTO {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "gift_no_seq_name" )
-	private Long giftconId;
+	private Long giftIconId;
 	
 	@Column(length = 225, nullable = false)
 	private String giftconName;
