@@ -65,5 +65,7 @@ public interface UserSerivce {
 
 	Long getallamount();
 
+	Long getallTransaction();
+
 
 }

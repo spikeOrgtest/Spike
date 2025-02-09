@@ -53,12 +53,14 @@ public class ManagerController {
 		Long newmember = userService.newMember();
 		Long allvisit = userService.getallvisit();
 		Long allamount = userService.getallamount();
+		Long allTransaction = userService.getallTransaction();
 
 		ModelAndView ma = new ModelAndView();
 		ma.addObject("tolog", tolog); // 화면으로 전달할 데이터
 		ma.addObject("newmember", newmember);
 		ma.addObject("allvisit",allvisit);
 		ma.addObject("allamount",allamount);
+		ma.addObject("allTransaction",allTransaction);
 		ma.setViewName("/manager/manager");
 		return ma;
 

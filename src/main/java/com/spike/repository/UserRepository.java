@@ -115,8 +115,11 @@ public interface UserRepository extends JpaRepository<UserDTO, Long> {
 	@Query("select Count(u.userId) from UserDTO u")
 	public Long getallvisit();
 
-	@Query("select sum(u.amount) from TransactionDTO u")
+	@Query("select sum(u.amount) from TransactionDTO u where TRUNC(u.transactionDate) = TRUNC(CURRENT_DATE)")
 	public Long getallamount();
+
+	@Query("select Count(u.amount) from TransactionDTO u where TRUNC(u.transactionDate) = TRUNC(CURRENT_DATE)")
+	public Long getallTransaction();
 	
 }
 

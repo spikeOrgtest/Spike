@@ -155,9 +155,9 @@
 
 <div class="dashboard1-box">           
 <div class="dashboard1">
-  <h2><strong>오늘의 거래 회원</strong></h2> <!-- 오늘 거래한 회원 수 -->
+  <h2><strong>오늘의 거래 건수</strong></h2> <!-- 오늘 거래 건수 -->
   <div id="board1">
-    <p>1582명</p>
+    <p>${allTransaction}건</p>
     </div>
    </div>
   </div>
@@ -182,7 +182,7 @@
   <div id="board1">
     <p>총 가입자 수: ${allvisit}명</p>
     <p>총 대출 금액: 5.312.049.840원</p>
-    <p>총 거래액: ${allamount}원</p>
+    <p>총 거래액: <fmt:formatNumber value="${allamount}" type="currency" currencySymbol="₩" pattern="#,###" />원</p>
     </div>
    </div>
   </div>

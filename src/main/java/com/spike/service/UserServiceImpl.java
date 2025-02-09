@@ -167,8 +167,13 @@ public class UserServiceImpl implements UserSerivce {
 	}
 
 	@Override
-	public Long getallamount() {
+	public Long getallamount() {// 오늘의 총 거래금액
 		return this.userRepository.getallamount();
+	}
+
+	@Override  
+	public Long getallTransaction() { // 오늘의 거래건수
+		return this.userRepository.getallTransaction();
 	}
 
 }
