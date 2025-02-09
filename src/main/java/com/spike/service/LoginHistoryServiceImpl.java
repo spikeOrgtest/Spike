@@ -35,10 +35,6 @@ public class LoginHistoryServiceImpl implements LoginHistoryService {
 	//	return loginHistoryRepository.findByLogHis_LoginIdOrderByAllTimeDesc(loginId);
 	//}
 
-	@Override  // 라스트로그인을 저장하는메서드
-	public void saveLoginHistory(ManagerDTO mlist) {
-        loginHistoryRepository.save(mlist);
-	}
 
 	@Override
 	public Page<ManagerDTO> findByLoginIdday(Long UserId, Pageable pageable) {

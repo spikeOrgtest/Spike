@@ -48,15 +48,7 @@ public class SpikeController {
 				session.setMaxInactiveInterval(60 * 60); // 1시간
 				session.setAttribute("remainingTime", session.getMaxInactiveInterval());
 				
-				//설 라스트로그인 담아주는 메서드
-				ManagerDTO Mlist = new ManagerDTO();
 				
-				Mlist.setLogHis(u);
-				Mlist.setAllTime(u.getLastLogin());
-				
-			    loginHistoryService.saveLoginHistory(Mlist);
-				
-			    // 설-----------------
 			}
 		} else {
 			// 로그아웃 상태에서 처리

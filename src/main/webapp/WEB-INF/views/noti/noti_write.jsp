@@ -51,20 +51,20 @@
      <tr>
       <th>작성자</th>
       <td>
-       <input name="noticeName" id="noticeName" size="50" style="height: 40px; font-size: 18px;"> <%-- type속성을 생략하면 기본값이 한줄 입력필드인 text이다. --%>
+       <input class="noticeName" name="noticeName" id="noticeName" size="50" style="height: 40px; font-size: 18px;"> <%-- type속성을 생략하면 기본값이 한줄 입력필드인 text이다. --%>
       </td>
      </tr>
      <tr>
       <th>제목</th>
-      <td><input name="noticeTitle" id="noticeTitle" size="50" style="height: 40px; font-size: 18px;" ></td>
+      <td><input class="noticeTitle" name="noticeTitle" id="noticeTitle" size="50" style="height: 40px; font-size: 18px;" ></td>
      </tr>
      <!-- <tr>
       <th>비밀번호</th>
       <td><input type="password" name="bbs_pwd" id="bbs_pwd" size="14" /></td>
      </tr> -->
      <tr>
-      <th>글내용</th>
-      <td><textarea name="noticeCont" id="noticeCont" rows="20" cols="50" style="font-size: 18px;"></textarea></td>
+      <th>내용</th>
+      <td><textarea class="noticeCont" name="noticeCont" id="noticeCont" rows="20" cols="50" style="font-size: 18px;"></textarea></td>
      </tr>
      <tr>
       <th>파일첨부</th>
