@@ -51,8 +51,8 @@
 			<main>
         <section class="hero">
             <div class="container">
-                <h1>SPIKE 학자금 대출</h1>
-            <p>공부에 집중할 수 있도록 도와주는 대출! 최대 연 5% 금리로 지원받고, 자유로운 입출금이 가능합니다.</p>
+                <h1>소상공인 대출</h1>
+            <p></p>
             </div>
         </section>
 
@@ -140,7 +140,7 @@
 
         <section class="cta">
             <div class="container">
-                <a href="../newloan" class="button" id="joinButton">지금 가입하기</a>
+                <a href="../newloan?selectedProduct=product6" class="button" id="joinButton">지금 가입하기</a>
             </div>
         </section>
     </main>

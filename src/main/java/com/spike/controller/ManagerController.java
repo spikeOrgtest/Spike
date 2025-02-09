@@ -20,6 +20,8 @@ import com.spike.dto.ManagerDTO;
 import com.spike.dto.UserDTO;
 import com.spike.service.LoginHistoryService;
 import com.spike.service.UserSerivce;
+import com.spike.dto.LoanDTO;
+import com.spike.service.LoanService;
 
 
 @Controller
@@ -31,6 +33,9 @@ public class ManagerController {
 
 	@Autowired
     private LoginHistoryService loginHistoryService;
+
+	@Autowired
+	private LoanService loanService;
 
 	// @GetMapping("/ma")
 	// public ModelAndView manager(HttpServletRequest request) {
@@ -156,12 +161,9 @@ public class ManagerController {
 	
 	@GetMapping("/loanManagement")
 	public ModelAndView loanManagement() {
-		
-		List<UserDTO> list = this.userService.findByUserList();
-		
+		List<LoanDTO> loanList = this.loanService.findAllLoans();
 		ModelAndView um = new ModelAndView("manager/loanManagement");
-		um.addObject("list", list);
-		
+		um.addObject("loanList", loanList);
 		return um;
 	}
 	

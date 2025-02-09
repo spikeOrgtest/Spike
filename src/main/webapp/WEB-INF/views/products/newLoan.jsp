@@ -20,7 +20,7 @@
 			<div class="form-group">
 				<label for="loan_name">대출종류</label>
 				<div class="loan_container">
-					<select id="loan_name" name="loan_name">
+					<select id="loan_name" name="loanName">
 						<c:forEach var="type" items="${loan_name}">
 							<option value="${type}">${type}</option>
 						</c:forEach>
@@ -30,7 +30,7 @@
 			<div class="form-group" id="product_select" class="hidden">
 				<label for="product_type">세부상품</label>
 				<div class="product_container">
-					<select id="product_type" name="product_type">
+					<select id="product_type" name="productType">
 					</select>
 				</div>
 			</div>
@@ -38,7 +38,7 @@
 			<div class="form-group">
 				<label for="loan_amount">대출금액</label>
 				<div class="product_container">
-					<select id="amount_select" name="amount_select" required>
+					<select id="amount_select" name="loanAmount" required>
 						<option value="">금액을 선택하세요</option>
 					</select>
 				</div>

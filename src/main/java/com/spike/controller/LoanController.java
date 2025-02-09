@@ -80,6 +80,7 @@ public class LoanController {
 		s.setLoanState("대기 중");
 		this.loanService.createLoan(s);
 		
-		return new ModelAndView("redirect:/spike.com/products");
+		// 대출 신청 후 loanManagement로 리다이렉트
+		return new ModelAndView("redirect:/spike.com/loanManagement"); // 대출 관리 페이지로 리다이렉트
 	}
 }

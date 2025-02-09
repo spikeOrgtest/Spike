@@ -121,7 +121,7 @@
 					<li><a href="/spike.com/userManagement">사용자관리</a></li>
 					<li><a href="newsSubpage_product.jsp">계좌수정</a></li>
 					<li><a href="newsSubpage_product.jsp">거래내역관리</a></li>
-					<li><a href="newsSubpage_job.jsp">대출관리</a></li>
+					<li><a href="/spike.com/loanManagement">대출관리</a></li>
 					<li><a href="newsSubpage_notice.jsp">공지사항관리</a></li>
 					<li><a href="newsSubpage_notice.jsp">보안관리</a></li>
 				</ul>
