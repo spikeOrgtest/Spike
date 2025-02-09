@@ -110,7 +110,7 @@
 
 					<div class="form-buttons">
 						<button type="submit" class="submit-btn">수정</button>
-						<button type="reset" class="reset-btn">취소</button>
+						<button type="button" class="reset-btn" onclick="history.go(-1);">취소</button>
 					</div>
 				</form>
 
