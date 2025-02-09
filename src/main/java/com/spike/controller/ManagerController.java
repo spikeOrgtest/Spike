@@ -108,11 +108,11 @@ public class ManagerController {
 	}
 
 	@PostMapping("/UpdateUser")
-	public void UpdateUser(Long userId, String isMinor, String status, HttpServletResponse response) throws Exception {
+	public void UpdateUser(Long userId, String isMinor, String status, String roles, HttpServletResponse response) throws Exception {
 		response.setContentType("text/html; charset=UTF-8");
 		PrintWriter out = response.getWriter();
 
-		this.userService.UpdateUser(isMinor, status, userId);
+		this.userService.UpdateUser(isMinor, status, roles, userId);
 
 		out.println("<script>");
 		out.println("alert('수정 완료했습니다.');");

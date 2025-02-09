@@ -107,8 +107,8 @@ public class UserServiceImpl implements UserSerivce {
 	}
 
 	@Override
-	public void UpdateUser(String isMinor, String status, Long userId) {
-		this.spikeDao.UpdateUser(isMinor, status, userId);
+	public void UpdateUser(String isMinor, String status, String roles, Long userId) {
+		this.spikeDao.UpdateUser(isMinor, status, roles, userId);
 	}
 
 	@Override

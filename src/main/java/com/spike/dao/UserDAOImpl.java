@@ -147,8 +147,8 @@ public class UserDAOImpl implements UserDAO {
 	}
 
 	@Override
-	public void UpdateUser(String isMinor, String status, Long userId) {
-		this.spikeRepo.UpdateUser(isMinor, status, userId);
+	public void UpdateUser(String isMinor, String status, String roles, Long userId) {
+		this.spikeRepo.UpdateUser(isMinor, status, roles, userId);
 	}
 
 	@Override

@@ -85,8 +85,8 @@ public interface UserRepository extends JpaRepository<UserDTO, Long> {
 
 	@Modifying
 	@Transactional
-	@Query("update UserDTO s set s.isMinor=?1 , s.status=?2 where s.userId=?3")
-	public void UpdateUser(String isMinor, String status, Long userId);
+	@Query("update UserDTO s set s.isMinor=?1 , s.status=?2, s.roles=?3 where s.userId=?4")
+	public void UpdateUser(String isMinor, String status, String roles, Long userId);
 
 	@Modifying
 	@Transactional

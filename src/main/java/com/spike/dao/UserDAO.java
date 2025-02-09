@@ -46,7 +46,7 @@ public interface UserDAO {
 
 	List<UserDTO> findByUserIdEdit(Long UserId);
 
-	void UpdateUser(String isMinor, String status, Long userId);
+	void UpdateUser(String isMinor, String status, String roles, Long userId);
 
 	void UserDelete(Long UserId);
 
