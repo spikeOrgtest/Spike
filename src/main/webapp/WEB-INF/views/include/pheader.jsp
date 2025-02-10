@@ -63,16 +63,15 @@
                             <li><a href="/spike.com/products/savings">적금</a></li>
                             <li><a href="/spike.com/products/loan">대출</a></li>
                             <li><a href="/spike.com/products/card">카드</a></li>
-                            <li><a href="investments.jsp">투자</a></li>
+                            <li><a href="/spike.com/stock/home">투자</a></li>
                         </ul>
                     </li>
 
-                    <li class="dropdown"><a href="support.jsp">고객센터</a>
-                        <ul class="header-dropdown-menu">
-                            <li><a href="newsSubpage_bank.jsp">Spike소식</a></li>
-                            <li><a href="supportSubpage_ars.jsp">고객지원</a></li>
-                        </ul>
-                    </li>
+                    <li class="dropdown"><a href="/spike.com/support">고객센터</a>
+						<ul class="header-dropdown-menu">
+							<li><a href="/spike.com/newsSubpage_news">Spike소식</a></li>
+							<li><a href="supportSubpage_ars.jsp">고객지원</a></li>
+						</ul></li>
 
                     <li class="dropdown"><a href="/spike.com/mini" style="font: 25px;">mini</a>
 	   

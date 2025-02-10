@@ -38,8 +38,8 @@ public class LoanDTO {
 	
 	@ManyToOne
 	private UserDTO owner;
-	
-	private String loanName;
+
+	private String productType;
 	
 	private long loanAmount;
 	
