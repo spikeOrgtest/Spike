@@ -1,5 +1,7 @@
 package com.spike.service;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -91,6 +93,14 @@ public class LoanServiceImpl implements LoanService {
                              ", 번호: " + targetAccount.getAccountNumber() + 
                              ", 현재 잔액: " + targetAccount.getBalance());
 
+            // 대출 계좌의 이자율 설정
+            targetAccount.setAccountType("대출");
+            targetAccount.setInterestRate(5.0); // 대출 기본금리 5%
+            targetAccount.setBonusRate(2.0);    // 우대금리 2%
+            targetAccount.setStartDate(LocalDateTime.now()); // LocalDate -> LocalDateTime으로 수정
+            targetAccount.calculateTotalRate(); // 총 이자율 계산
+            accountService.updateAccount(targetAccount);
+
             // 계좌 잔액 업데이트
             Long newBalance = targetAccount.getBalance() + loanAmount;
             targetAccount.setBalance(newBalance);
@@ -98,10 +108,18 @@ public class LoanServiceImpl implements LoanService {
 
             System.out.println("계좌 잔액 업데이트 완료 - 새로운 잔액: " + newBalance);
 
-            // 대출 상태 업데이트
-            loan.setLoanState("완료");
+            // 대출 상태 업데이트 시 정확한 문자열 사용
+            loan.setLoanState("완료");  // 이 부분이 정확히 "완료"로 설정되는지 확인
             loan.setLoanAmount(loanAmount);
+            if (loan.getRemainingAmount() == null) {
+                loan.setRemainingAmount(loanAmount);
+            }
             loanRepository.save(loan);
+
+            // 디버깅용 로그 추가
+            System.out.println("대출 승인 완료 - 상태: " + loan.getLoanState());
+            System.out.println("대출 승인 완료 - 대출금액: " + loan.getLoanAmount());
+            System.out.println("대출 승인 완료 - 남은금액: " + loan.getRemainingAmount());
 
             System.out.println("대출 승인 완료");
             return true;
@@ -125,5 +143,65 @@ public class LoanServiceImpl implements LoanService {
             e.printStackTrace();
             return false;
         }
+    }
+
+    @Transactional
+    @Override
+    public boolean repayLoan(Long loanId, Long amount) {
+        try {
+            Optional<LoanDTO> optionalLoan = loanRepository.findByIdWithAccount(loanId);
+            if (!optionalLoan.isPresent()) {
+                throw new RuntimeException("대출을 찾을 수 없습니다.");
+            }
+
+            LoanDTO loan = optionalLoan.get();
+            AccountDTO targetAccount = loan.getTargetAccount();
+            AccountDTO repaymentAccount = loan.getRepaymentAccount();
+
+            // 이자 계산 먼저 실행
+            accountService.calculateDailyLoanInterest(targetAccount);
+            
+            // 이자 계산 후의 총 상환 금액을 대출 잔액에 반영
+            loan.setRemainingAmount(targetAccount.getBalance());
+
+            if (repaymentAccount.getBalance() < amount) {
+                throw new RuntimeException("상환계좌의 잔액이 부족합니다.");
+            }
+
+            // 상환계좌에서 금액 차감
+            repaymentAccount.setBalance(repaymentAccount.getBalance() - amount);
+            accountService.updateAccount(repaymentAccount);
+
+            // 대출계좌 잔액 업데이트
+            targetAccount.setBalance(targetAccount.getBalance() - amount);
+            accountService.updateAccount(targetAccount);
+
+            // 남은 상환금액 업데이트
+            loan.setRemainingAmount(loan.getRemainingAmount() - amount);
+            
+            if (loan.getRemainingAmount() <= 0) {
+                loan.setLoanState("상환완료");
+                targetAccount.setAccountType("일반");
+                accountService.updateAccount(targetAccount);
+            }
+            
+            loanRepository.save(loan);
+            
+            System.out.println("상환 처리 완료:");
+            System.out.println("이자 포함 총 잔액: " + targetAccount.getBalance());
+            System.out.println("상환 금액: " + amount);
+            System.out.println("남은 상환금액: " + loan.getRemainingAmount());
+            
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException("대출 상환 처리 중 오류가 발생했습니다: " + e.getMessage());
+        }
+    }
+
+    @Override
+    public Long getRemainingAmount(Long loanId) {
+        Optional<LoanDTO> loan = loanRepository.findById(loanId);
+        return loan.map(LoanDTO::getRemainingAmount).orElse(null);
     }
 }

@@ -12,6 +12,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.FetchType;
+import javax.persistence.PrePersist;
 
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -55,4 +56,18 @@ public class LoanDTO {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "account_id")
 	private AccountDTO targetAccount;  // 대출금을 받을 계좌
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "repayment_account_id")
+	private AccountDTO repaymentAccount;  // 상환계좌
+	
+	private Long remainingAmount;  // 남은 상환금액
+	
+	@PrePersist
+	public void prePersist() {
+        if (this.loanAmount > 0 && this.remainingAmount == null) {
+            this.remainingAmount = this.loanAmount;
+            System.out.println("PrePersist - 남은금액 설정: " + this.remainingAmount);
+        }
+    }
 }

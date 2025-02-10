@@ -20,4 +20,8 @@ public interface LoanService {
 
 	Optional<LoanDTO> findByIdWithAccount(Long loanId);
 
+	boolean repayLoan(Long loanId, Long amount);
+
+	Long getRemainingAmount(Long loanId);
+
 }

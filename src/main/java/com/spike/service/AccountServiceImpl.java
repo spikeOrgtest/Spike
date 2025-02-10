@@ -1,6 +1,6 @@
 package com.spike.service;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Optional;
@@ -51,46 +51,71 @@ public class AccountServiceImpl implements AccountService {
 	// 예금/적금 이자 계산
 	@Override
 	public void calculateDailyInterest(AccountDTO account) {
-		LocalDate today = LocalDate.now();
-		LocalDate lastCalculation = account.getLastInterestDate();
+		LocalDateTime now = LocalDateTime.now();
+		LocalDateTime lastCalculation = account.getLastInterestDate();
 
 		if (lastCalculation == null) {
 			lastCalculation = account.getStartDate();
 		}
 
-		long daysBetween = ChronoUnit.DAYS.between(lastCalculation, today);
+		if (lastCalculation == null) {
+			lastCalculation = LocalDateTime.now();
+			account.setStartDate(lastCalculation);
+			account.setLastInterestDate(lastCalculation);
+			updateAccount(account);
+			return;
+		}
+
+		long daysBetween = ChronoUnit.DAYS.between(lastCalculation, now);
 
 		if (daysBetween > 0) {
 			double dailyRate = account.getTotalRate() / 365.0 / 100.0;
 			double interest = account.getBalance() * dailyRate * daysBetween;
 
 			account.setBalance(account.getBalance() + (long) interest);
-			account.setLastInterestDate(today);
+			account.setLastInterestDate(now);
 
 			accountdao.updateAccount(account);
 		}
 	}
 
-	// 대출 이자 계산
+	// 대출 이자 계산 (1분 단위)
 	@Override
 	public void calculateDailyLoanInterest(AccountDTO loan) {
-		LocalDate today = LocalDate.now();
-		LocalDate lastCalculation = loan.getLastInterestDate();
+		LocalDateTime currentTime = LocalDateTime.now();
+		LocalDateTime lastCalculation = loan.getLastInterestDate();
 
 		if (lastCalculation == null) {
 			lastCalculation = loan.getStartDate();
 		}
 
-		long daysBetween = ChronoUnit.DAYS.between(lastCalculation, today);
+		if (lastCalculation == null) {
+			lastCalculation = LocalDateTime.now();
+			loan.setStartDate(lastCalculation);
+			loan.setLastInterestDate(lastCalculation);
+			updateAccount(loan);
+			return;
+		}
 
-		if (daysBetween > 0) {
-			double dailyRate = loan.getInterestRate() / 365.0 / 100.0;
-			double interest = loan.getBalance() * dailyRate * daysBetween;
+		// 경과 시간을 분 단위로 계산
+		long minutesBetween = ChronoUnit.MINUTES.between(lastCalculation, currentTime);
+
+		if (minutesBetween > 0) {
+			// 연이율을 분단위로 변환 (연이율 / (365일 * 24시간 * 60분))
+			double minuteRate = loan.getTotalRate() / (365.0 * 24 * 60) / 100.0;
+			double interest = loan.getBalance() * minuteRate * minutesBetween;
+			
+			System.out.println("대출 이자 계산 (1분 단위):");
+			System.out.println("계좌번호: " + loan.getAccountNumber());
+			System.out.println("현재 잔액: " + loan.getBalance());
+			System.out.println("분당 이자율: " + String.format("%.8f%%", minuteRate * 100));
+			System.out.println("경과 시간(분): " + minutesBetween);
+			System.out.println("발생 이자: " + (long)interest);
 
 			loan.setBalance(loan.getBalance() + (long) interest);
-			loan.setLastInterestDate(today);
+			loan.setLastInterestDate(currentTime);
 
-			accountdao.updateAccount(loan);
+			updateAccount(loan);
 		}
 	}
 

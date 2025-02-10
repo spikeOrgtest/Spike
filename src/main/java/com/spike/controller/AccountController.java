@@ -2,7 +2,7 @@ package com.spike.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -130,8 +130,8 @@ public class AccountController {
 		s.setAccountPassword(passwordEncoder.encode(s.getAccountPassword()));
 
 		// 이자 관련 정보 추가
-		s.setStartDate(LocalDate.now());
-		s.setLastInterestDate(LocalDate.now());
+		s.setStartDate(LocalDateTime.now());  // LocalDate -> LocalDateTime
+		s.setLastInterestDate(LocalDateTime.now());  // LocalDate -> LocalDateTime
 
 		// 계좌 유형에 따른 이자율 설정
 		if ("예금".equals(s.getAccountType())) {
@@ -142,6 +142,35 @@ public class AccountController {
 
 		this.accountService.createAccount(s);
 		return new ModelAndView("redirect:/spike.com/mypage/inquiry");
+	}
+
+	@PostMapping("/createAccount")
+	public ModelAndView createAccount(AccountDTO s, HttpSession session) {
+		try {
+			UserDTO sessionUser = (UserDTO) session.getAttribute("User");
+			s.setOwner(sessionUser);
+			s.setBalance(1000000L);
+			s.setDayLimit(1000000L);
+			s.setOneLimit(100000L);
+			s.setAccountPassword(passwordEncoder.encode(s.getAccountPassword()));
+
+			// 이자 관련 정보 추가
+			s.setStartDate(LocalDateTime.now());  // 계좌 생성시 시작일 설정
+			s.setLastInterestDate(LocalDateTime.now());  // 마지막 이자 계산일 설정
+
+			// 계좌 유형에 따른 이자율 설정
+			if ("예금".equals(s.getAccountType())) {
+				s.setInterestRate(3.5); // 예금 기본 이자율
+			} else if ("적금".equals(s.getAccountType())) {
+				s.setInterestRate(4.0); // 적금 기본 이자율
+			}
+
+			accountService.createAccount(s);
+			return new ModelAndView("redirect:/spike.com/mypage/inquiry");
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ModelAndView("error");
+		}
 	}
 
 }

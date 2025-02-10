@@ -92,9 +92,9 @@ public class LoanController {
 	@PostMapping("/loan_ok")
     public ModelAndView loan_ok(
             @RequestParam("targetAccountId") Long targetAccountId,
+            @RequestParam("repayment_account") Long repaymentAccountId,
             LoanDTO s, 
             HttpSession session) throws IOException {
-        
         try {
             UserDTO sessionUser = (UserDTO) session.getAttribute("User");
             if (sessionUser == null) {
@@ -105,6 +105,9 @@ public class LoanController {
             AccountDTO targetAccount = accountService.findById(targetAccountId)
                 .orElseThrow(() -> new RuntimeException("선택된 계좌를 찾을 수 없습니다."));
             
+            AccountDTO repaymentAccount = accountService.findById(repaymentAccountId)
+                .orElseThrow(() -> new RuntimeException("선택된 상환계좌를 찾을 수 없습니다."));
+            
             System.out.println("대출 신청 - 사용자 ID: " + sessionUser.getUserId());
             System.out.println("대출 신청 - 계좌 ID: " + targetAccount.getAccountId());
             System.out.println("대출 신청 - 계좌 번호: " + targetAccount.getAccountNumber());
@@ -112,6 +115,11 @@ public class LoanController {
             s.setOwner(sessionUser);
             s.setLoanState("대기 중");
             s.setTargetAccount(targetAccount);
+            s.setRepaymentAccount(repaymentAccount);
+            s.setRemainingAmount(s.getLoanAmount()); // 여기에 추가
+            
+            System.out.println("대출 신청 - 대출금액: " + s.getLoanAmount());
+            System.out.println("대출 신청 - 남은금액: " + s.getRemainingAmount());
             
             this.loanService.createLoan(s);
             
@@ -207,5 +215,62 @@ public class LoanController {
         }
         
         return new ModelAndView("redirect:/spike.com/admin/loanManagement");
+    }
+
+    @PostMapping("/repayLoan")
+    public void repayLoan(
+            @RequestParam("loanId") Long loanId,
+            @RequestParam("amount") Long amount,
+            HttpServletResponse response) throws IOException {
+        response.setContentType("text/html; charset=UTF-8");
+        PrintWriter out = response.getWriter();
+        
+        try {
+            boolean isRepaid = loanService.repayLoan(loanId, amount);
+            if (isRepaid) {
+                out.println("<script>");
+                out.println("alert('상환이 완료되었습니다.');");
+                out.println("location.href='/spike.com/myLoans';");
+                out.println("</script>");
+            }
+        } catch (Exception e) {
+            out.println("<script>");
+            out.println("alert('상환 처리 중 오류가 발생했습니다: " + e.getMessage() + "');");
+            out.println("history.back();");
+            out.println("</script>");
+        }
+    }
+
+    @GetMapping("/myLoans")
+    public ModelAndView myLoans(HttpSession session, HttpServletResponse response) throws IOException {
+        response.setContentType("text/html; charset=UTF-8");
+        PrintWriter out = response.getWriter();
+
+        UserDTO user = (UserDTO) session.getAttribute("User");
+        if (user == null) {
+            out.println("<script>");
+            out.println("alert('로그인이 필요한 서비스입니다.');");
+            out.println("location.href='/spike.com/login';");
+            out.println("</script>");
+            return null;
+        }
+
+        List<LoanDTO> loans = loanService.findLoansByUserId(user.getUserId());
+        
+        // 남은 금액이 null인 경우 처리
+        for (LoanDTO loan : loans) {
+            if (loan.getRemainingAmount() == null && "완료".equals(loan.getLoanState())) {
+                loan.setRemainingAmount(loan.getLoanAmount());
+                loanService.createLoan(loan); // 업데이트
+            }
+            System.out.println("대출 ID: " + loan.getLoanId());
+            System.out.println("상태: " + loan.getLoanState());
+            System.out.println("대출금액: " + loan.getLoanAmount());
+            System.out.println("남은금액: " + loan.getRemainingAmount());
+        }
+
+        ModelAndView mav = new ModelAndView("mypage/myLoans");
+        mav.addObject("loans", loans);
+        return mav;
     }
 }
