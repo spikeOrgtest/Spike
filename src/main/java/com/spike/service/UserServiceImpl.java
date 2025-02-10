@@ -3,6 +3,7 @@ package com.spike.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import com.spike.dao.UserDAO;
@@ -28,11 +29,6 @@ public class UserServiceImpl implements UserSerivce {
 	@Override
 	public UserDTO idCheck(String id) {
 		return this.spikeDao.idCheck(id);
-	}
-
-	@Override
-	public UserDTO loginCheck(String loginId) {
-		return this.spikeDao.loginCheck(loginId);
 	}
 
 	@Override
@@ -96,8 +92,8 @@ public class UserServiceImpl implements UserSerivce {
 	}
 
 	@Override
-	public List<UserDTO> findByUserList() {
-		return this.spikeDao.findByUserList();
+	public Page<UserDTO> findByUserList(int page, int size) {
+		return this.spikeDao.findByUserList(page, size);
 	}
 
 	@Override
@@ -106,8 +102,8 @@ public class UserServiceImpl implements UserSerivce {
 	}
 
 	@Override
-	public void UpdateUser(String isMinor, String status, Long userId) {
-		this.spikeDao.UpdateUser(isMinor, status, userId);
+	public void UpdateUser(String isMinor, String status, String roles, Long userId) {
+		this.spikeDao.UpdateUser(isMinor, status, roles, userId);
 	}
 
 	@Override

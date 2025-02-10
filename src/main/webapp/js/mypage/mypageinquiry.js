@@ -150,13 +150,6 @@ document.getElementById('endDate').addEventListener('change', function() {
     transactionHistoryContainer.style.display = 'none'; // 종료일 선택 시 거래 내역을 숨깁니다.
 });
 
-// 일일 출금 한도 설정 버튼 클릭 시 모달 띄우기
-document.getElementById('setLimitBtn').addEventListener('click', function() {
-    // Bootstrap 모달을 띄웁니다.
-    var dailyLimitModal = new bootstrap.Modal(document.getElementById('dailyLimitModal'));
-    dailyLimitModal.show();
-});
-
 function limitChange(event) {
 	event.preventDefault();
 	
@@ -178,6 +171,35 @@ document.getElementById('saveLimitBtn').addEventListener('click', function(event
 document.getElementById('changePasswordBtn').addEventListener('click', function(event) {
 	changePassword(event);
 });
+
+document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('changePasswordModalBtn').addEventListener('click', function() {
+        const selectAccount = document.getElementById("accountSelect").value;
+
+        if (selectAccount === "") {
+            alert("계좌를 선택해주세요.");
+            return;
+        } else {
+            const myModal = new bootstrap.Modal(document.getElementById('passwordChangeModal'));
+            myModal.show();
+        }
+    });
+
+    document.getElementById('setLimitBtn').addEventListener('click', function() {
+        const selectAccount = document.getElementById("accountSelect").value;
+
+        if (selectAccount === "") {
+            console.log('계좌 : '+selectAccount);
+            alert("계좌를 선택해주세요.");
+            return;
+        } else {
+            console.log('계좌 : '+selectAccount);
+            const myModal = new bootstrap.Modal(document.getElementById('dailyLimitModal'));
+            myModal.show();
+        }
+    });
+});
+
 
 function changePassword(event) {
 	event.preventDefault();

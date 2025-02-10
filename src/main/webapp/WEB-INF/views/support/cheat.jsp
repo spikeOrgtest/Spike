@@ -5,7 +5,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>사기 계좌 조회</title>
-<link href="assets/css/scam.css" rel="stylesheet">
+<link href="/css/support/cheat.css" rel="stylesheet">
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 <link
@@ -17,12 +17,12 @@
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
 	integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
 	crossorigin="anonymous"></script>
-	<link rel="stylesheet" href="assets/css/include.css">
+	<link rel="stylesheet" href="/css/include/include.css">
 </head>
 
 
 
-<jsp:include page="include/header.jsp"/>
+<%@ include file="../include/header.jsp"%>
 
 <body>
 	<div class="main-section">
@@ -82,10 +82,12 @@
 
 		<%-- 검색바 --%>
 		<div class="search-bar">
-			<input type="text" placeholder="핸드폰번호 또는 계좌번호를 입력하세요."
+		<form action="search" method="GET" id="searchForm">
+		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+			<input type="text" id="search" name="detailValue" placeholder="계좌번호를 입력하세요."
 				class="input-field">
-			<button class="search-button">검색</button>
-
+			<button type="submit" class="search-button">검색</button>
+		</form>
 		</div>
 		<br />
 		<h5>피해자가 되기 전에 먼저 알아보고 이체하는 습관을 가져주시기 바랍니다.</h5>
@@ -186,29 +188,31 @@
 								aria-label="Close"></button>
 						</div>
 						<div class="modal-body">
-							<form>
+							<form action="cheat" method="post" id="cheatForm">
+							<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 								<div class="mb-3">
-									<label for="recipient-name" class="col-form-label">전화번호
-										또는 계좌번호 입력:</label> <input type="text" class="form-control"
-										id="recipient-name">
+									<label for="recipient-name" class="col-form-label">계좌번호 입력:</label> 
+									<input type="text" class="form-control" id="detailValue" name="detailValue">
+									<span class="error-message" id="accountError" style="color:red;"></span>
 								</div>
 								<div class="mb-3">
 									<label for="message-text" class="col-form-label">신고 내용:</label>
-									<textarea class="form-control" id="message-text"></textarea>
+									<textarea class="form-control" id="content" name="content"></textarea>
+									<span class="error-message" id="contentError" style="color:red;"></span>
 								</div>
-							</form>
-						</div>
 						<div class="modal-footer">
-							<button type="button" class="btn btn-secondary"
+							<button type="reset" class="btn btn-secondary"
 								data-bs-dismiss="modal">취소</button>
-							<button type="button" class="btn btn-primary">신고 완료</button>
+							<button type="submit" class="btn btn-primary">신고 완료</button>
+						</div>
+							</form>
 						</div>
 					</div>
 				</div>
 			</div>
 
-			<%-- javascript --%>
-			<script>
+<%-- javascript --%>
+<script>
   
   var reportButton = document.getElementById('reportButton');
   var cancelButton = document.getElementById('cancelButton'); 
@@ -220,12 +224,46 @@
     exampleModal.hide(); 
     mdoModal.show(); 
   });
-
   
-  cancelButton.addEventListener('click', function() {
-    mdoModal.hide(); 
-    exampleModal.hide(); 
+  document.getElementById('searchForm').addEventListener('submit',function(e) {
+  			let isValid = true;
+  			
+  			const search = document.getElementById('search').value;
+  			if (search === '') {
+  				alert('계좌번호를 입력하세요');
+  				isValid = false;
+  			}
+			if (!isValid) {
+				e.preventDefault();
+			}
   });
+  
+  document.getElementById('cheatForm').addEventListener('submit',function(e) {
+		let isValid = true;
+		
+		document.getElementById('accountError').textContent = '';
+		document.getElementById('contentError').textContent = '';
+		
+		const detailValue = document.getElementById('detailValue').value;
+		if (detailValue === '') {
+			document.getElementById('accountError').textContent = '계좌번호를 입력해주세요';
+			document.getElementById('detailValue').focus();
+			isValid = false;
+		}
+		
+		if (isValid) {
+			const content = document.getElementById('content').value;
+			if(content === '') {
+			document.getElementById('contentError').textContent = '내용을 입력해주세요';
+			document.getElementById('content').focus();
+			isValid = false;
+			}
+		}
+		
+		if (!isValid) {
+			e.preventDefault();
+		}
+});
 </script>
 
 
@@ -247,7 +285,7 @@
 	<%-- 래퍼 --%>
 
 
-	<jsp:include page="include/footer.jsp" />
+	<%@ include file="../include/shortfooter.jsp"%>
 
 </body>
 </html>

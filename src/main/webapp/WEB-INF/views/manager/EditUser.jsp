@@ -29,7 +29,7 @@
 			</div>
 			<div class="subpage-content">
 				<h2 style="margin-left: 50px;">사용자 수정</h2>
-				<form action="UpdateUser" method="post">
+				<form action="UpdateUser" method="post" onsubmit="return checkSelection()">
 					<input type="hidden" name="${_csrf.parameterName}"
 						value="${_csrf.token}" />
 					<c:forEach var="item" items="${list}">
@@ -64,6 +64,11 @@
 							<label for="phone">핸드폰</label> <input type="text" id="phone"
 								value="${item.phone}" readonly>
 						</div>
+						
+						<div class="form-group">
+							<label for="phone">가입일자</label> <input type="text" id="Registrationdate"
+								value="${item.registrationDate}" readonly>
+						</div>
 
 						<div class="form-group">
 							<label for="postcode">주소</label> <input type="text"
@@ -85,7 +90,7 @@
 
 						<div class="form-group">
 							<label for="IsMinor">미성년자 여부</label>
-								<select name="isMinor">
+								<select name="isMinor" id="mionrSelect" data-minor="${item.isMinor}">
 									<option value="" disabled selected>${item.isMinor}(현재 상태)</option>
 									<option value="adult">adult</option>
 									<option value="minor">minor</option>
@@ -94,18 +99,27 @@
 
 						<div class="form-group">
 							<label for="status">상태</label> 
-								<select name="status">
+								<select name="status" id="statusSelect" data-status="${item.status}">
 									<option value="" disabled selected>${item.status}(현재 상태)</option>
 									<option value="ACTIVE">ACTIVE</option>
 									<option value="INACTIVE">INACTIVE</option>
 									<option value="BLOCK">BLOCK</option>
 								</select>
 						</div>
+						
+						<div class="form-group">
+							<label for="roles">권한</label> 
+								<select name="roles" id="rolesSelect" data-roles="${item.roles}">
+									<option value="" disabled selected>${item.roles.substring(5)}(현재 상태)</option>
+									<option value="ROLE_USER">USER</option>
+									<option value="ROLE_ADMIN">ADMIN</option>
+								</select>
+						</div>
 					</c:forEach>
 
 					<div class="form-buttons">
 						<button type="submit" class="submit-btn">수정</button>
-						<button type="reset" class="reset-btn">취소</button>
+						<button type="button" class="reset-btn" onclick="history.go(-1);">취소</button>
 					</div>
 				</form>
 
@@ -115,4 +129,28 @@
 	</div>
 	<%@ include file="../include/shortfooter.jsp"%>
 </body>
+<script>
+    function checkSelection() {
+        const statusElement = document.getElementById('statusSelect');
+        const minorElement = document.getElementById('mionrSelect');
+        const rolesElement = document.getElementById('rolesSelect');
+        const stautsHidden = statusElement.getAttribute('data-status');
+        const isMinorHidden = minorElement.getAttribute('data-minor');
+        const rolesHidden = rolesElement.getAttribute('data-roles');
+        if (statusElement.value === "") {
+        	statusElement.value = stautsHidden;
+        }
+        
+        if (minorElement.value === "") {
+        	minorElement.value = isMinorHidden;
+        }
+        
+        if (rolesElement.value === "") {
+        	rolesElement.value = rolesHidden;
+        }
+        
+        return true;  
+    }
+</script>
+
 </html>

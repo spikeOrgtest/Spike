@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.spike.dto.CheatReportDTO;
 import com.spike.dto.ManagerDTO;
 import com.spike.dto.UserDTO;
 import com.spike.service.LoginHistoryService;
@@ -25,7 +27,7 @@ import com.spike.service.LoanService;
 
 
 @Controller
-@RequestMapping("/spike.com")
+@RequestMapping("/spike.com/admin")
 public class ManagerController {
 
 	@Autowired
@@ -83,16 +85,22 @@ public class ManagerController {
 	
 
 	@GetMapping("/userManagement")
-	public ModelAndView userManagement() {
+	public ModelAndView userManagement(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "5") int size) {
 
-		List<UserDTO> list = this.userService.findByUserList();
+		//List<UserDTO> list = this.userService.findByUserList();
+		
+		Page<UserDTO> paging = this.userService.findByUserList(page, size);
 
 		ModelAndView um = new ModelAndView("manager/userManagement");
-		um.addObject("list", list);
+		um.addObject("paging", paging);
+	    um.addObject("totalPages", paging.getTotalPages());
+	    um.addObject("totalElements", paging.getTotalElements());
+	    um.addObject("currentPage", page);
+	    um.addObject("pageSize", size);
 
 		return um;
 	}
-
+	
 	@GetMapping("/EditUser")
 	public ModelAndView EditUser(@RequestParam("userId") Long UserId) {
 
@@ -105,11 +113,11 @@ public class ManagerController {
 	}
 
 	@PostMapping("/UpdateUser")
-	public void UpdateUser(Long userId, String isMinor, String status, HttpServletResponse response) throws Exception {
+	public void UpdateUser(Long userId, String isMinor, String status, String roles, HttpServletResponse response) throws Exception {
 		response.setContentType("text/html; charset=UTF-8");
 		PrintWriter out = response.getWriter();
 
-		this.userService.UpdateUser(isMinor, status, userId);
+		this.userService.UpdateUser(isMinor, status, roles, userId);
 
 		out.println("<script>");
 		out.println("alert('수정 완료했습니다.');");

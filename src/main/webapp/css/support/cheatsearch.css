@@ -1,0 +1,106 @@
+@charset "UTF-8";
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #f4f4f9;
+        margin: 0;
+        padding: 0;
+        
+    }
+    .container {
+
+        max-width: 900px;
+        margin: 40px auto;
+        padding: 20px;
+        background-color: #ffffff;
+        border-radius: 8px;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    }
+    .subpage-content {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+    h2 {
+        font-size: 24px;
+        color: #333;
+        margin-bottom: 20px;
+    }
+    table {
+        width: 100%;
+        border-spacing: 0;
+        border-collapse: collapse;
+        margin-top: 20px;
+        margin-bottom: 60px;
+        max-width: 1000px;
+    }
+    th, td {
+        padding: 12px;
+        text-align: left;
+        font-size: 16px;
+        border-bottom: 1px solid #ddd;
+    }
+    th {
+        background-color: #f8f9fa;
+        color: #555;
+    }
+    td {
+        background-color: #ffffff;
+    }
+    tr:nth-child(even) td {
+        background-color: #f9f9f9;
+    }
+    tr:hover td {
+        background-color: #f1f1f1;
+    }
+    .alert {
+        padding: 15px;
+        margin-top: 20px;
+        background-color: #f44336;
+        color: white;
+        font-size: 16px;
+        border-radius: 4px;
+    }
+    
+    .pagination a.active {
+    font-weight: bold;
+    color: #007bff;
+}
+
+.pagination a {
+    margin: 0 5px;
+    text-decoration: none;
+    color: #333;
+}
+
+.pagination a:hover {
+    text-decoration: underline;
+}
+
+button {
+	padding: 10px 20px;
+	margin-bottom: 20px;
+    font-size: 1em;
+    background-color: #004a8f;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.pagination {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    text-align: center;  /* 중앙 정렬 */
+}
+.pagination a {
+    margin: 0 5px;  /* 각 링크 사이에 간격 추가 */
+    color: blue;
+    text-decoration: none;
+}
+
+.pagination a:hover {
+	text-decoration: none;
+}
+

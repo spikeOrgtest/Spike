@@ -22,7 +22,8 @@ public interface AccountDAO {
 
 	List<AccountDTO> getAllActiveAccounts();
 
-	List<AccountDTO> findActiveAccountsByUser(UserDTO user);
+	List<AccountDTO> findbyAccountInfo(String detailValue);
 
+	List<AccountDTO> findActiveAccountsByUser(UserDTO user);
 
 }
