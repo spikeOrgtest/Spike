@@ -6,6 +6,8 @@ import java.util.Optional;
 import javax.transaction.Transactional;
 
 import org.apache.ibatis.annotations.Param;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -83,8 +85,8 @@ public interface UserRepository extends JpaRepository<UserDTO, Long> {
 
 	@Modifying
 	@Transactional
-	@Query("update UserDTO s set s.isMinor=?1 , s.status=?2 where s.userId=?3")
-	public void UpdateUser(String isMinor, String status, Long userId);
+	@Query("update UserDTO s set s.isMinor=?1 , s.status=?2, s.roles=?3 where s.userId=?4")
+	public void UpdateUser(String isMinor, String status, String roles, Long userId);
 
 	@Modifying
 	@Transactional
@@ -106,6 +108,9 @@ public interface UserRepository extends JpaRepository<UserDTO, Long> {
 	@Transactional
 	@Query("UPDATE UserDTO u SET u.point=?2 WHERE u.userId=?1")
 	void updateUserPoint(Long userId, Integer value);
+
+	@Query("select u from UserDTO u")
+	public Page<UserDTO> findByUserList(Pageable pageable);
 
     
 	

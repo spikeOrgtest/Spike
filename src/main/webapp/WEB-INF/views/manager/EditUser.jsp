@@ -106,11 +106,20 @@
 									<option value="BLOCK">BLOCK</option>
 								</select>
 						</div>
+						
+						<div class="form-group">
+							<label for="roles">권한</label> 
+								<select name="roles" id="rolesSelect" data-roles="${item.roles}">
+									<option value="" disabled selected>${item.roles.substring(5)}(현재 상태)</option>
+									<option value="ROLE_USER">USER</option>
+									<option value="ROLE_ADMIN">ADMIN</option>
+								</select>
+						</div>
 					</c:forEach>
 
 					<div class="form-buttons">
 						<button type="submit" class="submit-btn">수정</button>
-						<button type="reset" class="reset-btn">취소</button>
+						<button type="button" class="reset-btn" onclick="history.go(-1);">취소</button>
 					</div>
 				</form>
 
@@ -124,14 +133,20 @@
     function checkSelection() {
         const statusElement = document.getElementById('statusSelect');
         const minorElement = document.getElementById('mionrSelect');
+        const rolesElement = document.getElementById('rolesSelect');
         const stautsHidden = statusElement.getAttribute('data-status');
         const isMinorHidden = minorElement.getAttribute('data-minor');
+        const rolesHidden = rolesElement.getAttribute('data-roles');
         if (statusElement.value === "") {
         	statusElement.value = stautsHidden;
         }
         
         if (minorElement.value === "") {
         	minorElement.value = isMinorHidden;
+        }
+        
+        if (rolesElement.value === "") {
+        	rolesElement.value = rolesHidden;
         }
         
         return true;  

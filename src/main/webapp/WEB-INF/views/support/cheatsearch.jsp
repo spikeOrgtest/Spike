@@ -37,7 +37,7 @@
 				</c:forEach>
 			</tbody>
 		</table>
-		<div class="pagination" style="margin-left: 40px; margin-top: 20px;">
+		<div class="pagination">
 			<c:if test="${currentPage > 0}">
 				<a
 					href="?detailValue=${param.detailValue}&page=${currentPage - 1}&size=${pageSize}">이전</a>
@@ -55,7 +55,7 @@
 					href="?detailValue=${param.detailValue}&page=${currentPage + 1}&size=${pageSize}">다음</a>
 			</c:if>
 		</div>
-		<button style="margin-top: 20px; margin-bottom: 20px;" onclick="location.href='/spike.com/support/cheat'">돌아가기</button>
+		<button onclick="location.href='/spike.com/support/cheat'">돌아가기</button>
 	</div>
 	<%@ include file="../include/shortfooter.jsp"%>
 </body>
