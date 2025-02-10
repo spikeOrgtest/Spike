@@ -132,6 +132,8 @@ public class NoticeController {
 		// 검색 조건 설정---
 		String findName = request.getParameter("findName"); //검색어
 		String findField = request.getParameter("findField"); // 검색필드
+		System.out.println("------------검색어-------------" +  findName);
+		System.out.println("-------------검색필드------------" +  findField);
 		
 		//검색어와 필드를 dto에 셋팅
 		p.setFindField(findField);
@@ -139,17 +141,18 @@ public class NoticeController {
 		
 		//전체 게시물 수 구하기
 		int totalCount = this.noticeService.getRowCount(p);
+		System.out.println("--------------총레코드 갯수와 검색후 레코드갯수--------" + totalCount);
+		
 		index = totalCount - (page-1)*limit; // 인덱스는 토탈카운트이다. 인덱스를 만든이유 : 공지사항 인덱싱 (페이징이 거꾸로 숫자가 나오게하려고)
 		
 		
 		//시작페이지와 끝페이지 계산---
 		p.setStartrow((page-1)*limit +1); //시작행 번호
-		System.out.println("번호가? " +p.getStartrow());
 		p.setEndrow(p.getStartrow()+limit-1); //끝행 번호
-		System.out.println("끝 번호가? " +p.getEndrow());
 		
 		//게시물 목록 가져오기
 		List<NoticeDTO> Nlist = this.noticeService.getNotiList(p);
+		System.out.println("=====================총 공지목록과 검색후 공지목록갯수==" + Nlist.size());
 		
 		int maxpage = (int) Math.ceil((double) totalCount / limit); // 총페이지수
 		int startpage = ((page - 1) / 5) * 5 + 1;  // 시작 페이지
@@ -177,7 +180,6 @@ public class NoticeController {
 		listP.addObject("endR",p.getEndrow());
 		listP.addObject("index",index);
 		listP.setViewName("support/newsSubpage_notice"); 
-		System.out.println("리스트" + Nlist);
 		
 		return listP;
 		
