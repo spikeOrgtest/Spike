@@ -205,3 +205,48 @@ body {
 .wrong {
     color: red;
 }
+
+/* 포인트 사용내역 */
+.point-history {
+    width: 930px;
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 30px;
+}
+
+.point-history h3 {
+    font-size: 24px;
+    color: #0078d7;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* 테이블 기본 스타일 (퀴즈 랭킹과 동일) */
+.point-history table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.point-history th, .point-history td {
+    padding: 10px;
+    text-align: center;
+    border: 1px solid #ddd;
+    font-size: 16px;
+}
+
+.point-history th {
+    background-color: #0078d7;
+    color: white;
+}
+
+.point-history tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.point-history tr:hover {
+    background-color: #f1f1f1;
+}
