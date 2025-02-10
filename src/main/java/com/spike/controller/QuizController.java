@@ -104,19 +104,6 @@ public class QuizController {
                 response.put("message", "포인트가 부족합니다.");
                 return ResponseEntity.badRequest().body(response);
             }
-
-            /* 사용자 포인트 확인 및 차감
-            UserDTO realUser = userService.findId(user);
-            int userPoints = realUser.getPoint();
-            if (userPoints < itemPrice) {
-                response.put("success", false);
-                response.put("message", "포인트가 부족합니다.");
-                return ResponseEntity.badRequest().body(response);
-            }
-            
-            // 포인트 차감
-            userService.addPoints(user, -itemPrice);
-            */
             response.put("success", true);
             response.put("message", itemName + " 구매 성공!");
             return ResponseEntity.ok(response);

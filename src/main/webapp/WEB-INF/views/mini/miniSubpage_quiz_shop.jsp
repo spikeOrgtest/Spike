@@ -93,8 +93,8 @@
 
 	<script>
 	document.addEventListener("DOMContentLoaded", function() {
-	    // 구매 버튼 클릭 시 모달 창 열기
-	    const buyButtons = document.querySelectorAll(".buy-btn");  // 모든 구매 버튼 선택
+	    // 요소 선택
+	    const buyButtons = document.querySelectorAll(".buy-btn");
 	    const modal = document.getElementById("purchaseModal");
 	    const userPointsElement = document.getElementById("userPoints");
 	    const modalMessage = document.getElementById("modalMessage");
@@ -105,35 +105,60 @@
 	    let selectedGiftName = "";
 	    let selectedGiftIconId = null;
 
-	    // 구매 버튼에 클릭 이벤트 리스너 추가
-	    buyButtons.forEach(button => {
-	        button.addEventListener("click", function() {
-	            // data-name과 data-price, data-id 속성값을 가져옴
-	            const giftCard = button.closest('.gift-card');  // 클릭된 버튼의 부모 .gift-card 요소
-	            selectedGiftName = giftCard.getAttribute("data-name");  // data-name을 가져와서 이름을 저장
-	            selectedGiftPrice = parseInt(giftCard.getAttribute("data-price"));
-	            selectedGiftIconId = giftCard.getAttribute("data-id");
+	    // 모달 열기 함수
+	    function openModal(name, price, id) {
+	        selectedGiftName = name;
+	        selectedGiftPrice = parseInt(price);
+	        selectedGiftIconId = id;
+	        
+	        // 모달 메시지 업데이트 (기프티콘 이름을 포함한 메시지)
+	    
+    	modalMessage.innerHTML = `구매하시겠습니까?`;
+	        
+	        // 모달 창 열기
+	        modal.style.display = "flex";
+	        modal.style.zIndex = "9999";
+	    }
 
-	            // 모달 메시지 업데이트
-	           modalMessage.textContent = `${selectedGiftName}을 구매하시겠습니까?`;  // 변경된 이름 변수 사용
- 
-	            // 모달 창 표시
-	            modal.style.display = "flex";
-	            modal.style.zIndex = "9999"; 
+	    // 모달 닫기 함수
+	    function closeModal() {
+	        modal.style.display = "none";
+	    }
+
+	    // 백엔드에 구매 요청을 보내는 함수
+	    function sendPurchaseRequest(itemName, itemPrice, giftIconId) {
+	        const csrfHeader = document.querySelector('meta[name="_csrf_header"]').content;
+	        const csrfToken = document.querySelector('meta[name="_csrf"]').content;
+
+	        const purchaseData = {
+	            itemName: itemName,
+	            itemPrice: itemPrice,
+	            giftIconId: giftIconId,
+	        };
+
+	        return fetch('/spike.com/purchase', {
+	            method: 'POST',
+	            headers: {
+	                'Content-Type': 'application/json',
+	                [csrfHeader]: csrfToken,
+	            },
+	            body: JSON.stringify(purchaseData),
+	        })
+	        .then(response => response.json())
+	        .catch(error => {
+	            console.error("구매 요청 실패:", error);
+	            throw error;
 	        });
-	    });
+	    }
 
-
-	    // 구매 확인 버튼 클릭 시
-	    confirmPurchaseBtn.addEventListener("click", function() {
+	    // 구매 요청 처리 함수
+	    function handlePurchase() {
 	        const currentPoints = parseInt(userPointsElement.textContent);
 
 	        if (currentPoints >= selectedGiftPrice) {
-	            // 백엔드에 구매 요청 보내기
 	            sendPurchaseRequest(selectedGiftName, selectedGiftPrice, selectedGiftIconId)
 	            .then(data => {
 	                if (data.success) {
-	                    // 성공 시 포인트 차감
 	                    userPointsElement.textContent = currentPoints - selectedGiftPrice;
 	                    alert(`${selectedGiftName} 구매 완료!`);
 	                } else {
@@ -147,84 +172,26 @@
 	            alert("포인트가 부족합니다.");
 	        }
 
-	        // 모달 창 닫기
-	        modal.style.display = "none";
-	    });
-
-	    // 구매 취소 버튼 클릭 시
-	    cancelPurchaseBtn.addEventListener("click", function() {
-	        modal.style.display = "none";
-	    });
-
-	    // 백엔드에 구매 요청을 보내는 함수
-	    function sendPurchaseRequest(itemName, itemPrice, giftIconId) {
-	        // CSRF 토큰 가져오기
-	        const csrfHeader = document.querySelector('meta[name="_csrf_header"]').content;
-	        const csrfToken = document.querySelector('meta[name="_csrf"]').content;
-
-	        // 요청할 데이터 구성
-	        const purchaseData = {
-	            itemName: itemName,
-	            itemPrice: itemPrice,
-	            giftIconId: giftIconId,  // 기프티콘 ID를 요청에 포함
-	        };
-
-	        console.log("서버로 보낼 데이터:", purchaseData);
-
-	        // fetch API를 이용하여 백엔드에 POST 요청 전송
-	        return fetch('/spike.com/purchase', {
-	            method: 'POST',
-	            headers: {
-	                'Content-Type': 'application/json',
-	                [csrfHeader]: csrfToken, // CSRF 보호
-	            },
-	            body: JSON.stringify(purchaseData),
-	        })
-	        .then(response => {
-	            console.log("응답 상태 코드:", response.status);
-	            return response.json();  // JSON 응답을 반환
-	        })
-	        .then(data => {
-	            console.log("서버 응답 데이터:", data);
-	            return data;  // 서버 응답 데이터 반환 (성공 여부 확인용)
-	        })
-	        .catch(error => {
-	            console.error("구매 요청 실패:", error);
-	            throw error;  // 에러 발생 시 상위 코드에서 처리할 수 있도록 던짐
-	        });
-	    }
-	});
-
-	// 구매 확인 버튼 클릭
-	confirmPurchaseBtn.addEventListener("click", function() {
-	    const currentPoints = parseInt(userPointsElement.textContent);
-
-	    if (currentPoints >= selectedGiftPrice) {
-	        // 백엔드에 구매 요청 보내기
-	        sendPurchaseRequest(selectedGiftName, selectedGiftPrice, selectedGiftIconId) // 기프티콘 ID도 전달
-	        .then(data => {
-	            if (data.success) {
-	                // 성공 시 포인트 차감
-	                userPointsElement.textContent = currentPoints - selectedGiftPrice;
-	                alert(`${selectedGiftName} 구매 완료!`);
-	            } else {
-	                alert(data.message || "구매 실패. 다시 시도해주세요.");
-	            }
-	        })
-	        .catch(() => {
-	            alert("서버 오류가 발생했습니다.");
-	        });
-	    } else {
-	        alert("포인트가 부족합니다.");
+	        closeModal();
 	    }
 
-	    // 모달 창 닫기
-	    modal.style.display = "none";
-	});
+	    // 구매 버튼 클릭 이벤트 추가
+	    buyButtons.forEach(button => {
+	        button.addEventListener("click", function() {
+	            const giftCard = button.closest('.gift-card');
+	            openModal(
+	                giftCard.getAttribute("data-name"),
+	                giftCard.getAttribute("data-price"),
+	                giftCard.getAttribute("data-id")
+	            );
+	        });
+	    });
 
-	// 구매 취소 버튼 클릭
-	cancelPurchaseBtn.addEventListener("click", function() {
-	    modal.style.display = "none";
+	    // 구매 확인 버튼 클릭
+	    confirmPurchaseBtn.addEventListener("click", handlePurchase);
+
+	    // 구매 취소 버튼 클릭
+	    cancelPurchaseBtn.addEventListener("click", closeModal);
 	});
 
 </script>

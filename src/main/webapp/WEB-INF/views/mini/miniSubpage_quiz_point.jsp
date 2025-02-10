@@ -74,11 +74,6 @@
 							</tr>
 						</thead>
 						<tbody>
-
-
-
-
-
 							<!-- PointHistory 객체 리스트 반복하여 출력 -->
 							<c:forEach var="history" items="${history}">
 								<tr>
@@ -126,9 +121,6 @@
 			</div>
 		</div>
 	</div>
-
-
-
 	<%@ include file="../include/shortfooter.jsp"%>
 </body>
 
@@ -143,12 +135,10 @@ window.onload = function () {
             if (pointElement) {
                 pointElement.innerText = data+" P";
             } else {
-                console.error('pointDisplay 요소를 찾을 수 없습니다.');
+                
             }
         })
         .catch(error => {
-            // 에러가 생기면 알림
-        	console.error('요청중 에러발생');
         });
     
 	// 서버에 점수 요청하기
@@ -160,12 +150,9 @@ window.onload = function () {
             if (pointElement) {
                 pointElement.innerText = data+" P";
             } else {
-                console.error('pointDisplay 요소를 찾을 수 없습니다.');
             }
         })
         .catch(error => {
-            // 에러가 생기면 알림
-        	console.error('요청중 에러발생');
         });
 
 };
