@@ -27,6 +27,8 @@ import com.spike.dto.ManagerDTO;
 import com.spike.dto.UserDTO;
 import com.spike.service.LoginHistoryService;
 import com.spike.service.UserSerivce;
+import com.spike.dto.LoanDTO;
+import com.spike.service.LoanService;
 
 
 @Controller
@@ -38,6 +40,9 @@ public class ManagerController {
 
 	@Autowired
     private LoginHistoryService loginHistoryService;
+
+	@Autowired
+	private LoanService loanService;
 
 	// @GetMapping("/ma")
 	// public ModelAndView manager(HttpServletRequest request) {
@@ -86,7 +91,6 @@ public class ManagerController {
 		vi.setViewName("/manager/visit");
 		return vi;
 	}
-	
 	//설 로그인시간보는것
 	
 	
@@ -109,7 +113,6 @@ public class ManagerController {
 		// ModelAndView 반환
 		return mv;
 	}
-	
 
 	@GetMapping("/userManagement")
 	public ModelAndView userManagement(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "5") int size) {
@@ -182,12 +185,9 @@ public class ManagerController {
 	
 	@GetMapping("/loanManagement")
 	public ModelAndView loanManagement() {
-		
-		List<UserDTO> list = this.userService.findByUserList();
-		
+		List<LoanDTO> loanList = this.loanService.findAllLoans();
 		ModelAndView um = new ModelAndView("manager/loanManagement");
-		um.addObject("list", list);
-		
+		um.addObject("loanList", loanList);
 		return um;
 	}
 	
@@ -203,7 +203,6 @@ public class ManagerController {
 
 		return em;
 	}
-	
 	
 
 }
