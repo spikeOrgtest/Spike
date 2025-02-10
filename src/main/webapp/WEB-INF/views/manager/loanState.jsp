@@ -34,8 +34,8 @@
 						value="${_csrf.token}" />
 					<c:forEach var="item" items="${list}">
 						<div class="form-group">
-							<label for="UserId">사용자 번호</label> <input type="text"
-								id="UserId" name="userId" value="${item.userId}" readonly>
+							<label for="UserId">사용자 번호</label> <input type="text" id="UserId"
+								name="userId" value="${item.userId}" readonly>
 						</div>
 
 						<div class="form-group">
@@ -55,9 +55,8 @@
 						</div>
 
 						<div class="form-group">
-							<label for="EmailId">이메일</label> <input type="text"
-								id="EmailId" value="${item.emailId}@${item.emailDomain}"
-								readonly>
+							<label for="EmailId">이메일</label> <input type="text" id="EmailId"
+								value="${item.emailId}@${item.emailDomain}" readonly>
 						</div>
 
 						<div class="form-group">
@@ -66,9 +65,8 @@
 						</div>
 
 						<div class="form-group">
-							<label for="postcode">주소</label> <input type="text"
-								id="postcode" value="${item.postcode}" placeholder="우편번호"
-								readonly>
+							<label for="postcode">주소</label> <input type="text" id="postcode"
+								value="${item.postcode}" placeholder="우편번호" readonly>
 						</div>
 						<div class="form-group">
 							<input type="text" id="roadAddress" value="${item.roadAddress}"
@@ -84,34 +82,37 @@
 						</div>
 
 						<div class="form-group">
-							<label for="IsMinor">미성년자 여부</label>
-								<select name="isMinor">
-									<option value="" disabled selected>${item.isMinor}(현재 상태)</option>
-									<option value="adult">adult</option>
-									<option value="minor">minor</option>
-								</select>
+							<label for="IsMinor">미성년자 여부</label> <select name="isMinor"
+								disabled>
+								<option value="${item.isMinor}" selected>${item.isMinor}(현재
+									상태)</option>
+							</select>
 						</div>
 
 						<div class="form-group">
-							<label for="status">상태</label> 
-								<select name="status">
-									<option value="" disabled selected>${item.status}(현재 상태)</option>
-									<option value="ACTIVE">ACTIVE</option>
-									<option value="INACTIVE">INACTIVE</option>
-									<option value="BLOCK">BLOCK</option>
-								</select>
+							<label for="status">상태</label> <select name="status" disabled>
+								<option value="${item.status}" selected>${item.status}(현재
+									상태)</option>
+							</select>
 						</div>
 					</c:forEach>
 
 					<div class="form-buttons">
-						<button type="submit" class="submit-btn">수락</button>
-						<button type="reset" class="reject-btn">거절</button>
-						<button type="reset" class="reset-btn">목록</button>
+						<form action="/spike.com/admin/acceptLoan" method="post">
+							<input type="hidden" name="userId" value="${item.userId}">
+							<input type="hidden" name="loanAmount" value="${item.loanAmount}">
+							<button type="submit" class="submit-btn">수락</button>
+						</form>
+
+						<form action="/spike.com/admin/rejectLoan" method="post">
+							<input type="hidden" name="loanId" value="${item.id}">
+							<button type="submit" class="reject-btn">거절</button>
+						</form>
+						<button type="button" class="reset-btn"
+							onclick="location.href='/spike.com/admin/loanManagement';">목록</button>
 					</div>
 				</form>
-
 			</div>
-
 		</div>
 	</div>
 	<%@ include file="../include/shortfooter.jsp"%>

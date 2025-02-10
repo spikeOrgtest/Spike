@@ -23,6 +23,7 @@ import com.spike.dto.LoanDTO;
 import com.spike.dto.UserDTO;
 import com.spike.service.AccountService;
 import com.spike.service.LoanService;
+import com.spike.service.UserSerivce;
 
 @Controller
 @RequestMapping("/spike.com")
@@ -33,6 +34,9 @@ public class LoanController {
 	
 	@Autowired
 	private AccountService accountService;
+	
+	@Autowired
+	private UserSerivce userService;
 		
 	@GetMapping("/products/loan")
 	public String loan() {
@@ -79,7 +83,7 @@ public class LoanController {
 	}
 
 
-	
+
 	@PostMapping("/loan_ok")
 	public ModelAndView loan_ok(LoanDTO s, 
 			HttpServletRequest request, BindingResult result, HttpSession session) throws IOException {
@@ -95,6 +99,36 @@ public class LoanController {
 		// 대출 신청 후 loanManagement로 리다이렉트
 		return new ModelAndView("redirect:/spike.com/admin/loanManagement"); // 대출 관리 페이지로 리다이렉트
 	}
-	
+	/*
+	// 대출 수락 처리
+	@PostMapping("/acceptLoan")
+	public String acceptLoan(@RequestParam("loanId") Long loanId, @RequestParam("userId") Long userId) {
+	    // 대출 수락
+	    LoanDTO loan = loanService.getLoanById(loanId);
+	    UserDTO user = userService.getUserById(userId);
+
+	    // 대출 상태를 '수락됨'으로 변경
+	    loan.setLoanState("수락됨");
+	    loanService.updateLoan(loan); // 대출 상태 업데이트
+	    
+	    // 대출 금액 입금
+	    AccountDTO account = accountService.getAccountByUser(user); // 유저의 계좌 정보 가져오기
+	    account.setBalance(account.getBalance() + loan.getLoanAmount()); // 계좌에 대출 금액 입금
+	    accountService.updateAccount(account); // 계좌 정보 업데이트
+
+	    // 대출 처리 후 대출 관리 페이지로 리다이렉트
+	    return "redirect:/spike.com/admin/loanManagement";  // 대출 관리 페이지로 리다이렉트
+	}
+	*/
+	// 대출 거절 처리
+	@PostMapping("/rejectLoan")
+	public String rejectLoan(@RequestParam("loanId") Long loanId) {
+	    // 대출 거절
+	    loanService.rejectLoan(loanId);
+
+	    // 대출 처리 후 대출 관리 페이지로 리다이렉트
+	    return "redirect:/spike.com/admin/loanManagement";  // 대출 관리 페이지로 리다이렉트
+	}
+
 	
 }

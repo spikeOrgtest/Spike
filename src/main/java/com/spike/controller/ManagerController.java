@@ -63,7 +63,7 @@ public class ManagerController {
 
 				
 	}
-	
+	/*
 	@GetMapping("/visit")
 	public ModelAndView visit() {
 		
@@ -81,7 +81,7 @@ public class ManagerController {
 		vi.setViewName("/manager/visit");
 		return vi;
 	}
-			
+	*/
 	
 
 	@GetMapping("/userManagement")
@@ -187,7 +187,6 @@ public class ManagerController {
 
 		return em;
 	}
-	
 	
 
 }

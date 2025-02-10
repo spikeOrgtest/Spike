@@ -9,5 +9,9 @@ public interface LoanService {
 	void createLoan(LoanDTO s);
 
 	List<LoanDTO> findAllLoans();
+	
+	void acceptLoan(Long loanId, Long userId);
+
+	void rejectLoan(Long loanId);
 
 }
