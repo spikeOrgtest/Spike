@@ -21,10 +21,6 @@
 				</c:otherwise>
 			</c:choose>
 
-
-			<a href="/spike.com/notice">공지사항</a> <a
-				href="/spike.com/ma">FAQ</a> <a href="#board">게시판</a>
-
 			<a href="newsSubpage_notice.jsp">공지사항</a> <a href="/spike.com/admin/ma">FAQ</a>
 			<a href="#board">게시판</a>
 
