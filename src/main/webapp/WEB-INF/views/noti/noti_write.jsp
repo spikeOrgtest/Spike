@@ -29,7 +29,6 @@
 	
 	<div class="subpageWrapper">
 		<div class="subpage-main-container" style="justify-content: center;">
-			<!-- 사이드바 -->
 			
 	
  <div id="noti_wrap">

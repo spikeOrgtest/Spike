@@ -114,8 +114,17 @@
 						<input type="search" name="findName" size="14" value="${findName}" />
 						<button type="submit">검색</button>
 					</div>
+ 
+<c:if test="${sessionScope.User.roles == 'ROLE_USER' or sessionScope.User.roles == null}">
+    <button type="button" onclick="location='/spike.com/noti_write?page=${page}';">관리자 글쓰기</button>
+</c:if>
 
-					<div id="Nlist_menu">
+
+                    <!--<c:if test="${sessionScope.roles == 'roles_admin'}">
+    <button type="button" onclick="location='/spike.com/noti_write?page=${page}';">글쓰기</button>
+</c:if> -->
+                                        
+					 <div id="Nlist_menu">
 						<button type="button" onclick="location='/spike.com/noti_write?page=${page}';">글쓰기</button>
 						<!--<c:if test="${(!empty find_field) && (!empty find_name)}">
 							<button type="button" onclick="location='/spike.com/notice?page=${page}';">전체목록</button>

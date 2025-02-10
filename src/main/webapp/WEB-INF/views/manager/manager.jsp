@@ -65,7 +65,7 @@
 <div class="dashboard1">
   <h2><strong>오늘의 대출 신청</strong></h2> <!-- 오늘 가입한 신규 회원 수 -->
   <div id="board1">
-    <p>38건</p>
+    <p>{allLoanId}건</p>
     </div>
    </div>
   </div>
