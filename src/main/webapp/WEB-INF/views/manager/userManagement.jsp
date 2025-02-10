@@ -52,8 +52,8 @@
 								<td>${item.name}</td>
 								<td>${item.emailId}@${item.emailDomain}</td>
 								<td>${item.status}</td>
-								<td><a href="/spike.com/EditUser?userId=${item.userId}">수정</a></td>
-								<td><a href="/spike.com/DeleteUser?userId=${item.userId}"
+								<td><a href="/spike.com/admin/EditUser?userId=${item.userId}">수정</a></td>
+								<td><a href="/spike.com/admin/DeleteUser?userId=${item.userId}"
 									onclick="return confirm('삭제 버튼을 누르면 모든 정보가 삭제됩니다.\n그래도 진행하시겠습니까?');">삭제</a></td>
 							</tr>
 						</c:forEach>
