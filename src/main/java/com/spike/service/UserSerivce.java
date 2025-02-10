@@ -3,7 +3,9 @@ package com.spike.service;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
+
 import org.springframework.data.domain.Pageable;
+
 
 import com.spike.dto.AccountDTO;
 import com.spike.dto.NotiPageDTO;
@@ -15,8 +17,6 @@ public interface UserSerivce {
 	void insertMember(UserDTO s);
 
 	UserDTO idCheck(String id);
-
-	UserDTO loginCheck(String loginId);
 
 	UserDTO findId(UserDTO s);
 
@@ -42,11 +42,11 @@ public interface UserSerivce {
 
 	Long newMember();
 
-	List<UserDTO> findByUserList();
+	Page<UserDTO> findByUserList(int page, int size);
 
 	List<UserDTO> findByUserIdEdit(Long UserId);
 
-	void UpdateUser(String isMinor, String status, Long userId);
+	void UpdateUser(String isMinor, String status, String roles, Long userId);
 
 	void UserDelete(Long UserId);
 

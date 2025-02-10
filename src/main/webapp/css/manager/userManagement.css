@@ -17,6 +17,11 @@
 	box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
+.pagination {
+	display: flex;
+	justify-content: center;
+}
+
 /* 테이블 스타일 */
 table {
 	width: 100%;

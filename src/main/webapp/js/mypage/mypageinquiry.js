@@ -197,8 +197,6 @@ document.addEventListener('DOMContentLoaded', function() {
             const myModal = new bootstrap.Modal(document.getElementById('dailyLimitModal'));
             myModal.show();
         }
-		
-		console.log('디버깅');
     });
 });
 

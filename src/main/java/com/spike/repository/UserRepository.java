@@ -85,8 +85,8 @@ public interface UserRepository extends JpaRepository<UserDTO, Long> {
 
 	@Modifying
 	@Transactional
-	@Query("update UserDTO s set s.isMinor=?1 , s.status=?2 where s.userId=?3")
-	public void UpdateUser(String isMinor, String status, Long userId);
+	@Query("update UserDTO s set s.isMinor=?1 , s.status=?2, s.roles=?3 where s.userId=?4")
+	public void UpdateUser(String isMinor, String status, String roles, Long userId);
 
 	@Modifying
 	@Transactional
@@ -109,6 +109,7 @@ public interface UserRepository extends JpaRepository<UserDTO, Long> {
 	@Query("UPDATE UserDTO u SET u.point=?2 WHERE u.userId=?1")
 	void updateUserPoint(Long userId, Integer value);
 
+<<<<<<< HEAD
 	@Query("select u FROM UserDTO u WHERE u.lastLogin IS NOT NULL AND TRUNC(u.lastLogin) = TRUNC(CURRENT_DATE)")
 	public Page<UserDTO> getTodaylist(Pageable visipage);
 
@@ -120,6 +121,12 @@ public interface UserRepository extends JpaRepository<UserDTO, Long> {
 
 	@Query("select Count(u.amount) from TransactionDTO u where TRUNC(u.transactionDate) = TRUNC(CURRENT_DATE)")
 	public Long getallTransaction();
+=======
+	@Query("select u from UserDTO u")
+	public Page<UserDTO> findByUserList(Pageable pageable);
+
+    
+>>>>>>> develop
 	
 }
 

@@ -120,5 +120,7 @@ public class UserDTO {
     // QuizResult와의 연관 관계 (1:N 관계)
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<QuizResultDTO> quizResults; // 유저가 푼 퀴즈 결과들
+    
+    private String roles;
 
 }
