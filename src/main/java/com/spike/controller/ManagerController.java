@@ -8,22 +8,31 @@ import java.util.stream.Collectors;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.spike.dto.CheatReportDTO;
 import com.spike.dto.ManagerDTO;
 import com.spike.dto.UserDTO;
 import com.spike.service.LoginHistoryService;
 import com.spike.service.UserSerivce;
+import com.spike.dto.LoanDTO;
+import com.spike.service.LoanService;
 
 
 @Controller
-@RequestMapping("/spike.com")
+@RequestMapping("/spike.com/admin")
 public class ManagerController {
 
 	@Autowired
@@ -31,6 +40,9 @@ public class ManagerController {
 
 	@Autowired
     private LoginHistoryService loginHistoryService;
+
+	@Autowired
+	private LoanService loanService;
 
 	// @GetMapping("/ma")
 	// public ModelAndView manager(HttpServletRequest request) {
@@ -47,47 +59,76 @@ public class ManagerController {
 		System.out.println("\n ==========================  " + tolog);
 
 		Long newmember = userService.newMember();
+		Long allvisit = userService.getallvisit();
+		Long allamount = userService.getallamount();
+		Long allTransaction = userService.getallTransaction();
 
 		ModelAndView ma = new ModelAndView();
 		ma.addObject("tolog", tolog); // 화면으로 전달할 데이터
 		ma.addObject("newmember", newmember);
+		ma.addObject("allvisit",allvisit);
+		ma.addObject("allamount",allamount);
+		ma.addObject("allTransaction",allTransaction);
 		ma.setViewName("/manager/manager");
 		return ma;
 
 				
 	}
-	
+			
 	@GetMapping("/visit")
-	public ModelAndView visit() {
+	public ModelAndView visit(@RequestParam(defaultValue = "1") int page,
+			@RequestParam(defaultValue = "5") int size) {
 		
-		List<UserDTO> visi = this.userService.findByUserList();
+		Pageable visipage = PageRequest.of(page-1, size, Sort.by("userId").descending());
 		
-		List<UserDTO> Llist = visi.stream()
-				.filter(l -> l.getLastLogin() != null && l.getLastLogin().toLocalDate().isEqual(LocalDate.now()))
-				.collect(Collectors.toList());
+		Page<UserDTO> Todaylist = userService.getTodaylist(visipage);
 		
-		//if(visi.getLastLogin().equals(LocalDateTime.now())) {
-		
+		System.out.println("============================\n" + Todaylist.getSize());
 		ModelAndView vi = new ModelAndView();
-		vi.addObject("visi",visi);
-		vi.addObject("Llist",Llist);
+		vi.addObject("Todaylist", Todaylist);
 		vi.setViewName("/manager/visit");
 		return vi;
 	}
-			
+	//설 로그인시간보는것
 	
+	
+	@GetMapping("/userLoginHistory")
+	public ModelAndView userLoginHistory(@RequestParam("userId") Long UserId,
+			@RequestParam(defaultValue = "1") int page,
+			@RequestParam(defaultValue = "10") int size) {
+		
+		//페이징 객체설정
+		Pageable pageable = PageRequest.of(page-1, size, Sort.by("allTime").descending());
+		
+		// 로그인 기록 조회(페이징까지)
+		Page<ManagerDTO> LHlist = loginHistoryService.findByLoginIdday(UserId,pageable);
+		
+		// ModelAndView 객체 생성
+		ModelAndView mv = new ModelAndView("manager/userLoginHistory");
+		
+		mv.addObject("LHlist",LHlist);
+		mv.addObject("userId", UserId);
+		// ModelAndView 반환
+		return mv;
+	}
 
 	@GetMapping("/userManagement")
-	public ModelAndView userManagement() {
+	public ModelAndView userManagement(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "5") int size) {
 
-		List<UserDTO> list = this.userService.findByUserList();
+		//List<UserDTO> list = this.userService.findByUserList();
+		
+		Page<UserDTO> paging = this.userService.findByUserList(page, size);
 
 		ModelAndView um = new ModelAndView("manager/userManagement");
-		um.addObject("list", list);
+		um.addObject("paging", paging);
+	    um.addObject("totalPages", paging.getTotalPages());
+	    um.addObject("totalElements", paging.getTotalElements());
+	    um.addObject("currentPage", page);
+	    um.addObject("pageSize", size);
 
 		return um;
 	}
-
+	
 	@GetMapping("/EditUser")
 	public ModelAndView EditUser(@RequestParam("userId") Long UserId) {
 
@@ -100,11 +141,11 @@ public class ManagerController {
 	}
 
 	@PostMapping("/UpdateUser")
-	public void UpdateUser(Long userId, String isMinor, String status, HttpServletResponse response) throws Exception {
+	public void UpdateUser(Long userId, String isMinor, String status, String roles, HttpServletResponse response) throws Exception {
 		response.setContentType("text/html; charset=UTF-8");
 		PrintWriter out = response.getWriter();
 
-		this.userService.UpdateUser(isMinor, status, userId);
+		this.userService.UpdateUser(isMinor, status, roles, userId);
 
 		out.println("<script>");
 		out.println("alert('수정 완료했습니다.');");
@@ -124,44 +165,27 @@ public class ManagerController {
 			this.userService.UserDelete(UserId);
 			out.println("<script>");
 			out.println("alert('삭제 완료했습니다.');");
-			out.println("window.location.href = '/spike.com/userManagement';");
+			out.println("window.location.href = '/spike.com/admin/userManagement';");
 			out.println("</script>");
 		} else {
 			this.userService.AccountDelete(UserId);
 			this.userService.UserDelete(UserId);
 			out.println("<script>");
 			out.println("alert('삭제 완료했습니다.');");
-			out.println("window.location.href = '/spike.com/userManagement';");
+			out.println("window.location.href = '/spike.com/admin/userManagement';");
 			out.println("</script>");
 		}
 	}
-
-		//설 로그인시간보는것
 	
-		
-		@GetMapping("/userLoginHistory")
-		public ModelAndView userLoginHistory() {
-		    // 로그인 기록 조회
-		    List<ManagerDTO> LHlist = this.loginHistoryService.findByLoginIdday();
-		    
-		    // ModelAndView 객체 생성
-		    ModelAndView mv = new ModelAndView("manager/userLoginHistory");
-		    
-		    mv.addObject("LHlist",LHlist);
-		    // ModelAndView 반환
-		    return mv;
-		}
+	
 		
 
 	
 	@GetMapping("/loanManagement")
 	public ModelAndView loanManagement() {
-		
-		List<UserDTO> list = this.userService.findByUserList();
-		
+		List<LoanDTO> loanList = this.loanService.findAllLoans();
 		ModelAndView um = new ModelAndView("manager/loanManagement");
-		um.addObject("list", list);
-		
+		um.addObject("loanList", loanList);
 		return um;
 	}
 	
@@ -177,7 +201,6 @@ public class ManagerController {
 
 		return em;
 	}
-	
 	
 
 }

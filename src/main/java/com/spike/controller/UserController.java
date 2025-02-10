@@ -44,7 +44,26 @@ public class UserController {
 	
 	// 로그인 폼
 	@GetMapping("/login") 
-	public ModelAndView login() {
+	public ModelAndView login(HttpServletResponse response, HttpSession session) throws Exception {
+		response.setContentType("text/html; charset=UTF-8");
+		PrintWriter out = response.getWriter();
+		
+		UserDTO sessionUser = (UserDTO) session.getAttribute("User");
+		
+		
+		if( sessionUser != null) {
+			for(int i=0; i < 100000; i++) {
+				for(int x=0; x < 2; x++) {
+					System.out.println(x);
+				}
+			}
+			out.println("<script>");
+			out.println("alert('이미 로그인되었습니다');");
+			out.println("window.location.href = '/spike.com/';");
+			out.println("</script>");
+			return null;
+		}
+		
 		ModelAndView s = new ModelAndView();
 		s.setViewName("/login");
 		return s;
@@ -113,7 +132,7 @@ public class UserController {
 
 		response.setContentType("text/html;charset=UTF-8");
 		PrintWriter out = response.getWriter();
-		
+		s.setRoles("ROLE_USER");
 		s.setStatus("ACTIVE"); // 계정 상태 ACTIVE로 설정
 
 		// 이메일 도메인 처리
@@ -351,6 +370,18 @@ public class UserController {
 		out.println("</script>");
 
 		out.close();
+	}
+	
+	@GetMapping("/access-denied")
+	public void accessdenied(HttpServletResponse response) throws Exception {
+		response.setContentType("text/html; charset=UTF-8");
+		PrintWriter out = response.getWriter();
+		
+		out.println("<script>");
+		out.println("alert('죄송합니다. 이 페이지에 접근할 수 있는 권한이 없습니다.\\n다시 시도하시거나 관리자에게 문의해 주세요.');");
+		out.println("history.go(-1);");
+		out.println("</script>");
+		
 	}
 
 }

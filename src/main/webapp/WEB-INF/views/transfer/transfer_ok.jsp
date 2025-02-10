@@ -36,7 +36,7 @@
 		</div>
 		</div>
 
-			<form action="/spike.com/transfer" method="post" onsubmit="return validate();">
+			<form action="/spike.com/transfer_ok" method="post" onsubmit="return validate();">
 				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 				<input type="hidden" id="accountPassword" value="${Data.accountPassword}"/>
 				<p>계좌 비밀번호 확인</p>

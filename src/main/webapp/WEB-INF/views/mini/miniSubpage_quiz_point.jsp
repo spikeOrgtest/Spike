@@ -61,6 +61,33 @@
 						<p>${correctNum}/${totalAttempts}</p>
 					</div>
 				</div>
+				<!-- 포인트 사용 내역 시작 -->
+				<div class="point-history">
+					<h3>포인트 사용 내역</h3>
+					<table>
+						<thead>
+							<tr>
+								<th>날짜</th>
+								<th>기프티콘 이름</th>
+								<th>차감 포인트</th>
+								<th>남은 포인트</th>
+							</tr>
+						</thead>
+						<tbody>
+							<!-- PointHistory 객체 리스트 반복하여 출력 -->
+							<c:forEach var="history" items="${history}">
+								<tr>
+									<td>${history.useDate}</td>
+									<td>${history.giftIconName}</td>
+									<td>${history.usedPoints}P</td>
+									<td>${history.remainingPoints}P</td>
+								</tr>
+							</c:forEach>
+						</tbody>
+					</table>
+				</div>
+				<!-- 포인트 사용 내역 끝 -->
+
 
 				<!-- 퀴즈 랭킹 시작 -->
 				<div class="quiz-ranking">
@@ -75,8 +102,6 @@
 							</tr>
 						</thead>
 						<tbody>
-
-
 							<c:forEach var="rank" items="${ranks}" varStatus="status">
 								<tr>
 									<td>${status.count}</td>
@@ -91,15 +116,11 @@
 						</tbody>
 					</table>
 				</div>
-
 				<!-- 퀴즈 랭킹 끝 -->
 
 			</div>
 		</div>
 	</div>
-
-
-
 	<%@ include file="../include/shortfooter.jsp"%>
 </body>
 
@@ -114,12 +135,10 @@ window.onload = function () {
             if (pointElement) {
                 pointElement.innerText = data+" P";
             } else {
-                console.error('pointDisplay 요소를 찾을 수 없습니다.');
+                
             }
         })
         .catch(error => {
-            // 에러가 생기면 알림
-        	console.error('요청중 에러발생');
         });
     
 	// 서버에 점수 요청하기
@@ -131,13 +150,11 @@ window.onload = function () {
             if (pointElement) {
                 pointElement.innerText = data+" P";
             } else {
-                console.error('pointDisplay 요소를 찾을 수 없습니다.');
             }
         })
         .catch(error => {
-            // 에러가 생기면 알림
-        	console.error('요청중 에러발생');
         });
+
 };
 </script>
 </html>

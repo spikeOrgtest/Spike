@@ -17,6 +17,8 @@ import org.springframework.security.web.authentication.ForwardAuthenticationFail
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
+	private AuthenticateLoginpoint authenticationEntryPoint;
+
 	@Bean
 	public PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
@@ -25,6 +27,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public AuthenticationFailureHandler failureHandler(){
         return new ForwardAuthenticationFailureHandler("/spike.com/login");
+    }
+    
+    public SecurityConfig(AuthenticateLoginpoint authenticationEntryPoint) {
+    	this.authenticationEntryPoint = authenticationEntryPoint;
     }
 
     @Autowired
@@ -35,7 +41,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
             .authorizeRequests()
                 // 인증이 필요한 페이지만 지정
-                .antMatchers("/profile", "/dashboard", "/admin", "/spike.com/mypage/main").authenticated()  
+                .antMatchers("/spike.com/mypage/*", "/spike.com/support/*").hasRole("USER")  // 일반 권한 사용자만 접근 가능
+                // .antMatchers("/spike.com/admin/*").hasRole("ADMIN")  // 관리자 권한 사용자만 접근 가능
                 // 그 외의 모든 페이지는 인증 없이 접근 가능
                 .anyRequest().permitAll()
             .and()
@@ -55,7 +62,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .and()
             .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)  
-                .invalidSessionUrl("/spike.com");  
+                .invalidSessionUrl("/spike.com")
+            .and()
+                .exceptionHandling()
+                .authenticationEntryPoint(authenticationEntryPoint)
+                .accessDeniedPage("/spike.com/access-denied");  // 권한 거부 시 보여줄 페이지 설정
     }
 
     @Override

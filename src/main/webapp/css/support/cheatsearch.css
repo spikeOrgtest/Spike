@@ -76,3 +76,31 @@
 .pagination a:hover {
     text-decoration: underline;
 }
+
+button {
+	padding: 10px 20px;
+	margin-bottom: 20px;
+    font-size: 1em;
+    background-color: #004a8f;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.pagination {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    text-align: center;  /* 중앙 정렬 */
+}
+.pagination a {
+    margin: 0 5px;  /* 각 링크 사이에 간격 추가 */
+    color: blue;
+    text-decoration: none;
+}
+
+.pagination a:hover {
+	text-decoration: none;
+}
+

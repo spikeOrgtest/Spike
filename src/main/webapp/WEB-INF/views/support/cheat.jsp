@@ -82,9 +82,9 @@
 
 		<%-- 검색바 --%>
 		<div class="search-bar">
-		<form action="search" method="GET">
+		<form action="search" method="GET" id="searchForm">
 		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-			<input type="text" name="detailValue" placeholder="계좌번호를 입력하세요."
+			<input type="text" id="search" name="detailValue" placeholder="계좌번호를 입력하세요."
 				class="input-field">
 			<button type="submit" class="search-button">검색</button>
 		</form>
@@ -188,15 +188,17 @@
 								aria-label="Close"></button>
 						</div>
 						<div class="modal-body">
-							<form action="cheat" method="post">
+							<form action="cheat" method="post" id="cheatForm">
 							<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 								<div class="mb-3">
 									<label for="recipient-name" class="col-form-label">계좌번호 입력:</label> 
-									<input type="text" class="form-control" id="recipient-name" name="detailValue">
+									<input type="text" class="form-control" id="detailValue" name="detailValue">
+									<span class="error-message" id="accountError" style="color:red;"></span>
 								</div>
 								<div class="mb-3">
 									<label for="message-text" class="col-form-label">신고 내용:</label>
-									<textarea class="form-control" id="message-text" name="content"></textarea>
+									<textarea class="form-control" id="content" name="content"></textarea>
+									<span class="error-message" id="contentError" style="color:red;"></span>
 								</div>
 						<div class="modal-footer">
 							<button type="reset" class="btn btn-secondary"
@@ -209,8 +211,8 @@
 				</div>
 			</div>
 
-			<%-- javascript --%>
-			<script>
+<%-- javascript --%>
+<script>
   
   var reportButton = document.getElementById('reportButton');
   var cancelButton = document.getElementById('cancelButton'); 
@@ -222,12 +224,46 @@
     exampleModal.hide(); 
     mdoModal.show(); 
   });
-
   
-  //cancelButton.addEventListener('click', function() {
-    //mdoModal.hide(); 
-    //exampleModal.hide(); 
-  //});
+  document.getElementById('searchForm').addEventListener('submit',function(e) {
+  			let isValid = true;
+  			
+  			const search = document.getElementById('search').value;
+  			if (search === '') {
+  				alert('계좌번호를 입력하세요');
+  				isValid = false;
+  			}
+			if (!isValid) {
+				e.preventDefault();
+			}
+  });
+  
+  document.getElementById('cheatForm').addEventListener('submit',function(e) {
+		let isValid = true;
+		
+		document.getElementById('accountError').textContent = '';
+		document.getElementById('contentError').textContent = '';
+		
+		const detailValue = document.getElementById('detailValue').value;
+		if (detailValue === '') {
+			document.getElementById('accountError').textContent = '계좌번호를 입력해주세요';
+			document.getElementById('detailValue').focus();
+			isValid = false;
+		}
+		
+		if (isValid) {
+			const content = document.getElementById('content').value;
+			if(content === '') {
+			document.getElementById('contentError').textContent = '내용을 입력해주세요';
+			document.getElementById('content').focus();
+			isValid = false;
+			}
+		}
+		
+		if (!isValid) {
+			e.preventDefault();
+		}
+});
 </script>
 
 

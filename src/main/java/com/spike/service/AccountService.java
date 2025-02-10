@@ -28,5 +28,7 @@ public interface AccountService {
 	List<AccountDTO> findbyAccountInfo(String detailValue);
 
 	List<AccountDTO> getActiveAccountsForUser(UserDTO user);
+	
+	void updateAccount(AccountDTO account);
 
 }

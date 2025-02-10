@@ -4,8 +4,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta id="_csrf" name="_csrf" content="${_csrf.token}"/>
-<meta id="_csrf_header" name="_csrf_header" content="${_csrf.headerName}"/>
+<meta id="_csrf" name="_csrf" content="${_csrf.token}" />
+<meta id="_csrf_header" name="_csrf_header"
+	content="${_csrf.headerName}" />
 
 <title>퀴즈 포인트샵</title>
 <link rel="stylesheet" href="../css/support/subpage.css">
@@ -44,13 +45,7 @@
 				</ul>
 			</div>
 
-
-
-
-
-
 			<main>
-
 				<div class="subpage-content-wrap">
 					<!-- 퀴즈 풀고 얻은 포인트로 기프티콘 구매 -->
 					<div class="shop">
@@ -65,55 +60,19 @@
 						</div>
 					</div>
 					<section class="gift-cards">
-						<div class="gift-card" data-name="배스킨라빈스" data-price="10000">
-							<img src="../images/mini/gift1.jpg" alt="기프티콘 1">
-							<div class="gift-info">
-								<h3>배스킨라빈스</h3>
-								<p>가격: 10,000P</p>
-								<button class="buy-btn">구매</button>
+						<c:forEach var="gift" items="${gift}">
+							<div class="gift-card" data-name="${gift.giftconName}"
+								data-price="${gift.price}" data-id="${gift.giftIconId}">
+								<img src="../images/mini/gift${gift.giftIconId}.jpg">
+								<div class="gift-info">
+									<h3>${gift.giftconName}</h3>
+									<p>가격: ${gift.price}P</p>
+									<button class="buy-btn">구매</button>
+								</div>
 							</div>
-						</div>
-						<div class="gift-card" data-name="공차" data-price="4000">
-							<img src="../images/mini/gift2.jpg" alt="기프티콘 2">
-							<div class="gift-info">
-								<h3>공차</h3>
-								<p>가격: 4,000P</p>
-								<button class="buy-btn">구매</button>
-							</div>
-						</div>
-						<div class="gift-card" data-name="파리바게뜨" data-price="32000">
-							<img src="../images/mini/gift3.jpg" alt="기프티콘 3">
-							<div class="gift-info">
-								<h3>파리바게뜨</h3>
-								<p>가격: 32,000P</p>
-								<button class="buy-btn">구매</button>
-							</div>
-						</div>
-						<div class="gift-card" data-name="버거킹" data-price="9900">
-							<img src="../images/mini/gift4.jpg" alt="기프티콘 4">
-							<div class="gift-info">
-								<h3>버거킹</h3>
-								<p>가격: 9,900P</p>
-								<button class="buy-btn">구매</button>
-							</div>
-						</div>
-						<div class="gift-card" data-name="도미노피자" data-price="35000">
-							<img src="../images/mini/gift5.jpg" alt="기프티콘 5">
-							<div class="gift-info">
-								<h3>도미노피자</h3>
-								<p>가격: 35,000P</p>
-								<button class="buy-btn">구매</button>
-							</div>
-						</div>
-						<div class="gift-card" data-name="bhc 치킨" data-price="25000">
-							<img src="../images/mini/gift6.jpg" alt="기프티콘 6">
-							<div class="gift-info">
-								<h3>bhc 치킨</h3>
-								<p>가격: 25,000P</p>
-								<button class="buy-btn">구매</button>
-							</div>
-						</div>
+						</c:forEach>
 					</section>
+
 				</div>
 			</main>
 
@@ -128,114 +87,114 @@
 					</div>
 				</div>
 			</div>
-
 		</div>
 	</div>
 
 
 	<script>
-document.addEventListener("DOMContentLoaded", function() {
-    // 구매 버튼 클릭 시 모달 창 열기
-    const buyButtons = document.querySelectorAll(".buy-btn");
-    const modal = document.getElementById("purchaseModal");
-    const userPointsElement = document.getElementById("userPoints");
-    const modalMessage = document.getElementById("modalMessage");
-    const confirmPurchaseBtn = document.getElementById("confirmPurchaseBtn");
-    const cancelPurchaseBtn = document.getElementById("cancelPurchaseBtn");
+	document.addEventListener("DOMContentLoaded", function() {
+	    // 요소 선택
+	    const buyButtons = document.querySelectorAll(".buy-btn");
+	    const modal = document.getElementById("purchaseModal");
+	    const userPointsElement = document.getElementById("userPoints");
+	    const modalMessage = document.getElementById("modalMessage");
+	    const confirmPurchaseBtn = document.getElementById("confirmPurchaseBtn");
+	    const cancelPurchaseBtn = document.getElementById("cancelPurchaseBtn");
 
-    let selectedGiftPrice = 0;
-    let selectedGiftName = "";
+	    let selectedGiftPrice = 0;
+	    let selectedGiftName = "";
+	    let selectedGiftIconId = null;
 
-    buyButtons.forEach(button => {
-        button.addEventListener("click", function() {
-            // data-name과 data-price 속성값을 가져옴
-            const giftCard = button.closest('.gift-card'); // 버튼의 부모 .gift-card 요소
-            selectedGiftName = giftCard.getAttribute("data-name");
-            selectedGiftPrice = parseInt(giftCard.getAttribute("data-price"));
+	    // 모달 열기 함수
+	    function openModal(name, price, id) {
+	        selectedGiftName = name;
+	        selectedGiftPrice = parseInt(price);
+	        selectedGiftIconId = id;
+	        
+	        // 모달 메시지 업데이트 (기프티콘 이름을 포함한 메시지)
+	    
+    	modalMessage.innerHTML = `구매하시겠습니까?`;
+	        
+	        // 모달 창 열기
+	        modal.style.display = "flex";
+	        modal.style.zIndex = "9999";
+	    }
 
-            // 모달 메시지 업데이트
-            modalMessage.textContent = `구매하시겠습니까?`;
+	    // 모달 닫기 함수
+	    function closeModal() {
+	        modal.style.display = "none";
+	    }
 
-            // 모달 창 표시
-            modal.style.display = "flex";
-        });
-    });
+	    // 백엔드에 구매 요청을 보내는 함수
+	    function sendPurchaseRequest(itemName, itemPrice, giftIconId) {
+	        const csrfHeader = document.querySelector('meta[name="_csrf_header"]').content;
+	        const csrfToken = document.querySelector('meta[name="_csrf"]').content;
 
- // 백엔드에 구매 요청을 보내는 함수
-    function sendPurchaseRequest(itemName, itemPrice) {
-        // CSRF 토큰 가져오기
-        const csrfHeader = document.querySelector('meta[name="_csrf_header"]').content;
-        const csrfToken = document.querySelector('meta[name="_csrf"]').content;
+	        const purchaseData = {
+	            itemName: itemName,
+	            itemPrice: itemPrice,
+	            giftIconId: giftIconId,
+	        };
 
-        // 요청할 데이터 구성
-        const purchaseData = {
-            itemName: itemName,
-            itemPrice: itemPrice,
-        };
+	        return fetch('/spike.com/purchase', {
+	            method: 'POST',
+	            headers: {
+	                'Content-Type': 'application/json',
+	                [csrfHeader]: csrfToken,
+	            },
+	            body: JSON.stringify(purchaseData),
+	        })
+	        .then(response => response.json())
+	        .catch(error => {
+	            console.error("구매 요청 실패:", error);
+	            throw error;
+	        });
+	    }
 
-        console.log("서버로 보낼 데이터:", purchaseData);
+	    // 구매 요청 처리 함수
+	    function handlePurchase() {
+	        const currentPoints = parseInt(userPointsElement.textContent);
 
-        // fetch API를 이용하여 백엔드에 POST 요청 전송
-        return fetch('/spike.com/purchase', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                [csrfHeader]: csrfToken, // CSRF 보호
-            },
-            body: JSON.stringify(purchaseData),
-        })
-        .then(response => {
-            console.log("응답 상태 코드:", response.status);
-            return response.json();
-        })
-        .then(data => {
-            console.log("서버 응답 데이터:", data);
-            return data; // 결과 반환 (성공 여부 확인용)
-        })
-        .catch(error => {
-            console.error("구매 요청 실패:", error);
-            throw error; // 에러 발생 시 상위 코드에서 처리할 수 있도록 던짐
-        });
-    }
+	        if (currentPoints >= selectedGiftPrice) {
+	            sendPurchaseRequest(selectedGiftName, selectedGiftPrice, selectedGiftIconId)
+	            .then(data => {
+	                if (data.success) {
+	                    userPointsElement.textContent = currentPoints - selectedGiftPrice;
+	                    alert(`${selectedGiftName} 구매 완료!`);
+	                } else {
+	                    alert(data.message || "구매 실패. 다시 시도해주세요.");
+	                }
+	            })
+	            .catch(() => {
+	                alert("서버 오류가 발생했습니다.");
+	            });
+	        } else {
+	            alert("포인트가 부족합니다.");
+	        }
 
-    
-    // 구매 확인 버튼 클릭
-    confirmPurchaseBtn.addEventListener("click", function() {
-        const currentPoints = parseInt(userPointsElement.textContent);
-        
-        if (currentPoints >= selectedGiftPrice) {
-			//백엔드에 구매 요청 보내기
-			sendPurchaseRequest(selectedGiftName, selectedGiftPrice)
-			.then(data => {
-				if (data.success) {
-					// 성공 시 포인트 차감
-					userPointsElement.textContent = currentPoints - selectedGiftPrice;
-					alert(`${selectedGiftName} 구매 완료!`);
-				} else {
-                    alert(data.message || "구매 실패. 다시 시도해주세요.");
-                }
-            })
-            .catch(() => {
-                alert("서버 오류가 발생했습니다.");
-            });
-        } else {
-            alert("포인트가 부족합니다.");
-        }
+	        closeModal();
+	    }
 
-        // 모달 창 닫기
-        modal.style.display = "none";
-    });
+	    // 구매 버튼 클릭 이벤트 추가
+	    buyButtons.forEach(button => {
+	        button.addEventListener("click", function() {
+	            const giftCard = button.closest('.gift-card');
+	            openModal(
+	                giftCard.getAttribute("data-name"),
+	                giftCard.getAttribute("data-price"),
+	                giftCard.getAttribute("data-id")
+	            );
+	        });
+	    });
 
-    // 구매 취소 버튼 클릭
-    cancelPurchaseBtn.addEventListener("click", function() {
-        modal.style.display = "none";
-    });
-});
+	    // 구매 확인 버튼 클릭
+	    confirmPurchaseBtn.addEventListener("click", handlePurchase);
 
+	    // 구매 취소 버튼 클릭
+	    cancelPurchaseBtn.addEventListener("click", closeModal);
+	});
 
 </script>
-
-	
 
 	<%@ include file="../include/shortfooter.jsp"%>
 </body>
