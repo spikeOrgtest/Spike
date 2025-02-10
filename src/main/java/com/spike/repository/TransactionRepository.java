@@ -1,5 +1,6 @@
 package com.spike.repository;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import org.springframework.data.domain.Pageable;
@@ -12,11 +13,17 @@ import com.spike.dto.TransactionDTO;
 @Repository
 public interface TransactionRepository extends JpaRepository<TransactionDTO, Long> {
 
-	// 쿼리 메서드로 상위 5개 송금 기록을 반환, 쿼리메서드 동작하지 않아서 일단 JPQL 어노테이션 붙임
-	@Query("SELECT t FROM TransactionDTO t JOIN t.fromAccount a JOIN a.owner u WHERE u.userId = ?1 ORDER BY t.transactionDate DESC")
-	List<TransactionDTO> findTop5ByFromAccount_Owner_UserIdOrderByTransactionDateDesc(Long userId, Pageable pageable);
+	// 쿼리 메서드로 상위 5개 송금 기록을 반환, 쿼리메서드 동작하지 않아서 일단 JPQL 어노테이션 붙임 -> 쿼리메서드 길면 제대로 인식을 못 하는듯
+	@Query("SELECT t FROM TransactionDTO t JOIN t.fromAccount a JOIN a.owner u WHERE u.userId = ?1 AND t.transactionDate >= ?2 ORDER BY t.transactionDate DESC")
+	List<TransactionDTO> getRecentTransfers(Long userId, Timestamp startDate, Pageable pageable);
 
 	@Query("SELECT t FROM TransactionDTO t WHERE t.fromAccount.id = ?1 OR t.toAccount.id = ?1 ORDER BY t.transactionDate DESC")
 	List<TransactionDTO> getTransferHistoryByAccountId(Long accountId);
+
+	@Query("SELECT t FROM TransactionDTO t " +
+		       "WHERE t.fromAccount.owner.userId = ?1 " + // 내가 출금한 거래
+		       "OR t.toAccount.owner.userId = ?1 " +     // 내가 입금받은 거래
+		       "ORDER BY t.transactionDate DESC")
+	List<TransactionDTO> getTransactionsByUserId(Long userId);
 
 }

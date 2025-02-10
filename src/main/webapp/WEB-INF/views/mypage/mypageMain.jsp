@@ -68,17 +68,6 @@
 						<section class="user-info py-5">
 							<div class="container">
 								<div class="row">
-									<div class="col-md-4">
-										<div class="card">
-											<img src="../../images/mypage/profile.jpg"
-												class="card-img-top" alt="프로필 이미지">
-											<div class="card-body">
-												<button class="btn btn-primary" style="width: 100%"
-													data-bs-toggle="modal" data-bs-target="#editProfileModal">프로필
-													수정</button>
-											</div>
-										</div>
-									</div>
 									<div class="col-md-8">
 										<h2>개인정보</h2>
 										<ul class="list-group">
@@ -95,6 +84,9 @@
 											<li class="list-group-item"><strong>생년월일:</strong>
 												${birthdate}</li>
 										</ul>
+												<button class="btn btn-primary" style="width: 200px; margin-top: 50px;"
+													data-bs-toggle="modal" data-bs-target="#editProfileModal">프로필
+													수정</button>
 									</div>
 
 								</div>
@@ -106,22 +98,6 @@
 							<div class="container">
 								<h2>설정</h2>
 								<div class="row">
-									<!-- 중요 알림 설정 카드 -->
-									<div class="col-md-6">
-										<div class="card d-flex align-items-stretch">
-											<div class="card-header">알림 설정</div>
-											<div class="card-body">
-												<p>사용자에게 중요한 알림을 이메일로 받을지 선택하세요.</p>
-												<div class="form-check">
-													<input class="form-check-input" type="checkbox" value=""
-														id="emailNotifications"> <label
-														class="form-check-label" for="emailNotifications">
-														이메일 알림 받기 </label>
-													<div id="notificationStatus" class="mt-2 text-muted"></div>
-												</div>
-											</div>
-										</div>
-									</div>
 
 									<!-- 계좌 정보 수정 카드 -->
 									<div class="col-md-6">
@@ -136,17 +112,6 @@
 										</div>
 									</div>
 
-									<!-- 2단계 인증 카드 -->
-									<div class="col-md-6 mt-4">
-										<div class="card d-flex align-items-stretch">
-											<div class="card-header">2단계 인증 설정</div>
-											<div class="card-body">
-												<p>계정의 보안을 강화하려면 2단계 인증을 설정하세요. 계정을 보호하기 위해 필요한 추가적인 인증
-													절차입니다.</p>
-												<a href="#twoFactor" class="btn btn-secondary">2단계 인증 설정</a>
-											</div>
-										</div>
-									</div>
 
 									<!-- 로그아웃 카드 -->
 									<div class="col-md-6 mt-4">
@@ -178,17 +143,6 @@
 								</div>
 							</div>
 						</section>
-
-						<!-- 도움말 섹션 -->
-						<section class="help py-5">
-							<div class="container">
-								<h2>도움이 필요하신가요?</h2>
-								<p>금융상품에 대해 더 궁금한 사항이 있으면 고객센터로 문의주세요.</p>
-								<a href="#contact" class="btn btn-secondary">고객센터 연락하기</a>
-							</div>
-						</section>
-
-
 
 						<!-- 탈퇴 모달 -->
 						<div class="modal fade" id="withdrawalModal" tabindex="-1"

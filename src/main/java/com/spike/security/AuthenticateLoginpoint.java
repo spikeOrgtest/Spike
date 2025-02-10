@@ -17,7 +17,7 @@ public class AuthenticateLoginpoint implements AuthenticationEntryPoint {
 		PrintWriter out = response.getWriter();
 		
 		out.println("<script>");
-		out.println("alert('죄송합니다. 이 페이지에 접근할 수 있는 권한이 없습니다.\\n다시 시도하시거나 관리자에게 문의해 주세요.');");
+		out.println("alert('로그인이 필요한 서비스입니다.');");
 		out.println("history.go(-1);");
 		out.println("</script>");
     }

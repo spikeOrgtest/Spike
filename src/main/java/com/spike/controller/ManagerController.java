@@ -165,14 +165,14 @@ public class ManagerController {
 			this.userService.UserDelete(UserId);
 			out.println("<script>");
 			out.println("alert('삭제 완료했습니다.');");
-			out.println("window.location.href = '/spike.com/userManagement';");
+			out.println("window.location.href = '/spike.com/admin/userManagement';");
 			out.println("</script>");
 		} else {
 			this.userService.AccountDelete(UserId);
 			this.userService.UserDelete(UserId);
 			out.println("<script>");
 			out.println("alert('삭제 완료했습니다.');");
-			out.println("window.location.href = '/spike.com/userManagement';");
+			out.println("window.location.href = '/spike.com/admin/userManagement';");
 			out.println("</script>");
 		}
 	}
