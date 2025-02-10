@@ -124,7 +124,7 @@ public interface UserRepository extends JpaRepository<UserDTO, Long> {
 	@Query("select u from UserDTO u")
 	public Page<UserDTO> findByUserList(Pageable pageable);
 
-    
+	Optional<UserDTO> findById(Long userId);
 	
 }
 

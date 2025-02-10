@@ -177,10 +177,6 @@ public class ManagerController {
 		}
 	}
 	
-	
-		
-
-	
 	@GetMapping("/loanManagement")
 	public ModelAndView loanManagement() {
 		List<LoanDTO> loanList = this.loanService.findAllLoans();
@@ -193,16 +189,16 @@ public class ManagerController {
 	public ModelAndView loanState(@RequestParam("userId") Long UserId) {
 
 		List<UserDTO> list = this.userService.findByUserIdEdit(UserId);
-
+		List<LoanDTO> loanList = this.loanService.findAllLoans();
 		System.out.println("list : " + list);
 
 		ModelAndView em = new ModelAndView("manager/loanState");
 		em.addObject("list", list);
+		em.addObject("loanlist", loanList);
 
 		return em;
 	}
 	
-
 }
 
 

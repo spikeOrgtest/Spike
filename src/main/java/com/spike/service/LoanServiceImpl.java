@@ -1,15 +1,15 @@
 package com.spike.service;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.spike.dao.LoanDAO;
-import com.spike.dto.AccountDTO;
 import com.spike.dto.LoanDTO;
+import com.spike.dto.UserDTO;
 import com.spike.repository.LoanRepository;
+import com.spike.repository.UserRepository;
 
 @Service
 
@@ -23,6 +23,9 @@ public class LoanServiceImpl implements LoanService {
 
 	@Autowired
 	private AccountService accountService;
+	
+	@Autowired
+    private UserRepository userRepository;
 
 	@Override
 	public void createLoan(LoanDTO s) {
@@ -35,33 +38,38 @@ public class LoanServiceImpl implements LoanService {
 	}
 
 	// 대출 수락 처리
-	public void acceptLoan(Long loanId, Long userId) {
-		// 1. 대출 신청 정보 조회
-		Optional<LoanDTO> loanOptional = loanRepository.findById(loanId); // findById 메서드 사용
+    @Override
+    public boolean acceptLoan(Long userId, long loanAmount) {
+        // 유저 정보 가져오기
+        UserDTO user = userRepository.findById(userId).orElse(null);
+        if (user == null) {
+            return false;  // 유저가 존재하지 않으면 실패 처리
+        }
 
-		if (loanOptional.isPresent()) {
-			LoanDTO loan = loanOptional.get();
+        // 대출 수락 로직
+        LoanDTO loan = new LoanDTO();
+        loan.setOwner(user);
+        loan.setLoanAmount(loanAmount);
+        loan.setLoanState("수락됨");
 
-			if (loan.getOwner().getUserId().equals(userId)) {
-				// 2. 대출 상태를 'ACCEPTED'로 변경
-				loan.setLoanState("ACCEPTED");
-				loanRepository.save(loan); // 대출 상태 업데이트
+        loanRepository.save(loan);  // 대출 정보 저장
 
-				// 3. 대출금액을 계좌에 반영
-				AccountDTO account = accountService.findByAccount(loan.getOwner().getLoginId());
-				if (account != null) {
-					account.setBalance(account.getBalance() + loan.getLoanAmount()); // 계좌 잔액에 대출 금액 추가
-					accountService.updateAccount(account); // 계좌 업데이트
-				}
-			}
-		}
-	}
+        return true;  // 성공 처리
+    }
 
-	@Override
-	public void rejectLoan(Long loanId) {
-		LoanDTO loan = loanRepository.findById(loanId)
-				.orElseThrow(() -> new IllegalArgumentException("Invalid loanId"));
-		loan.setLoanState("거절됨"); // Update loan state to 'Rejected'
-		loanRepository.save(loan);
-	}
+    // 대출 거절 처리
+    @Override
+    public boolean rejectLoan(Long loanId) {
+        // 대출 정보 가져오기
+        LoanDTO loan = loanRepository.findById(loanId).orElse(null);
+        if (loan == null) {
+            return false;  // 대출 정보가 없으면 실패 처리
+        }
+
+        // 대출 거절 로직
+        loan.setLoanState("거절됨");
+        loanRepository.save(loan);  // 대출 상태 업데이트
+
+        return true;  // 성공 처리
+    }
 }

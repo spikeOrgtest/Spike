@@ -97,24 +97,27 @@
 						</div>
 					</c:forEach>
 
-					<div class="form-buttons">
-						<form action="/spike.com/admin/acceptLoan" method="post">
-							<input type="hidden" name="userId" value="${item.userId}">
-							<input type="hidden" name="loanAmount" value="${item.loanAmount}">
-							<button type="submit" class="submit-btn">수락</button>
-						</form>
+					<form id="loanForm" action="/spike.com/admin/acceptLoan"
+						method="POST">
+						<input type="hidden" id="loanAmount" name="loanAmount"
+							value="${item.loanAmount}" />
+						<button type="button" class="submit-btn"
+							onclick="submitAcceptLoan()">수락</button>
+					</form>
 
-						<form action="/spike.com/admin/rejectLoan" method="post">
-							<input type="hidden" name="loanId" value="${item.id}">
-							<button type="submit" class="reject-btn">거절</button>
-						</form>
-						<button type="button" class="reset-btn"
-							onclick="location.href='/spike.com/admin/loanManagement';">목록</button>
-					</div>
+
+					<!-- 거절 버튼 폼 -->
+					<form id="rejectLoanForm">
+						<input type="hidden" name="loanId" value="${item.id}">
+						<button type="button" class="reject-btn"
+							onclick="submitRejectLoan()">거절</button>
+					</form>
 				</form>
 			</div>
-		</div>
+		</div>p
 	</div>
 	<%@ include file="../include/shortfooter.jsp"%>
+	<script src="/js/manager/loanstate.js"></script>
+
 </body>
 </html>

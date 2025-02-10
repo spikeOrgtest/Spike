@@ -99,36 +99,47 @@ public class LoanController {
 		// 대출 신청 후 loanManagement로 리다이렉트
 		return new ModelAndView("redirect:/spike.com/admin/loanManagement"); // 대출 관리 페이지로 리다이렉트
 	}
-	/*
+	
 	// 대출 수락 처리
-	@PostMapping("/acceptLoan")
-	public String acceptLoan(@RequestParam("loanId") Long loanId, @RequestParam("userId") Long userId) {
-	    // 대출 수락
-	    LoanDTO loan = loanService.getLoanById(loanId);
-	    UserDTO user = userService.getUserById(userId);
+    @PostMapping("/admin/acceptLoan")
+    public String acceptLoan(@RequestParam("userId") Long userId, 
+                             @RequestParam("loanAmount") long loanAmount, 
+                             HttpSession session) {
+        UserDTO sessionUser = (UserDTO) session.getAttribute("User");
+        
+        if (sessionUser == null) {
+            return "redirect:/spike.com/login"; // 로그인 상태 확인
+        }
 
-	    // 대출 상태를 '수락됨'으로 변경
-	    loan.setLoanState("수락됨");
-	    loanService.updateLoan(loan); // 대출 상태 업데이트
-	    
-	    // 대출 금액 입금
-	    AccountDTO account = accountService.getAccountByUser(user); // 유저의 계좌 정보 가져오기
-	    account.setBalance(account.getBalance() + loan.getLoanAmount()); // 계좌에 대출 금액 입금
-	    accountService.updateAccount(account); // 계좌 정보 업데이트
+        // 대출 수락 로직
+        boolean isAccepted = loanService.acceptLoan(userId, loanAmount);
 
-	    // 대출 처리 후 대출 관리 페이지로 리다이렉트
-	    return "redirect:/spike.com/admin/loanManagement";  // 대출 관리 페이지로 리다이렉트
-	}
-	*/
-	// 대출 거절 처리
-	@PostMapping("/rejectLoan")
-	public String rejectLoan(@RequestParam("loanId") Long loanId) {
-	    // 대출 거절
-	    loanService.rejectLoan(loanId);
+        if (isAccepted) {
+            return "redirect:/spike.com/admin/loanManagement"; // 대출 관리 페이지로 리다이렉트
+        } else {
+            // 대출 수락 실패 시 처리
+            return "redirect:/spike.com/admin/loanManagement?error=true";
+        }
+    }
 
-	    // 대출 처리 후 대출 관리 페이지로 리다이렉트
-	    return "redirect:/spike.com/admin/loanManagement";  // 대출 관리 페이지로 리다이렉트
-	}
+    // 대출 거절 처리
+    @PostMapping("/admin/rejectLoan")
+    public String rejectLoan(@RequestParam("loanId") Long loanId, HttpSession session) {
+        UserDTO sessionUser = (UserDTO) session.getAttribute("User");
+        
+        if (sessionUser == null) {
+            return "redirect:/spike.com/login"; // 로그인 상태 확인
+        }
 
+        // 대출 거절 로직
+        boolean isRejected = loanService.rejectLoan(loanId);
+
+        if (isRejected) {
+            return "redirect:/spike.com/admin/loanManagement"; // 대출 관리 페이지로 리다이렉트
+        } else {
+            // 대출 거절 실패 시 처리
+            return "redirect:/spike.com/admin/loanManagement?error=true";
+        }
+    }
 	
 }
