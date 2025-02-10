@@ -42,7 +42,7 @@
 					</thead>
 					<tbody>
 						<c:forEach var="loan" items="${loanList}">
-							<tr style="cursor:pointer;" onClick="location.href='/spike.com/admin/loanState?userId=${loan.owner.userId}'">
+							<tr style="cursor:pointer;" onClick="location.href='/spike.com/admin/loanState?loanId=${loan.loanId}'">
 								<td>${loan.loanId}</td>
 								<td>${loan.owner.loginId}</td>
 								<td>${loan.owner.name}</td>

@@ -2,6 +2,7 @@ package com.spike.service;
 
 import com.spike.dto.LoanDTO;
 import java.util.List;
+import java.util.Optional;
 
 public interface LoanService {
 
@@ -12,5 +13,11 @@ public interface LoanService {
 	boolean acceptLoan(Long userId, long loanAmount);
 
 	boolean rejectLoan(Long loanId);
+
+	List<LoanDTO> findLoansByUserId(Long userId);
+
+	Optional<LoanDTO> findById(Long loanId);
+
+	Optional<LoanDTO> findByIdWithAccount(Long loanId);
 
 }

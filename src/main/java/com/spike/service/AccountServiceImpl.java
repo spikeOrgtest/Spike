@@ -3,6 +3,7 @@ package com.spike.service;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -111,6 +112,11 @@ public class AccountServiceImpl implements AccountService {
 	@Override
 	public void updateAccount(AccountDTO account) {
 		this.accountdao.updateAccount(account); // AccountDAO에서 계좌 업데이트
+	}
+
+	@Override
+	public Optional<AccountDTO> findById(Long accountId) {
+		return accountdao.findById(accountId);
 	}
 
 }

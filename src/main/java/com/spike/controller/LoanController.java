@@ -3,6 +3,7 @@ package com.spike.controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
+import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -50,7 +51,10 @@ public class LoanController {
 	
 		
 	@GetMapping("/products/newloan")
-	public ModelAndView newLoan(HttpSession session, HttpServletResponse response) throws IOException {
+	public ModelAndView newLoan(
+	        @RequestParam(required = false) String productType,
+	        HttpSession session, 
+	        HttpServletResponse response) throws IOException {
 	    response.setContentType("text/html; charset=UTF-8");
 	    PrintWriter out = response.getWriter();
 
@@ -79,67 +83,129 @@ public class LoanController {
 	    ModelAndView ss = new ModelAndView("/products/newLoan");
 	    ss.addObject("loan_name", loan_name);
 	    ss.addObject("accounts", accounts);
+	    ss.addObject("selectedProductType", productType); // 선택된 상품 타입 추가
 	    return ss;
 	}
 
 
 
 	@PostMapping("/loan_ok")
-	public ModelAndView loan_ok(LoanDTO s, 
-			HttpServletRequest request, BindingResult result, HttpSession session) throws IOException {
-		if (session.getAttribute("User") == null) {
-			return new ModelAndView("redirect:/spike.com/login");
-		}
-		
-		UserDTO sessionUser = (UserDTO) session.getAttribute("User");
-		s.setOwner(sessionUser);
-		s.setLoanState("대기 중");
-		this.loanService.createLoan(s);
-		
-		// 대출 신청 후 loanManagement로 리다이렉트
-		return new ModelAndView("redirect:/spike.com/admin/loanManagement"); // 대출 관리 페이지로 리다이렉트
-	}
+    public ModelAndView loan_ok(
+            @RequestParam("targetAccountId") Long targetAccountId,
+            LoanDTO s, 
+            HttpSession session) throws IOException {
+        
+        try {
+            UserDTO sessionUser = (UserDTO) session.getAttribute("User");
+            if (sessionUser == null) {
+                return new ModelAndView("redirect:/spike.com/login");
+            }
+            
+            // 계좌 정보 조회 및 설정
+            AccountDTO targetAccount = accountService.findById(targetAccountId)
+                .orElseThrow(() -> new RuntimeException("선택된 계좌를 찾을 수 없습니다."));
+            
+            System.out.println("대출 신청 - 사용자 ID: " + sessionUser.getUserId());
+            System.out.println("대출 신청 - 계좌 ID: " + targetAccount.getAccountId());
+            System.out.println("대출 신청 - 계좌 번호: " + targetAccount.getAccountNumber());
+            
+            s.setOwner(sessionUser);
+            s.setLoanState("대기 중");
+            s.setTargetAccount(targetAccount);
+            
+            this.loanService.createLoan(s);
+            
+            return new ModelAndView("redirect:/spike.com/admin/loanManagement");
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException("대출 신청 처리 중 오류가 발생했습니다: " + e.getMessage());
+        }
+    }
 	
 	// 대출 수락 처리
-    @PostMapping("/admin/acceptLoan")
-    public String acceptLoan(@RequestParam("userId") Long userId, 
-                             @RequestParam("loanAmount") long loanAmount, 
-                             HttpSession session) {
-        UserDTO sessionUser = (UserDTO) session.getAttribute("User");
+	@PostMapping("/admin/acceptLoan")
+    public void acceptLoan(@RequestParam("userId") Long userId,
+                          @RequestParam("loanAmount") long loanAmount,
+                          @RequestParam("loanId") Long loanId,
+                          HttpServletResponse response) throws IOException {
+        response.setContentType("text/html; charset=UTF-8");
+        PrintWriter out = response.getWriter();
         
-        if (sessionUser == null) {
-            return "redirect:/spike.com/login"; // 로그인 상태 확인
-        }
-
-        // 대출 수락 로직
-        boolean isAccepted = loanService.acceptLoan(userId, loanAmount);
-
-        if (isAccepted) {
-            return "redirect:/spike.com/admin/loanManagement"; // 대출 관리 페이지로 리다이렉트
-        } else {
-            // 대출 수락 실패 시 처리
-            return "redirect:/spike.com/admin/loanManagement?error=true";
+        try {
+            boolean isAccepted = loanService.acceptLoan(userId, loanAmount);
+            if (isAccepted) {
+                out.println("<script>");
+                out.println("alert('대출이 승인되었으며, 해당 계좌로 대출금이 입금되었습니다.');");
+                out.println("location.href='/spike.com/admin/loanManagement';");
+                out.println("</script>");
+            } else {
+                throw new RuntimeException("대출 승인 처리에 실패했습니다.");
+            }
+        } catch (Exception e) {
+            out.println("<script>");
+            out.println("alert('오류 발생: " + e.getMessage() + "');");
+            out.println("history.back();");
+            out.println("</script>");
         }
     }
 
     // 대출 거절 처리
     @PostMapping("/admin/rejectLoan")
-    public String rejectLoan(@RequestParam("loanId") Long loanId, HttpSession session) {
-        UserDTO sessionUser = (UserDTO) session.getAttribute("User");
-        
-        if (sessionUser == null) {
-            return "redirect:/spike.com/login"; // 로그인 상태 확인
-        }
+    public String rejectLoan(@RequestParam("loanId") Long loanId, 
+                            HttpSession session,
+                            HttpServletResponse response) throws IOException {
+        try {
+            UserDTO sessionUser = (UserDTO) session.getAttribute("User");
+            
+            if (sessionUser == null) {
+                return "redirect:/spike.com/login";
+            }
 
-        // 대출 거절 로직
-        boolean isRejected = loanService.rejectLoan(loanId);
-
-        if (isRejected) {
-            return "redirect:/spike.com/admin/loanManagement"; // 대출 관리 페이지로 리다이렉트
-        } else {
-            // 대출 거절 실패 시 처리
+            boolean isRejected = loanService.rejectLoan(loanId);
+            if (isRejected) {
+                response.setContentType("text/html; charset=UTF-8");
+                PrintWriter out = response.getWriter();
+                out.println("<script>alert('대출이 거절되었습니다.'); location.href='/spike.com/admin/loanManagement';</script>");
+                return "redirect:/spike.com/admin/loanManagement";
+            } else {
+                return "redirect:/spike.com/admin/loanManagement?error=true";
+            }
+        } catch (Exception e) {
+            response.setContentType("text/html; charset=UTF-8");
+            PrintWriter out = response.getWriter();
+            out.println("<script>alert('처리 중 오류가 발생했습니다: " + e.getMessage() + "'); history.back();</script>");
             return "redirect:/spike.com/admin/loanManagement?error=true";
         }
     }
 	
+    @GetMapping("/admin/loanManagement")
+    public ModelAndView loanManagement() {
+        List<LoanDTO> loanList = this.loanService.findAllLoans();
+        ModelAndView um = new ModelAndView("manager/loanManagement");
+        um.addObject("loanList", loanList);
+        return um;
+    }
+    
+    @GetMapping("/admin/loanState")
+    public ModelAndView loanState(@RequestParam("loanId") Long loanId) {
+        // findByIdWithAccount 메서드 사용
+        Optional<LoanDTO> loan = loanService.findByIdWithAccount(loanId);
+        
+        if(loan.isPresent()) {
+            LoanDTO loanDTO = loan.get();
+            UserDTO user = loanDTO.getOwner();
+            AccountDTO account = loanDTO.getTargetAccount();
+            
+            System.out.println("대출 상세 조회 - 대출 ID: " + loanDTO.getLoanId());
+            System.out.println("대출 상세 조회 - 계좌 정보: " + 
+                (account != null ? account.getAccountNumber() : "없음"));
+            
+            ModelAndView em = new ModelAndView("manager/loanState");
+            em.addObject("user", user);
+            em.addObject("loan", loanDTO);
+            return em;
+        }
+        
+        return new ModelAndView("redirect:/spike.com/admin/loanManagement");
+    }
 }
