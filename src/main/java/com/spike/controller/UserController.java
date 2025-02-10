@@ -113,7 +113,7 @@ public class UserController {
 
 		response.setContentType("text/html;charset=UTF-8");
 		PrintWriter out = response.getWriter();
-		
+		s.setRoles("ROLE_USER");
 		s.setStatus("ACTIVE"); // 계정 상태 ACTIVE로 설정
 
 		// 이메일 도메인 처리
@@ -351,6 +351,18 @@ public class UserController {
 		out.println("</script>");
 
 		out.close();
+	}
+	
+	@GetMapping("/access-denied")
+	public void accessdenied(HttpServletResponse response) throws Exception {
+		response.setContentType("text/html; charset=UTF-8");
+		PrintWriter out = response.getWriter();
+		
+		out.println("<script>");
+		out.println("alert('죄송합니다. 이 페이지에 접근할 수 있는 권한이 없습니다.\\n다시 시도하시거나 관리자에게 문의해 주세요.');");
+		out.println("history.go(-1);");
+		out.println("</script>");
+		
 	}
 
 }
