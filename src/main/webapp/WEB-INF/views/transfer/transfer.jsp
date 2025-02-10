@@ -157,7 +157,7 @@
 
 						<section class="transfer-history mt-5">
 							<h4>
-								<i class="bi bi-receipt"></i> 송금 내역
+								<i class="bi bi-receipt"></i> 송금 내역 <p style="font-size: 16px; color: gray;">최대 30일까지의 송금 내역만 표시됩니다</p>
 							</h4>
 							<ul id="transferHistory" class="list-group">
 								<c:choose>
