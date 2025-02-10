@@ -4,28 +4,34 @@
 
 function write_check(){
 	if($.trim($('#noticeName').val()) == ''){
-		alert('글쓴이를 입력하세요!');
+		alert('작성자를 입력하세요!');
 		$('#noticeName').val('').focus();
 		return false;
 	}
 	
 	if($.trim($('#noticeTitle').val()).length == 0){
-		alert('글제목을 입력하세요!');
+		alert('제목을 입력하세요!');
 		$('#noticeTitle').val('').focus();
 		return false;
 	}
 	
-	//if($.trim($('#bbs_pwd').val()) == ''){
-	//	alert('비밀번호를 입력하세요!');
-	//	$('#bbs_pwd').val('').focus();
-	//	return false;
-	//}
-	
 	if($.trim($('#noticeCont').val()) == ''){
-		alert('글내용을 입력하세요!');
+		alert('내용을 입력하세요!');
 		$('#noticeCont').val('').focus();
 		return false;
-}
+    }
+	
+	// 글쓰기 확인 여부
+	    var result = confirm("글쓰기를 완료하시겠습니까?");
+	    if(result) {
+	        alert("글쓰기가 완료되었습니다.");
+	        return true;  // 글쓰기 완료 후 폼 제출
+	    } else {
+	        alert("글쓰기가 취소되었습니다.");
+			window.location.href = '/spike.com/notice';
+	        return false;
+	        
+	    }
 
 }
 
