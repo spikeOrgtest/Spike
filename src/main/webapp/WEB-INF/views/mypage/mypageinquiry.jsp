@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -213,20 +214,20 @@
 												<label for="dayLimitInput" style="margin-bottom: 20px;">일일
 													한도 금액 (₩)</label> <input type="text" class="form-control"
 													id="dayLimitInput" placeholder="출금 한도를 입력하세요"
-													name="day_limit" style="margin-bottom: 20px;" />
+													name="day_limit" style="margin-bottom: 20px;" oninput="applyNumberFormat(this)" />
 											</div>
 											<div class="form-group">
 												<label for="oneLimitInput" style="margin-bottom: 20px;">1회
 													한도 금액 (₩)</label> <input type="text" class="form-control"
 													name="one_limit" id="oneLimitInput"
-													style="margin-bottom: 20px;" placeholder="출금 한도를 입력하세요" />
+													style="margin-bottom: 20px;" placeholder="출금 한도를 입력하세요" oninput="applyNumberFormat(this)"/>
 											</div>
 											<input type="hidden" id="selectedAccountNumber1"
-												name="accountNumber" value="" />
+												name="account_number" value="" />
 											<button type="reset" class="btn btn-secondary"
 												data-bs-dismiss="modal">취소</button>
 											<button type="submit" class="btn btn-secondary"
-												id="saveLimitBtn" onclick="limitChange()">저장</button>
+												id="saveLimitBtn" onclick="removeCommas()">저장</button>
 										</form>
 									</div>
 								</div>

@@ -47,6 +47,8 @@ public class AccountDTO {
 	private Long oneLimit;
 
 	private Long dayLimit;
+	
+	private Long availableLimit;
 
 	private Long balance;
 
