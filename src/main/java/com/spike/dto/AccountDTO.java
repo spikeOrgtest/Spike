@@ -38,6 +38,8 @@ public class AccountDTO {
 
 	private String accountType;
 
+	private String productType;
+
 	private String accountNumber;
 
 	private String accountPassword;
@@ -51,8 +53,6 @@ public class AccountDTO {
 	@CreationTimestamp
 	@Column(columnDefinition = "TIMESTAMP DEFAULT SYSDATE")
 	private LocalDate createdDate;
-
-	private LocalDate updateDate;
 
 	private Double interestRate = 4.0; // 기본 금리 4.0%로 설정
 

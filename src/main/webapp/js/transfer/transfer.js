@@ -115,7 +115,7 @@ function validate() {
 
     //잔액 부족 확인
     if (transferAmount > balanceAmount) {
-        alert("잔액이 부족합니다!");
+        alert("잔액이 부족합니다~!");
         document.getElementById("amount").focus();
         return false;
     }

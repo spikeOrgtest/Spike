@@ -37,9 +37,13 @@ public class NoticeDAOImpl implements NoticeDAO {
 
 	@Override
 	public List<NoticeDTO> getNotiList(NotiPageDTO p) {
+		System.out.println(p.getFindField());
+		System.out.println(p.getFindName());
+		
 		return this.sqlSession.selectList("noti_list",p);
+		
 	}
-
+	
 	@Override
 	public void updateHit(Long notice_no) {
 		System.out.println("jpa");

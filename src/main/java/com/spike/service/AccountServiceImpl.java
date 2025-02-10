@@ -7,7 +7,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.spike.dao.AccountDAO;	
+import com.spike.dao.AccountDAO;
 import com.spike.dto.AccountDTO;
 import com.spike.dto.UserDTO;
 
@@ -101,11 +101,16 @@ public class AccountServiceImpl implements AccountService {
 	@Override
 	public List<AccountDTO> findbyAccountInfo(String detailValue) {
 		return this.accountdao.findbyAccountInfo(detailValue);
-  }
+	}
 
-  @Override
+	@Override
 	public List<AccountDTO> getActiveAccountsForUser(UserDTO user) {
 		return accountdao.findActiveAccountsByUser(user);
+	}
+
+	@Override
+	public void updateAccount(AccountDTO account) {
+		this.accountdao.updateAccount(account); // AccountDAO에서 계좌 업데이트
 	}
 
 }

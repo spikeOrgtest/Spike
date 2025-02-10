@@ -1,0 +1,81 @@
+@charset "UTF-8";
+
+/* 전체 페이지 스타일 */
+body {
+    font-family: 'Noto Sans KR', sans-serif;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f9fa;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+/* 컨테이너 스타일 (사이즈 키움) */
+.container {
+    max-width: 550px;  /* 기존 450px → 550px */
+    padding: 40px;  /* 기존 30px → 40px */
+    background-color: #ffffff;
+    border-radius: 15px; /* 둥근 정도 유지 */
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15); /* 더 부드러운 그림자 */
+    text-align: center;
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+/* 애니메이션 효과 */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* 성공 메시지 (글씨 크기 증가) */
+.success-message {
+    color: #28a745;
+    font-size: 26px; /* 기존 22px → 26px */
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+/* 상세 정보 스타일 (크기 확장) */
+.details {
+    margin-top: 25px;
+    text-align: left;
+    padding: 20px; /* 기존 15px → 20px */
+    background-color: #f1f3f5;
+    border-radius: 10px;
+    font-size: 18px; /* 기존 16px → 18px */
+}
+
+.details p {
+    margin: 10px 0;
+    color: #333;
+}
+
+/* 버튼 스타일 (더 크고 부드럽게) */
+.btn {
+    display: inline-block;
+    margin-top: 30px; /* 버튼 간격 증가 */
+    padding: 14px 24px; /* 기존 12px 20px → 14px 24px */
+    background-color: #007bff;
+    color: white;
+    text-decoration: none;
+    font-size: 18px; /* 기존 16px → 18px */
+    font-weight: 600;
+    border-radius: 10px; /* 기존 8px → 10px */
+    transition: all 0.3s ease;
+    box-shadow: 0 3px 8px rgba(0, 123, 255, 0.25); /* 그림자 효과 추가 */
+}
+
+.btn:hover {
+    background-color: #0056b3;
+    transform: scale(1.08);
+}
+
