@@ -132,21 +132,46 @@
 											>검색</button>
 									</div>
 									<!-- 최근 거래 내역 -->
-									<div id="transactionHistoryContainer"
-										class="transaction-history p-4 border rounded shadow"
-										style="display: none;">
-										<h3 class="mb-4">
-											<i class="bi bi-receipt"></i> 최근 거래 내역
-										</h3>
-										<ul id="transactionHistory" class="list-group">
-											<!-- 거래 내역은 JavaScript에서 동적으로 추가됩니다 -->
-											<strong>${transaction.name}</strong>에게 
-                    <fmt:formatNumber value="${transaction.amount}" type="currency" currencySymbol="₩" />
-                    송금 (<fmt:formatDate value="${transaction.transactionDate}" pattern="yyyy-MM-dd HH:mm:ss"/>)
-										</ul>
-									</div>
-									<p id="noTransactionsMessage" class="text-danger"
-										style="display: none;">검색된 거래 내역이 없습니다.</p>
+<div id="transactionHistoryContainer"
+    class="transaction-history p-4 border rounded shadow"
+    style="display: none;">
+    <h3 class="mb-4">
+        <i class="bi bi-receipt"></i> 최근 거래 내역
+    </h3>
+    <ul id="transactionHistory" class="list-group">
+        <!-- 기본적으로 최근 거래 내역을 EL로 표시 -->
+        <c:forEach var="transaction" items="${transactionList}">
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <span>
+                    ${transaction.transactionDate} - 
+                    <c:choose>
+                        <c:when test="${transaction.fromAccount.accountNumber == selectedAccount}">
+                            출금
+                        </c:when>
+                        <c:otherwise>
+                            입금
+                        </c:otherwise>
+                    </c:choose>
+                    (${transaction.memo})
+                </span>
+                <span class="fw-bold ${transaction.fromAccount.accountNumber == selectedAccount ? 'text-danger' : 'text-success'}">
+                    <c:choose>
+                        <c:when test="${transaction.fromAccount.accountNumber == selectedAccount}">
+                            - 
+                        </c:when>
+                        <c:otherwise>
+                            + 
+                        </c:otherwise>
+                    </c:choose>
+                    <fmt:formatNumber value="${transaction.amount}" type="currency" currencySymbol="₩"/>
+                </span>
+            </li>
+        </c:forEach>
+    </ul>
+</div>
+<p id="noTransactionsMessage" class="text-danger"
+    style="display: none;">검색된 거래 내역이 없습니다.</p>
+
 							</div>
 							</div>
 						</section>
@@ -258,27 +283,48 @@
 	<br />
 	<jsp:include page="../include/footer.jsp" />
 
-	<!-- Bootstrap JS, Chart.js -->
-	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-	<script src="../../js/mypage/newmypageinquiry.js"></script>
-	<script src="../../js/mypage/sidebars.js"></script>
+	
 
-	<script>
-    // 거래 내역 데이터를 JavaScript 객체로 변환
+<script>
+    // 🚀 거래 내역 데이터를 JavaScript 객체로 변환
     const transactionData = [];
     <c:forEach var="transaction" items="${transactionList}">
         transactionData.push({
             accountIdFrom: "${transaction.fromAccount.accountId}",
             accountIdTo: "${transaction.toAccount.accountId}",
-            date: "${transaction.transactionDate}",
+            date: "${transaction.transactionDate}", // 날짜 포맷 유지
             memo: "${transaction.memo}",
             amount: ${transaction.amount}
         });
-    </c:forEach>
+    </c:forEach>;
+
+    console.log("🚀 transactionData 객체:", transactionData); // 디버깅용
 </script>
 
+<!-- 🚀 먼저 accountData를 정의 -->
+<script>
+    const accountData = {};  
+    <c:forEach var="item" items="${list}">
+        accountData["${item.accountNumber}:${item.accountType}"] = {
+        	accountId: "${item.accountId}", 
+        	balance: "${item.balance}",
+            daylimit: "${item.dayLimit}",
+            onelimit: "${item.oneLimit}"
+        };
+    </c:forEach>;
+
+    console.log("🚀 accountData 객체:", accountData); // 디버깅용
+</script>
+
+<!-- 🚀 JavaScript 파일 실행 (데이터 정의 후 실행해야 함) -->
+<script src="../../js/mypage/newmypageinquiry.js"></script>
+<!-- Bootstrap JS, Chart.js -->
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+	
+	<script src="../../js/mypage/sidebars.js"></script>
 </body>
+
 
 </html>

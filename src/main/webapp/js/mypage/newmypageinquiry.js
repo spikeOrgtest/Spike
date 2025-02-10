@@ -26,38 +26,57 @@ function updateAccountInfo() {
 function formatNumber(number) {
     return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 }
-
-// 📌 3. 거래 내역 필터링 함수
+// 📌 3. 거래 내역 필터링 함수 (계좌번호 그대로 사용)
 function filterTransactionHistory() {
     const selectedAccount = document.getElementById('accountSelect').value;
-    const startDate = document.getElementById('startDate').value;
-    const endDate = document.getElementById('endDate').value;
-    const transactionHistoryContainer = document.getElementById('transactionHistoryContainer');
-    const noTransactionsMessage = document.getElementById('noTransactionsMessage');
-    const transactionHistoryList = document.getElementById("transactionHistory");
-
-    transactionHistoryList.innerHTML = ""; // 기존 거래 내역 초기화
-
     if (!selectedAccount) {
         alert("계좌를 선택해주세요.");
         return;
     }
+
+    // 🚀 계좌 ID 가져오기
+    const selectedAccountData = accountData[selectedAccount];
+    if (!selectedAccountData) {
+        console.warn("⚠️ 선택된 계좌 정보를 찾을 수 없습니다.");
+        return;
+    }
+    
+    const selectedAccountId = selectedAccountData.accountId; // ✅ 올바른 계좌 ID 가져오기
+    console.log("🚀 검색 중 선택된 계좌 ID:", selectedAccountId);
+
+    const startDate = document.getElementById('startDate').value;
+    const endDate = document.getElementById('endDate').value;
 
     if (!startDate || !endDate) {
         alert("시작일과 종료일을 모두 선택해주세요.");
         return;
     }
 
-    // 🚀 선택된 계좌의 거래 내역 필터링 (출금 + 입금)
-    const accountId = selectedAccount.match(/[\d-]+/)[0]; // 계좌 ID 추출
+    const transactionHistoryContainer = document.getElementById('transactionHistoryContainer');
+    const noTransactionsMessage = document.getElementById('noTransactionsMessage');
+    const transactionHistoryList = document.getElementById("transactionHistory");
+
+    transactionHistoryList.innerHTML = ""; // 기존 거래 내역 초기화
+
+    console.log("🚀 필터링 전 거래 내역:", transactionData);
+
     let filteredTransactions = transactionData.filter(transaction => {
-        return (transaction.accountIdFrom === accountId || transaction.accountIdTo === accountId) &&
-               new Date(transaction.date) >= new Date(startDate) &&
-               new Date(transaction.date) <= new Date(endDate);
+        const transactionDate = Date.parse(transaction.date);
+        const start = Date.parse(startDate);
+        const end = Date.parse(endDate);
+
+        console.log(`🚀 비교 중: ${transaction.accountIdFrom} 또는 ${transaction.accountIdTo} === ${selectedAccountId}`);
+
+        return (
+            (transaction.accountIdFrom === selectedAccountId || transaction.accountIdTo === selectedAccountId) &&
+            transactionDate >= start && transactionDate <= end
+        );
     });
 
+    console.log("🚀 필터링 후 거래 내역:", filteredTransactions);
+
     if (filteredTransactions.length > 0) {
-        updateTransactionHistory(filteredTransactions, accountId);
+        updateTransactionHistory(filteredTransactions, selectedAccountId);
         transactionHistoryContainer.style.display = "block";
         noTransactionsMessage.style.display = "none";
     } else {
@@ -66,13 +85,12 @@ function filterTransactionHistory() {
     }
 }
 
-
-// 📌 4. 거래 내역 업데이트 함수
-function updateTransactionHistory(transactions, selectedAccountId) {
+// 📌 4. 거래 내역 업데이트 함수 (계좌번호 그대로 사용)
+function updateTransactionHistory(transactions, selectedAccount) {
     const transactionHistoryList = document.getElementById("transactionHistory");
 
     transactions.forEach(transaction => {
-        const isOutgoing = transaction.accountIdFrom === selectedAccountId; // 출금 여부 판단
+        const isOutgoing = transaction.accountIdFrom === selectedAccount; // 출금 여부 판단
         const transactionType = isOutgoing ? "출금" : "입금";
         const amountClass = isOutgoing ? "text-danger" : "text-success";
         const amountSign = isOutgoing ? "-" : "+";
@@ -90,7 +108,6 @@ function updateTransactionHistory(transactions, selectedAccountId) {
         transactionHistoryList.appendChild(listItem);
     });
 }
-
 
 // 📌 5. 출금 한도 설정 함수
 function limitChange(event) {
@@ -169,3 +186,12 @@ function initEventListeners() {
     document.getElementById('endDate').addEventListener('change', () => document.getElementById('transactionHistoryContainer').style.display = 'none');
     initModalHandling();
 }
+//디버깅
+document.getElementById('accountSelect').addEventListener('change', function() {
+    console.log("🚀 선택된 계좌 값:", this.value);
+	console.log("🚀 accountData 객체:", accountData);
+	console.log("🚀 선택된 계좌 데이터:", accountData[selectedAccount]);
+
+});
+
+
