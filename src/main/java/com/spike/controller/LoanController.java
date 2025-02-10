@@ -47,26 +47,38 @@ public class LoanController {
 		
 	@GetMapping("/products/newloan")
 	public ModelAndView newLoan(HttpSession session, HttpServletResponse response) throws IOException {
-		response.setContentType("text/html; charset=UTF-8");
-		PrintWriter out = response.getWriter();
-		
-		if (session.getAttribute("User") == null) {
-			out.println("<script>");
-			out.println("alert('로그인이 필요한 서비스입니다.');");
-			out.println("location.href='/spike.com/login';");
-			out.println("</script>");
-			return null;
-		}
-		
-		UserDTO user = (UserDTO) session.getAttribute("User");
+	    response.setContentType("text/html; charset=UTF-8");
+	    PrintWriter out = response.getWriter();
+
+	    if (session.getAttribute("User") == null) {
+	        out.println("<script>");
+	        out.println("alert('로그인이 필요한 서비스입니다.');");
+	        out.println("location.href='/spike.com/login';");
+	        out.println("</script>");
+	        return null;
+	    }
+
+	    UserDTO user = (UserDTO) session.getAttribute("User");
+
+	    // 미성년자 체크 (isMinor가 "minor"일 경우)
+	    if ("minor".equals(user.getIsMinor())) {
+	        out.println("<script>");
+	        out.println("alert('미성년자는 대출이 불가능합니다.');");
+	        out.println("location.href='/spike.com/';"); // 예: 메인 페이지로 리다이렉트
+	        out.println("</script>");
+	        return null;
+	    }
+
 	    List<AccountDTO> accounts = accountService.getActiveAccountsForUser(user); // ACTIVE 계좌만 가져오기
-		
-		String[] loan_name = {"대출상품"};
-		ModelAndView ss = new ModelAndView("/products/newLoan");
-		ss.addObject("loan_name", loan_name);
-		ss.addObject("accounts", accounts);
-		return ss;
+
+	    String[] loan_name = {"대출상품"};
+	    ModelAndView ss = new ModelAndView("/products/newLoan");
+	    ss.addObject("loan_name", loan_name);
+	    ss.addObject("accounts", accounts);
+	    return ss;
 	}
+
+
 	
 	@PostMapping("/loan_ok")
 	public ModelAndView loan_ok(LoanDTO s, 
@@ -81,6 +93,8 @@ public class LoanController {
 		this.loanService.createLoan(s);
 		
 		// 대출 신청 후 loanManagement로 리다이렉트
-		return new ModelAndView("redirect:/spike.com/loanManagement"); // 대출 관리 페이지로 리다이렉트
+		return new ModelAndView("redirect:/spike.com/admin/loanManagement"); // 대출 관리 페이지로 리다이렉트
 	}
+	
+	
 }

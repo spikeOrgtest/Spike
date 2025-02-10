@@ -18,11 +18,11 @@
 			<div class="subpage-sidebar">
 				<h3 class="subpage-sidebar-title">관리자 페이지</h3>
 				<ul>
-					<li><a href="/spike.com/ma">대시보드</a></li>
-					<li><a href="/spike.com/userManagement">사용자관리</a></li>
+					<li><a href="/spike.com/admin/ma">대시보드</a></li>
+					<li><a href="/spike.com/admin/userManagement">사용자관리</a></li>
 					<li><a href="newsSubpage_product.jsp">계좌수정</a></li>
 					<li><a href="newsSubpage_product.jsp">거래내역관리</a></li>
-					<li><a href="/spike.com/loanManagement">대출관리</a></li>
+					<li><a href="/spike.com/admin/loanManagement">대출관리</a></li>
 					<li><a href="newsSubpage_notice.jsp">공지사항관리</a></li>
 					<li><a href="newsSubpage_notice.jsp">보안관리</a></li>
 				</ul>
@@ -42,7 +42,7 @@
 					</thead>
 					<tbody>
 						<c:forEach var="loan" items="${loanList}">
-							<tr style="cursor:pointer;" onClick="location.href='/spike.com/loanState?userId=${loan.owner.userId}'">
+							<tr style="cursor:pointer;" onClick="location.href='/spike.com/admin/loanState?userId=${loan.owner.userId}'">
 								<td>${loan.loanId}</td>
 								<td>${loan.owner.loginId}</td>
 								<td>${loan.owner.name}</td>
