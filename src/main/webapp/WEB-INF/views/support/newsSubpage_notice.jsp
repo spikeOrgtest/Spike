@@ -26,16 +26,7 @@
 	</div>
 
 	<div class="subpageWrapper">
-		<div class="subpage-main-container">
-			<div class="subpage-sidebar">
-				<h3 class="subpage-sidebar-title">SPIKE 소식</h3>
-				<ul>
-					<li><a href="newsSubpage_bank.jsp">은행소식</a></li>
-					<li><a href="newsSubpage_product.jsp">새 상품소식</a></li>
-					<li><a href="newsSubpage_job.jsp">채용공고</a></li>
-					<li><a href="newsSubpage_notice.jsp">공지사항</a></li>
-				</ul>
-			</div>
+		<div class="subpage-main-container" style="justify-content: center;">
 
 			<div class="subpage-content-wrap">
 				<form method="get" action="/spike.com/notice">

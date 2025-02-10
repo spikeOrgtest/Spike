@@ -17,7 +17,7 @@
 
 </head>
 <body>
-<%@ include file="../include/adminheader.jsp"%>
+<%@ include file="../include/header.jsp"%>
 
 
 	<div class="subpageWrapper">
@@ -51,7 +51,7 @@
 										<td>${item.birthDate}</td>
 										<!-- <td><a href="/spike.com/ma">${item.lastLogin}</a></td> -->
 										<td><a
-											href="/spike.com/userLoginHistory?userId=${item.userId}">${item.lastLogin}</a></td>
+											href="/spike.com/admin/userLoginHistory?userId=${item.userId}">${item.lastLogin}</a></td>
 									</tr>
 								</c:forEach>
 							</thead>

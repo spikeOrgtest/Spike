@@ -16,7 +16,7 @@
 
 </head>
 <body>
-<%@ include file="../include/adminheader.jsp"%>
+<%@ include file="../include/header.jsp"%>
 
 
 

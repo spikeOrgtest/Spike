@@ -28,18 +28,9 @@
 	</div>
 	
 	<div class="subpageWrapper">
-		<div class="subpage-main-container">
+		<div class="subpage-main-container" style="justify-content: center;">
 			<!-- 사이드바 -->
-			<div class="subpage-sidebar">
-				<h3 class="subpage-sidebar-title">SPIKE 소식</h3>
-				<ul>
-					<li><a href="newsSubpage_bank.jsp">은행소식</a></li>
-					<li><a href="newsSubpage_product.jsp">새 상품소식</a></li>
-					<li><a href="newsSubpage_job.jsp">채용공고</a></li>
-					<%-- 현재페이지=선택된 메뉴면 배경색 진하게, 백엔드랑 연동할예정 --%>
-					<li><a href="newsSubpage_notice.jsp">공지사항</a></li>
-				</ul>
-			</div>
+			
 	
  <div id="noti_wrap">
   <form method="post" action="noti_write_ok" onsubmit="return write_check();" enctype="multipart/form-data">
