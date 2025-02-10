@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', function () {
     initEventListeners(); // 모든 이벤트 리스너 초기화
 });
 
-// 📌 1. 계좌 정보 업데이트 함수
+//계좌 정보 업데이트 함수
 function updateAccountInfo() {
     const selectedAccount = document.getElementById('accountSelect').value;
     if (selectedAccount) {
@@ -22,11 +22,11 @@ function updateAccountInfo() {
     }
 }
 
-// 📌 2. 숫자에 쉼표 추가하는 함수
+//숫자에 쉼표 추가하는 함수
 function formatNumber(number) {
     return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 }
-// 📌 3. 거래 내역 필터링 함수 (계좌번호 그대로 사용)
+//거래 내역 필터링 함수 (계좌번호 그대로 사용)
 function filterTransactionHistory() {
     const selectedAccount = document.getElementById('accountSelect').value;
     if (!selectedAccount) {
@@ -34,14 +34,14 @@ function filterTransactionHistory() {
         return;
     }
 
-    // 🚀 계좌 ID 가져오기
+    //계좌 ID 가져오기
     const selectedAccountData = accountData[selectedAccount];
     if (!selectedAccountData) {
         console.warn("⚠️ 선택된 계좌 정보를 찾을 수 없습니다.");
         return;
     }
     
-    const selectedAccountId = selectedAccountData.accountId; // ✅ 올바른 계좌 ID 가져오기
+    const selectedAccountId = selectedAccountData.accountId; //올바른 계좌 ID 가져오기
     console.log("🚀 검색 중 선택된 계좌 ID:", selectedAccountId);
 
     const startDate = document.getElementById('startDate').value;
@@ -56,7 +56,7 @@ function filterTransactionHistory() {
     const noTransactionsMessage = document.getElementById('noTransactionsMessage');
     const transactionHistoryList = document.getElementById("transactionHistory");
 
-    transactionHistoryList.innerHTML = ""; // 기존 거래 내역 초기화
+    transactionHistoryList.innerHTML = ""; //기존 거래 내역 초기화
 
     console.log("🚀 필터링 전 거래 내역:", transactionData);
 
@@ -85,7 +85,7 @@ function filterTransactionHistory() {
     }
 }
 
-// 📌 4. 거래 내역 업데이트 함수 (계좌번호 그대로 사용)
+//거래 내역 업데이트 함수 (계좌번호 그대로 사용)
 function updateTransactionHistory(transactions, selectedAccount) {
     const transactionHistoryList = document.getElementById("transactionHistory");
 
@@ -109,7 +109,7 @@ function updateTransactionHistory(transactions, selectedAccount) {
     });
 }
 
-// 📌 5. 출금 한도 설정 함수
+//출금 한도 설정 함수
 function limitChange(event) {
     event.preventDefault();
     const dayLimit = document.getElementById('dayLimitInput').value;
@@ -121,7 +121,7 @@ function limitChange(event) {
     form.submit();
 }
 
-// 📌 6. 비밀번호 변경 함수
+//비밀번호 변경 함수
 function changePassword(event) {
     event.preventDefault();
 
@@ -153,7 +153,7 @@ function changePassword(event) {
     modal.hide();
 }
 
-// 📌 7. 모달 관련 초기화
+//모달 관련 초기화
 function initModalHandling() {
     document.getElementById('setLimitBtn').addEventListener('click', function() {
         const selectAccount = document.getElementById("accountSelect").value;
@@ -176,7 +176,7 @@ function initModalHandling() {
     });
 }
 
-// 📌 8. 이벤트 리스너 초기화
+//이벤트 리스너 초기화
 function initEventListeners() {
     document.getElementById('accountSelect').addEventListener('change', updateAccountInfo);
     document.getElementById('filterBtn').addEventListener('click', filterTransactionHistory);
