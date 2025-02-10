@@ -2,6 +2,7 @@ package com.spike.service;
 
 import com.spike.dto.StockDTO;
 
+
 import java.util.List;
 import java.util.Optional;
 
@@ -14,5 +15,8 @@ public interface StockService {
 
 	// 상위 N개의 주식을 가져오는 메서드 정의
 	List<StockDTO> getTopStocks(int limit);
+	
+	//거래후 주식의 현재가 갱신 메소드
+	public void updateStockCurrentPrice(StockDTO stock);
 
 }
