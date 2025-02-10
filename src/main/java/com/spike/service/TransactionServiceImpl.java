@@ -181,5 +181,12 @@ public class TransactionServiceImpl implements TransactionService {
 
 		return histories;
 	}
+	
+	//HistoryDTO로 변환하지 않고 바로 전체 데이터 조회
+	@Override
+	public List<TransactionDTO> getTransactionsByUserId(Long userId) {
+		
+		return this.transactionRepo.getTransactionsByUserId(userId);
+	}
 
 }

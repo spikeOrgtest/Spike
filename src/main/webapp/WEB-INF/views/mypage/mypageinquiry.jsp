@@ -129,7 +129,7 @@
 									</div>
 									<div class="mt-3 text-end">
 										<button class="btn btn-secondary" id="filterBtn"
-											onclick="filterTransactionHistory()">검색</button>
+											>검색</button>
 									</div>
 									<!-- 최근 거래 내역 -->
 									<div id="transactionHistoryContainer"
@@ -266,32 +266,19 @@
 	<script src="../../js/mypage/sidebars.js"></script>
 
 	<script>
-		// 계좌 데이터 전달을 위한 JavaScript 변수 생성
-		const accountData = {};
-		<c:forEach var="item" items="${list}">
-		accountData["${item.accountNumber}:${item.accountType}"] = {
-			balance : "${item.balance}",
-			daylimit : "${item.dayLimit}",
-			onelimit : "${item.oneLimit}",
-			transactions : [ {
-				date : "2024-11-28",
-				type : "출금",
-				amount : 500000,
-				destination : "증권"
-			}, {
-				date : "2024-11-27",
-				type : "입금",
-				amount : 200000,
-				source : "급여"
-			}, {
-				date : "2024-11-26",
-				type : "출금",
-				amount : 300000,
-				destination : "편의점"
-			} ]
-		};
-		</c:forEach>
-	</script>
+    // 거래 내역 데이터를 JavaScript 객체로 변환
+    const transactionData = [];
+    <c:forEach var="transaction" items="${transactionList}">
+        transactionData.push({
+            accountIdFrom: "${transaction.fromAccount.accountId}",
+            accountIdTo: "${transaction.toAccount.accountId}",
+            date: "${transaction.transactionDate}",
+            memo: "${transaction.memo}",
+            amount: ${transaction.amount}
+        });
+    </c:forEach>
+</script>
+
 </body>
 
 </html>

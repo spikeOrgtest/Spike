@@ -36,28 +36,28 @@ function filterTransactionHistory() {
     const noTransactionsMessage = document.getElementById('noTransactionsMessage');
     const transactionHistoryList = document.getElementById("transactionHistory");
 
-    // 거래 내역 리스트 초기화
-    transactionHistoryList.innerHTML = ""; 
+    transactionHistoryList.innerHTML = ""; // 기존 거래 내역 초기화
 
-    // 🚀 하나의 조건문에서 검사하여 alert 중복 방지
-    if (!selectedAccount || !startDate || !endDate) {
-        if (!selectedAccount) {
-            alert("계좌를 선택해주세요.");
-        } else {
-            alert("시작일과 종료일을 모두 선택해주세요.");
-        }
+    if (!selectedAccount) {
+        alert("계좌를 선택해주세요.");
         return;
     }
 
-    // 계좌 데이터 필터링
-    const account = accountData[selectedAccount];
-    let filteredTransactions = account.transactions.filter(transaction => {
-        const transactionDate = new Date(transaction.date);
-        return transactionDate >= new Date(startDate) && transactionDate <= new Date(endDate);
+    if (!startDate || !endDate) {
+        alert("시작일과 종료일을 모두 선택해주세요.");
+        return;
+    }
+
+    // 🚀 선택된 계좌의 거래 내역 필터링 (출금 + 입금)
+    const accountId = selectedAccount.match(/[\d-]+/)[0]; // 계좌 ID 추출
+    let filteredTransactions = transactionData.filter(transaction => {
+        return (transaction.accountIdFrom === accountId || transaction.accountIdTo === accountId) &&
+               new Date(transaction.date) >= new Date(startDate) &&
+               new Date(transaction.date) <= new Date(endDate);
     });
 
     if (filteredTransactions.length > 0) {
-        updateTransactionHistory(filteredTransactions);
+        updateTransactionHistory(filteredTransactions, accountId);
         transactionHistoryContainer.style.display = "block";
         noTransactionsMessage.style.display = "none";
     } else {
@@ -68,21 +68,29 @@ function filterTransactionHistory() {
 
 
 // 📌 4. 거래 내역 업데이트 함수
-function updateTransactionHistory(transactions) {
+function updateTransactionHistory(transactions, selectedAccountId) {
     const transactionHistoryList = document.getElementById("transactionHistory");
 
     transactions.forEach(transaction => {
+        const isOutgoing = transaction.accountIdFrom === selectedAccountId; // 출금 여부 판단
+        const transactionType = isOutgoing ? "출금" : "입금";
+        const amountClass = isOutgoing ? "text-danger" : "text-success";
+        const amountSign = isOutgoing ? "-" : "+";
+
         const listItem = document.createElement("li");
         listItem.classList.add("list-group-item", "d-flex", "justify-content-between", "align-items-center");
+
         listItem.innerHTML = `
-            <span>${transaction.date} - ${transaction.memo}</span>
-            <span class="fw-bold ${transaction.amount < 0 ? 'text-danger' : 'text-success'}">
-                ${transaction.amount.toLocaleString()} 원
+            <span>${transaction.date} - ${transactionType} (${transaction.memo})</span>
+            <span class="fw-bold ${amountClass}">
+                ${amountSign} ${transaction.amount.toLocaleString()} 원
             </span>
         `;
+
         transactionHistoryList.appendChild(listItem);
     });
 }
+
 
 // 📌 5. 출금 한도 설정 함수
 function limitChange(event) {
