@@ -140,6 +140,9 @@
 										</h3>
 										<ul id="transactionHistory" class="list-group">
 											<!-- 거래 내역은 JavaScript에서 동적으로 추가됩니다 -->
+											<strong>${transaction.name}</strong>에게 
+                    <fmt:formatNumber value="${transaction.amount}" type="currency" currencySymbol="₩" />
+                    송금 (<fmt:formatDate value="${transaction.transactionDate}" pattern="yyyy-MM-dd HH:mm:ss"/>)
 										</ul>
 									</div>
 									<p id="noTransactionsMessage" class="text-danger"
@@ -259,7 +262,7 @@
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-	<script src="../../js/mypage/mypageinquiry.js"></script>
+	<script src="../../js/mypage/newmypageinquiry.js"></script>
 	<script src="../../js/mypage/sidebars.js"></script>
 
 	<script>
