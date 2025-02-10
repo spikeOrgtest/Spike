@@ -3,17 +3,24 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<meta id="_csrf" name="_csrf" content="${_csrf.token}"/>
-<meta id="_csrf_header" name="_csrf_header" content="${_csrf.headerName}"/>
+<meta id="_csrf" name="_csrf" content="${_csrf.token}" />
+<meta id="_csrf_header" name="_csrf_header"
+	content="${_csrf.headerName}" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>OX 퀴즈</title>
 <link rel="stylesheet" href="../css/support/subpage.css">
 <link rel="stylesheet" href="../css/include/include.css">
 <link rel="stylesheet" href="../css/mini/quiz.css">
+<head>
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 
+</head>
+
+
 <body class="subpage">
- 
+
 	<%@ include file="../include/header.jsp"%>
 	<%@ include file="../include/subnav.jsp"%>
 
@@ -35,25 +42,27 @@
 
 			<div class="subpage-content-wrap">
 				<h1 class="quiz-title">
-					<span class="text-blue">O</span> <span class="text-black">/</span>
-					<span class="text-red">X</span> <span class="text-black"> 퀴즈</span>
+					<span class="quiz-banner">OX 퀴즈</span>
 				</h1>
+
 
 				<div class="quiz-wrapper">
 					<div class="quiz-container">
 						<div class="quiz_start">
-							
+
 
 							<!-- 퀴즈 문제 시작 -->
-							
+
 							<div class="quiz-question active" id="quiz1">
-							<h1> O/X Quiz</h1>
+								<h1>Quiz Start</h1>
 								<h2>
-									나오는 질문에 O, X를 선택해주세요. <br /> 질문에 대한 답을 바로바로 확인하며, <br /> 쉽고
-									빠르게 자신의 '금융지식'을 <br /> 테스트 해볼 수 있습니다.
+									질문에 대해 O 또는 X를 선택해 주세요. <br /> 각 문제에 대한 답은 한 번만 선택할 수 있습니다. <br />
+									문제를 맞출 때마다 100포인트가 지급됩니다. <br /> 준비가 되셨다면 아래 버튼을 눌러 시작하세요!
 								</h2>
 
-								<button class="quiz-start-button" onclick="startQuiz(2)">문제 풀기</button>
+
+								<button class="quiz-start-button" onclick="startQuiz(2)">문제
+									풀기</button>
 								<div class="quiz-result" id="quiz-result-1"></div>
 							</div>
 						</div>
@@ -140,13 +149,23 @@
 
 						<!-- 정답 확인 슬라이드 -->
 						<div id="score-slide" class="score-slide">
-							<p id="correct-answers">맞춘 문제: 0개</p>
-							<p id="total-points">획득한 포인트: 0점</p>
+							<div class="score-item">
+								<i class="fas fa-check-circle score-icon"></i>
+								<p id="correct-answers">
+									맞춘 문제: <span id="correct-count">0개</span>
+								</p>
+							</div>
+							<div class="score-item">
+								<i class="fas fa-coins score-icon"></i>
+								<p id="total-points">
+									획득한 포인트: <span id="point-count">0점</span>
+								</p>
+							</div>
 							<!-- My Point 페이지로 넘어가는 버튼 -->
 							<button class="quiz-next-question"
 								onclick="window.location.href='point'">My Point</button>
-
 						</div>
+
 					</div>
 				</div>
 			</div>
