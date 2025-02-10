@@ -26,16 +26,7 @@
 	</div>
 
 	<div class="subpageWrapper">
-		<div class="subpage-main-container">
-			<div class="subpage-sidebar">
-				<h3 class="subpage-sidebar-title">SPIKE 소식</h3>
-				<ul>
-					<li><a href="newsSubpage_bank.jsp">은행소식</a></li>
-					<li><a href="newsSubpage_product.jsp">새 상품소식</a></li>
-					<li><a href="newsSubpage_job.jsp">채용공고</a></li>
-					<li><a href="newsSubpage_notice.jsp">공지사항</a></li>
-				</ul>
-			</div>
+		<div class="subpage-main-container" style="justify-content: center;">
 
 			<div class="subpage-content-wrap">
 				<form method="get" action="/spike.com/notice">
@@ -117,8 +108,8 @@
 
 					<div id="nFind_wrap">
 						<select name="findField">
-							<option value="noticeTitle" <c:if test="${findField == 'notice_title'}">selected</c:if>>제목</option>
-							<option value="noticeCont" <c:if test="${findField == 'notice_cont'}">selected</c:if>>내용</option>
+							<option value="notice_title" <c:if test="${findField == 'notice_title'}">selected</c:if>>제목</option>
+							<option value="notice_cont" <c:if test="${findField == 'notice_cont'}">selected</c:if>>내용</option>
 						</select>
 						<input type="search" name="findName" size="14" value="${findName}" />
 						<button type="submit">검색</button>

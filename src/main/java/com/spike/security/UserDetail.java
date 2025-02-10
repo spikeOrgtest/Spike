@@ -14,17 +14,22 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.spike.dto.ManagerDTO;
 import com.spike.dto.UserDTO;
+import com.spike.repository.LoginHistoryRepository;
 import com.spike.repository.UserRepository;
 
 @Service
 public class UserDetail implements org.springframework.security.core.userdetails.UserDetailsService {
 
+	@Autowired
+	private LoginHistoryRepository LoginHis;
+	
     @Autowired
     private UserRepository userRepo;
 
     private final PasswordEncoder passwordEncoder;
-
+    
     public UserDetail(@Lazy PasswordEncoder passwordEncoder) {
         this.passwordEncoder = passwordEncoder;
     }
@@ -38,6 +43,11 @@ public class UserDetail implements org.springframework.security.core.userdetails
         // 사용자 정보 저장 (로그인 시 마다)
         user.setLastLogin(LocalDateTime.now());
         userRepo.save(user);  // DB에 저장
+        
+        ManagerDTO Llist = new ManagerDTO();
+        Llist.setLogHis(user);
+        Llist.setAllTime(user.getLastLogin());
+        LoginHis.save(Llist);
 
         // SpikeUser 객체를 반환
         return new SpikeUser(user, user.getLoginId(), user.getPassword(), getAuthority(user));
@@ -54,4 +64,6 @@ public class UserDetail implements org.springframework.security.core.userdetails
     public boolean checkPassword(String inputPassword, String storedPassword) {
         return passwordEncoder.matches(inputPassword, storedPassword);
     }
+    
+    
 }
