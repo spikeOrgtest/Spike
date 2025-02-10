@@ -1,5 +1,7 @@
 package com.spike.dao;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -15,5 +17,10 @@ public class LoanDAOImpl implements LoanDAO {
 	@Override
 	public void createLoan(LoanDTO s) {
 		this.loanrepo.save(s);
+	}
+
+	@Override
+	public List<LoanDTO> findAllLoans() {
+		return this.loanrepo.findAll();
 	}
 }

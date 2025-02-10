@@ -18,11 +18,11 @@
 			<div class="subpage-sidebar">
 				<h3 class="subpage-sidebar-title">관리자 페이지</h3>
 				<ul>
-					<li><a href="/spike.com/ma">대시보드</a></li>
-					<li><a href="/spike.com/userManagement">사용자관리</a></li>
+					<li><a href="/spike.com/admin/ma">대시보드</a></li>
+					<li><a href="/spike.com/admin/userManagement">사용자관리</a></li>
 					<li><a href="newsSubpage_product.jsp">계좌수정</a></li>
 					<li><a href="newsSubpage_product.jsp">거래내역관리</a></li>
-					<li><a href="/spike.com/loanManagement">대출관리</a></li>
+					<li><a href="/spike.com/admin/loanManagement">대출관리</a></li>
 					<li><a href="newsSubpage_notice.jsp">공지사항관리</a></li>
 					<li><a href="newsSubpage_notice.jsp">보안관리</a></li>
 				</ul>
@@ -32,22 +32,24 @@
 				<table border="1" style="margin-left: 40px;">
 					<thead>
 						<tr>
-							<th>사용자 번호</th>
+							<th>대출 ID</th>
 							<th>사용자 ID</th>
 							<th>이름</th>
-							<th>이메일</th>
-							<th>상태</th>
+							<th>대출 금액</th>
+							<th>대출 상태</th>
+							<th>신청 날짜</th>
 						</tr>
 					</thead>
 					<tbody>
-						<c:forEach var = "item" items="${list}">
-						<tr style=cursor:pointer; onClick="location.href='/spike.com/loanState?userId=${item.userId}'">
-							<td>${item.userId}</td>
-							<td>${item.loginId}</td>
-							<td>${item.name}</td>
-							<td>${item.emailId}@${item.emailDomain}</td>
-							<td>${item.status}</td>
-						</tr>
+						<c:forEach var="loan" items="${loanList}">
+							<tr style="cursor:pointer;" onClick="location.href='/spike.com/admin/loanState?userId=${loan.owner.userId}'">
+								<td>${loan.loanId}</td>
+								<td>${loan.owner.loginId}</td>
+								<td>${loan.owner.name}</td>
+								<td>${loan.loanAmount}</td>
+								<td>${loan.loanState}</td>
+								<td>${loan.createdDate}</td>
+							</tr>
 						</c:forEach>
 					</tbody>
 				</table>
