@@ -36,18 +36,20 @@ function filterTransactionHistory() {
     const noTransactionsMessage = document.getElementById('noTransactionsMessage');
     const transactionHistoryList = document.getElementById("transactionHistory");
 
-    transactionHistoryList.innerHTML = ""; // 기존 내역 초기화
+    // 거래 내역 리스트 초기화
+    transactionHistoryList.innerHTML = ""; 
 
-    if (!selectedAccount) {
-        alert("계좌를 선택해주세요.");
+    // 🚀 하나의 조건문에서 검사하여 alert 중복 방지
+    if (!selectedAccount || !startDate || !endDate) {
+        if (!selectedAccount) {
+            alert("계좌를 선택해주세요.");
+        } else {
+            alert("시작일과 종료일을 모두 선택해주세요.");
+        }
         return;
     }
 
-    if (!startDate || !endDate) {
-        alert("시작일과 종료일을 모두 선택해주세요.");
-        return;
-    }
-
+    // 계좌 데이터 필터링
     const account = accountData[selectedAccount];
     let filteredTransactions = account.transactions.filter(transaction => {
         const transactionDate = new Date(transaction.date);
@@ -63,6 +65,7 @@ function filterTransactionHistory() {
         noTransactionsMessage.style.display = "block";
     }
 }
+
 
 // 📌 4. 거래 내역 업데이트 함수
 function updateTransactionHistory(transactions) {
