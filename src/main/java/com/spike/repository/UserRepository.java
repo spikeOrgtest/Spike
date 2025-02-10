@@ -109,6 +109,18 @@ public interface UserRepository extends JpaRepository<UserDTO, Long> {
 	@Query("UPDATE UserDTO u SET u.point=?2 WHERE u.userId=?1")
 	void updateUserPoint(Long userId, Integer value);
 
+	@Query("select u FROM UserDTO u WHERE u.lastLogin IS NOT NULL AND TRUNC(u.lastLogin) = TRUNC(CURRENT_DATE)")
+	public Page<UserDTO> getTodaylist(Pageable visipage);
+
+	@Query("select Count(u.userId) from UserDTO u")
+	public Long getallvisit();
+
+	@Query("select sum(u.amount) from TransactionDTO u where TRUNC(u.transactionDate) = TRUNC(CURRENT_DATE)")
+	public Long getallamount();
+
+	@Query("select Count(u.amount) from TransactionDTO u where TRUNC(u.transactionDate) = TRUNC(CURRENT_DATE)")
+	public Long getallTransaction();
+	
 	@Query("select u from UserDTO u")
 	public Page<UserDTO> findByUserList(Pageable pageable);
 

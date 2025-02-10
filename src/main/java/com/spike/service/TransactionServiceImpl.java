@@ -1,5 +1,7 @@
 package com.spike.service;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -126,8 +128,13 @@ public class TransactionServiceImpl implements TransactionService {
 		Pageable pageable = PageRequest.ofSize(5); // == .of(0, 5) 여기선 무조건 5개만 보여줄거라 offset 0
 		// pageable 사용해서 조회하면 Page<T> type으로 반환하는것 유의, .getContent()로 꺼내줘야 List<T> 되는데
 		// 내부적으로 처리해주는듯??
+		
+		//날짜 계산은 LocalDateTime 내장메서드 minusDays 활용하는 것이 편리함, 대신 TimeStamp 객체로 변환 필요
+		LocalDateTime calculatedDate = LocalDateTime.now().minusDays(1);
+		Timestamp startDate = Timestamp.valueOf(calculatedDate);
+		
 		List<TransactionDTO> transactions = this.transactionRepo
-				.findTop5ByFromAccount_Owner_UserIdOrderByTransactionDateDesc(userId, pageable);
+				.getRecentTransfers(userId, startDate, pageable);
 		List<TransferHistoryDTO> histories = new ArrayList<>();
 
 		for (TransactionDTO transaction : transactions) {
@@ -164,7 +171,10 @@ public class TransactionServiceImpl implements TransactionService {
 			TransferHistoryDTO history = TransferHistoryDTO.builder()
 					.name(transaction.getToAccount().getOwner().getName())
 					.transactionDate(transaction.getTransactionDate()).amount(transaction.getAmount())
-					.afterBalance(transaction.getAfterBalance()).build();
+					.afterBalance(transaction.getAfterBalance())
+					.fromAccount(transaction.getFromAccount().getAccountNumber())
+					.toAccount(transaction.getToAccount().getAccountNumber())
+					.build();
 			histories.add(history);
 			// if(histories.size() == 5) break; 페이징으로 db에서 5개만 가져와서 필요없어짐. 효율 good
 		}

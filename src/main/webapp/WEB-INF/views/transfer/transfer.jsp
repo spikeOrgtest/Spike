@@ -33,10 +33,14 @@
 <body>
 	<%-- 에러 정보가 같이 넘어온다면 에러 메시지를 먼저 출력(script 코드로 뒤로가게) --%>
 	<%-- flashAttribute를 사용한다면 flashScope가 아닌 requestScope로 접근해야 하는 점 유의! --%>
-	<c:if test="${not empty requestScope.errorMessage or not empty errorMessage}">
+	<%-- requestScope.errorMessage와 errorMessage를 구별하지 못하는 현상 발생,  --%>
+	<c:if test="${not empty errorMessage}"> <%-- not empty requestScope.errorMessage or  --%>
 		<script>
-        	alert("${requestScope.errorMessage != null ? requestScope.errorMessage : errorMessage}");
-			history.back();
+        	alert("${errorMessage}");
+			//javascript if 조건에 EL을 사용할 때 if(${needRedirection}) 으로 사용하면 판정이 불가능한 현상 발생(이론상 if(true)로 판정해야 하는데 문법오류처럼 동작)
+			//에러 종류에 따른 동작 제어 방법 찾아야 할 듯(별도 에러 페이지 or 핸들러 클래스)
+        	if(${not empty needRedirection}) window.location.href = "/spike.com/login";
+			else history.back();
 		</script>
 	</c:if>
 	<%@ include file="../include/header.jsp"%>
@@ -56,7 +60,7 @@
 
 					<main>
 						<!-- 송금 섹션 -->
-						<form action="/spike.com/transfer_ok" method="post"
+						<form action="/spike.com/transfer" method="post"
 							onsubmit="return submitForm();">
 							<input type="hidden" name="${_csrf.parameterName}"
 								value="${_csrf.token}" />
@@ -153,18 +157,21 @@
 
 						<section class="transfer-history mt-5">
 							<h4>
-								<i class="bi bi-receipt"></i> 송금 내역
+								<i class="bi bi-receipt"></i> 송금 내역 <p style="font-size: 16px; color: gray;">최대 30일까지의 송금 내역만 표시됩니다</p>
 							</h4>
 							<ul id="transferHistory" class="list-group">
 								<c:choose>
 									<c:when test="${not empty histories}">
 										<c:forEach var="history" items="${histories}">
 											<li
-												class="list-group-item d-flex justify-content-between align-items-center">
-												<span><fmt:formatDate value="${history.transactionDate}" pattern="yy/MM/dd HH:mm" /> | ${history.name} |
-													<fmt:formatNumber value="${history.amount}" pattern="#,###" />
-													원
-											</span> <span class="badge bg-secondary"><fmt:formatNumber
+												class="list-group-item d-flex justify-content-between align-items-center" style="padding: 5px 15px;">
+												<span style="padding: 2px 9px;"><fmt:formatDate value="${history.transactionDate}" pattern="yy/MM/dd" /><br><br><fmt:formatDate value="${history.transactionDate}" pattern="HH:mm" /> </span>
+												<span>| ${history.name} |</span>
+													
+													
+											 
+											<span class="badge bg-secondary" style="color: gray; font-size: 14px;">-<fmt:formatNumber value="${history.amount}" pattern="#,###" />
+													원<br><br><fmt:formatNumber
 														value="${history.afterBalance}" pattern="#,###" /> 원</span>
 											</li>
 										</c:forEach>

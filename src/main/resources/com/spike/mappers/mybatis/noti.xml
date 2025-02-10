@@ -43,7 +43,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   <where>
     <if test="findField != null and findName != null and findName != ''">
       AND ${findField} LIKE '%' || #{findName} || '%'
-    </if>
+    </if> 
   </where>
 </select>
 

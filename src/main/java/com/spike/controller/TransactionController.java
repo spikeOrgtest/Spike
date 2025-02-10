@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -42,7 +43,8 @@ public class TransactionController {
 			mv.addObject("accountList", accList);
 			mv.addObject("histories", histories);
 		}else { //로그인 하지 않고 사용시 예외처리(기존 코드 재활용)
-			mv.addObject("errorMessage", "로그인이 필요한 페이지입니다.");
+			mv.addObject("errorMessage", "로그인이 필요한 서비스입니다.");
+			mv.addObject("needRedirection", "true");
 		}
 		mv.setViewName("transfer/transfer");
 
@@ -50,7 +52,7 @@ public class TransactionController {
 		return mv;
 	}
 
-	@PostMapping("transfer_ok")
+	@PostMapping("transfer")
 	public String transfer_ok(Long fromAccountId, String toAccount, long amount, String memo, String accountPassword,
 			HttpSession session, RedirectAttributes redirectAttributes) {
 
@@ -87,6 +89,7 @@ public class TransactionController {
 
 		} catch (Exception e) { // .orElseThrow(() -> new IllegalArgumentException("계좌를 찾을 수 없습니다.")) 이 에러가 던져짐
 
+			//System.out.println(e.getMessage());
 			// model에 담아 뷰페이지를 렌더링하면 제대로 동작이 안됨 -> redirectAttribute에 담아 리다이렉션해서 해결
 			redirectAttributes.addFlashAttribute("errorMessage", "존재하지 않는 계좌입니다. 입금계좌를 확인해 주세요!");
 
@@ -110,17 +113,16 @@ public class TransactionController {
 	}
 
 	// 송금 최종 처리
-	@PostMapping("transfer")
+	@PostMapping("transfer_ok")
 	public String transfer(HttpSession session) {
 
 		TransferDTO tData = (TransferDTO) session.getAttribute("Data");
 
 		this.transService.transfer(tData);
 
-		// 이체 성공시 세션에서 Data 속성 제거
-		session.removeAttribute("Data");
+		
 
-		return "redirect:/spike.com/transfer";
+		return "redirect:/spike.com/transfer_success";
 	}
 
 	// 송금 취소시 Data 제거 후 송금 페이지로 이동
@@ -129,5 +131,22 @@ public class TransactionController {
 
 		session.removeAttribute("Data");
 		return "redirect:/spike.com/transfer";
+	}
+	
+	@GetMapping("transfer_success")
+	public String transfer_success(HttpSession session, Model model) {
+		/* 이체 완료 페이지에 출력할 데이터를 모델에 담아 전달, 세션 데이터는 삭제 -> 뷰페이지에서 ajax 요청을 통해 제거하는 방식으로 변경
+		model.addAttribute("Data", session.getAttribute("Data"));
+		session.removeAttribute("Data");
+		*/
+		return "transfer/transfer_success";
+	}
+	
+	//이체 완료 후 세션 데이터 삭제
+	@PostMapping("transfer_clear")
+	public String transfer_clear(HttpSession session) {
+		System.out.println("데이터 삭제 요청");
+		session.removeAttribute("Data");
+		return "redirect:/spike.com";
 	}
 }
