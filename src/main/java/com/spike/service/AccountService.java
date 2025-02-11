@@ -40,4 +40,6 @@ public interface AccountService {
 
 	void updateLimit(UserDTO user);
 
+	void saveAccount(AccountDTO fromAccount);
+
 }

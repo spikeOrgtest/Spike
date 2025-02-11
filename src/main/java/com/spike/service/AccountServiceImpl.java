@@ -162,4 +162,10 @@ public class AccountServiceImpl implements AccountService {
 		this.accountdao.updateLimit(user);
 	}
 
+	@Transactional
+	@Override
+	public void saveAccount(AccountDTO fromAccount) {
+		this.accountdao.saveAccount(fromAccount);
+	}
+
 }
