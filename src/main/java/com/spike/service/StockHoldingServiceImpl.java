@@ -6,6 +6,7 @@ import com.spike.dto.StockHolding;
 import com.spike.repository.StockHoldingRepository;
 import com.spike.service.StockHoldingService;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
