@@ -91,7 +91,6 @@ public class AccountDTO {
 		}
 	}
 
-	@PrePersist // DB 저장 전
 	public void calculateTotalRate() {
 		if (accountType != null) {
 			switch (accountType) {

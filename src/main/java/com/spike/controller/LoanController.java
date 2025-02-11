@@ -241,7 +241,7 @@ public class LoanController {
         }
     }
 
-    @GetMapping("/myLoans")
+    @GetMapping("/mypage/myloans")
     public ModelAndView myLoans(HttpSession session, HttpServletResponse response) throws IOException {
         response.setContentType("text/html; charset=UTF-8");
         PrintWriter out = response.getWriter();
