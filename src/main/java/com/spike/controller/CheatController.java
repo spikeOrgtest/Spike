@@ -4,6 +4,7 @@ import java.io.PrintWriter;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -16,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.spike.dto.AccountDTO;
 import com.spike.dto.CheatReportDTO;
+import com.spike.dto.UserDTO;
 import com.spike.service.AccountService;
 import com.spike.service.CheatService;
 
@@ -30,9 +32,14 @@ public class CheatController {
 	private AccountService accountService;
 	
 	@GetMapping("/cheat")
-	public String cheat() {
+	public ModelAndView cheat(HttpSession session) {
+		UserDTO User = (UserDTO) session.getAttribute("User");
 		
-		return "support/cheat";
+		ModelAndView cv = new ModelAndView("support/cheat");
+		
+		cv.addObject("User", User);
+		
+		return cv;
 		
 	}
 	

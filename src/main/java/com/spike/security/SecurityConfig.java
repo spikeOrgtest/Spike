@@ -41,7 +41,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
             .authorizeRequests()
                 // 인증이 필요한 페이지만 지정
-                .antMatchers("/spike.com/mypage/*", "/spike.com/support/*").hasRole("USER")  // 일반 권한 사용자만 접근 가능
+                .antMatchers("/spike.com/mypage/*").hasRole("USER")  // 일반 권한 사용자만 접근 가능
                 .antMatchers("/spike.com/admin/*").hasRole("ADMIN")  // 관리자 권한 사용자만 접근 가능
                 // 그 외의 모든 페이지는 인증 없이 접근 가능
                 .anyRequest().permitAll()

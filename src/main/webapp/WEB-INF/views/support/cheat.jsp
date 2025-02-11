@@ -150,7 +150,7 @@
 			<p>의심 계좌가 있다면 지금 신고하여 사기 예방에 힘을 보태주세요!</p>
 			<%-- 의심 계좌 신고 버튼 --%>
 			<button type="button" class="btn btn-primary" data-bs-toggle="modal"
-				data-bs-target="#exampleModal">보이스피싱 신고하기</button>
+				data-bs-target="#exampleModal" onclick="UserInfo(event)">보이스피싱 신고하기</button>
 
 			<%-- 첫 번째 모달: 의심 계좌 신고 모달 --%>
 			<div class="modal fade" id="exampleModal" tabindex="-1"
@@ -210,6 +210,7 @@
 					</div>
 				</div>
 			</div>
+			<div id="user" <c:if test="${sessionScope.User.name == null}">hidden</c:if>>${sessionScope.User.name == null}</div>
 
 <%-- javascript --%>
 <script>
@@ -275,6 +276,16 @@
 			e.preventDefault();
 		}
 });
+  
+function UserInfo(event) {
+	 var reportButton = document.getElementById('user').textContent.trim();
+	 
+	 if(reportButton === "true") {
+		 alert('회원만 가능한 서비스입니다.');
+		 event.preventDefault();
+		 return false;
+	 }
+}
 </script>
 
 
