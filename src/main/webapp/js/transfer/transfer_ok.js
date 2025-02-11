@@ -31,8 +31,7 @@ function validate() {
         alert("비밀번호가 일치하지 않습니다. 다시 확인해주세요.");
         return false; 
     }
-	//송금 확인 메시지, 모달 대신 임시 사용
-	alert("송금이 완료되었습니다! 이체/송금 페이지로 이동합니다.");
+	
     return true;
 }
 
