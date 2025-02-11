@@ -48,7 +48,9 @@ public class UserDetail implements org.springframework.security.core.userdetails
         UserDTO user = userRepo.findByLoginId(loginId)
                 .orElseThrow(() -> new UsernameNotFoundException("사용자를 찾을 수 없습니다 : " + loginId));
 
-        //일일 한도 초기화
+
+        //일일 한도 초기화, 첫 로그인 예외처리
+        if(user.getLastLogin() == null) user.setLastLogin(LocalDateTime.now());
         if(!user.getLastLogin().toLocalDate().isEqual(LocalDate.now().plusDays(1))) {
             //1.updateLimit로 처리
         	
