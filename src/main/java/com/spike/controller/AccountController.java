@@ -127,6 +127,7 @@ public class AccountController {
 		s.setBalance(1000000L);
 		s.setDayLimit(1000000L);
 		s.setOneLimit(100000L);
+		s.setAvailableLimit(1000000L);
 		s.setAccountPassword(passwordEncoder.encode(s.getAccountPassword()));
 
 		// 이자 관련 정보 추가
