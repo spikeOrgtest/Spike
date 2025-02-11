@@ -53,16 +53,14 @@ public class ManagerController {
 
 	@GetMapping("/ma")
 	public ModelAndView mapost() {
-		System.out.println("mapost() 메서드가 호출됨");
 
 		Long tolog = userService.todaylog();
-		System.out.println("\n ==========================  " + tolog);
-
 		Long newmember = userService.newMember();
 		Long allvisit = userService.getallvisit();
 		Long allamount = userService.getallamount();
 		Long allTransaction = userService.getallTransaction();
 		Long allLoanId = userService.getallLoanId();
+		Long allloanAmount = userService.getallloanAmount();
 
 		ModelAndView ma = new ModelAndView();
 		ma.addObject("tolog", tolog); // 화면으로 전달할 데이터
@@ -71,6 +69,7 @@ public class ManagerController {
 		ma.addObject("allamount",allamount);
 		ma.addObject("allTransaction",allTransaction);
 		ma.addObject("allLoanId", allLoanId);
+		ma.addObject("allloanAmount",allloanAmount);
 		ma.setViewName("/manager/manager");
 		return ma;
 
@@ -85,7 +84,6 @@ public class ManagerController {
 		
 		Page<UserDTO> Todaylist = userService.getTodaylist(visipage);
 		
-		System.out.println("============================\n" + Todaylist.getSize());
 		ModelAndView vi = new ModelAndView();
 		vi.addObject("Todaylist", Todaylist);
 		vi.setViewName("/manager/visit");
@@ -196,7 +194,6 @@ public class ManagerController {
 
 		List<UserDTO> list = this.userService.findByUserIdEdit(UserId);
 
-		System.out.println("list : " + list);
 
 		ModelAndView em = new ModelAndView("manager/loanState");
 		em.addObject("list", list);
