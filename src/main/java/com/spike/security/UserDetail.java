@@ -7,8 +7,6 @@ import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import javax.transaction.Transactional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.security.core.GrantedAuthority;
@@ -38,16 +36,12 @@ public class UserDetail implements org.springframework.security.core.userdetails
     @Autowired
     private AccountService accountService;
     
-    @Autowired //PR전 임시! 서비스로 돌릴 것
-    private AccountRepository accRepo;
-
     private final PasswordEncoder passwordEncoder;
     
     public UserDetail(@Lazy PasswordEncoder passwordEncoder) {
         this.passwordEncoder = passwordEncoder;
     }
 
-    @Transactional //PR전 임시 -> 서비스로 이동할 것
     @Override
     public UserDetails loadUserByUsername(String loginId) throws UsernameNotFoundException {
         // DB에서 login_id를 이용해 사용자 정보를 가져옵니다.
@@ -58,7 +52,7 @@ public class UserDetail implements org.springframework.security.core.userdetails
         if(!user.getLastLogin().toLocalDate().isEqual(LocalDate.now().plusDays(1))) {
             //1.updateLimit로 처리
         	
-        	this.accRepo.updateLimit(user);
+        	this.accountService.updateLimit(user);
         	//2.전체 계좌를 가져와서 세팅 후 save(기존 repository 메서드 재사용)
         	/*List<AccountDTO> accList = this.accRepo.findByOwner(user);
         	for(AccountDTO account : accList){

@@ -29,4 +29,6 @@ public interface AccountDAO {
 
 	Optional<AccountDTO> findById(Long accountId);
 
+	void updateLimit(UserDTO user);
+
 }

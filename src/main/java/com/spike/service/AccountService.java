@@ -34,4 +34,6 @@ public interface AccountService {
 
 	Optional<AccountDTO> findById(Long accountId);
 
+	void updateLimit(UserDTO user);
+
 }

@@ -85,4 +85,9 @@ public class AccountDAOImpl implements AccountDAO {
     public Optional<AccountDTO> findById(Long accountId) {
         return accountrepo.findById(accountId);
     }
+
+	@Override
+	public void updateLimit(UserDTO user) {
+		this.accountrepo.updateLimit(user);
+	}
 }
