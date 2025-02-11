@@ -174,4 +174,14 @@ public class UserServiceImpl implements UserSerivce {
 		return this.userRepository.getallTransaction();
 	}
 
+	@Override
+	public Long getallLoanId() {
+		return this.userRepository.getallLoanId();
+	}
+
+	@Override
+	public Long getallloanAmount() {
+		return this.userRepository.getallloanAmount();
+	}
+
 }
