@@ -8,8 +8,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>${stock.companyName}-주식거래</title>
 <link href="/css/investment/stock_order.css" rel="stylesheet">
+<link rel="stylesheet" href="/css/include/include.css">
 </head>
 <body>
+<jsp:include page="../include/header.jsp" />
     <div class="container">
         <!-- 차트 섹션 -->
         <div class="chart-section">
@@ -194,5 +196,6 @@
             document.getElementById("selected-listingQuantities").value = JSON.stringify(selectedListingQuantities);
         });
     </script>
+    <jsp:include page="../include/footer.jsp" />
 </body>
 </html>
