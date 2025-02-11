@@ -14,19 +14,8 @@
 <body>
 	<%@ include file="../include/header.jsp"%>
 	<div class="subpageWrapper">
-		<div class="subpage-main-container">
-			<div class="subpage-sidebar">
-				<h3 class="subpage-sidebar-title">관리자 페이지</h3>
-				<ul>
-					<li><a href="/spike.com/admin/ma">대시보드</a></li>
-					<li><a href="/spike.com/admin/userManagement">사용자관리</a></li>
-					<li><a href="newsSubpage_product.jsp">계좌수정</a></li>
-					<li><a href="newsSubpage_product.jsp">거래내역관리</a></li>
-					<li><a href="/spike.com/admin/loanManagement">대출관리</a></li>
-					<li><a href="newsSubpage_notice.jsp">공지사항관리</a></li>
-					<li><a href="newsSubpage_notice.jsp">보안관리</a></li>
-				</ul>
-			</div>
+		<div class="subpage-main-container" style="justify-content: center;">
+			
 			<div class="subpage-content">
 				<h2 style="margin-left: 50px;">사용자 정보</h2>
 				<!-- 사용자 정보 섹션 - forEach 제거 -->

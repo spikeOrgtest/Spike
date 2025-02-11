@@ -50,7 +50,7 @@
 			<!-- 대출 현황 섹션 -->
 			<main>
 				<section class="container my-5 section-box loan-summary">
-					<h2>대출 현황</h2>
+					<h2>대출 상환</h2>
 					<div class="asset-summary">
 						<div class="card">
 							<div class="card-header">신청 내역</div>

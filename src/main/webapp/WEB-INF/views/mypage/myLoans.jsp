@@ -7,12 +7,16 @@
 <head>
     <meta charset="UTF-8">
     <title>내 대출 관리</title>
-    <link rel="stylesheet" href="/css/include/include.css">
+    <link rel="stylesheet" href="../../css/include/include.css">
+    <link rel="stylesheet" href="../../css/mypage/sidebars.css"/>
+    <link rel="stylesheet" href="../../css/mypage/mypageinquiry.css"/>
     <style>
         .loan-container {
-            width: 80%;
+            width: 120%;
             margin: 20px auto;
-            padding: 20px;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
         }
         .loan-item {
             border: 1px solid #ddd;
@@ -35,6 +39,7 @@
             border: none;
             border-radius: 4px;
             cursor: pointer;
+            margin-top: 5px;
         }
         .repay-btn:hover {
             background-color: #45a049;
@@ -42,11 +47,47 @@
     </style>
 </head>
 <body>
-    <%@ include file="../include/header.jsp"%>
-    
+<jsp:include page="../include/header.jsp" />
+    <div class="test" id="wrapper">
+			<!-- 사이드바 -->
+			<div class="flex-shrink-0 p-3 sidebar" style="width: 250px;">
+				<a href="#"
+					class="d-flex align-items-center pb-3 mb-0 link-dark text-decoration-none border-bottom">
+					<svg class="bi me-2" width="30" height="24">
+                    <use xlink:href="#bootstrap" />
+                </svg> <span class="fs-5 fw-semibold">마이페이지</span>
+				</a>
+				<hr />
+				<br />
+				<ul class="list-unstyled ps-0">
+					<li class="mb-1">
+						<button
+							class="btn btn-toggle align-items-center rounded collapsed"
+							data-bs-toggle="collapse" data-bs-target="#home-collapse"
+							aria-expanded="true">Home</button>
+						<div class="collapse show" id="home-collapse">
+							<ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+								<li><a
+									href="javascript:location='/spike.com/mypage/mypageEdit';"
+									class="link-dark rounded">회원정보수정</a></li>
+								<li><a
+									href="javascript:location='/spike.com/mypage/inquiry';"
+									class="link-dark rounded">나의 계좌</a></li>
+								<li><a
+									href="javascript:location='/spike.com/mypage/property';"
+									class="link-dark rounded">자산조회</a></li>
+								<li><a href="javascript:location='/spike.com/mypage/loan';"
+									class="link-dark rounded">목표 금액 설정</a></li>
+							</ul>
+						</div>
+					</li>
+				</ul>
+			</div>
+			<main>
     <div class="loan-container">
+        <h2></h2>
+        <section>
         <h2>내 대출 목록</h2>
-        
         <c:forEach var="loan" items="${loans}">
             <div class="loan-item">
                 <div class="loan-info">
@@ -81,8 +122,9 @@
                 </c:if>
             </div>
         </c:forEach>
-    </div>
-
+        </section>
+        </main>
+        </div>
     <script>
     function validateRepayment(form) {
         var amount = form.amount.value;

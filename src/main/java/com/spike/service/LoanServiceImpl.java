@@ -1,7 +1,6 @@
 package com.spike.service;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -12,7 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.spike.dao.LoanDAO;
 import com.spike.dto.AccountDTO;
 import com.spike.dto.LoanDTO;
-import com.spike.dto.UserDTO;
 import com.spike.repository.LoanRepository;
 import com.spike.repository.UserRepository;
 
@@ -97,7 +95,7 @@ public class LoanServiceImpl implements LoanService {
             targetAccount.setAccountType("대출");
             targetAccount.setInterestRate(5.0); // 대출 기본금리 5%
             targetAccount.setBonusRate(2.0);    // 우대금리 2%
-            targetAccount.setStartDate(LocalDateTime.now()); // LocalDate -> LocalDateTime으로 수정
+            targetAccount.setStartDate(java.sql.Date.valueOf(LocalDate.now()));
             targetAccount.calculateTotalRate(); // 총 이자율 계산
             accountService.updateAccount(targetAccount);
 

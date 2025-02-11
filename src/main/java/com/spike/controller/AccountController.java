@@ -130,8 +130,8 @@ public class AccountController {
 		s.setAccountPassword(passwordEncoder.encode(s.getAccountPassword()));
 
 		// 이자 관련 정보 추가
-		s.setStartDate(LocalDateTime.now());  // LocalDate -> LocalDateTime
-		s.setLastInterestDate(LocalDateTime.now());  // LocalDate -> LocalDateTime
+		s.setStartDate(LocalDateTime.now());
+		s.setLastInterestDate(LocalDateTime.now());
 
 		// 계좌 유형에 따른 이자율 설정
 		if ("예금".equals(s.getAccountType())) {

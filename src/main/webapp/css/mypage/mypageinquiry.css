@@ -10981,6 +10981,7 @@ body {
 .test {
 	width: 1200px;
 	display: flex;
+	justify-content: center;
 }
 .mm {
 	display: flex;

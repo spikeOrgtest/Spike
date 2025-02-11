@@ -2,6 +2,7 @@ package com.spike.service;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -52,7 +53,7 @@ public class AccountServiceImpl implements AccountService {
 	@Override
 	public void calculateDailyInterest(AccountDTO account) {
 		LocalDateTime now = LocalDateTime.now();
-		LocalDateTime lastCalculation = account.getLastInterestDate();
+		Date lastCalculation = account.getLastInterestDate();
 
 		if (lastCalculation == null) {
 			lastCalculation = account.getStartDate();
