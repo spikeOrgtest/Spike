@@ -73,7 +73,6 @@ public class ManagerController {
 		ma.setViewName("/manager/manager");
 		return ma;
 
-				
 	}
 			
 	@GetMapping("/visit")
