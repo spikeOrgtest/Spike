@@ -171,12 +171,22 @@ public class TransactionServiceImpl implements TransactionService {
 			TransferHistoryDTO history = TransferHistoryDTO.builder()
 					.name(transaction.getToAccount().getOwner().getName())
 					.transactionDate(transaction.getTransactionDate()).amount(transaction.getAmount())
-					.afterBalance(transaction.getAfterBalance()).build();
+					.afterBalance(transaction.getAfterBalance())
+					.fromAccount(transaction.getFromAccount().getAccountNumber())
+					.toAccount(transaction.getToAccount().getAccountNumber())
+					.build();
 			histories.add(history);
 			// if(histories.size() == 5) break; 페이징으로 db에서 5개만 가져와서 필요없어짐. 효율 good
 		}
 
 		return histories;
+	}
+	
+	//HistoryDTO로 변환하지 않고 바로 전체 데이터 조회
+	@Override
+	public List<TransactionDTO> getTransactionsByUserId(Long userId) {
+		
+		return this.transactionRepo.getTransactionsByUserId(userId);
 	}
 
 }

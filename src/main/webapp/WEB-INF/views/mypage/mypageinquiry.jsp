@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -129,21 +130,49 @@
 									</div>
 									<div class="mt-3 text-end">
 										<button class="btn btn-secondary" id="filterBtn"
-											onclick="filterTransactionHistory()">검색</button>
+											>검색</button>
 									</div>
 									<!-- 최근 거래 내역 -->
-									<div id="transactionHistoryContainer"
-										class="transaction-history p-4 border rounded shadow"
-										style="display: none;">
-										<h3 class="mb-4">
-											<i class="bi bi-receipt"></i> 최근 거래 내역
-										</h3>
-										<ul id="transactionHistory" class="list-group">
-											<!-- 거래 내역은 JavaScript에서 동적으로 추가됩니다 -->
-										</ul>
-									</div>
-									<p id="noTransactionsMessage" class="text-danger"
-										style="display: none;">검색된 거래 내역이 없습니다.</p>
+<div id="transactionHistoryContainer"
+    class="transaction-history p-4 border rounded shadow"
+    style="display: none;">
+    <h3 class="mb-4">
+        <i class="bi bi-receipt"></i> 최근 거래 내역
+    </h3>
+    <ul id="transactionHistory" class="list-group">
+        <!-- 기본적으로 최근 거래 내역을 EL로 표시 -->
+        <c:forEach var="transaction" items="${transactionList}">
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <span>
+                    ${transaction.transactionDate} - 
+                    <c:choose>
+                        <c:when test="${transaction.fromAccount.accountNumber == selectedAccount}">
+                            출금
+                        </c:when>
+                        <c:otherwise>
+                            입금
+                        </c:otherwise>
+                    </c:choose>
+                    (${transaction.memo})
+                </span>
+                <span class="fw-bold ${transaction.fromAccount.accountNumber == selectedAccount ? 'text-danger' : 'text-success'}">
+                    <c:choose>
+                        <c:when test="${transaction.fromAccount.accountNumber == selectedAccount}">
+                            - 
+                        </c:when>
+                        <c:otherwise>
+                            + 
+                        </c:otherwise>
+                    </c:choose>
+                    <fmt:formatNumber value="${transaction.amount}" type="currency" currencySymbol="₩"/>
+                </span>
+            </li>
+        </c:forEach>
+    </ul>
+</div>
+<p id="noTransactionsMessage" class="text-danger"
+    style="display: none;">검색된 거래 내역이 없습니다.</p>
+
 							</div>
 							</div>
 						</section>
@@ -185,20 +214,20 @@
 												<label for="dayLimitInput" style="margin-bottom: 20px;">일일
 													한도 금액 (₩)</label> <input type="text" class="form-control"
 													id="dayLimitInput" placeholder="출금 한도를 입력하세요"
-													name="day_limit" style="margin-bottom: 20px;" />
+													name="day_limit" style="margin-bottom: 20px;" oninput="applyNumberFormat(this)" />
 											</div>
 											<div class="form-group">
 												<label for="oneLimitInput" style="margin-bottom: 20px;">1회
 													한도 금액 (₩)</label> <input type="text" class="form-control"
 													name="one_limit" id="oneLimitInput"
-													style="margin-bottom: 20px;" placeholder="출금 한도를 입력하세요" />
+													style="margin-bottom: 20px;" placeholder="출금 한도를 입력하세요" oninput="applyNumberFormat(this)"/>
 											</div>
 											<input type="hidden" id="selectedAccountNumber1"
-												name="accountNumber" value="" />
+												name="account_number" value="" />
 											<button type="reset" class="btn btn-secondary"
 												data-bs-dismiss="modal">취소</button>
 											<button type="submit" class="btn btn-secondary"
-												id="saveLimitBtn" onclick="limitChange()">저장</button>
+												id="saveLimitBtn" onclick="removeCommas()">저장</button>
 										</form>
 									</div>
 								</div>
@@ -255,40 +284,48 @@
 	<br />
 	<jsp:include page="../include/footer.jsp" />
 
-	<!-- Bootstrap JS, Chart.js -->
+	
+
+<script>
+    // 🚀 거래 내역 데이터를 JavaScript 객체로 변환
+    const transactionData = [];
+    <c:forEach var="transaction" items="${transactionList}">
+        transactionData.push({
+            accountIdFrom: "${transaction.fromAccount.accountId}",
+            accountIdTo: "${transaction.toAccount.accountId}",
+            date: "${transaction.transactionDate}", // 날짜 포맷 유지
+            memo: "${transaction.memo}",
+            amount: ${transaction.amount}
+        });
+    </c:forEach>;
+
+    console.log("🚀 transactionData 객체:", transactionData); // 디버깅용
+</script>
+
+<!-- 🚀 먼저 accountData를 정의 -->
+<script>
+    const accountData = {};  
+    <c:forEach var="item" items="${list}">
+        accountData["${item.accountNumber}:${item.accountType}"] = {
+        	accountId: "${item.accountId}", 
+        	balance: "${item.balance}",
+            daylimit: "${item.dayLimit}",
+            onelimit: "${item.oneLimit}"
+        };
+    </c:forEach>;
+
+    console.log("🚀 accountData 객체:", accountData); // 디버깅용
+</script>
+
+<!-- 🚀 JavaScript 파일 실행 (데이터 정의 후 실행해야 함) -->
+<script src="../../js/mypage/newmypageinquiry.js"></script>
+<!-- Bootstrap JS, Chart.js -->
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-	<script src="../../js/mypage/mypageinquiry.js"></script>
+	
 	<script src="../../js/mypage/sidebars.js"></script>
-
-	<script>
-		// 계좌 데이터 전달을 위한 JavaScript 변수 생성
-		const accountData = {};
-		<c:forEach var="item" items="${list}">
-		accountData["${item.accountNumber}:${item.accountType}"] = {
-			balance : "${item.balance}",
-			daylimit : "${item.dayLimit}",
-			onelimit : "${item.oneLimit}",
-			transactions : [ {
-				date : "2024-11-28",
-				type : "출금",
-				amount : 500000,
-				destination : "증권"
-			}, {
-				date : "2024-11-27",
-				type : "입금",
-				amount : 200000,
-				source : "급여"
-			}, {
-				date : "2024-11-26",
-				type : "출금",
-				amount : 300000,
-				destination : "편의점"
-			} ]
-		};
-		</c:forEach>
-	</script>
 </body>
+
 
 </html>

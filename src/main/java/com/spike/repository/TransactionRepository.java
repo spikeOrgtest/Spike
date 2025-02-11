@@ -20,4 +20,10 @@ public interface TransactionRepository extends JpaRepository<TransactionDTO, Lon
 	@Query("SELECT t FROM TransactionDTO t WHERE t.fromAccount.id = ?1 OR t.toAccount.id = ?1 ORDER BY t.transactionDate DESC")
 	List<TransactionDTO> getTransferHistoryByAccountId(Long accountId);
 
+	@Query("SELECT t FROM TransactionDTO t " +
+		       "WHERE t.fromAccount.owner.userId = ?1 " + // 내가 출금한 거래
+		       "OR t.toAccount.owner.userId = ?1 " +     // 내가 입금받은 거래
+		       "ORDER BY t.transactionDate DESC")
+	List<TransactionDTO> getTransactionsByUserId(Long userId);
+
 }

@@ -7,10 +7,13 @@ import com.spike.dto.UserDTO;
 
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+
+import javax.transaction.Transactional;
 
 
 @Repository
@@ -32,6 +35,11 @@ public interface QuizResultRepository extends JpaRepository<QuizResultDTO, Integ
 			WHERE ROWNUM <= 3
 			""", nativeQuery = true)
 	List<QuizRank> findTop3();
+
+	@Modifying
+	@Transactional
+	@Query("delete FROM QuizResultDTO q WHERE q.user.userId=?1")
+	void PointDelete(Long userId);
 	
 }
 

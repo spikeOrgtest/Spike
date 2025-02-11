@@ -84,7 +84,8 @@
 													<c:forEach var="account" items="${accountList}">
 														<option value="${account.accountId}"
 															data-balance="${account.balance}"
-															data-available="${account.dayLimit}">
+															data-available="${account.dayLimit}"
+															data-oneavailable="${account.oneLimit}">
 															${account.accountType}: ${account.accountNumber}</option>
 													</c:forEach>
 												</c:otherwise>
@@ -95,6 +96,11 @@
 										<div class="col">
 											<label class="form-label">일일한도금액</label>
 											<div class="form-control bg-light" id="availableAmount">
+												- 원</div>
+										</div>
+										<div class="col">
+											<label class="form-label">1회한도금액</label>
+											<div class="form-control bg-light" id="oneAvailableAmount">
 												- 원</div>
 										</div>
 										<div class="col">
@@ -164,11 +170,14 @@
 									<c:when test="${not empty histories}">
 										<c:forEach var="history" items="${histories}">
 											<li
-												class="list-group-item d-flex justify-content-between align-items-center">
-												<span><fmt:formatDate value="${history.transactionDate}" pattern="yy/MM/dd HH:mm" /> | ${history.name} |
-													<fmt:formatNumber value="${history.amount}" pattern="#,###" />
-													원
-											</span> <span class="badge bg-secondary"><fmt:formatNumber
+												class="list-group-item d-flex justify-content-between align-items-center" style="padding: 5px 15px;">
+												<span style="padding: 2px 9px;"><fmt:formatDate value="${history.transactionDate}" pattern="yy/MM/dd" /><br><br><fmt:formatDate value="${history.transactionDate}" pattern="HH:mm" /> </span>
+												<span>| ${history.name} |</span>
+													
+													
+											 
+											<span class="badge bg-secondary" style="color: gray; font-size: 14px;">-<fmt:formatNumber value="${history.amount}" pattern="#,###" />
+													원<br><br><fmt:formatNumber
 														value="${history.afterBalance}" pattern="#,###" /> 원</span>
 											</li>
 										</c:forEach>

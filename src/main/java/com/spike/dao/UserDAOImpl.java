@@ -18,6 +18,8 @@ import com.spike.dto.NotiPageDTO;
 import com.spike.dto.NoticeDTO;
 import com.spike.dto.UserDTO;
 import com.spike.repository.AccountRepository;
+import com.spike.repository.LoginHistoryRepository;
+import com.spike.repository.QuizResultRepository;
 import com.spike.repository.UserRepository;
 
 @Repository
@@ -28,6 +30,12 @@ public class UserDAOImpl implements UserDAO {
 
 	@Autowired
 	private AccountRepository accountRepo;
+	
+	@Autowired
+	private QuizResultRepository quizresultRepo;
+	
+	@Autowired
+	private LoginHistoryRepository loginhistoryRepo;
 
 	private Object sqlSession;
 
@@ -140,7 +148,9 @@ public class UserDAOImpl implements UserDAO {
 
 	@Override
 	public void UserDelete(Long UserId) {
-		this.spikeRepo.UserDelete(UserId);
+		quizresultRepo.PointDelete(UserId); // 포인트 내역 삭제
+		loginhistoryRepo.historyDelete(UserId); // 로그인 기록 삭제
+		this.spikeRepo.UserDelete(UserId); // 유저 삭제
 	}
 
 	@Override
