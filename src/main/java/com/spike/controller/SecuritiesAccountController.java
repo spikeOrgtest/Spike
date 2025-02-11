@@ -2,8 +2,13 @@ package com.spike.controller;
 
 import com.spike.repository.UserRepository;
 import com.spike.dto.SecuritiesAccountDTO;
+import com.spike.dto.StockHolding;
+import com.spike.dto.StockTransaction;
 import com.spike.dto.UserDTO;
 import com.spike.service.SecuritiesAccountService;
+import com.spike.service.StockHoldingService;
+import com.spike.service.StockTransactionService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -23,6 +28,12 @@ public class SecuritiesAccountController {
 
 	@Autowired
 	private UserRepository userRepo;
+	
+	@Autowired
+    private StockHoldingService stockHoldingService;
+
+    @Autowired
+    private StockTransactionService stockTransactionService;
 
 	@Autowired
 	private PasswordEncoder passwordEncoder;
@@ -172,6 +183,48 @@ public class SecuritiesAccountController {
 
 	    return "redirect:/spike.com/securities-account/manage";
 	}
+	
+	// 내 자산 확인하기 페이지
+    @GetMapping("/my-assets")
+    public String showMyAssets(Model model, Principal principal) {
+        // 로그인 여부 확인
+        if (principal == null) {
+            model.addAttribute("errorMessage", "로그인이 필요합니다.");
+            return "redirect:/spike.com/login";
+        }
+        
+        // 로그인 사용자 정보 조회
+        String loginId = principal.getName();
+        UserDTO user = userRepo.findByLoginId(loginId)
+                .orElseThrow(() -> new RuntimeException("사용자 정보를 찾을 수 없습니다."));
+        
+        // 해당 사용자 증권 계좌 조회
+        SecuritiesAccountDTO account = accountService.getAccountByUser(user);
+        if (account == null) {
+            return "redirect:/spike.com/securities-account/open";
+        }
+        
+        // 예수금 조회 (SecuritiesAccountDTO.balance 활용)
+        int availableBalance = (int) account.getBalance();
+        model.addAttribute("availableBalance", availableBalance);
+        
+        // 보유 주식 내역 조회
+        List<StockHolding> stockHoldings = stockHoldingService.getHoldingsByAccountId(account.getAccountId());
+        model.addAttribute("stockHoldings", stockHoldings);
+        
+        // 총 보유 주식 금액 계산 (각 보유수량 × 주식 현재가 합)
+        int totalStockValue = stockHoldingService.calculateTotalStockValue(account.getAccountId());
+        model.addAttribute("totalStockValue", totalStockValue);
+        
+        // 거래 내역 조회 (해당 증권 계좌 관련 거래 내역)
+        List<StockTransaction> transactionList = stockTransactionService.getTransactionsByAccountId(account.getAccountId());
+        model.addAttribute("transactionList", transactionList);
+        
+        // 현재 증권 계좌 ID (거래 내역에서 구매/판매 구분용)
+        model.addAttribute("currentAccountId", account.getAccountId());
+        
+        return "investment/my_assets"; // 뷰 이름 (예: /WEB-INF/views/investment/my_assets.jsp)
+    }
 
 
 

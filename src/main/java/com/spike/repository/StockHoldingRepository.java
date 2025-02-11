@@ -1,6 +1,8 @@
 package com.spike.repository;
 
 import com.spike.dto.StockHolding;
+
+import java.util.List;
 import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -29,4 +31,8 @@ public interface StockHoldingRepository extends JpaRepository<StockHolding, Inte
     @Query("SELECT s FROM StockHolding s WHERE s.holder.accountId = :securitiesAccountId AND s.stock.stockId = :stockId")
     Optional<StockHolding> findBySecuritiesAccountIdAndStockId(@Param("securitiesAccountId") Long securitiesAccountId, 
                                                                 @Param("stockId") int stockId);
+    
+    // 특정 계좌의 stockholding 조회
+    @Query("SELECT sh FROM StockHolding sh WHERE sh.holder.accountId = :accountId")
+    List<StockHolding> findByHolderAccountId(@Param("accountId") Long accountId);
 }

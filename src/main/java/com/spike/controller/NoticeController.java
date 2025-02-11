@@ -207,6 +207,42 @@ public class NoticeController {
 			//return sk;
 		}//bbs_cont()
 
+		@RequestMapping("/admin/noti_cont")
+		public ModelAndView admin_notice_cont(Long notice_no, String state, Integer page, NoticeDTO n)  {
+			
+			if(state.equals("cont")) {//내용보기 일때만 조회수 증가
+				n = this.noticeService.getNoticeCont(notice_no);
+			}else {//내용보기가 아닌 경우 답변폼,수정폼,삭제폼일때는 조회수 증가 안함.
+				n = this.noticeService.getNoticeCont2(notice_no);
+			}
+			String noti_cont = n.getNoticeCont().replace("\n", "<br/>");
+			//textarea에서 엔터키를 친 부분을 줄바꿈 한다.
+			
+			ModelAndView co = new ModelAndView();
+			co.addObject("n", n);
+			co.addObject("noti_cont", noti_cont);
+			co.addObject("page", page);//책갈피 기능때문에 page키이름에 쪽번호 저장
+			//co.setViewName("support/newSubpage_noticeDetail");
+			//ModelAndView sk = new ModelAndView();
+			//sk.addObject("notice",notice);
+			//sk.addObject("noti_cont", noti_cont);
+			//sk.setViewName("/support/newSubpage_noticeDetail");
+			//sk.addObject("page",page);
+			
+			
+			
+			if(state.equals("cont")) {//내용보기 일때
+				co.setViewName("/support/newSubpage_noticeDetail");//뷰페이지 경로=>/WEB-INF/views/bbs/bbs_cont.jsp
+			} else if(state.equals("edit")) {//수정폼일때
+				co.setViewName("noti/noti_edit");
+			}else {//state=del일때 즉 삭제폼일때
+				co.setViewName("noti/noti_del");
+			}
+			
+			return co;
+			//return sk;
+		}//bbs_cont()
+		
 		/*
 		//답변 저장
 		@PostMapping("/bbs_reply_ok")
@@ -220,7 +256,7 @@ public class NoticeController {
 		*/
 		
 		//공지사항 수정
-		@RequestMapping(value="/noti_edit_ok",method=RequestMethod.POST) //post로 접근하는 매핑주소를 처리
+		@RequestMapping(value="/admin/noti_edit_ok",method=RequestMethod.POST) //post로 접근하는 매핑주소를 처리
 		public ModelAndView noti_edit_ok(NoticeDTO notice,Notice2DTO notice2, HttpServletRequest request,HttpServletResponse response)
 		throws Exception{
 			response.setContentType("text/html;charset=UTF-8");//웹브라우저 출력되는 문자와태그,언어코딩 타입을 UTF-8로 지정
@@ -308,7 +344,7 @@ public class NoticeController {
 }
 		
 		//자료실 삭제
-		@RequestMapping("/noti_del_ok") //get or post방식으로 전송되는 매핑주소 처리
+		@RequestMapping("/admin/noti_del_ok") //get or post방식으로 전송되는 매핑주소 처리
 		public String noti_del_ok(Long noticeNo, int page,
 		HttpServletResponse response,HttpServletRequest request) throws Exception{
 			response.setContentType("text/html;charset=UTF-8");

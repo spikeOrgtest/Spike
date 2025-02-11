@@ -47,7 +47,7 @@
 			<div class="form-group">
 				<label for="account_select">수령계좌</label>
 				<div class="product_container">
-					<select id="account_select" name="account_select" required>
+					<select id="account_select" name="targetAccountId" required>
 						<option value="">계좌를 선택하세요</option>
 						<c:forEach var="account" items="${accounts}">
 							<option value="${account.accountId}">${account.accountNumber}

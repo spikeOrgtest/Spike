@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import java.time.LocalDate;
+import java.time.LocalDateTime;  // LocalDate 대신 LocalDateTime import
 import com.spike.dto.AccountDTO;
 import com.spike.repository.AccountRepository;
 
@@ -24,8 +24,8 @@ public class AccountServiceImplTest {
         AccountDTO account = new AccountDTO();
         account.setAccountType("예금");
         account.setBalance(1000000L);
-        account.setStartDate(LocalDate.now().minusDays(30));
-        account.setLastInterestDate(LocalDate.now().minusDays(30));
+        account.setStartDate(LocalDateTime.now().minusDays(30));  // LocalDate -> LocalDateTime
+        account.setLastInterestDate(LocalDateTime.now().minusDays(30));  // LocalDate -> LocalDateTime
         account.setAccountPassword("123123");
         
         // AccountDTO의 PrePersist에 의해 자동으로 이자율이 설정됨 
@@ -43,10 +43,10 @@ public class AccountServiceImplTest {
         // 검증
         // 30일 동안의 이자 계산: 1,000,000 * (6.0% / 365) * 30 ≈ 4,931원
         assertTrue(updatedAccount.getBalance() > 1000000L);
-        assertEquals(LocalDate.now(), updatedAccount.getLastInterestDate());
+        assertEquals(LocalDateTime.now(), updatedAccount.getLastInterestDate());
         
         System.out.println("Original balance: 1,000,000");
         System.out.println("Updated balance: " + updatedAccount.getBalance());
         System.out.println("Interest earned: " + (updatedAccount.getBalance() - 1000000L));
     }
-} 
+}

@@ -97,3 +97,35 @@ form {
         margin: 5px 0;
     }
 }
+
+.button-group {
+    margin: 20px 0;
+    text-align: center;
+}
+
+.submit-btn, .reject-btn, .list-btn {
+    padding: 10px 20px;
+    margin: 0 5px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.submit-btn {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.reject-btn {
+    background-color: #f44336;
+    color: white;
+}
+
+.list-btn {
+    background-color: #2196F3;
+    color: white;
+}
+
+.submit-btn:hover, .reject-btn:hover, .list-btn:hover {
+    opacity: 0.8;
+}

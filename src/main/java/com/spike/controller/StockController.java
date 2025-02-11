@@ -15,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
 import java.security.Principal;
@@ -42,23 +43,39 @@ public class StockController {
 	// 주식 시장 페이지
 	@GetMapping("/home")
 	public String stockMarket(Model model) {
-		try {
-			// 상위 10개 주식을 가져옵니다.
-			List<StockDTO> stockList = stockService.getTopStocks(10);
-			model.addAttribute("stockList", stockList);
-		} catch (Exception e) {
-			model.addAttribute("errorMessage", "Failed to load stock data: " + e.getMessage());
-		}
-		return "investment/stock_home";
+	    try {
+	    	// TOP 10 주식 (현재가 내림차순 정렬)
+	        List<StockDTO> topStocks = stockService.getTopStocks(10);
+	        model.addAttribute("topStocks", topStocks);
+	    	
+	        // 모든 주식 데이터를 가져옴
+	        List<StockDTO> allStocks = stockService.getAllStocks();
+	        model.addAttribute("allStocks", allStocks);
+	    } catch (Exception e) {
+	        model.addAttribute("errorMessage", "Failed to load stock data: " + e.getMessage());
+	    }
+	    return "investment/stock_home";
+	}
+	
+	@GetMapping("/search")
+	public String searchStocks(@RequestParam("query") String query, Model model) {
+	    // 주식 이름에 검색어가 포함된 모든 주식을 조회 (전체 테이블에서)
+	    List<StockDTO> searchResults = stockService.searchStocksByName(query);
+	    model.addAttribute("searchResults", searchResults);
+	    model.addAttribute("query", query);
+	    return "investment/stock_search_results";  // 검색 결과를 표시할 JSP 페이지
 	}
 
-	// ✅ 주식 주문 페이지 (판매 폼에 보유 주식 & 판매 중 주식 수량 표시 추가)
+
+
+
+	//  주식 주문 페이지 (판매 폼에 보유 주식 & 판매 중 주식 수량 표시 추가)
     @GetMapping("/{stock_id}/order")
     public String getStockOrderPage(@PathVariable("stock_id") int stockId, Model model, HttpSession session) {
         try {
             System.out.println("🔍 [디버깅] 요청된 주식 ID: " + stockId);
 
-            // ✅ 세션에서 UserDTO 가져오기
+            //  세션에서 UserDTO 가져오기
             UserDTO user = (UserDTO) session.getAttribute("User");
             if (user == null) {
                 System.err.println("❌ [세션 오류] 사용자 정보 없음! 로그인 필요!");
@@ -68,36 +85,36 @@ public class StockController {
             Long userId = user.getUserId();
             System.out.println("✅ [디버깅] 세션에서 가져온 userId: " + userId);
 
-            // ✅ 주식 정보 조회
+            //  주식 정보 조회
             Optional<StockDTO> stockOpt = stockService.getStockById(stockId);
             if (stockOpt.isEmpty()) {
                 System.err.println("❌ [데이터 오류] 주식 정보 없음! stockId: " + stockId);
-                return "redirect:/";
+                return "redirect:/spike.com/stock/home";
             }
             model.addAttribute("stock", stockOpt.get());
             System.out.println("✅ [디버깅] 주식 정보 조회 성공: " + stockOpt.get().getStockId());
 
-            // ✅ 증권 계좌 조회
+            //  증권 계좌 조회
             Optional<SecuritiesAccountDTO> accountOpt = securitiesAccountService.getAccountByUserId(userId);
             if (accountOpt.isEmpty()) {
                 System.err.println("❌ [데이터 오류] 증권 계좌 없음! userId: " + userId);
-                return "redirect:/";
+                return "redirect:/spike.com/securities-account/open";
             }
             SecuritiesAccountDTO securitiesAccount = accountOpt.get();
             model.addAttribute("securitiesAccount", securitiesAccount);
             System.out.println("✅ [디버깅] 증권 계좌 조회 성공: " + securitiesAccount.getAccountId());
 
-            // ✅ 해당 주식의 판매 주문(매물) 조회
+            //  해당 주식의 판매 주문(매물) 조회
             List<Listing> saleOrders = listingService.getListingsByStockId(stockId);
             model.addAttribute("saleOrders", saleOrders);
             System.out.println("✅ [디버깅] Sale Orders Size: " + saleOrders.size());
 
-            // ✅ 판매자의 보유 주식 수량 조회 (StockHolding)
+            //  판매자의 보유 주식 수량 조회 (StockHolding)
             int ownedQuantity = stockHoldingService.getStockQuantity(securitiesAccount.getAccountId(), stockId);
             model.addAttribute("ownedQuantity", ownedQuantity);
             System.out.println("✅ [디버깅] 보유 주식 수량: " + ownedQuantity);
 
-            // ✅ 현재 판매 중인 주식 수량 조회 (Listing) 
+            //  현재 판매 중인 주식 수량 조회 (Listing) 
             int listedQuantity = listingService.getTotalListedQuantity(securitiesAccount.getAccountId(), stockId);
             model.addAttribute("listedQuantity", listedQuantity);
             System.out.println("✅ [디버깅] 판매 중인 주식 수량: " + listedQuantity);
@@ -105,7 +122,8 @@ public class StockController {
         } catch (Exception e) {
             System.err.println("🔥 [예외 발생] " + e.getMessage());
             e.printStackTrace();
-            return "redirect:/";
+           // return "redirect:/spike.com/stock/"+stockId+"/order";
+            return "/";
         }
 
         System.out.println("✅ [디버깅] 모든 검증 통과! 주문 페이지로 이동");
