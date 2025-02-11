@@ -12,6 +12,7 @@
 
 <link rel="stylesheet" href="/css/support/subpage.css">
 <link rel="stylesheet" href="/css/include/include.css">
+<link rel="stylesheet" href="/css/noti/noti.css">
 
 </head>
 <body class="subpage">
@@ -29,11 +30,10 @@
 	
 	<div class="subpageWrapper">
 		<div class="subpage-main-container" style="justify-content: center;">
-			<!-- 사이드바 -->
 			
 	
  <div id="noti_wrap">
-  <form method="post" action="noti_write_ok" onsubmit="return write_check();" enctype="multipart/form-data">
+  <form method="post" action="/spike.com/admin/noti_write_ok" onsubmit="return write_check();" enctype="multipart/form-data">
    <%-- 파일 첨부되는 자료실 기능을 만들기 위해서 필요한 코드)
       1. 폼태그내에 enctype="multipart/form-data"속성을 꼭 지정해야 한다.
       2. method=post방식으로 설정해야 한다.
@@ -77,6 +77,7 @@
  
   <%@ include file="../include/shortfooter.jsp"%>
 	<script src="../js/support/subpage.js"></script>
+	<script src="/js/noti/noti.js"></script>
  
 </body>
 </html>
