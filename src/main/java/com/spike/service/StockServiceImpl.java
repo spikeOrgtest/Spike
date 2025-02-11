@@ -70,7 +70,7 @@ public class StockServiceImpl implements StockService {
 	@Override
 	@Transactional
 	public void updateStockCurrentPrice(StockDTO stock) {
-	    List<Double> latestPrices = stockTransactionRepository.findLatestTransactionPrices(stock.getStockId());
+	    List<Long> latestPrices = stockTransactionRepository.findLatestTransactionPrices(stock.getStockId());
 
 	    if (!latestPrices.isEmpty()) {
 	        stock.setCurrentPrice(latestPrices.get(0)); // ✅ 최신 거래 가격 반영!!!!
