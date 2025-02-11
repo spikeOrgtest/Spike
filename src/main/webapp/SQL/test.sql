@@ -4,6 +4,10 @@ select * from user_info;
 select * from stock_holding;   
 select * from account;
 select * from listing;
+select * from stock_transaction;
+
+--로그인 롤 갱신
+update user_info set roles = 'ROLE_USER' where user_id = 2;
 
 --판매 테스트용 주식 삽입
 INSERT INTO Stock_Holding (id, holder_account_id, stock_stock_id, quantity) 
