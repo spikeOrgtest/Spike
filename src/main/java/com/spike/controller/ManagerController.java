@@ -189,7 +189,7 @@ public class ManagerController {
 			out.println("</script>");
 		}
 	}
-	
+	/* 2/12 매핑주소 충돌 -> 임시 주석처리.
 	@GetMapping("/loanManagement")
 	public ModelAndView loanManagement() {
 		List<LoanDTO> loanList = this.loanService.findAllLoans();
@@ -209,7 +209,7 @@ public class ManagerController {
 
 		return em;
 	}
-	
+	*/
 	@GetMapping("/accountManagement")
 	public ModelAndView accountmanagement(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "5") int size) {
 		
