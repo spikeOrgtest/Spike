@@ -68,11 +68,7 @@
 									<li><a href="/spike.com/products/card">카드</a></li>
 									<li><a href="/spike.com/stock/home">투자</a></li>
 								</ul></li>
-							<li class="dropdown"><a href="/spike.com/support">고객센터</a>
-								<ul class="header-dropdown-menu">
-									<li><a href="/spike.com/newsSubpage_news">Spike소식</a></li>
-									<li><a href="supportSubpage_ars.jsp">고객지원</a></li>
-								</ul></li>
+							
 							<li class="dropdown"><a href="/spike.com/mini" style="line-height: 1.7;">MINI</a></li>
 							<li class="dropdown"><a href="/spike.com/support/cheat" style="line-height: 1.7;">SHIELD</a></li>
 						</c:when>
