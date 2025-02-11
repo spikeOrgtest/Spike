@@ -29,8 +29,8 @@ public interface AccountRepository extends JpaRepository<AccountDTO, Long> {
 	void Oneupdateaccount(Long oneLimit, String accountNumber);
 
 	@Modifying
-	@Transactional
-	@Query("update AccountDTO a set a.dayLimit=?1 where a.accountNumber=?2")
+	@Transactional	//일일 한도 업데이트 하면서 남은 일일 한도 같이 초기화
+	@Query("update AccountDTO a set a.dayLimit=?1, a.availableLimit = ?1 where a.accountNumber=?2")
 	void Dayupdateaccount(Long dayLimit, String accountNumber);
 
 	@Modifying
