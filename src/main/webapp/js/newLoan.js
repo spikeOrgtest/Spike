@@ -22,17 +22,17 @@ window.addEventListener('load', function() {
     } else {
         // 기본값 설정 (각 페이지에 맞는 기본 상품)
         if (window.location.pathname.includes('Subpage_L1')) {
-            productSelect.value = 'product1'; // L1 페이지의 기본 상품
+            productSelect.value = '학자금대출';
         } else if (window.location.pathname.includes('Subpage_L2')) {
-            productSelect.value = 'product2'; // L2 페이지의 기본 상품
+            productSelect.value = '비상금대출';
         } else if (window.location.pathname.includes('Subpage_L3')) {
-            productSelect.value = 'product3'; // L3 페이지의 기본 상품
+            productSelect.value = '직장인대출';
         } else if (window.location.pathname.includes('Subpage_L4')) {
-            productSelect.value = 'product4'; // L4 페이지의 기본 상품
+            productSelect.value = 'SPIKE대출';
         } else if (window.location.pathname.includes('Subpage_L5')) {
-            productSelect.value = 'product5'; // L5 페이지의 기본 상품
+            productSelect.value = '주택담보대출';
         } else if (window.location.pathname.includes('Subpage_L6')) {
-            productSelect.value = 'product6'; // L6 페이지의 기본 상품
+            productSelect.value = '소상공인대출';
         }
     }
 
@@ -54,12 +54,12 @@ document.getElementById('loan_name').addEventListener('change', function() {
     // 대출 상품 목록 설정
     if (selectedType === '대출상품') {
         options = [
-            { value: 'product1', text: '학자금 대출', amountRange: [1000000, 10000000] },
-            { value: 'product2', text: '비상금 대출', amountRange: [1000000, 3000000] },
-            { value: 'product3', text: '직장인 대출', amountRange: [5000000, 10000000] },
-            { value: 'product4', text: 'SPIKE 대출', amountRange: [5000000, 10000000] },
-            { value: 'product5', text: '주택담보 대출', amountRange: [5000000, 10000000] },
-            { value: 'product6', text: '소상공인 대출', amountRange: [5000000, 10000000] }
+            { value: '학자금대출', text: '학자금 대출', amountRange: [1000000, 10000000] },
+            { value: '비상금대출', text: '비상금 대출', amountRange: [1000000, 3000000] },
+            { value: '직장인대출', text: '직장인 대출', amountRange: [5000000, 10000000] },
+            { value: 'SPIKE대출', text: 'SPIKE 대출', amountRange: [5000000, 10000000] },
+            { value: '주택담보대출', text: '주택담보 대출', amountRange: [5000000, 10000000] },
+            { value: '소상공인대출', text: '소상공인 대출', amountRange: [5000000, 10000000] }
         ];
     }
 
@@ -82,18 +82,25 @@ document.getElementById('product_type').addEventListener('change', function() {
 
     // 상품에 맞는 금액 범위 설정
     let amountRange = [0, 0];
-    if (selectedProduct === 'product1') {
-        amountRange = [1000000, 10000000];
-    } else if (selectedProduct === 'product2') {
-        amountRange = [1000000, 3000000];
-    } else if (selectedProduct === 'product3') {
-        amountRange = [1000000, 15000000];
-    } else if (selectedProduct === 'product4') {
-        amountRange = [1000000, 50000000];
-    } else if (selectedProduct === 'product5') {
-        amountRange = [10000000, 300000000];
-    } else if (selectedProduct === 'product6') {
-        amountRange = [1000000, 100000000];
+    switch(selectedProduct) {
+        case '학자금대출':
+            amountRange = [1000000, 10000000];
+            break;
+        case '비상금대출':
+            amountRange = [1000000, 3000000];
+            break;
+        case '직장인대출':
+            amountRange = [1000000, 15000000];
+            break;
+        case 'SPIKE대출':
+            amountRange = [1000000, 50000000];
+            break;
+        case '주택담보대출':
+            amountRange = [10000000, 300000000];
+            break;
+        case '소상공인대출':
+            amountRange = [1000000, 100000000];
+            break;
     }
 
     // 금액 선택 옵션 동적으로 생성
