@@ -30,6 +30,11 @@
 		<a href="/spike.com/securities-account/manage"
 			class="open-account-button"> 증권 계좌 관리하기 </a>
 	</div>
+	<div class="button-container">
+		<!-- 내 자산 확인하기 버튼 -->
+		<a href="/spike.com/securities-account/my-assets"
+			class="open-account-button">내 자산 확인하기</a>
+	</div>
 	<main class="main-content">
 		<!-- 주요 경제 지수 -->
 		<div class="economic-indices-container">
@@ -103,7 +108,7 @@
 						<th>종목</th>
 						<th>현재가</th>
 						<th>총 발행 주식</th>
-						
+
 					</tr>
 				</thead>
 				<tbody>
@@ -121,7 +126,7 @@
 									<!-- 현재가 -->
 									<td>${stock.totalShares}</td>
 									<!-- 총 발행 주식 -->
-									
+
 								</tr>
 							</c:forEach>
 						</c:when>
