@@ -52,7 +52,7 @@ public class AccountServiceImpl implements AccountService {
 	// 예금/적금 이자 계산
 	@Override
 	public void calculateDailyInterest(AccountDTO account) {
-		LocalDateTime now = LocalDateTime.now();
+		Date now = new Date();
 		Date lastCalculation = account.getLastInterestDate();
 
 		if (lastCalculation == null) {
@@ -60,14 +60,16 @@ public class AccountServiceImpl implements AccountService {
 		}
 
 		if (lastCalculation == null) {
-			lastCalculation = LocalDateTime.now();
+			lastCalculation = new Date();
 			account.setStartDate(lastCalculation);
 			account.setLastInterestDate(lastCalculation);
 			updateAccount(account);
 			return;
 		}
 
-		long daysBetween = ChronoUnit.DAYS.between(lastCalculation, now);
+		// 일수 계산
+		long diff = now.getTime() - lastCalculation.getTime();
+		long daysBetween = diff / (24 * 60 * 60 * 1000);
 
 		if (daysBetween > 0) {
 			double dailyRate = account.getTotalRate() / 365.0 / 100.0;
@@ -83,26 +85,26 @@ public class AccountServiceImpl implements AccountService {
 	// 대출 이자 계산 (1분 단위)
 	@Override
 	public void calculateDailyLoanInterest(AccountDTO loan) {
-		LocalDateTime currentTime = LocalDateTime.now();
-		LocalDateTime lastCalculation = loan.getLastInterestDate();
+		Date currentTime = new Date();
+		Date lastCalculation = loan.getLastInterestDate();
 
 		if (lastCalculation == null) {
 			lastCalculation = loan.getStartDate();
 		}
 
 		if (lastCalculation == null) {
-			lastCalculation = LocalDateTime.now();
+			lastCalculation = new Date();
 			loan.setStartDate(lastCalculation);
 			loan.setLastInterestDate(lastCalculation);
 			updateAccount(loan);
 			return;
 		}
 
-		// 경과 시간을 분 단위로 계산
-		long minutesBetween = ChronoUnit.MINUTES.between(lastCalculation, currentTime);
+		// 분 단위 계산
+		long diff = currentTime.getTime() - lastCalculation.getTime();
+		long minutesBetween = diff / (60 * 1000);
 
 		if (minutesBetween > 0) {
-			// 연이율을 분단위로 변환 (연이율 / (365일 * 24시간 * 60분))
 			double minuteRate = loan.getTotalRate() / (365.0 * 24 * 60) / 100.0;
 			double interest = loan.getBalance() * minuteRate * minutesBetween;
 			

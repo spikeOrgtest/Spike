@@ -63,6 +63,10 @@ public class LoanDTO {
 	
 	private Long remainingAmount;  // 남은 상환금액
 	
+	private Long totalInterestAmount; // 총 발생 이자
+	
+    private Long remainingInterest;   // 남은 이자
+
 	@PrePersist
 	public void prePersist() {
         if (this.loanAmount > 0 && this.remainingAmount == null) {
