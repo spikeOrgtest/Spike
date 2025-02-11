@@ -124,6 +124,7 @@ public interface UserRepository extends JpaRepository<UserDTO, Long> {
 	@Query("select u from UserDTO u")
 	public Page<UserDTO> findByUserList(Pageable pageable);
 
+	Optional<UserDTO> findById(Long userId);
 	@Query("SELECT COUNT(u) FROM LoanDTO u WHERE TRUNC(u.createdDate) = TRUNC(SYSDATE)")
 	public Long getallLoanId();
 

@@ -141,7 +141,7 @@
 
         <section class="cta">
             <div class="container">
-                <a href="../newloan?selectedProduct=product1" class="button" id="joinButton">지금 가입하기</a>
+                <a href="/spike.com/products/newloan?productType=학자금대출" class="button" id="joinButton">지금 가입하기</a>
             </div>
         </section>
     </main>
