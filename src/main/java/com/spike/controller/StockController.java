@@ -15,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
 import java.security.Principal;
@@ -42,15 +43,31 @@ public class StockController {
 	// 주식 시장 페이지
 	@GetMapping("/home")
 	public String stockMarket(Model model) {
-		try {
-			// 상위 10개 주식을 가져옵니다.
-			List<StockDTO> stockList = stockService.getTopStocks(10);
-			model.addAttribute("stockList", stockList);
-		} catch (Exception e) {
-			model.addAttribute("errorMessage", "Failed to load stock data: " + e.getMessage());
-		}
-		return "investment/stock_home";
+	    try {
+	    	// TOP 10 주식 (현재가 내림차순 정렬)
+	        List<StockDTO> topStocks = stockService.getTopStocks(10);
+	        model.addAttribute("topStocks", topStocks);
+	    	
+	        // 모든 주식 데이터를 가져옴
+	        List<StockDTO> allStocks = stockService.getAllStocks();
+	        model.addAttribute("allStocks", allStocks);
+	    } catch (Exception e) {
+	        model.addAttribute("errorMessage", "Failed to load stock data: " + e.getMessage());
+	    }
+	    return "investment/stock_home";
 	}
+	
+	@GetMapping("/search")
+	public String searchStocks(@RequestParam("query") String query, Model model) {
+	    // 주식 이름에 검색어가 포함된 모든 주식을 조회 (전체 테이블에서)
+	    List<StockDTO> searchResults = stockService.searchStocksByName(query);
+	    model.addAttribute("searchResults", searchResults);
+	    model.addAttribute("query", query);
+	    return "investment/stock_search_results";  // 검색 결과를 표시할 JSP 페이지
+	}
+
+
+
 
 	//  주식 주문 페이지 (판매 폼에 보유 주식 & 판매 중 주식 수량 표시 추가)
     @GetMapping("/{stock_id}/order")

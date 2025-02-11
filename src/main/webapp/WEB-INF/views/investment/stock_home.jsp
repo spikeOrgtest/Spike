@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=utf-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html lang="ko">
@@ -15,23 +14,27 @@
 	<br />
 	<div class="button-container">
 		<!-- 증권 계좌 개설 버튼 -->
-		<a href="/spike.com/securities-account/open"
-			class="open-account-button"> 증권 계좌 개설하기 </a>
+		<a href="/spike.com/securities-account/open" class="open-account-button">증권 계좌 개설하기</a>
 	</div>
 	<div class="button-container">
 		<!-- 증권 계좌 관리 버튼 -->
-		<a href="/spike.com/securities-account/manage"
-			class="open-account-button"> 증권 계좌 관리하기 </a>
+		<a href="/spike.com/securities-account/manage" class="open-account-button">증권 계좌 관리하기</a>
 	</div>
 	<div class="button-container">
 		<!-- 내 자산 확인하기 버튼 -->
-		<a href="/spike.com/securities-account/my-assets"
-			class="open-account-button">내 자산 확인하기</a>
+		<a href="/spike.com/securities-account/my-assets" class="open-account-button">내 자산 확인하기</a>
 	</div>
+	
+	<!-- 검색 폼 -->
+	<div class="search-container">
+		<form action="/spike.com/stock/search" method="get">
+			<input type="text" name="query" placeholder="종목 이름을 검색하세요...">
+			<button type="submit">검색</button>
+		</form>
+	</div>
+	
 	<main class="main-content">
-		
-
-		<!-- 실시간 TOP 10 -->
+		<!-- TOP 10 주식 목록 (정렬된 데이터 사용) -->
 		<div class="stock-list-container">
 			<h2>실시간 TOP 10</h2>
 			<table class="stock-table">
@@ -41,38 +44,26 @@
 						<th>종목</th>
 						<th>현재가</th>
 						<th>총 발행 주식</th>
-
 					</tr>
 				</thead>
 				<tbody>
-					<!-- DB에서 가져온 데이터를 동적으로 표시 -->
-					<c:choose>
-						<c:when test="${not empty stockList}">
-							<c:forEach var="stock" items="${stockList}" varStatus="status">
-								<tr>
-									<td>${status.index + 1}</td>
-									<!-- 순위 -->
-									<td><a href="/spike.com/stock/${stock.stockId}/order">
-											${stock.companyName} (${stock.tickerSymbol}) </a></td>
-									<!-- 종목 -->
-									<td>${stock.currentPrice}\</td>
-									<!-- 현재가 -->
-									<td>${stock.totalShares}</td>
-									<!-- 총 발행 주식 -->
-
-								</tr>
-							</c:forEach>
-						</c:when>
-						<c:otherwise>
-							<tr>
-								<td colspan="5">표시할 데이터가 없습니다.</td>
-							</tr>
-						</c:otherwise>
-					</c:choose>
+					<c:forEach var="stock" items="${topStocks}" varStatus="status">
+						<tr>
+							<td>${status.index + 1}</td>
+							<td>
+								<a href="/spike.com/stock/${stock.stockId}/order">
+									${stock.companyName} (${stock.tickerSymbol})
+								</a>
+							</td>
+							<td>${stock.currentPrice} 원</td>
+							<td>${stock.totalShares}</td>
+						</tr>
+					</c:forEach>
 				</tbody>
 			</table>
 		</div>
-
+		
+		<!-- (검색 결과는 별도의 stock_search_results.jsp에서 처리) -->
 	</main>
 	<jsp:include page="../include/footer.jsp" />
 </body>

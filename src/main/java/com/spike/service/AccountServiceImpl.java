@@ -6,6 +6,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -143,8 +145,23 @@ public class AccountServiceImpl implements AccountService {
 	}
 
 	@Override
+	public AccountDTO findByAccountId(Long id) {
+		return this.accountdao.findByAccountId(id);
+	}
+
+	@Override
+	public void updateAccountState(Long accountId, String accountState) {
+		this.accountdao.updateAccountState(accountId, accountState);
+	}
+	
 	public Optional<AccountDTO> findById(Long accountId) {
 		return accountdao.findById(accountId);
+	}
+
+	@Transactional
+	@Override
+	public void updateLimit(UserDTO user) {
+		this.accountdao.updateLimit(user);
 	}
 
 }

@@ -2,7 +2,10 @@ package com.spike.controller;
 
 import java.io.PrintWriter;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletResponse;
@@ -22,12 +25,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.spike.dto.AccountDTO;
 import com.spike.dto.CheatReportDTO;
 import com.spike.dto.ManagerDTO;
+import com.spike.dto.TransactionDTO;
+import com.spike.dto.TransferHistoryDTO;
 import com.spike.dto.UserDTO;
 import com.spike.service.LoginHistoryService;
+import com.spike.service.TransactionService;
 import com.spike.service.UserSerivce;
 import com.spike.dto.LoanDTO;
+import com.spike.service.AccountService;
+import com.spike.service.CheatService;
 import com.spike.service.LoanService;
 
 
@@ -43,6 +52,15 @@ public class ManagerController {
 
 	@Autowired
 	private LoanService loanService;
+	
+	@Autowired
+	private CheatService cheatService;
+	
+	@Autowired
+	private TransactionService transactionSerivce;
+	
+	@Autowired
+	private AccountService accountService;
 
 	// @GetMapping("/ma")
 	// public ModelAndView manager(HttpServletRequest request) {
@@ -171,6 +189,88 @@ public class ManagerController {
 			out.println("</script>");
 		}
 	}
+	/* 2/12 매핑주소 충돌 -> 임시 주석처리.
+	@GetMapping("/loanManagement")
+	public ModelAndView loanManagement() {
+		List<LoanDTO> loanList = this.loanService.findAllLoans();
+		ModelAndView um = new ModelAndView("manager/loanManagement");
+		um.addObject("loanList", loanList);
+		return um;
+	}
+	
+	@GetMapping("/loanState")
+	public ModelAndView loanState(@RequestParam("userId") Long UserId) {
+
+		List<UserDTO> list = this.userService.findByUserIdEdit(UserId);
+
+
+		ModelAndView em = new ModelAndView("manager/loanState");
+		em.addObject("list", list);
+
+		return em;
+	}
+	*/
+	@GetMapping("/accountManagement")
+	public ModelAndView accountmanagement(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "5") int size) {
+		
+		Page<CheatReportDTO> cheatlist = this.cheatService.findByCheatList(page, size);
+		ModelAndView am = new ModelAndView("manager/accountManagement");
+		am.addObject("cheatlist", cheatlist);
+	    am.addObject("totalPages", cheatlist.getTotalPages());
+	    am.addObject("totalElements", cheatlist.getTotalElements());
+	    am.addObject("currentPage", page);
+	    am.addObject("pageSize", size);
+		return am;
+	}
+	
+	@GetMapping("/cheatDetail")
+	public ModelAndView cheatDetail(@RequestParam("accountId.accountId") Long accountId, @RequestParam("reportId") Long reportId) {
+		
+		AccountDTO ag = this.transactionSerivce.getAccount(accountId);
+		
+		Long userId = ag.getOwner().getUserId();
+		
+		List<TransactionDTO> list = this.transactionSerivce.getTransactionsByUserId(userId);
+		
+		Set<Long> accountIds = new HashSet<>();
+
+		for (TransactionDTO tran : list) {
+		    accountIds.add(tran.getFromAccount().getAccountId());
+		    accountIds.add(tran.getToAccount().getAccountId());
+		}
+
+		List<AccountDTO> accounts = new ArrayList<>();
+		for (Long id : accountIds) {
+		    AccountDTO account = accountService.findByAccountId(id);
+		    if (account != null) {
+		        accounts.add(account);
+		    }
+		}
+		
+		ModelAndView mc = new ModelAndView("manager/cheatDetail");
+		mc.addObject("ag", ag);
+		mc.addObject("list", list);
+		mc.addObject("accounts", accounts);
+		mc.addObject("reportId", reportId);
+		
+		return mc;
+	}
+	
+	@PostMapping("UpdateAccount")
+	public void UpdateAccount(HttpServletResponse response, Long accountId, String accountState, String status, Long reportId) throws Exception { 
+		response.setContentType("text/html; charset=UTF-8");
+		PrintWriter out = response.getWriter();
+		
+		this.accountService.updateAccountState(accountId, accountState);
+		
+		this.cheatService.updateStatus(status, reportId);
+		
+		out.println("<script>");
+		out.println("alert('수정 완료했습니다.');");
+		out.println("window.location.href='/spike.com/admin/accountManagement';");
+		out.println("</script>");
+	}
+
 }
 
 

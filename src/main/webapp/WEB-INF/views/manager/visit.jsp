@@ -21,7 +21,7 @@
 
 
 	<div class="subpageWrapper">
-		<div class="subpage-main-container" justify-content: center;">
+		<div class="subpage-main-container" style="justify-content: center;">
 
 			<!-- ================================== -->
 
