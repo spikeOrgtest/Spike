@@ -10,4 +10,8 @@ public interface CheatService {
 
 	Page<CheatReportDTO> findByreportValue(String detailValue, int page, int size);
 
+	Page<CheatReportDTO> findByCheatList(int page, int size);
+
+	void updateStatus(String status, Long reportId);
+
 }

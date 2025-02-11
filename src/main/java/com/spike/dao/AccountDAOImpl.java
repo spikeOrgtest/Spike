@@ -75,4 +75,14 @@ public class AccountDAOImpl implements AccountDAO {
 		return this.accountrepo.findByOwner(user);
 	}
 
+@Override
+public AccountDTO findByAccountId(Long id) {
+	return this.accountrepo.findByAccountId(id);
+}
+
+@Override
+public void updateAccountState(Long accountId, String accountState) {
+	this.accountrepo.updateAccountState(accountId, accountState);
+}
+
 }

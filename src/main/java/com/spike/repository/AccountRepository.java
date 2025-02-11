@@ -59,4 +59,11 @@ public interface AccountRepository extends JpaRepository<AccountDTO, Long> {
 	@Query("select a from AccountDTO a where a.accountNumber=?1")
 	List<AccountDTO> findbyAccountInfo(String detailValue);
 
+	AccountDTO findByAccountId(Long id);
+	
+	@Modifying
+	@Transactional
+	@Query("update AccountDTO a set a.accountState=?2 where a.accountId=?1")
+	void updateAccountState(Long accountId, String accountState);
+
 }

@@ -113,4 +113,14 @@ public class AccountServiceImpl implements AccountService {
 		this.accountdao.updateAccount(account); // AccountDAO에서 계좌 업데이트
 	}
 
+	@Override
+	public AccountDTO findByAccountId(Long id) {
+		return this.accountdao.findByAccountId(id);
+	}
+
+	@Override
+	public void updateAccountState(Long accountId, String accountState) {
+		this.accountdao.updateAccountState(accountId, accountState);
+	}
+
 }
