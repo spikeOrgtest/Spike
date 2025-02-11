@@ -47,6 +47,8 @@ public class AccountDTO {
 	private Long oneLimit;
 
 	private Long dayLimit;
+	
+	private Long availableLimit;
 
 	@Column(name = "balance")
 	private Long balance;  // 잔액 필드

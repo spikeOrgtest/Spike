@@ -5,7 +5,9 @@ function updateAccountInfo() {
 
 	const availableAmount = selectedOption.getAttribute("data-available");
 	const balanceAmount = selectedOption.getAttribute("data-balance");
+	const oneAvailableAmount = selectedOption.getAttribute("data-oneavailable");
 
+	document.getElementById("oneAvailableAmount").textContent = formatCurrency(oneAvailableAmount) + " 원";
 	document.getElementById("availableAmount").textContent = formatCurrency(availableAmount) + " 원";
 	document.getElementById("balanceAmount").textContent = formatCurrency(balanceAmount) + " 원";
 }

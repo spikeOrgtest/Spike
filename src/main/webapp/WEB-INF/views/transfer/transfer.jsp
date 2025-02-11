@@ -84,7 +84,8 @@
 													<c:forEach var="account" items="${accountList}">
 														<option value="${account.accountId}"
 															data-balance="${account.balance}"
-															data-available="${account.dayLimit}">
+															data-available="${account.dayLimit}"
+															data-oneavailable="${account.oneLimit}">
 															${account.accountType}: ${account.accountNumber}</option>
 													</c:forEach>
 												</c:otherwise>
@@ -95,6 +96,11 @@
 										<div class="col">
 											<label class="form-label">일일한도금액</label>
 											<div class="form-control bg-light" id="availableAmount">
+												- 원</div>
+										</div>
+										<div class="col">
+											<label class="form-label">1회한도금액</label>
+											<div class="form-control bg-light" id="oneAvailableAmount">
 												- 원</div>
 										</div>
 										<div class="col">
