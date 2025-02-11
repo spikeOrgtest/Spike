@@ -1,6 +1,7 @@
 package com.spike.service;
 
 import com.spike.dto.SecuritiesAccountDTO;
+import com.spike.dto.StockHolding;
 import com.spike.dto.UserDTO;
 import com.spike.repository.SecuritiesAccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,9 @@ public class SecuritiesAccountServiceImpl implements SecuritiesAccountService {
 
 	@Autowired
 	private SecuritiesAccountRepository accountRepository;
+	
+	@Autowired
+	private StockHoldingService stockholdingService;
 
 	@Autowired
 	private PasswordEncoder passwordEncoder;
@@ -103,8 +107,16 @@ public class SecuritiesAccountServiceImpl implements SecuritiesAccountService {
 	        throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
 	    }
 
-	    // 비밀번호가 일치하면 계좌 삭제
-	    accountRepository.delete(account);
+	    //accountId로 보유 주식 목록 가져옴
+	    List<StockHolding> stockholdings = this.stockholdingService.getHoldingsByAccountId(accountId);
+
+	    //보유하고 있는 주식이 없으면 계좌 삭제
+	    if(stockholdings.size() == 0) {
+		    accountRepository.delete(account);
+	    }else {
+	    	throw new IllegalArgumentException("보유중인 주식이 있어 계좌를 삭제할 수 없습니다.");
+	    }
+	    
 	}
 	//계좌 찾기
 	@Override
