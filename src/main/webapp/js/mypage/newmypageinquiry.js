@@ -119,6 +119,17 @@ function updateTransactionHistory(transactions, selectedAccount) {
 	});
 }
 
+//출금 한도 설정 함수
+function limitChange(event) {
+    event.preventDefault();
+    const dayLimit = document.getElementById('dayLimitInput').value;
+    const oneLimit = document.getElementById('oneLimitInput').value;
+    const form = document.getElementById('limit');
+
+    form.querySelector('[name="day_limit"]').value = dayLimit;
+    form.querySelector('[name="one_limit"]').value = oneLimit;
+    form.submit();
+}
 
 //비밀번호 변경 함수
 function changePassword(event) {
