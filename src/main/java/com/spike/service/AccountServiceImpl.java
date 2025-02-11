@@ -143,6 +143,15 @@ public class AccountServiceImpl implements AccountService {
 	}
 
 	@Override
+	public AccountDTO findByAccountId(Long id) {
+		return this.accountdao.findByAccountId(id);
+	}
+
+	@Override
+	public void updateAccountState(Long accountId, String accountState) {
+		this.accountdao.updateAccountState(accountId, accountState);
+	}
+	
 	public Optional<AccountDTO> findById(Long accountId) {
 		return accountdao.findById(accountId);
 	}

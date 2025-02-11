@@ -1,11 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>사용자 관리</title>
+<title>계좌 신고 관리</title>
 
 <link rel="stylesheet" href="/css/include/include.css">
 <link rel="stylesheet" href="/css/support/subpage.css">
@@ -16,33 +18,39 @@
 	<div class="subpageWrapper">
 		<div class="subpage-main-container" style="justify-content: center;">
 			<div class="subpage-content">
-				<h2 style="margin-left: 40px;">사용자 관리</h2>
+				<h2 style="margin-left: 40px;">계좌 신고 관리</h2>
 				<table border="1" style="margin-left: 40px;">
 					<thead>
 						<tr>
-							<th>사용자 번호</th>
-							<th>사용자 ID</th>
-							<th>이름</th>
-							<th>이메일</th>
-							<th>상태</th>
-							<th>수정</th>
-							<th>삭제</th>
+							<th>신고 번호</th>
+							<th>유형</th>
+							<th>계좌번호</th>
+							<th>신고 날짜</th>
+							<th>내용</th>
+							<th>관리</th>
 						</tr>
 					</thead>
 					<tbody>
-							<c:if test="${empty paging.content}">
+							<c:if test="${empty cheatlist.content}">
 								<div class="alert">조회된 데이터가 없습니다.</div>
 							</c:if>
-						<c:forEach var="item" items="${paging.content}">
+						<c:forEach var="item" items="${cheatlist.content}">
 							<tr>
-								<td>${item.userId}</td>
-								<td>${item.loginId}</td>
-								<td>${item.name}</td>
-								<td>${item.emailId}@${item.emailDomain}</td>
-								<td>${item.status}</td>
-								<td><a href="/spike.com/admin/EditUser?userId=${item.userId}">수정</a></td>
-								<td><a href="/spike.com/admin/DeleteUser?userId=${item.userId}"
-									onclick="return confirm('삭제 버튼을 누르면 모든 정보가 삭제됩니다.\n그래도 진행하시겠습니까?');">삭제</a></td>
+								<td>${item.reportId}</td>
+								<td>${item.reportType}</td>
+								<td>${item.reportValue}</td>
+								<td><fmt:formatDate value="${item.reportDate}" pattern="yy/MM/dd HH:mm:ss" /></td>
+								<td>${item.content}</td>
+								<td  style="color: green; font-weight: bold;">
+								<c:choose>
+									<c:when test="${fn:trim(item.status) == 'pending'}">
+										<a href="/spike.com/admin/cheatDetail?accountId.accountId=${item.accountId.accountId}&reportId=${item.reportId}"  style="color: red">${item.status}</a>
+									</c:when>
+									<c:otherwise>
+										${item.status}
+									</c:otherwise>
+								</c:choose>
+								</td>
 							</tr>
 						</c:forEach>
 					</tbody>

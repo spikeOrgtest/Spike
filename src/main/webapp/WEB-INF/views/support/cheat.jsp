@@ -149,8 +149,7 @@
 			<h2>사기 방지에 동참하세요</h2>
 			<p>의심 계좌가 있다면 지금 신고하여 사기 예방에 힘을 보태주세요!</p>
 			<%-- 의심 계좌 신고 버튼 --%>
-			<button type="button" class="btn btn-primary" data-bs-toggle="modal"
-				data-bs-target="#exampleModal">보이스피싱 신고하기</button>
+			<button type="button" id="reportbtn" class="btn btn-primary">보이스피싱 신고하기</button>
 
 			<%-- 첫 번째 모달: 의심 계좌 신고 모달 --%>
 			<div class="modal fade" id="exampleModal" tabindex="-1"
@@ -210,6 +209,7 @@
 					</div>
 				</div>
 			</div>
+			<div id="user" hidden>${empty sessionScope.User.name}</div>
 
 <%-- javascript --%>
 <script>
@@ -260,10 +260,38 @@
 			}
 		}
 		
+		if (isValid) {
+		    const detailValue = document.getElementById('detailValue').value;
+		    const regex = /^\d{3,4}-\d{3,4}-\d{3,4}-\d{2}$/;
+
+		    if (!regex.test(detailValue)) {
+		        document.getElementById('accountError').textContent = '계좌번호 형식이 틀립니다';
+		        document.getElementById('detailValue').focus();
+		        isValid = false;
+		    }
+		}
+
 		if (!isValid) {
 			e.preventDefault();
 		}
 });
+  
+  document.addEventListener('DOMContentLoaded', function () {
+	    var exampleModal = new bootstrap.Modal(document.getElementById('exampleModal'));
+	    
+	    document.getElementById('reportbtn').addEventListener('click', function (e) {
+	        const user = document.getElementById('user').textContent.trim();
+	        if (user === "true") {
+	            alert('로그인이 필요한 서비스입니다.');
+	            e.preventDefault();
+	            e.stopPropagation();
+	            return false;
+	        } else {
+	            exampleModal.show();  // 로그인된 경우 모달 열기
+	        }
+	    });
+	});
+  
 </script>
 
 

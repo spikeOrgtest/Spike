@@ -27,6 +27,10 @@ public interface AccountDAO {
 
 	List<AccountDTO> findActiveAccountsByUser(UserDTO user);
 
+	AccountDTO findByAccountId(Long id);
+
+	void updateAccountState(Long accountId, String accountState);
+
 	Optional<AccountDTO> findById(Long accountId);
 
 	void updateLimit(UserDTO user);

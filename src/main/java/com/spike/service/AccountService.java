@@ -32,6 +32,10 @@ public interface AccountService {
 	
 	void updateAccount(AccountDTO account);
 
+	AccountDTO findByAccountId(Long id);
+
+	void updateAccountState(Long accountId, String accountState);
+
 	Optional<AccountDTO> findById(Long accountId);
 
 	void updateLimit(UserDTO user);

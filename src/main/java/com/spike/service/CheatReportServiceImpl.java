@@ -28,4 +28,15 @@ public class CheatReportServiceImpl implements CheatService {
 		return this.cheatreportRepo.findByreportValue(detailValue, pageable);
 	}
 
+	@Override
+	public Page<CheatReportDTO> findByCheatList(int page, int size) {
+		Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Order.asc("reportId")));
+		return this.cheatreportRepo.findByCheatList(pageable);
+	}
+
+	@Override
+	public void updateStatus(String status, Long reportId) {
+		this.cheatreportRepo.updateStatus(status, reportId);
+	}
+
 }

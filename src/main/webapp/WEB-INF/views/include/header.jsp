@@ -75,7 +75,7 @@
 						<c:otherwise>
 							<li class="dropdown"><a href="/spike.com/admin/ma">대시보드</a></li>
 							<li class="dropdown"><a href="/spike.com/admin/userManagement">사용자관리</a></li>
-							<li class="dropdown"><a href="/spike.com/">계좌수정</a></li>
+							<li class="dropdown"><a href="/spike.com/admin/accountManagement">계좌신고관리</a></li>
 							<li class="dropdown"><a href="/spike.com/">거래내역관리</a></li>
 							<li class="dropdown"><a href="/spike.com/admin/loanManagement">대출관리</a></li>
 							<li class="dropdown"><a href="/spike.com/notice">공지사항관리</a></li>
