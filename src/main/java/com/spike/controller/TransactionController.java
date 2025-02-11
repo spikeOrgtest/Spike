@@ -91,9 +91,9 @@ public class TransactionController {
 
 			//System.out.println(e.getMessage());
 			// model에 담아 뷰페이지를 렌더링하면 제대로 동작이 안됨 -> redirectAttribute에 담아 리다이렉션해서 해결
-			redirectAttributes.addFlashAttribute("errorMessage", "존재하지 않는 계좌입니다. 입금계좌를 확인해 주세요!");
-
+			redirectAttributes.addFlashAttribute("errorMessage", e.getMessage()); //서비스가 던진 에러 메시지로 변경
 			return "redirect:/spike.com/transfer";
+
 			/*
 			 * PrintWriter out; //컨트롤러에서 직접 <script>를 출력하는 방법(수업소스), 정상 동작하지만 날코딩 느낌 try {
 			 * out = response.getWriter(); out.println("<script>");
@@ -114,11 +114,18 @@ public class TransactionController {
 
 	// 송금 최종 처리
 	@PostMapping("transfer_ok")
-	public String transfer(HttpSession session) {
+	public String transfer(HttpSession session, RedirectAttributes redirectAttributes) {
 
 		TransferDTO tData = (TransferDTO) session.getAttribute("Data");
 
-		this.transService.transfer(tData);
+		try {
+			this.transService.transfer(tData);
+			
+		} catch (Exception e) { //service.transfer()에서 던진 에러 메시지, url 담아 에러 페이지 렌더링(예외처리 일관성있게) 
+			redirectAttributes.addFlashAttribute("errorMessage", e.getMessage()); 
+			redirectAttributes.addFlashAttribute("redirectionURL", "/spike.com/transfer");
+			return "redirect:/spike.com/transfer_error";
+		}
 
 		
 
@@ -148,5 +155,10 @@ public class TransactionController {
 		System.out.println("데이터 삭제 요청");
 		session.removeAttribute("Data");
 		return "redirect:/spike.com";
+	}
+	
+	@GetMapping("transfer_error")
+	public String transferErrorControl() {
+		return "transfer/transfer_errorpage";
 	}
 }

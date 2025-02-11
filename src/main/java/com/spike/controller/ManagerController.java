@@ -59,8 +59,6 @@ public class ManagerController {
 		Long allvisit = userService.getallvisit();
 		Long allamount = userService.getallamount();
 		Long allTransaction = userService.getallTransaction();
-		Long allLoanId = userService.getallLoanId();
-		Long allloanAmount = userService.getallloanAmount();
 
 		ModelAndView ma = new ModelAndView();
 		ma.addObject("tolog", tolog); // 화면으로 전달할 데이터
@@ -68,8 +66,6 @@ public class ManagerController {
 		ma.addObject("allvisit",allvisit);
 		ma.addObject("allamount",allamount);
 		ma.addObject("allTransaction",allTransaction);
-		ma.addObject("allLoanId", allLoanId);
-		ma.addObject("allloanAmount",allloanAmount);
 		ma.setViewName("/manager/manager");
 		return ma;
 
@@ -175,32 +171,6 @@ public class ManagerController {
 			out.println("</script>");
 		}
 	}
-	
-	
-		
-
-	
-	@GetMapping("/loanManagement")
-	public ModelAndView loanManagement() {
-		List<LoanDTO> loanList = this.loanService.findAllLoans();
-		ModelAndView um = new ModelAndView("manager/loanManagement");
-		um.addObject("loanList", loanList);
-		return um;
-	}
-	
-	@GetMapping("/loanState")
-	public ModelAndView loanState(@RequestParam("userId") Long UserId) {
-
-		List<UserDTO> list = this.userService.findByUserIdEdit(UserId);
-
-
-		ModelAndView em = new ModelAndView("manager/loanState");
-		em.addObject("list", list);
-
-		return em;
-	}
-	
-
 }
 
 

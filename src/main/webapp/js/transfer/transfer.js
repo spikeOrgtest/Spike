@@ -6,9 +6,11 @@ function updateAccountInfo() {
 	const availableAmount = selectedOption.getAttribute("data-available");
 	const balanceAmount = selectedOption.getAttribute("data-balance");
 	const oneAvailableAmount = selectedOption.getAttribute("data-oneavailable");
+	const availableAmountLeft = selectedOption.getAttribute("data-availableLeft");
 
 	document.getElementById("oneAvailableAmount").textContent = formatCurrency(oneAvailableAmount) + " 원";
 	document.getElementById("availableAmount").textContent = formatCurrency(availableAmount) + " 원";
+	document.getElementById("availableAmountLeft").textContent = formatCurrency(availableAmountLeft) + " 원";
 	document.getElementById("balanceAmount").textContent = formatCurrency(balanceAmount) + " 원";
 }
 
@@ -79,10 +81,11 @@ function validate() {
     const selectedOption = document.querySelector("#fromAccount option:checked");
 
     // 선택된 계좌에서 잔액과 일일한도를 가져옴 (옵셔널 체이닝 사용)
-    const availableAmount = parseInt(selectedOption?.getAttribute("data-available") || "0", 10);
+    const availableAmount = parseInt(selectedOption?.getAttribute("data-availableLeft") || "0", 10);
     const balanceAmount = parseInt(selectedOption?.getAttribute("data-balance") || "0", 10);
     const transferAmount = parseInt(document.getElementById('amount').value.replace(/,/g, ""), 10);
-
+	const onetimeavailableAmount = parseInt(selectedOption?.getAttribute("data-oneavailable") || "0", 10);
+	
     if (!fromAccount) {
         alert("출금계좌를 선택해주세요!");
         document.getElementById("fromAccount").focus();
@@ -117,18 +120,25 @@ function validate() {
 
     //잔액 부족 확인
     if (transferAmount > balanceAmount) {
-        alert("잔액이 부족합니다~!");
+        alert("잔액이 부족합니다. 출금 금액을 다시 확인해주세요.");
         document.getElementById("amount").focus();
         return false;
     }
 
+	//1회 한도 확인
+	if(transferAmount > onetimeavailableAmount){
+			alert("1회한도 금액을 초과하였습니다. 출금 금액을 다시 확인해주세요");
+			document.getElementById("amount").focus();
+			return false;
+	}
+		
     //일일 한도 초과 확인
     if (transferAmount > availableAmount) {
-        alert("일일한도 금액이 부족합니다!");
+        alert("일일한도 금액을 초과하였습니다. 출금 금액을 다시 확인해주세요");
         document.getElementById("amount").focus();
         return false;
     }
-
+	
     return true;
 }
 

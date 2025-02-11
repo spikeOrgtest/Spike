@@ -1,6 +1,7 @@
 package com.spike.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.spike.dto.AccountDTO;
 import com.spike.dto.UserDTO;
@@ -30,5 +31,9 @@ public interface AccountService {
 	List<AccountDTO> getActiveAccountsForUser(UserDTO user);
 	
 	void updateAccount(AccountDTO account);
+
+	Optional<AccountDTO> findById(Long accountId);
+
+	void updateLimit(UserDTO user);
 
 }
