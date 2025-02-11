@@ -260,6 +260,17 @@
 			}
 		}
 		
+		if (isValid) {
+		    const detailValue = document.getElementById('detailValue').value;
+		    const regex = /^\d{3,4}-\d{3,4}-\d{3,4}-\d{2}$/;
+
+		    if (!regex.test(detailValue)) {
+		        document.getElementById('accountError').textContent = '계좌번호 형식이 틀립니다';
+		        document.getElementById('detailValue').focus();
+		        isValid = false;
+		    }
+		}
+
 		if (!isValid) {
 			e.preventDefault();
 		}
