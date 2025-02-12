@@ -30,7 +30,7 @@ public class TransactionServiceImpl implements TransactionService {
 	private AccountRepository accountRepo;
 	
 	@Autowired
-	private SecuritiesAccountRepository security;
+	private SecuritiesAccountRepository secAccountRepo;
 
 	@Autowired
 	private TransactionRepository transactionRepo;
@@ -198,8 +198,9 @@ public class TransactionServiceImpl implements TransactionService {
 		return this.transactionRepo.getTransactionsByUserId(userId);
 	}
 
+	//증권계좌, 일반계좌 타입간 이체
 	@Override
-	public void interTypeTransfer(String fromAccNum, String toAccNum) {
+	public void interTypeTransfer(String fromAccNum, String toAccNum, long amount) {
 		
 	}
 
