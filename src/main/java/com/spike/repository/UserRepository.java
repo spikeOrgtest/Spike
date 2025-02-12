@@ -112,23 +112,22 @@ public interface UserRepository extends JpaRepository<UserDTO, Long> {
 	@Query("select u FROM UserDTO u WHERE u.lastLogin IS NOT NULL AND TRUNC(u.lastLogin) = TRUNC(CURRENT_DATE)")
 	public Page<UserDTO> getTodaylist(Pageable visipage);
 
-	@Query("select Count(u.userId) from UserDTO u")
+	@Query("select COALESCE(Count(u.userId),0) from UserDTO u")
 	public Long getallvisit();
-
-	@Query("select sum(u.amount) from TransactionDTO u where TRUNC(u.transactionDate) = TRUNC(CURRENT_DATE)")
+	@Query("select COALESCE(sum(u.amount), 0) from TransactionDTO u where TRUNC(u.transactionDate) = TRUNC(CURRENT_DATE)")
 	public Long getallamount();
 
-	@Query("select Count(u.amount) from TransactionDTO u where TRUNC(u.transactionDate) = TRUNC(CURRENT_DATE)")
+	@Query("select COALESCE(Count(u.amount),0) from TransactionDTO u where TRUNC(u.transactionDate) = TRUNC(CURRENT_DATE)")
 	public Long getallTransaction();
 	
 	@Query("select u from UserDTO u")
 	public Page<UserDTO> findByUserList(Pageable pageable);
 
 	Optional<UserDTO> findById(Long userId);
-	@Query("SELECT COUNT(u) FROM LoanDTO u WHERE TRUNC(u.createdDate) = TRUNC(SYSDATE)")
+	@Query("SELECT COALESCE(COUNT(u),0) FROM LoanDTO u WHERE TRUNC(u.createdDate) = TRUNC(SYSDATE)")
 	public Long getallLoanId();
 
-	@Query("select sum(s.loanAmount) from LoanDTO s where TRUNC(s.createdDate) = TRUNC(CURRENT_DATE) AND s.loanState ='완료'")  
+	@Query("select COALESCE(sum(s.loanAmount),0) from LoanDTO s where TRUNC(s.createdDate) = TRUNC(CURRENT_DATE) AND s.loanState ='완료'")  
 	public Long getallloanAmount();
 
     

@@ -109,12 +109,14 @@
 								<input type="hidden" name="loanId" value="${loan.loanId}" />
 								<button type="submit" class="reject-btn">거절</button>
 							</form>
+							
+							<form id="listForm">
+							<button type="button" class="list-btn" onclick="location.href='/spike.com/admin/loanManagement'">목록</button>
+							</form>
 						</div>
 					</c:if>
 					
-					<div class="button-group" style="margin-top: 20px;">
-						<button type="button" class="list-btn" onclick="location.href='/spike.com/admin/loanManagement'">목록</button>
-					</div>
+					
 				</div>
 			</div>
 		</div>

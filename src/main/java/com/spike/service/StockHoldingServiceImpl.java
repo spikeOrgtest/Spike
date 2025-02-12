@@ -31,9 +31,9 @@ public class StockHoldingServiceImpl implements StockHoldingService {
     
     //주식 총액 계산
     @Override
-    public int calculateTotalStockValue(Long accountId) {
+    public long calculateTotalStockValue(Long accountId) {
         List<StockHolding> holdings = getHoldingsByAccountId(accountId);
-        int totalValue = 0;
+        long totalValue = 0;
         for (StockHolding holding : holdings) {
             StockDTO stock = holding.getStock();
             totalValue += holding.getQuantity() * stock.getCurrentPrice();

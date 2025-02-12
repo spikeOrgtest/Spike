@@ -45,7 +45,7 @@ public class LoanDTO {
 
 	private String productType;
 	
-	private long loanAmount;
+	private Long loanAmount;
 	
 	@CreationTimestamp
 	@Column(columnDefinition = "TIMESTAMP DEFAULT SYSDATE")
