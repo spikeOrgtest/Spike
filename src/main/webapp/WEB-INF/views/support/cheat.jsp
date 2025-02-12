@@ -292,6 +292,60 @@
 	    });
 	});
   
+  document.addEventListener("DOMContentLoaded", function () {
+      const accountInputs = [document.getElementById("detailValue"), document.getElementById("search")];
+
+      accountInputs.forEach(accountInput => {
+          if (!accountInput) return; // 요소가 존재하지 않으면 패스
+
+          accountInput.addEventListener("input", function () {
+              let value = accountInput.value.replace(/[^0-9]/g, ""); // 숫자만 입력 가능
+              let formattedValue = "";
+
+              // 입력된 숫자 길이에 따라 자동 포맷팅 (3-4-4-2 고정)
+              if (value.length > 3) {
+                  formattedValue += value.substring(0, 3) + "-";
+                  if (value.length > 7) {
+                      formattedValue += value.substring(3, 7) + "-";
+                      if (value.length > 11) {
+                          formattedValue += value.substring(7, 11) + "-";
+                          formattedValue += value.substring(11, 13);
+                      } else {
+                          formattedValue += value.substring(7);
+                      }
+                  } else {
+                      formattedValue += value.substring(3);
+                  }
+              } else {
+                  formattedValue = value;
+              }
+
+              accountInput.value = formattedValue; // 입력 필드 업데이트
+          });
+
+          accountInput.addEventListener("keydown", function (event) {
+              // 백스페이스를 눌렀을 때 '-' 자동 삭제
+              if (event.key === "Backspace") {
+                  let value = accountInput.value;
+                  if (value.endsWith("-")) {
+                      accountInput.value = value.slice(0, -1);
+                  }
+              }
+          });
+
+          accountInput.addEventListener("blur", function () {
+              let value = accountInput.value.replace(/[^0-9]/g, "");
+
+              // 입력 길이가 13자리가 아니면 경고 메시지
+              if (value.length !== 13) {
+                  alert("계좌번호는 3-4-4-2 형식(13자리)로 입력해야 합니다.");
+                  accountInput.value = ""; // 잘못된 입력 초기화
+              }
+          });
+      });
+  });
+
+  
 </script>
 
 

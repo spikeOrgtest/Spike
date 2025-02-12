@@ -67,6 +67,10 @@ public interface UserSerivce {
 
 	Long getallTransaction();
 
+	Long getallLoanId();
+
+	Long getallloanAmount();
+
 
 
 }

@@ -77,6 +77,10 @@ public class ManagerController {
 		Long allvisit = userService.getallvisit();
 		Long allamount = userService.getallamount();
 		Long allTransaction = userService.getallTransaction();
+		Long allLoanId = userService.getallLoanId();
+		Long allloanAmount = userService.getallloanAmount();
+		
+		System.out.println("===============================\n"+ allvisit);
 
 		ModelAndView ma = new ModelAndView();
 		ma.addObject("tolog", tolog); // 화면으로 전달할 데이터
@@ -84,6 +88,8 @@ public class ManagerController {
 		ma.addObject("allvisit",allvisit);
 		ma.addObject("allamount",allamount);
 		ma.addObject("allTransaction",allTransaction);
+		ma.addObject("allLoanId", allLoanId);
+		ma.addObject("allloanAmount",allloanAmount);
 		ma.setViewName("/manager/manager");
 		return ma;
 
@@ -154,17 +160,8 @@ public class ManagerController {
 	}
 
 	@PostMapping("/UpdateUser")
-	public void UpdateUser(Long userId, String isMinor, String status, String roles, HttpServletResponse response) throws Exception {
-		response.setContentType("text/html; charset=UTF-8");
-		PrintWriter out = response.getWriter();
-
+	public void UpdateUser(Long userId, String isMinor, String status, String roles) {
 		this.userService.UpdateUser(isMinor, status, roles, userId);
-
-		out.println("<script>");
-		out.println("alert('수정 완료했습니다.');");
-		out.println("window.location.href = '/spike.com/userManagement';");
-		out.println("</script>");
-
 	}
 
 	@GetMapping("/DeleteUser")
