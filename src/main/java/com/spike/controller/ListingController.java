@@ -34,7 +34,7 @@ public class ListingController {
 	@Autowired
 	private StockHoldingService stockHoldingService;
 
-	// ✅ 매물 등록 (판매)
+	//  매물 등록 (판매)
 	@PostMapping(value = "/sell", produces = "text/html;charset=UTF-8")
 	public ResponseEntity<String> registerListing(
 			@RequestParam("sellerAccountId") Long sellerAccountId,
@@ -87,101 +87,104 @@ public class ListingController {
 			return ResponseEntity.internalServerError().body(script);
 		}
 	}
-
-	// ✅ 매물 구매 (구매자가 선택한 매물을 구매)
+	
+	// 매물 구매
 	@PostMapping(value = "/buy", produces = "text/html;charset=UTF-8")
 	public ResponseEntity<String> buyListing(
-			@RequestParam("buyerAccountId") Long buyerAccountId,
-			@RequestParam("listingId") String listingIds, // 여러 ID가 쉼표로 구분되어 전달됨
-			@RequestParam("quantity") int totalQuantity,
-			int stockId
-			) {
-		try {
-			// 구매자 계좌 조회
-			SecuritiesAccountDTO buyer = securitiesAccountService.getAccountById(buyerAccountId)
-					.orElseThrow(() -> new IllegalArgumentException("구매자 계좌를 찾을 수 없습니다."));
+	        @RequestParam("buyerAccountId") Long buyerAccountId,
+	        @RequestParam("listingId") String listingIds, // 쉼표로 구분된 여러 ID
+	        @RequestParam("quantity") int totalQuantity,
+	        int stockId
+	        ) {
+	    try {
+	        SecuritiesAccountDTO buyer = securitiesAccountService.getAccountById(buyerAccountId)
+	                .orElseThrow(() -> new IllegalArgumentException("구매자 계좌를 찾을 수 없습니다."));
+	        
+	        List<Integer> listingIdList = Arrays.stream(listingIds.split(","))
+	                .map(String::trim)
+	                .filter(s -> !s.isEmpty())
+	                .map(Integer::parseInt)
+	                .collect(Collectors.toList());
 
-			// 쉼표로 구분된 listingIds 문자열을 파싱하여 정수 리스트로 변환
-			List<Integer> listingIdList = Arrays.stream(listingIds.split(","))
-					.map(String::trim)
-					.filter(s -> !s.isEmpty())
-					.map(Integer::parseInt)
-					.collect(Collectors.toList());
+	        int remainingQuantity = totalQuantity;
+	        int totalCost = 0;
+	        
+	        // 거래 실행 중 마지막 체결 가격을 저장할 변수
+	        int finalExecutedPrice = 0;
 
-			// 리다이렉션에 사용할 stockId는 첫 번째 매물의 stockId로 사용
-			/*
-			int stockId = listingService.getListingById(listingIdList.get(0)).orElseThrow(() 
-			-> new IllegalArgumentException("해당 매물을 찾을 수 없습니다."))
-					.getStock().getStockId();
-			 */
-			int remainingQuantity = totalQuantity;
-			int totalCost = 0;
+	        // 우선, 전체 주문이 체결 가능한지 확인
+	        for (int id : listingIdList) {
+	            Listing listing = listingService.getListingById(id)
+	                    .orElseThrow(() -> new IllegalArgumentException("해당 매물을 찾을 수 없습니다."));
+	            int available = listing.getQuantity();
+	            int purchaseQuantity = Math.min(available, remainingQuantity);
+	            if (purchaseQuantity <= 0) {
+	                continue;
+	            }
+	            totalCost += listing.getPrice() * purchaseQuantity;
+	            remainingQuantity -= purchaseQuantity;
+	        }
+	        
+	        if (remainingQuantity > 0) {
+	            return ResponseEntity.badRequest().body(createAlertScript("❌ 구매 가능한 주식 수량이 부족합니다.", stockId));
+	        }
+	        
+	        if (buyer.getBalance() < totalCost) {
+	            return ResponseEntity.badRequest().body(createAlertScript("❌ 잔액이 부족합니다.", stockId));
+	        }
+	        
+	        // 실제 구매 처리: 각 매물별로 순차적으로 구매하며, 마지막 거래 가격 기록
+	        remainingQuantity = totalQuantity;
+	        boolean allSuccess = true;
+	        for (int id : listingIdList) {
+	            if (remainingQuantity <= 0) break;
 
-			// 각 매물에서 구매 가능한 수량을 확인하고 총 비용 계산
-			for (int id : listingIdList) {
-				Listing listing = listingService.getListingById(id)
-						.orElseThrow(() -> new IllegalArgumentException("해당 매물을 찾을 수 없습니다."));
+	            Listing listing = listingService.getListingById(id)
+	                    .orElseThrow(() -> new IllegalArgumentException("해당 매물을 찾을 수 없습니다."));
 
-				int available = listing.getQuantity();
-				// 현재 매물에서 구매할 수 있는 최대 수량은 남은 구매수량과 매물의 available 중 작은 값
-				int purchaseQuantity = Math.min(available, remainingQuantity);
-				if (purchaseQuantity <= 0) {
-					continue;
-				}
-				totalCost += listing.getPrice() * purchaseQuantity;
-				remainingQuantity -= purchaseQuantity;
-			}
+	            int available = listing.getQuantity();
+	            int purchaseQuantity = Math.min(available, remainingQuantity);
+	            if (purchaseQuantity <= 0) {
+	                continue;
+	            }
 
-			// 전체 매물에서 구매 가능한 주식 수량이 부족한 경우
-			if (remainingQuantity > 0) {
-				return ResponseEntity.badRequest().body(createAlertScript("❌ 구매 가능한 주식 수량이 부족합니다.", stockId));
-			}
+	            // 각 거래의 체결 가격을 기록 (낮은 가격부터 처리되다가 마지막에 높은 가격이 될 것임)
+	            finalExecutedPrice = listing.getPrice();
+	            
+	            boolean success = listingService.processPurchase(buyer, listing, purchaseQuantity);
+	            if (!success) {
+	                allSuccess = false;
+	                break;
+	            }
+	            remainingQuantity -= purchaseQuantity;
+	        }
+	        
+	        // 모든 거래가 완료된 후, 마지막 체결 가격(예: 300,000원)으로 현재가를 업데이트
+	        if (finalExecutedPrice != 0) {
+	            StockDTO stock = stockService.getStockById(stockId)
+	                .orElseThrow(() -> new IllegalArgumentException("해당 종목을 찾을 수 없습니다."));
+	            stockService.updateStockCurrentPrice(stock, finalExecutedPrice);
+	        }
 
-			// 잔액 체크
-			if (buyer.getBalance() < totalCost) {
-				return ResponseEntity.badRequest().body(createAlertScript("❌ 잔액이 부족합니다.", stockId));
-			}
-
-			// 실제 구매 처리: 각 매물별로 순차적으로 구매
-			remainingQuantity = totalQuantity;
-			boolean allSuccess = true;
-			for (int id : listingIdList) {
-				if (remainingQuantity <= 0) break;
-
-				Listing listing = listingService.getListingById(id)
-						.orElseThrow(() -> new IllegalArgumentException("해당 매물을 찾을 수 없습니다."));
-
-				int available = listing.getQuantity();
-				int purchaseQuantity = Math.min(available, remainingQuantity);
-				if (purchaseQuantity <= 0) {
-					continue;
-				}
-
-				boolean success = listingService.processPurchase(buyer, listing, purchaseQuantity);
-				if (!success) {
-					allSuccess = false;
-					break;
-				}
-				remainingQuantity -= purchaseQuantity;
-			}
-
-			return allSuccess 
-					? ResponseEntity.ok(createAlertScript("구매가 완료되었습니다!", stockId))
-							: ResponseEntity.badRequest().body(createAlertScript("구매 처리에 실패했습니다.", stockId));
-
-		} catch (Exception e) {
-			return ResponseEntity.internalServerError().body(createAlertScript("오류 발생: " + e.getMessage(), stockId));
-		}
+	        return allSuccess 
+	                ? ResponseEntity.ok(createAlertScript("구매가 완료되었습니다!", stockId))
+	                : ResponseEntity.badRequest().body(createAlertScript("구매 처리에 실패했습니다.", stockId));
+	        
+	    } catch (Exception e) {
+	        return ResponseEntity.internalServerError().body(createAlertScript("오류 발생: " + e.getMessage(), stockId));
+	    }
 	}
 
-	// ✅ 공통 알림 메시지 생성 함수
+
+
+	//  공통 알림 메시지 생성 함수
 	private String createAlertScript(String message, int stockId) {
 		return "<script>alert('" + message + "');"
 				+ "window.location.href='/spike.com/stock/" + stockId + "/order';</script>";
 	}
 
 
-	// ✅ 매물 취소(삭제) API
+	//  매물 취소(삭제) API
 	@PostMapping(value = "/cancel", produces = "text/html;charset=UTF-8")
 	public ResponseEntity<String> cancelListing(
 			@RequestParam("sellerAccountId") Long sellerAccountId,
