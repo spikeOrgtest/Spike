@@ -41,8 +41,8 @@
 						<div class="collapse show" id="home-collapse">
 							<ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
 								<li><a
-									href="javascript:location='/spike.com/mypage/mypageEdit';"
-									class="link-dark rounded">회원정보수정</a></li>
+									href="javascript:location='/spike.com/mypage/main';"
+									class="link-dark rounded">메인</a></li>
 								<li><a
 									href="javascript:location='/spike.com/mypage/inquiry';"
 									class="link-dark rounded">나의 계좌</a></li>
@@ -88,7 +88,7 @@
 												${birthdate}</li>
 										</ul>
 												<button class="btn btn-primary" style="width: 200px; margin-top: 50px;"
-													data-bs-toggle="modal" data-bs-target="#editProfileModal">프로필
+													data-bs-toggle="modal" data-bs-target="#editProfileModal">비밀번호
 													수정</button>
 									</div>
 
@@ -213,42 +213,16 @@
 								<div class="modal-content">
 									<!-- 모달 헤더 -->
 									<div class="modal-header">
-										<h5 class="modal-title" id="editProfileModalLabel">프로필 수정</h5>
+										<h5 class="modal-title" id="editProfileModalLabel">비밀번호 수정</h5>
 										<button type="button" class="btn-close"
 											data-bs-dismiss="modal" aria-label="Close"></button>
 									</div>
 									<!-- 모달 본문 -->
 									<div class="modal-body">
-										<form name="s" action="profileEdit" method="post"
+										<form action="profileEdit" method="post"
 											id="editProfileForm">
 											<input type="hidden" name="${_csrf.parameterName}"
 												value="${_csrf.token}" />
-											<!-- 사용자 이름 -->
-											<div class="form-group mb-3">
-												<label for="userName" class="form-label">사용자 이름</label> <input
-													type="text" class="form-control" id="name" name="name"
-													placeholder="사용자 이름"> <span id="nameError"
-													style="color: red;"></span>
-											</div>
-
-											<!-- 이메일 -->
-											<div class="form-group mb-3">
-												<label for="userEmail" class="form-label">이메일</label>
-												<div class="input-group">
-													<input type="text" class="form-control" id="EmailId"
-														name="EmailId" placeholder="이메일"> <span
-														class="email-at-symbol">@</span> <input type="text"
-														class="form-control" id="EmailDomain" name="EmailDomain"
-														value="gmail.com" readonly /> <select name="mail_list"
-														onchange="domain_list();" style="margin-left: 10px;">
-														<c:forEach var="mail" items="${email}">
-															<option value="${mail}">${mail}</option>
-														</c:forEach>
-													</select>
-												</div>
-												<span id="emailError" style="color: red;"></span>
-											</div>
-
 											<!-- 비밀번호 입력 -->
 											<div class="form-group mb-3">
 												<label for="userPassword" class="form-label">현재 비밀번호</label>

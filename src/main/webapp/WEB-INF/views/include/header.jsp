@@ -55,7 +55,7 @@
 						<c:when test="${sessionScope.User.roles == 'ROLE_USER' or sessionScope.User.roles == null}">
 							<li class="dropdown"><a href="/spike.com/mypage/main">마이페이지</a>
 								<ul class="header-dropdown-menu">
-									<li><a href="/spike.com/mypage/mypageEdit">회원정보</a></li>
+									<li><a href="/spike.com/mypage/main">메인</a></li>
 									<li><a href="/spike.com/mypage/inquiry">계좌조회</a></li>
 									<li><a href="/spike.com/mypage/property">자산조회</a></li>
 								</ul></li>

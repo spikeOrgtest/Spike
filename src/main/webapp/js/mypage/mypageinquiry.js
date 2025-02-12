@@ -236,6 +236,22 @@ function changePassword(event) {
     modal.hide();  // 모달을 닫습니다.
 };
 
+function changeLimit(event) {
+    event.preventDefault(); // 폼 제출 기본 동작 방지
+
+    const dayLimitInput = document.getElementById("dayLimitInput").value;
+    const oneLimitInput = document.getElementById("oneLimitInput").value;
+    console.log(dayLimitInput, oneLimitInput);
+
+    if (!dayLimitInput || !oneLimitInput) {
+        alert("일일한도나 1일한도를 입력해주세요.");
+        return false;
+    }
+    // 폼의 id가 "limit"임을 확인하고 제출
+    document.getElementById('limit').submit();
+}
+
+
 var modalElement = document.getElementById('dailyLimitModal');
 var modal = new bootstrap.Modal(modalElement, {
     backdrop: 'static',  // 배경 클릭으로 모달을 닫지 않게 설정
