@@ -90,15 +90,23 @@ public class LoanController {
 
 
 	@PostMapping("/loan_ok")
-    public ModelAndView loan_ok(
+    public void loan_ok(
             @RequestParam("targetAccountId") Long targetAccountId,
             @RequestParam("repayment_account") Long repaymentAccountId,
             LoanDTO s, 
-            HttpSession session) throws IOException {
+            HttpSession session,
+            HttpServletResponse response) throws IOException {
+        response.setContentType("text/html; charset=UTF-8");
+        PrintWriter out = response.getWriter();
+        
         try {
             UserDTO sessionUser = (UserDTO) session.getAttribute("User");
             if (sessionUser == null) {
-                return new ModelAndView("redirect:/spike.com/login");
+                out.println("<script>");
+                out.println("alert('로그인이 필요한 서비스입니다.');");
+                out.println("location.href='/spike.com/login';");
+                out.println("</script>");
+                return;
             }
             
             // 계좌 정보 조회 및 설정
@@ -108,25 +116,23 @@ public class LoanController {
             AccountDTO repaymentAccount = accountService.findById(repaymentAccountId)
                 .orElseThrow(() -> new RuntimeException("선택된 상환계좌를 찾을 수 없습니다."));
             
-            System.out.println("대출 신청 - 사용자 ID: " + sessionUser.getUserId());
-            System.out.println("대출 신청 - 계좌 ID: " + targetAccount.getAccountId());
-            System.out.println("대출 신청 - 계좌 번호: " + targetAccount.getAccountNumber());
-            
             s.setOwner(sessionUser);
             s.setLoanState("대기 중");
             s.setTargetAccount(targetAccount);
             s.setRepaymentAccount(repaymentAccount);
-            s.setRemainingAmount(s.getLoanAmount()); // 여기에 추가
-            
-            System.out.println("대출 신청 - 대출금액: " + s.getLoanAmount());
-            System.out.println("대출 신청 - 남은금액: " + s.getRemainingAmount());
+            s.setRemainingAmount(s.getLoanAmount());
             
             this.loanService.createLoan(s);
             
-            return new ModelAndView("redirect:/spike.com/admin/loanManagement");
+            out.println("<script>");
+            out.println("alert('대출 신청이 완료되었습니다. 승인 심사 후 결과를 알려드립니다.');");
+            out.println("location.href='/spike.com/mypage/myloans';");
+            out.println("</script>");
         } catch (Exception e) {
-            e.printStackTrace();
-            throw new RuntimeException("대출 신청 처리 중 오류가 발생했습니다: " + e.getMessage());
+            out.println("<script>");
+            out.println("alert('대출 신청 처리 중 오류가 발생했습니다: " + e.getMessage() + "');");
+            out.println("history.back();");
+            out.println("</script>");
         }
     }
 	
@@ -230,7 +236,7 @@ public class LoanController {
             if (isRepaid) {
                 out.println("<script>");
                 out.println("alert('상환이 완료되었습니다.');");
-                out.println("location.href='/spike.com/myLoans';");
+                out.println("location.href='/spike.com/mypage/myloans';");
                 out.println("</script>");
             }
         } catch (Exception e) {
