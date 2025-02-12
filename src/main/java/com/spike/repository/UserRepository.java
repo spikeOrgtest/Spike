@@ -39,8 +39,8 @@ public interface UserRepository extends JpaRepository<UserDTO, Long> {
 
 	@Modifying
 	@Transactional
-	@Query("update UserDTO s set s.name=?1, s.emailId=?2, s.emailDomain=?3, s.password=?4 where s.loginId=?5")
-	public int profileEdit(String name, String EmailId, String EmailDomain, String password, String loginId);
+	@Query("update UserDTO s set s.password=?1 where s.loginId=?2")
+	public int profileEdit(String password, String loginId);
 
 	@Modifying
 	@Transactional

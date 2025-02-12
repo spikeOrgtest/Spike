@@ -86,16 +86,6 @@ public class MypageController {
 		String loginId = sessionUser.getLoginId();
 		s.setLoginId(loginId);
 
-		// 이메일 도메인 처리
-		String email = s.getEmailId() + "@" + s.getEmailDomain(); // 이메일 ID와 도메인을 합침
-		if (email != null && !email.isEmpty()) {
-			String[] emailParts = email.split("@");
-			if (emailParts.length == 2) {
-				s.setEmailId(emailParts[0]);
-				s.setEmailDomain(emailParts[1]); // EmailDomain 필드에 도메인 부분을 설정
-			}
-		}
-
 		// 기존 비밀번호와 새 비밀번호가 동일한지 확인
 		String existingPassword = sessionUser.getPassword(); // DB에서 가져온 기존 비밀번호
 		String encryptedNewPassword = passwordEncoder.encode(s.getPassword()); // 새 비밀번호를 암호화
@@ -121,88 +111,9 @@ public class MypageController {
 
 		this.userService.profileEdit(s);
 
-		// 세션에 저장된 객체에 바뀐 이름 저장(header.jsp 이름 변경 반영을 위함)
-		sessionUser.setName(s.getName());
-		session.setAttribute("User", sessionUser);
-
 		out.println("<script>");
 		out.println("alert('회원정보가 수정되었습니다!');");
 		out.println("window.location.href = '/spike.com/';"); // 실패 시 마이페이지 수정 페이지로 리다이렉트
-		out.println("</script>");
-
-		return null;
-	}
-
-	// 마이페이지 회원정보 수정 폼
-	@GetMapping("/mypageEdit")
-	public ModelAndView edit(HttpSession session) {
-
-		String[] phone = { "010", "011", "019" };
-		String[] email = { "gmail.com", "naver.com", "daum.net", "nate.com", "직접입력" };
-		ModelAndView s = new ModelAndView();
-		s.addObject("phone", phone);
-		s.addObject("email", email);
-		s.setViewName("/mypage/mypageEdit");
-
-		return s;
-	}
-
-	// 마이페이지 회원정보 수정 폼
-	@PostMapping("/mypageEdit")
-	public ModelAndView mypageEdit(UserDTO s, HttpSession session, HttpServletResponse response,
-			HttpServletRequest request) throws Exception {
-		response.setContentType("text/html;charset=UTF-8");
-		PrintWriter out = response.getWriter();
-		UserDTO user = (UserDTO) session.getAttribute("User");
-
-		String loginId = user.getLoginId();
-		s.setLoginId(loginId);
-
-		// 이메일 도메인 처리
-		String email = s.getEmailId() + "@" + s.getEmailDomain(); // 이메일 ID와 도메인을 합침
-		if (email != null && !email.isEmpty()) {
-			String[] emailParts = email.split("@");
-			if (emailParts.length == 2) {
-				s.setEmailId(emailParts[0]);
-				s.setEmailDomain(emailParts[1]); // EmailDomain 필드에 도메인 부분을 설정
-			}
-		}
-
-		// 전화번호 합치기 (phone01 + phone02 + phone03)
-		String phone = s.getPhone01() + "-" + s.getPhone02() + "-" + s.getPhone03();
-		s.setPhone(phone); // spikeDTO에 합친 전화번호 저장
-
-		// 기존 비밀번호와 새 비밀번호가 동일한지 확인
-		String existingPassword = user.getPassword(); // DB에서 가져온 기존 비밀번호
-		String encryptedNewPassword = passwordEncoder.encode(s.getPassword()); // 새 비밀번호를 암호화
-		String currentPassword = request.getParameter("currentPassword");
-
-		if (!passwordEncoder.matches(currentPassword, existingPassword)) {
-			out.println("<script>");
-			out.println("alert('현재 비밀번호가 일치하지 않습니다!');");
-			out.println("window.location.href = '/spike.com/mypage/mypageEdit';");
-			out.println("</script>");
-			return null;
-		}
-
-		if (passwordEncoder.matches(s.getPassword(), existingPassword)) {
-			out.println("<script>");
-			out.println("alert('기존 비밀번호와 새 비밀번호가 동일합니다!');");
-			out.println("window.location.href = '/spike.com/mypage/mypageEdit';");
-			out.println("</script>");
-			return null;
-		}
-
-		s.setPassword(encryptedNewPassword); // 비밀번호 변경
-
-		this.userService.mypageEdit(s);
-
-		user.setName(s.getName());
-		session.setAttribute("User", user);
-
-		out.println("<script>");
-		out.println("alert('회원정보가 수정되었습니다!');");
-		out.println("window.location.href = '/spike.com/mypage/mypageEdit';");
 		out.println("</script>");
 
 		return null;
