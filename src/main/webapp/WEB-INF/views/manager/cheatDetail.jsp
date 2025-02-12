@@ -21,27 +21,26 @@
 				<form action="UpdateAccount" method="post"
 					onsubmit="return checkSelection()">
 					<input type="hidden" name="${_csrf.parameterName}"
-						value="${_csrf.token}" />
-					<input type="hidden" name="reportId" value="${reportId}">
+						value="${_csrf.token}" /> <input type="hidden" name="reportId"
+						value="${reportId}">
 					<div class="form-group">
-						<label for="accountId">계좌 ID</label> <input type="text" id="accountId"
-							name="accountId" value="${ag.accountId}" readonly>
+						<label for="accountId">계좌 ID</label> <input type="text"
+							id="accountId" name="accountId" value="${ag.accountId}" readonly>
 					</div>
 
 					<div class="form-group">
-						<label for="accountType">계좌유형</label> <input type="text" id="accountType"
-							value="${ag.accountType}" readonly>
+						<label for="accountType">계좌유형</label> <input type="text"
+							id="accountType" value="${ag.accountType}" readonly>
 					</div>
 
 					<div class="form-group">
-						<label for="productType">계좌상세유형</label> <input type="text" id="productType"
-							value="${ag.productType}" readonly>
+						<label for="productType">계좌상세유형</label> <input type="text"
+							id="productType" value="${ag.productType}" readonly>
 					</div>
 
 					<div class="form-group">
 						<label for="accountNumber">계좌번호</label> <input type="text"
-							id="accountNumber" value="${ag.accountNumber}"
-							readonly>
+							id="accountNumber" value="${ag.accountNumber}" readonly>
 					</div>
 
 					<div class="form-group">
@@ -49,11 +48,8 @@
 							value="${ag.balance}" readonly>
 					</div>
 					<div class="form-group">
-						<select name="accountState" id="accountStateSelect" data-accountState="${ag.accountState}">
-							<option value="" disabled selected>${ag.accountState}(현재 상태)</option>
-							<option value="ACTIVE">ACTIVE</option>
-							<option value="BLOCK">BLOCK</option>
-						</select>
+						<label for="balance">계정상태</label> <input type="text" id="status"
+							name="accountState" value="${ag.accountState}" readonly>
 					</div>
 					<div class="form-group">
 						<label for="list">거래 내역</label>
@@ -64,7 +60,7 @@
 									<th>받는 사람</th>
 									<th>보낸 사람</th>
 									<th>이체 금액</th>
-									<th>남은 금액</th>
+									<th>잔액</th>
 									<th>메모</th>
 									<th>거래 날짜</th>
 								</tr>
@@ -73,24 +69,22 @@
 								<c:forEach var="item" items="${list}">
 									<tr>
 										<td>${item.id}</td>
-										<td>
-										<c:set var="toAccountId" value="${item.toAccount.accountId}" /> 
-											<c:forEach var="acc" items="${accounts}">
+										<td><c:set var="toAccountId"
+												value="${item.toAccount.accountId}" /> <c:forEach var="acc"
+												items="${accounts}">
 												<c:if test="${acc.accountId eq toAccountId}">
                    									 ${acc.accountNumber}
                 								</c:if>
-											</c:forEach>
-										</td>
-										<td>
-										<c:set var="fromAccountId" value="${item.fromAccount.accountId}" />
-											<c:forEach var="acc" items="${accounts}">
+											</c:forEach></td>
+										<td><c:set var="fromAccountId"
+												value="${item.fromAccount.accountId}" /> <c:forEach
+												var="acc" items="${accounts}">
 												<c:if test="${acc.accountId eq fromAccountId}">
                  								   ${acc.accountNumber}
                									 </c:if>
-											</c:forEach>
-										</td>
-										<td>${item.amount}</td>
-										<td>${item.afterBalance}</td>
+											</c:forEach></td>
+										<td><fmt:formatNumber value="${item.amount}" type="number" /></td>
+										<td><fmt:formatNumber value="${item.afterBalance}" type="number" /></td>
 										<td>${item.memo}</td>
 										<td><fmt:formatDate value="${item.transactionDate}"
 												pattern="yy/MM/dd HH:mm:ss" /></td>
@@ -100,8 +94,12 @@
 						</table>
 					</div>
 					<div class="form-buttons">
-						<button type="submit" name="status" value="COMPLETE" class="submit-btn">수락</button>
-						<button type="submit" name="status" value="NEGATIVE" class="reset-btn">거절</button>
+						<button type="submit" name="status" value="COMPLETE"
+							class="submit-btn"
+							onclick="return updateStatus('ACTIVE', '수락되었습니다.')">수락</button>
+						<button type="submit" name="status" value="NEGATIVE"
+							class="reset-btn"
+							onclick="return updateStatus('BLOCK', '거절했습니다.')">거절</button>
 					</div>
 				</form>
 			</div>
@@ -111,14 +109,10 @@
 	<%@ include file="../include/shortfooter.jsp"%>
 </body>
 <script>
-	function checkSelection() {
-		const accountStateSelect = document.getElementById('accountStateSelect');
-		const accountState = accountStateSelect.getAttribute('data-accountState');
-		if (accountStateSelect.value === "") {
-			accountStateSelect.value = accountState;
-		}
+	function updateStatus(status, message) {
+		document.getElementById("status").value = status;
+		alert(message);
 		return true;
 	}
 </script>
-
 </html>
