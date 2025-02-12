@@ -153,9 +153,6 @@ public class LoanServiceImpl implements LoanService {
             AccountDTO targetAccount = loan.getTargetAccount();
             AccountDTO repaymentAccount = loan.getRepaymentAccount();
 
-            // 이자 계산 실행
-            accountService.calculateDailyLoanInterest(targetAccount);
-            
             // 현재 이자 금액 계산
             Long currentInterest = targetAccount.getInterestAmount();
             
@@ -169,12 +166,10 @@ public class LoanServiceImpl implements LoanService {
 
             // 상환계좌에서 금액 차감
             repaymentAccount.setBalance(repaymentAccount.getBalance() - amount);
-            accountService.updateAccount(repaymentAccount);
 
             // 대출 계좌 업데이트
             targetAccount.setInterestAmount(currentInterest - interestPayment);
             targetAccount.setLoanPrincipal(targetAccount.getLoanPrincipal() - principalPayment);
-            accountService.updateAccount(targetAccount);
 
             // 남은 상환금액 업데이트 (원금 + 이자)
             loan.setRemainingAmount(targetAccount.getLoanPrincipal());
@@ -183,10 +178,7 @@ public class LoanServiceImpl implements LoanService {
             if (targetAccount.getLoanPrincipal() <= 0 && targetAccount.getInterestAmount() <= 0) {
                 loan.setLoanState("상환완료");
                 targetAccount.setAccountType("일반");
-                accountService.updateAccount(targetAccount);
             }
-            
-            loanRepository.save(loan);
             
             System.out.println("상환 처리 완료:");
             System.out.println("원금: " + targetAccount.getLoanPrincipal());
