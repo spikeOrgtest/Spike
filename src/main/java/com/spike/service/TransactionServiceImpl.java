@@ -135,7 +135,7 @@ public class TransactionServiceImpl implements TransactionService {
 		// 내부적으로 처리해주는듯??
 		
 		//날짜 계산은 LocalDateTime 내장메서드 minusDays 활용하는 것이 편리함, 대신 TimeStamp 객체로 변환 필요
-		LocalDateTime calculatedDate = LocalDateTime.now().minusDays(1);
+		LocalDateTime calculatedDate = LocalDateTime.now().minusDays(30);
 		Timestamp startDate = Timestamp.valueOf(calculatedDate);
 		
 		List<TransactionDTO> transactions = this.transactionRepo
@@ -195,7 +195,8 @@ public class TransactionServiceImpl implements TransactionService {
 	}
 
 	@Override
-	public void interTypeTransfer() {
+	public void interTypeTransfer(String fromAccNum, String toAccNum) {
+		
 	}
 
 }
