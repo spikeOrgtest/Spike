@@ -23,3 +23,8 @@ DROP SEQUENCE notice_seq;
 
 select * from LOGIN_HISTORY;
 
+select * from User_info;
+
+UPDATE user_info set roles = 'ROLE_ADMIN' WHERE user_id = 29;
+
+COMMIT;

@@ -43,7 +43,7 @@ public class NoticeDTO {
 	
 	
 	@Column(length = 50)
-	private String noticeName; // 글쓴이
+	private String noticeName; // 작성자
 	
 	//@NotNull(message = "필수 항목입니다.")
 	@Column(length = 255)

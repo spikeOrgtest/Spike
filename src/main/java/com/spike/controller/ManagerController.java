@@ -77,6 +77,10 @@ public class ManagerController {
 		Long allvisit = userService.getallvisit();
 		Long allamount = userService.getallamount();
 		Long allTransaction = userService.getallTransaction();
+		Long allLoanId = userService.getallLoanId();
+		Long allloanAmount = userService.getallloanAmount();
+		
+		System.out.println("===============================\n"+ allvisit);
 
 		ModelAndView ma = new ModelAndView();
 		ma.addObject("tolog", tolog); // 화면으로 전달할 데이터
@@ -84,6 +88,8 @@ public class ManagerController {
 		ma.addObject("allvisit",allvisit);
 		ma.addObject("allamount",allamount);
 		ma.addObject("allTransaction",allTransaction);
+		ma.addObject("allLoanId", allLoanId);
+		ma.addObject("allloanAmount",allloanAmount);
 		ma.setViewName("/manager/manager");
 		return ma;
 

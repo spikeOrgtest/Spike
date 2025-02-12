@@ -179,8 +179,11 @@ public class LoanController {
             if (isRejected) {
                 response.setContentType("text/html; charset=UTF-8");
                 PrintWriter out = response.getWriter();
-                out.println("<script>alert('대출이 거절되었습니다.'); location.href='/spike.com/admin/loanManagement';</script>");
-                return "redirect:/spike.com/admin/loanManagement";
+                out.println("<script>");
+                out.println("alert('대출이 거절되었습니다.');");
+                out.println("location.href='/spike.com/admin/loanManagement';");
+                out.println("</script>");
+                return null;
             } else {
                 return "redirect:/spike.com/admin/loanManagement?error=true";
             }
