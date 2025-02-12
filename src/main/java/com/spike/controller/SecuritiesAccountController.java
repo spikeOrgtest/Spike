@@ -236,7 +236,7 @@ public class SecuritiesAccountController {
         model.addAttribute("stockHoldings", stockHoldings);
         
         // 총 보유 주식 금액 계산 (각 보유수량 × 주식 현재가 합)
-        int totalStockValue = stockHoldingService.calculateTotalStockValue(account.getAccountId());
+        long totalStockValue = stockHoldingService.calculateTotalStockValue(account.getAccountId());
         model.addAttribute("totalStockValue", totalStockValue);
         
         // 거래 내역 조회 (해당 증권 계좌 관련 거래 내역)
