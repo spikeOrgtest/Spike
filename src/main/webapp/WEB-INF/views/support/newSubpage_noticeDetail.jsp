@@ -73,10 +73,14 @@
     </div>
      
 				  <div class="button-container2" style="text-align: center; margin-top: 20px;">
+				  <c:if test="${not empty sessionScope.User and sessionScope.User.roles == 'ROLE_ADMIN'}">
         <a href="/spike.com/noti_cont?notice_no=${n.noticeNo }&state=edit&page=${page}">수정</a>
+        </c:if>
     </div>
 				  <div class="button-container3" style="text-align: center; margin-top: 20px;">
+				  <c:if test="${not empty sessionScope.User and sessionScope.User.roles == 'ROLE_ADMIN'}">
         <a href="javascript:void(0);" onclick="confirmDelete(${n.noticeNo}, ${page})">삭제</a>
+        </c:if>
         
     </div>
     </div>

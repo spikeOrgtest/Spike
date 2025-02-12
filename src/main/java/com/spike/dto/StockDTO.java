@@ -39,9 +39,9 @@ public class StockDTO {
     
     private String sector;
     
-    private double initialPrice;
+    private long initialPrice;
     
-    private double currentPrice;
+    private long currentPrice;
     
     private int totalShares;
     

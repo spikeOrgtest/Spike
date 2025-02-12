@@ -1,6 +1,7 @@
 package com.spike.dao;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.spike.dto.AccountDTO;
 import com.spike.dto.UserDTO;
@@ -25,5 +26,13 @@ public interface AccountDAO {
 	List<AccountDTO> findbyAccountInfo(String detailValue);
 
 	List<AccountDTO> findActiveAccountsByUser(UserDTO user);
+
+	AccountDTO findByAccountId(Long id);
+
+	void updateAccountState(Long accountId, String accountState);
+
+	Optional<AccountDTO> findById(Long accountId);
+
+	void updateLimit(UserDTO user);
 
 }

@@ -251,19 +251,13 @@ public class MypageController {
 
 		
 		List<AccountDTO> list = userService.findbyinquriy(userId);
-
-		// 각 계좌별 송금 + 입금 내역을 저장할 Map 생성
-        Map<Long, List<TransferHistoryDTO>> transactionMap = new HashMap<>();
-        for (AccountDTO account : list) {
-            List<TransferHistoryDTO> histories = this.transService.getTransferHistoryByAccountId(account.getAccountId());
-            transactionMap.put(account.getAccountId(), histories);
-        }
-
+		List<TransactionDTO> transactionList = this.transService.getTransactionsByUserId(userId);
+		
 		ModelAndView account = new ModelAndView("mypage/mypageinquiry");
 		
-		account.addObject("transactionMap", transactionMap); // 계좌별 거래 내역 전달
 		account.addObject("list", list);
-
+		account.addObject("transactionList",transactionList);
+		
 		return account;
 
 	}
@@ -272,6 +266,7 @@ public class MypageController {
 	@PostMapping("inquiryLimit")
 	public String inquiryLimit(Long one_limit, Long day_limit, String account_number) {
 
+		System.out.println("====================\n"+one_limit+"---"+day_limit+"---"+account_number);
 		if (one_limit != null) {
 			this.accountService.Oneupdateaccount(one_limit, account_number);
 		}

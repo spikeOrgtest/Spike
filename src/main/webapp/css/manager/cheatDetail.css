@@ -1,7 +1,7 @@
 @charset "UTF-8";
 form {
     width: 100%;
-    width: 800px;
+    width: 1200px;
     margin-left: 50px;
     padding: 20px;
     background-color: #f9f9f9;
@@ -49,7 +49,7 @@ form {
     justify-content: flex-end;
 }
 
-.submit-btn, .reset-btn, .reject-btn {
+.submit-btn, .reset-btn {
     padding: 10px 20px;
     font-size: 14px;
     border: none;
@@ -59,22 +59,21 @@ form {
 }
 
 .submit-btn {
+    background-color: #4CAF50;
+    color: white;
     margin-right: 10px;
 }
 
 .reset-btn {
-    margin-right: 10px;
-}
-
-.reject-btn {
-    margin-right: 10px;
+    background-color: #f44336;
+    color: white;
 }
 
 .submit-btn:hover {
     background-color: #45a049;
 }
 
-.reject-btn:hover {
+.reset-btn:hover {
     background-color: #e53935;
 }
 
@@ -98,34 +97,33 @@ form {
     }
 }
 
-.button-group {
-    margin: 20px 0;
-    text-align: center;
+table {
+	width: 100%;
+	border-collapse: collapse;
+	margin-top: 20px;
 }
 
-.submit-btn, .reject-btn, .list-btn {
-    padding: 10px 20px;
-    margin: 0 5px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
+table th, table td {
+	padding: 12px;
+	text-align: center;
+	border: 1px solid #ddd;
 }
 
-.submit-btn {
-    background-color: #4CAF50;
-    color: white;
+table th {
+	font-weight: bold;
+	    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #ddd;
 }
 
-.reject-btn {
-    background-color: #f44336;
-    color: white;
+table tr {
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+	background-color: #fff;
 }
 
-.list-btn {
-    background-color: #2196F3;
-    color: white;
+table tr:nth-child(even) {
+	background-color: #f2f2f2;
 }
 
-.submit-btn:hover, .reject-btn:hover, .list-btn:hover {
-    opacity: 0.8;
+table tr:hover {
+	background-color: #e9ecef;
 }

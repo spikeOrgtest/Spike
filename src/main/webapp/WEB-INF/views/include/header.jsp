@@ -21,7 +21,7 @@
 				</c:otherwise>
 			</c:choose>
 
-			<a href="newsSubpage_notice.jsp">공지사항</a> <a href="/spike.com/admin/ma">FAQ</a>
+			<a href="/spike.com/notice">공지사항</a> <a href="/spike.com/admin/ma">FAQ</a>
 			<a href="#board">게시판</a>
 
 		</div>
@@ -68,21 +68,17 @@
 									<li><a href="/spike.com/products/card">카드</a></li>
 									<li><a href="/spike.com/stock/home">투자</a></li>
 								</ul></li>
-							<li class="dropdown"><a href="/spike.com/support">고객센터</a>
-								<ul class="header-dropdown-menu">
-									<li><a href="/spike.com/newsSubpage_news">Spike소식</a></li>
-									<li><a href="supportSubpage_ars.jsp">고객지원</a></li>
-								</ul></li>
+							
 							<li class="dropdown"><a href="/spike.com/mini" style="line-height: 1.7;">MINI</a></li>
 							<li class="dropdown"><a href="/spike.com/support/cheat" style="line-height: 1.7;">SHIELD</a></li>
 						</c:when>
 						<c:otherwise>
 							<li class="dropdown"><a href="/spike.com/admin/ma">대시보드</a></li>
 							<li class="dropdown"><a href="/spike.com/admin/userManagement">사용자관리</a></li>
-							<li class="dropdown"><a href="/spike.com/">계좌수정</a></li>
+							<li class="dropdown"><a href="/spike.com/admin/accountManagement">계좌신고관리</a></li>
 							<li class="dropdown"><a href="/spike.com/">거래내역관리</a></li>
-							<li class="dropdown"><a href="/spike.com/">대출관리</a></li>
-							<li class="dropdown"><a href="/spike.com/">공지사항관리</a></li>
+							<li class="dropdown"><a href="/spike.com/admin/loanManagement">대출관리</a></li>
+							<li class="dropdown"><a href="/spike.com/notice">공지사항관리</a></li>
 						</c:otherwise>
 					</c:choose>
 				</ul>

@@ -84,7 +84,7 @@ public class TransactionServiceImpl implements TransactionService {
 		// atm을 통한 입금,출금에서는 한쪽만 검증 필요(한쪽은 atm이니까), 이체에는 양쪽 다 필요
 		// optional을 통한 유효성 검증, null값 반환시 계좌를 찾을 수 없다는 에러 발생
 		AccountDTO fromAccount = accountRepo.findById(tData.getFromAccountId())
-				.orElseThrow(() -> new IllegalArgumentException("출금 계좌를 찾을 수 없습니다."));
+				.orElseThrow(() -> new IllegalArgumentException("존재하지 않는 계좌입니다. 입금계좌를 확인해 주세요!"));
 
 		// optional 객체에서 get()메서드로 직접 꺼내는 방식(옛날 방식)
 		Optional<AccountDTO> optionalToAccount = this.accountRepo.findByAccountNumber(tData.getToAccount());
@@ -93,14 +93,19 @@ public class TransactionServiceImpl implements TransactionService {
 			toAccount = optionalToAccount.get();
 
 		} else {
-			throw new IllegalArgumentException("입금 계좌를 찾을 수 없습니다.");
+			throw new IllegalArgumentException("존재하지 않는 계좌입니다. 입금계좌를 확인해 주세요!");
 		}
 
 		// 잔액 부족하면 javascript에서 걸러짐, 그래도 원래는 애플리케이션(사이트)에서 2차 예외처리 해줘야함
 		if (fromAccount.getBalance() < tData.getAmount())
 			throw new IllegalArgumentException("잔액이 부족한데 어떻게 송금하셨죠?");
+		else if(fromAccount.getOneLimit() < tData.getAmount())
+			throw new IllegalArgumentException("1회 한도 초과입니다.");
+		else if(fromAccount.getAvailableLimit() < tData.getAmount())
+			throw new IllegalArgumentException("일일 한도 초과입니다.");
 
 		fromAccount.setBalance(fromAccount.getBalance() - tData.getAmount()); // BigDecimal 클래스의 내장메서드 subtract 활용 -> 보류
+		fromAccount.setAvailableLimit(fromAccount.getAvailableLimit() - tData.getAmount()); //일일 한도 갱신
 		toAccount.setBalance(toAccount.getBalance() + tData.getAmount());
 
 		accountRepo.save(fromAccount);
@@ -180,6 +185,13 @@ public class TransactionServiceImpl implements TransactionService {
 		}
 
 		return histories;
+	}
+	
+	//HistoryDTO로 변환하지 않고 바로 전체 데이터 조회
+	@Override
+	public List<TransactionDTO> getTransactionsByUserId(Long userId) {
+		
+		return this.transactionRepo.getTransactionsByUserId(userId);
 	}
 
 }

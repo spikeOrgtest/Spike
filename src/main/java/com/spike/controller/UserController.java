@@ -44,7 +44,26 @@ public class UserController {
 	
 	// 로그인 폼
 	@GetMapping("/login") 
-	public ModelAndView login() {
+	public ModelAndView login(HttpServletResponse response, HttpSession session) throws Exception {
+		response.setContentType("text/html; charset=UTF-8");
+		PrintWriter out = response.getWriter();
+		
+		UserDTO sessionUser = (UserDTO) session.getAttribute("User");
+		
+		
+		if( sessionUser != null) {
+			for(int i=0; i < 100000; i++) {
+				for(int x=0; x < 2; x++) {
+					System.out.println(x);
+				}
+			}
+			out.println("<script>");
+			out.println("alert('이미 로그인되었습니다');");
+			out.println("window.location.href = '/spike.com/';");
+			out.println("</script>");
+			return null;
+		}
+		
 		ModelAndView s = new ModelAndView();
 		s.setViewName("/login");
 		return s;

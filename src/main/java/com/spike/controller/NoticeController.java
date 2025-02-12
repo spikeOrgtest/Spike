@@ -43,7 +43,7 @@ public class NoticeController {
 
 
 	//공지사항 글쓰기
-	@GetMapping("/noti_write")
+	@GetMapping("/admin/noti_write")
 	public ModelAndView noti_write(HttpServletRequest request) {
 		
 		int page = 1;
@@ -58,14 +58,11 @@ public class NoticeController {
 	} //noti_write()
 	
 	//자료실 저장
-	@PostMapping("/noti_write_ok")
+	@PostMapping("/admin/noti_write_ok")
 	public String noti_write_ok(NoticeDTO notice,Notice2DTO notice2, HttpServletRequest request) {
 		String uploadFolder = request.getSession().getServletContext().getRealPath("upload");
 		MultipartFile uploadFile = notice2.getUploadFile();
-		System.out.println("========================"+uploadFile);
 		if(!uploadFile.isEmpty()) {
-			System.out.println(uploadFile.getOriginalFilename());
-			System.out.println(uploadFile.getSize());
 			
 			String fileName = uploadFile.getOriginalFilename();
 			Calendar cal = Calendar.getInstance();
@@ -106,17 +103,7 @@ public class NoticeController {
 		this.noticeService.insertnotice(notice);//자료실 저장
 		
 		return "redirect:/spike.com/notice";//새로운 매핑주소인 자료실 목록으로 이동
-	}//bbs_write_ok()
-	  
-	/*연습페이지*/
-	/*@GetMapping("/notice")
-	public ModelAndView notice(HttpServletRequest request) {
-		
-		ModelAndView m = new ModelAndView();
-		m.setViewName("/support/newsSubpage_notice");
-		return m;
-	}*/
-	
+	}//noti_write_ok()
 	
 	//검색기능 자료실 페이지목록
 	@RequestMapping(value="/notice", method=RequestMethod.GET)
@@ -132,8 +119,6 @@ public class NoticeController {
 		// 검색 조건 설정---
 		String findName = request.getParameter("findName"); //검색어
 		String findField = request.getParameter("findField"); // 검색필드
-		System.out.println("------------검색어-------------" +  findName);
-		System.out.println("-------------검색필드------------" +  findField);
 		
 		//검색어와 필드를 dto에 셋팅
 		p.setFindField(findField);
@@ -141,7 +126,6 @@ public class NoticeController {
 		
 		//전체 게시물 수 구하기
 		int totalCount = this.noticeService.getRowCount(p);
-		System.out.println("--------------총레코드 갯수와 검색후 레코드갯수--------" + totalCount);
 		
 		index = totalCount - (page-1)*limit; // 인덱스는 토탈카운트이다. 인덱스를 만든이유 : 공지사항 인덱싱 (페이징이 거꾸로 숫자가 나오게하려고)
 		
@@ -152,7 +136,6 @@ public class NoticeController {
 		
 		//게시물 목록 가져오기
 		List<NoticeDTO> Nlist = this.noticeService.getNotiList(p);
-		System.out.println("=====================총 공지목록과 검색후 공지목록갯수==" + Nlist.size());
 		
 		int maxpage = (int) Math.ceil((double) totalCount / limit); // 총페이지수
 		int startpage = ((page - 1) / 5) * 5 + 1;  // 시작 페이지
@@ -198,8 +181,6 @@ public class NoticeController {
 			}
 			String noti_cont = n.getNoticeCont().replace("\n", "<br/>");
 			//textarea에서 엔터키를 친 부분을 줄바꿈 한다.
-			System.out.println("테스트<=======================================");
-			System.out.println(n.getNoticeCont());
 			
 			ModelAndView co = new ModelAndView();
 			co.addObject("n", n);
@@ -226,6 +207,42 @@ public class NoticeController {
 			//return sk;
 		}//bbs_cont()
 
+		@RequestMapping("/admin/noti_cont")
+		public ModelAndView admin_notice_cont(Long notice_no, String state, Integer page, NoticeDTO n)  {
+			
+			if(state.equals("cont")) {//내용보기 일때만 조회수 증가
+				n = this.noticeService.getNoticeCont(notice_no);
+			}else {//내용보기가 아닌 경우 답변폼,수정폼,삭제폼일때는 조회수 증가 안함.
+				n = this.noticeService.getNoticeCont2(notice_no);
+			}
+			String noti_cont = n.getNoticeCont().replace("\n", "<br/>");
+			//textarea에서 엔터키를 친 부분을 줄바꿈 한다.
+			
+			ModelAndView co = new ModelAndView();
+			co.addObject("n", n);
+			co.addObject("noti_cont", noti_cont);
+			co.addObject("page", page);//책갈피 기능때문에 page키이름에 쪽번호 저장
+			//co.setViewName("support/newSubpage_noticeDetail");
+			//ModelAndView sk = new ModelAndView();
+			//sk.addObject("notice",notice);
+			//sk.addObject("noti_cont", noti_cont);
+			//sk.setViewName("/support/newSubpage_noticeDetail");
+			//sk.addObject("page",page);
+			
+			
+			
+			if(state.equals("cont")) {//내용보기 일때
+				co.setViewName("/support/newSubpage_noticeDetail");//뷰페이지 경로=>/WEB-INF/views/bbs/bbs_cont.jsp
+			} else if(state.equals("edit")) {//수정폼일때
+				co.setViewName("noti/noti_edit");
+			}else {//state=del일때 즉 삭제폼일때
+				co.setViewName("noti/noti_del");
+			}
+			
+			return co;
+			//return sk;
+		}//bbs_cont()
+		
 		/*
 		//답변 저장
 		@PostMapping("/bbs_reply_ok")
@@ -239,7 +256,7 @@ public class NoticeController {
 		*/
 		
 		//공지사항 수정
-		@RequestMapping(value="/noti_edit_ok",method=RequestMethod.POST) //post로 접근하는 매핑주소를 처리
+		@RequestMapping(value="/admin/noti_edit_ok",method=RequestMethod.POST) //post로 접근하는 매핑주소를 처리
 		public ModelAndView noti_edit_ok(NoticeDTO notice,Notice2DTO notice2, HttpServletRequest request,HttpServletResponse response)
 		throws Exception{
 			response.setContentType("text/html;charset=UTF-8");//웹브라우저 출력되는 문자와태그,언어코딩 타입을 UTF-8로 지정
@@ -327,7 +344,7 @@ public class NoticeController {
 }
 		
 		//자료실 삭제
-		@RequestMapping("/noti_del_ok") //get or post방식으로 전송되는 매핑주소 처리
+		@RequestMapping("/admin/noti_del_ok") //get or post방식으로 전송되는 매핑주소 처리
 		public String noti_del_ok(Long noticeNo, int page,
 		HttpServletResponse response,HttpServletRequest request) throws Exception{
 			response.setContentType("text/html;charset=UTF-8");

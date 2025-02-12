@@ -173,5 +173,4 @@ public class UserServiceImpl implements UserSerivce {
 	public Long getallTransaction() { // 오늘의 거래건수
 		return this.userRepository.getallTransaction();
 	}
-
 }

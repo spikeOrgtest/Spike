@@ -1,8 +1,10 @@
 package com.spike.security;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,10 +16,13 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.spike.dto.AccountDTO;
 import com.spike.dto.ManagerDTO;
 import com.spike.dto.UserDTO;
+import com.spike.repository.AccountRepository;
 import com.spike.repository.LoginHistoryRepository;
 import com.spike.repository.UserRepository;
+import com.spike.service.AccountService;
 
 @Service
 public class UserDetail implements org.springframework.security.core.userdetails.UserDetailsService {
@@ -27,7 +32,10 @@ public class UserDetail implements org.springframework.security.core.userdetails
 	
     @Autowired
     private UserRepository userRepo;
-
+    
+    @Autowired
+    private AccountService accountService;
+    
     private final PasswordEncoder passwordEncoder;
     
     public UserDetail(@Lazy PasswordEncoder passwordEncoder) {
@@ -40,6 +48,22 @@ public class UserDetail implements org.springframework.security.core.userdetails
         UserDTO user = userRepo.findByLoginId(loginId)
                 .orElseThrow(() -> new UsernameNotFoundException("사용자를 찾을 수 없습니다 : " + loginId));
 
+
+        //일일 한도 초기화, 첫 로그인 예외처리
+        if(user.getLastLogin() == null) user.setLastLogin(LocalDateTime.now());
+        if(!user.getLastLogin().toLocalDate().isEqual(LocalDate.now().plusDays(1))) {
+            //1.updateLimit로 처리
+        	
+        	this.accountService.updateLimit(user);
+        	//2.전체 계좌를 가져와서 세팅 후 save(기존 repository 메서드 재사용)
+        	/*List<AccountDTO> accList = this.accRepo.findByOwner(user);
+        	for(AccountDTO account : accList){
+            	account.setAvailableLimit(account.getDayLimit());
+            }
+            this.accRepo.saveAll(accList);*/
+            
+        }
+        
         // 사용자 정보 저장 (로그인 시 마다)
         user.setLastLogin(LocalDateTime.now());
         userRepo.save(user);  // DB에 저장
@@ -49,6 +73,9 @@ public class UserDetail implements org.springframework.security.core.userdetails
         Llist.setAllTime(user.getLastLogin());
         LoginHis.save(Llist);
 
+        
+        
+        
         // SpikeUser 객체를 반환
         return new SpikeUser(user, user.getLoginId(), user.getPassword(), getAuthority(user));
     }

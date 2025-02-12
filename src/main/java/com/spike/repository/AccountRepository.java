@@ -20,7 +20,7 @@ public interface AccountRepository extends JpaRepository<AccountDTO, Long> {
 	List<AccountDTO> findByOwner(UserDTO user);
 
 	// 계좌번호를 검색해서 계좌 엔티티를 반환하는 쿼리 메서드 -> 필드명이 account_number라 쿼리메서드 불가능. JPQL사용
-	//@Query("SELECT a FROM AccountDTO a WHERE a.accountNumber = ?1")
+	//이제 가능 @Query("SELECT a FROM AccountDTO a WHERE a.accountNumber = ?1")
 	Optional<AccountDTO> findByAccountNumber(String accountNumber);
 
 	@Modifying
@@ -29,8 +29,8 @@ public interface AccountRepository extends JpaRepository<AccountDTO, Long> {
 	void Oneupdateaccount(Long oneLimit, String accountNumber);
 
 	@Modifying
-	@Transactional
-	@Query("update AccountDTO a set a.dayLimit=?1 where a.accountNumber=?2")
+	@Transactional	//일일 한도 업데이트 하면서 남은 일일 한도 같이 초기화
+	@Query("update AccountDTO a set a.dayLimit=?1, a.availableLimit = ?1 where a.accountNumber=?2")
 	void Dayupdateaccount(Long dayLimit, String accountNumber);
 
 	@Modifying
@@ -58,5 +58,19 @@ public interface AccountRepository extends JpaRepository<AccountDTO, Long> {
 
 	@Query("select a from AccountDTO a where a.accountNumber=?1")
 	List<AccountDTO> findbyAccountInfo(String detailValue);
+
+	AccountDTO findByAccountId(Long id);
+	
+	@Modifying
+	@Transactional
+	@Query("update AccountDTO a set a.accountState=?2 where a.accountId=?1")
+	void updateAccountState(Long accountId, String accountState);
+
+	/*@Modifying
+	@Query("update accountDTO a set a.availableLimit = a.dayLimit where a = ?1")
+	void updateLimit(AccountDTO account);*/
+	@Modifying
+	@Query("update AccountDTO a set a.availableLimit = a.dayLimit where a.owner = ?1")
+	void updateLimit(UserDTO user);
 
 }

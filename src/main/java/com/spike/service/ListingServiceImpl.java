@@ -1,7 +1,6 @@
 package com.spike.service;
 
 import com.spike.dto.Listing;
-
 import com.spike.dto.SecuritiesAccountDTO;
 import com.spike.dto.StockDTO;
 import com.spike.dto.StockHolding;
@@ -19,122 +18,155 @@ import java.util.Optional;
 
 @Service
 public class ListingServiceImpl implements ListingService {
+	
+	
+	@Autowired
+	private StockService stockService; 
 
-    @Autowired
-    private ListingRepository listingRepository;
+	@Autowired
+	private ListingRepository listingRepository;
 
-    @Autowired
-    private StockHoldingRepository stockHoldingRepository;
-    
-    @Autowired
-    private StockTransactionRepository stockTransactionRepository;
+	@Autowired
+	private StockHoldingRepository stockHoldingRepository;
 
-    // 판매자가 주식을 판매 등록하는 로직
-    @Override
-    @Transactional
-    public Listing createListing(SecuritiesAccountDTO seller, StockDTO stock, int quantity, int price) {
-        if (quantity <= 0) {
-            throw new IllegalArgumentException("판매 수량은 1주 이상이어야 합니다.");
-        }
-        if (price <= 0) {
-            throw new IllegalArgumentException("판매 가격은 1원 이상이어야 합니다.");
-        }
+	@Autowired
+	private StockTransactionRepository stockTransactionRepository;
 
-        // 판매자가 주식 보유량 확인
-        int ownedQuantity = stockHoldingRepository.getStockQuantity(seller.getAccountId(), stock.getStockId());
+	// 🔹 매물 등록 (판매자가 주식을 시장에 올림)
+	@Override
+	@Transactional
+	public Listing createListing(SecuritiesAccountDTO seller, StockDTO stock, int quantity, int price) {
+		if (quantity <= 0) {
+			throw new IllegalArgumentException("판매 수량은 1주 이상이어야 합니다.");
+		}
+		if (price <= 0) {
+			throw new IllegalArgumentException("판매 가격은 1원 이상이어야 합니다.");
+		}
 
-        
+		// 🔹 보유 주식 초과 여부 검증 (누적 확인)
+		if (isListingQuantityExceedingLimit(seller, stock, quantity)) {
+			throw new IllegalStateException("보유한 주식 수량을 초과하여 매물을 등록할 수 없습니다.");
+		}
 
-        if (ownedQuantity < quantity) {
-            throw new IllegalArgumentException("보유한 주식 수량이 부족합니다.");
-        }
+		// 🔹 매물 등록
+		Listing listing = new Listing();
+		listing.setSeller(seller);
+		listing.setStock(stock);
+		listing.setQuantity(quantity);
+		listing.setPrice(price);
 
-        // 매물 등록
-        Listing listing = new Listing();
-        listing.setSeller(seller);
-        listing.setStock(stock);
-        listing.setQuantity(quantity);
-        listing.setPrice(price);
-        return listingRepository.save(listing);
-    }
+		return listingRepository.save(listing);
+	}
 
-    // 특정 주식 ID의 매물 조회
-    @Override
-    public List<Listing> getListingsByStockId(int stockId) {
-        return listingRepository.findByStock_StockId(stockId);
-    }
+	// 🔹 보유 수량 초과 여부 확인 (누적 검증)
+	@Override
+	public boolean isListingQuantityExceedingLimit(SecuritiesAccountDTO seller, StockDTO stock, int newListingQuantity) {
+		// 1️⃣ 판매자의 보유 주식 수량 조회
+		int ownedQuantity = stockHoldingRepository.getStockQuantity(seller.getAccountId(), stock.getStockId());
 
-    // 전체 매물 조회
-    @Override
-    public List<Listing> getAllListings() {
-        return listingRepository.findAll();
-    }
+		// 2️⃣ 현재 등록된 매물 총합 조회
+		int totalListedQuantity = listingRepository.getTotalListedQuantity(seller.getAccountId(), stock.getStockId());
 
-    // 특정 매물 조회
-    @Override
-    public Optional<Listing> getListingById(int listingId) {
-        return listingRepository.findById(listingId);
-    }
+		// 3️⃣ 새로운 매물 수량 추가 후 보유량 초과 여부 확인
+		return (totalListedQuantity + newListingQuantity) > ownedQuantity;
+	}
 
-    // 매물 삭제
-    @Override
-    public void deleteListing(int listingId) {
-        listingRepository.deleteById(listingId);
-    }
-    
- //  구매 처리 (매수자가 매물을 구매할 때 실행)
-    @Override
-    @Transactional
-    public boolean processPurchase(SecuritiesAccountDTO buyer, Listing listing, int quantity) {
-        int totalCost = listing.getPrice() * quantity;
-        
-        if(buyer.getAccountId().equals(listing.getSeller().getAccountId())){
-            throw new IllegalArgumentException("자기 자신의 매물을 구매할 수 없습니다.");
-        }
+	// 🔹 특정 주식 ID의 매물 조회
+	@Override
+	public List<Listing> getListingsByStockId(int stockId) {
+		return listingRepository.findByStock_StockId(stockId);
+	}
 
-        // 1️ 예수금 확인
-        if (buyer.getBalance() < totalCost) {
-            throw new IllegalArgumentException("❌ 잔액이 부족합니다.");
-        }
+	// 🔹 전체 매물 조회
+	@Override
+	public List<Listing> getAllListings() {
+		return listingRepository.findAll();
+	}
 
-        // 2️ 예수금 차감 & 판매자에게 금액 지급
-        buyer.setBalance(buyer.getBalance() - totalCost);
-        listing.getSeller().setBalance(listing.getSeller().getBalance() + totalCost);
+	// 🔹 특정 매물 조회
+	@Override
+	public Optional<Listing> getListingById(int listingId) {
+		return listingRepository.findById(listingId);
+	}
 
-        // 3️ 구매자 주식 추가
-        // 기존의 업데이트 쿼리 사용 후, 영향받은 행 수 확인
-        int updateCount = stockHoldingRepository.addStockToAccount(buyer.getAccountId(), listing.getStock().getStockId(), quantity);
-        if (updateCount == 0) {
-            // 기존 보유 기록이 없으므로, 새로운 StockHolding 엔티티를 생성하여 저장
-            StockHolding newHolding = new StockHolding();
-            newHolding.setHolder(buyer);
-            newHolding.setStock(listing.getStock());
-            newHolding.setQuantity(quantity);
-            stockHoldingRepository.save(newHolding);
-        }
+	// 🔹 매물 삭제
+	@Override
+	public void deleteListing(int listingId) {
+		listingRepository.deleteById(listingId);
+	}
 
-        // 4️ 판매자의 주식 감소
-        stockHoldingRepository.reduceStockFromAccount(listing.getSeller().getAccountId(), listing.getStock().getStockId(), quantity);
+	// 🔹 매물 구매 처리
+	@Override
+	@Transactional
+	public boolean processPurchase(SecuritiesAccountDTO buyer, Listing listing, int quantity) {
+		int totalCost = listing.getPrice() * quantity;
 
-        // 5️ 거래 내역 저장
-        StockTransaction transaction = new StockTransaction();
-        transaction.setBuyer(buyer);
-        transaction.setSeller(listing.getSeller());
-        transaction.setStock(listing.getStock());
-        transaction.setQuantity(quantity);
-        transaction.setPrice(listing.getPrice());
+		if (buyer.getAccountId().equals(listing.getSeller().getAccountId())) {
+			throw new IllegalArgumentException("자기 자신의 매물을 구매할 수 없습니다.");
+		}
 
-        stockTransactionRepository.save(transaction);
+		// 🔸 예수금 확인
+		if (buyer.getBalance() < totalCost) {
+			throw new IllegalArgumentException("잔액이 부족합니다.");
+		}
 
-        // 6️ 매물 업데이트 (부분 체결 or 삭제)
-        if (listing.getQuantity() == quantity) {
-            listingRepository.deleteById(listing.getId()); // 전량 체결 시 삭제
-        } else {
-            listing.setQuantity(listing.getQuantity() - quantity); // 부분 체결 시 남은 수량 업데이트
-            listingRepository.save(listing);
-        }
+		// 🔸 잔액 차감 & 판매자 금액 추가
+		buyer.setBalance(buyer.getBalance() - totalCost);
+		listing.getSeller().setBalance(listing.getSeller().getBalance() + totalCost);
 
-        return true;
-    }
+		// 🔸 구매자 주식 추가
+		StockHolding buyerHolding = stockHoldingRepository.findBySecuritiesAccountIdAndStockId(
+				buyer.getAccountId(), listing.getStock().getStockId()).orElse(null);
+
+		if (buyerHolding == null) {
+			buyerHolding = new StockHolding();
+			buyerHolding.setHolder(buyer);
+			buyerHolding.setStock(listing.getStock());
+			buyerHolding.setQuantity(quantity);
+			stockHoldingRepository.save(buyerHolding);
+		} else {
+			buyerHolding.setQuantity(buyerHolding.getQuantity() + quantity);
+			stockHoldingRepository.save(buyerHolding);
+		}
+
+		//  판매자의 주식 감소
+		stockHoldingRepository.reduceStockFromAccount(listing.getSeller().getAccountId(), listing.getStock().getStockId(), quantity);
+
+		// 거래 내역 저장 (StockTransaction)
+		StockTransaction transaction = new StockTransaction();
+		transaction.setBuyer(buyer);
+		transaction.setSeller(listing.getSeller());
+		transaction.setStock(listing.getStock());
+		transaction.setQuantity(quantity);
+		transaction.setPrice(listing.getPrice());
+		stockTransactionRepository.save(transaction);
+
+		// 최신 가격 반영 (StockDTO.currentPrice 업데이트)
+		stockService.updateStockCurrentPrice(listing.getStock()); 
+
+
+		//  매물 업데이트
+		if (listing.getQuantity() == quantity) {
+			listingRepository.deleteById(listing.getId());
+		} else {
+			listing.setQuantity(listing.getQuantity() - quantity);
+			listingRepository.save(listing);
+		}
+
+		return true;
+	}
+
+	@Override //listing+stockholding의 총 주식보유량
+	public int getTotalListedQuantity(Long sellerAccountId, int stockId) {
+		return listingRepository.getTotalListedQuantity(sellerAccountId, stockId);
+	}
+
+	@Override
+	@Transactional
+	public void cancelListing(Listing listing) {
+		//  매물 삭제 
+		listingRepository.delete(listing);
+	}
+
 
 }
