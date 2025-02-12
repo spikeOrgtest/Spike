@@ -45,28 +45,39 @@ public class CheatController {
 	
 	// 신고 저장
 	@PostMapping("/cheat")
-	public void cheatreview(CheatReportDTO cr, String detailValue, String content, HttpServletResponse response) throws Exception {
+	public void cheatreview(CheatReportDTO cr, String detailValue, String content, HttpServletResponse response, HttpSession session) throws Exception {
 		response.setContentType("text/html; charset=UTF-8");
 		PrintWriter out = response.getWriter();
+		UserDTO User = (UserDTO) session.getAttribute("User");
+		UserDTO owner = null;
 		
 		List<AccountDTO> list = this.accountService.findbyAccountInfo(detailValue);
 		
 		if(!list.isEmpty()) {
 			for(AccountDTO account : list) {
+				owner = account.getOwner();
+				if(User == owner) {
 				cr.setAccountId(account);
+				cr.setReportValue(detailValue);
+				cr.setContent(content);
+				cr.setReportType("Account");
+				cr.setStatus("pending "); // 디폴트값으로 미결정
+				
+				this.cheatservice.saveContent(cr);
+				
+				out.println("<script>");
+				out.println("alert('신고 접수 완료했습니다.');");
+				out.println("window.location.href='/spike.com/support/cheat'");
+				out.println("</script>");
+				break;
+				} else {
+					out.println("<script>");
+					out.println("alert('본인의 계좌는 신고할 수 없습니다.');");
+					out.println("window.location.href='/spike.com/support/cheat'");
+					out.println("</script>");
+					break;
+				}
 			}
-
-			cr.setReportValue(detailValue);
-			cr.setContent(content);
-			cr.setReportType("Account");
-			cr.setStatus("pending "); // 디폴트값으로 미결정
-
-			this.cheatservice.saveContent(cr);
-
-			out.println("<script>");
-			out.println("alert('신고 접수 완료했습니다.');");
-			out.println("window.location.href='/spike.com/support/cheat'");
-			out.println("</script>");
 		}
 		
 		out.println("<script>");
