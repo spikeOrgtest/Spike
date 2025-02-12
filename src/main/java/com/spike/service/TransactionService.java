@@ -17,7 +17,7 @@ public interface TransactionService {
 
 	void transfer(TransferDTO tData);
 	
-	void interTypeTransfer();
+	void interTypeTransfer(String fromAccNum, String toAccNum);
 
 	String getOwnerStatus(String toAccount);
 

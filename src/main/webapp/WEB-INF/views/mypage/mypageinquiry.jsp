@@ -40,8 +40,8 @@
 						<div class="collapse show" id="home-collapse">
 							<ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
 								<li><a
-									href="javascript:location='/spike.com/mypage/mypageEdit';"
-									class="link-dark rounded">회원정보수정</a></li>
+									href="javascript:location='/spike.com/mypage/main';"
+									class="link-dark rounded">메인</a></li>
 								<li><a
 									href="javascript:location='/spike.com/mypage/inquiry';"
 									class="link-dark rounded">나의 계좌</a></li>
@@ -226,8 +226,7 @@
 												name="account_number" value="" />
 											<button type="reset" class="btn btn-secondary"
 												data-bs-dismiss="modal">취소</button>
-											<button type="submit" class="btn btn-secondary"
-												id="saveLimitBtn" onclick="removeCommas()">저장</button>
+											<button type="submit" class="btn btn-secondary" id="saveLimitBtn" onclick="changeLimit(event)">저장</button>
 										</form>
 									</div>
 								</div>
