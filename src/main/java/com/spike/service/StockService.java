@@ -19,6 +19,9 @@ public interface StockService {
 	//거래후 주식의 현재가 갱신 메소드
 	public void updateStockCurrentPrice(StockDTO stock);
 	
+	// 오버로딩: 새로운 가격을 받아 현재가를 갱신하는 메서드
+    public void updateStockCurrentPrice(StockDTO stock, int newPrice);
+	
 	// 주식 이름을 기준으로 검색하는 메서드 추가 (대소문자 무시)
     List<StockDTO> searchStocksByName(String query);
 
