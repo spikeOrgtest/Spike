@@ -19,6 +19,7 @@ import com.spike.dto.TransferDTO;
 import com.spike.dto.TransferHistoryDTO;
 import com.spike.dto.UserDTO;
 import com.spike.repository.AccountRepository;
+import com.spike.repository.SecuritiesAccountRepository;
 import com.spike.repository.TransactionRepository;
 import com.spike.repository.UserRepository;
 
@@ -27,6 +28,9 @@ public class TransactionServiceImpl implements TransactionService {
 
 	@Autowired
 	private AccountRepository accountRepo;
+	
+	@Autowired
+	private SecuritiesAccountRepository security;
 
 	@Autowired
 	private TransactionRepository transactionRepo;
