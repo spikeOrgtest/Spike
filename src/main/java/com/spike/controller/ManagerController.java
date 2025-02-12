@@ -162,7 +162,7 @@ public class ManagerController {
 
 		out.println("<script>");
 		out.println("alert('수정 완료했습니다.');");
-		out.println("window.location.href = '/spike.com/userManagement';");
+		out.println("window.location.href = '/spike.com/admin/userManagement';");
 		out.println("</script>");
 
 	}
