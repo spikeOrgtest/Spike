@@ -59,7 +59,7 @@
 			</table>
 		</section>
 
-		<!-- 거래 내역 -->
+		<!--  거래 내역 테이블 -->
 		<section class="transaction-history">
 			<h3>거래 내역</h3>
 			<table>
@@ -81,11 +81,11 @@
 							<td><c:choose>
 									<c:when
 										test="${transaction.buyer.accountId == currentAccountId}">
-                    구매
-                  </c:when>
+                                구매
+                            </c:when>
 									<c:otherwise>
-                    판매
-                  </c:otherwise>
+                                판매
+                            </c:otherwise>
 								</c:choose></td>
 							<td>${transaction.quantity}주</td>
 							<td>${transaction.price}원</td>
@@ -93,7 +93,24 @@
 					</c:forEach>
 				</tbody>
 			</table>
+
+			<!--  페이징 버튼 -->
+			<div class="pagination">
+				<c:if test="${currentPage > 0}">
+					<a href="?page=${currentPage - 1}&size=10">이전</a>
+				</c:if>
+
+				<c:forEach var="i" begin="0" end="${totalPages - 1}">
+					<a href="?page=${i}&size=10"
+						class="${currentPage == i ? 'active' : ''}">${i + 1}</a>
+				</c:forEach>
+
+				<c:if test="${currentPage + 1 < totalPages}">
+					<a href="?page=${currentPage + 1}&size=10">다음</a>
+				</c:if>
+			</div>
 		</section>
+
 
 	</div>
 	<jsp:include page="../include/footer.jsp" />

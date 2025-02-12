@@ -1,6 +1,9 @@
 package com.spike.repository;
 
 import com.spike.dto.StockTransaction;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -18,5 +21,9 @@ public interface StockTransactionRepository extends JpaRepository<StockTransacti
 	// 판매, 구매 내역으로 거래 내역 조회 (JPQL로 작성하여 ANSI 조인 사용)
 	@Query("SELECT st FROM StockTransaction st WHERE st.buyer.accountId = :accountId OR st.seller.accountId = :accountId")
 	List<StockTransaction> findTransactionsByAccountId(@Param("accountId") Long accountId);
+
+	//  페이징 및 최신순 정렬을 지원하는 거래 내역 조회
+	@Query("SELECT st FROM StockTransaction st WHERE st.buyer.accountId = :accountId OR st.seller.accountId = :accountId")
+	Page<StockTransaction> findTransactionsByAccountId(@Param("accountId") Long accountId, Pageable pageable);
 
 }
