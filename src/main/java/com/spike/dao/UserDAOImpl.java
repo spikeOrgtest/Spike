@@ -18,6 +18,7 @@ import com.spike.dto.NotiPageDTO;
 import com.spike.dto.NoticeDTO;
 import com.spike.dto.UserDTO;
 import com.spike.repository.AccountRepository;
+import com.spike.repository.CheatReportRepository;
 import com.spike.repository.LoginHistoryRepository;
 import com.spike.repository.QuizResultRepository;
 import com.spike.repository.UserRepository;
@@ -38,6 +39,9 @@ public class UserDAOImpl implements UserDAO {
 	private LoginHistoryRepository loginhistoryRepo;
 
 	private Object sqlSession;
+	
+	@Autowired
+	private CheatReportRepository cheatRepo;
 
 	@Override
 	public void insetMember(UserDTO s) {
@@ -155,6 +159,9 @@ public class UserDAOImpl implements UserDAO {
 
 	@Override
 	public void AccountDelete(Long UserId) {
+		AccountDTO account = accountRepo.getAccountId(UserId);
+		Long accountId = account.getAccountId();
+		cheatRepo.CheatDelete(accountId);
 		this.spikeRepo.AccountDelete(UserId);
 	}
 	

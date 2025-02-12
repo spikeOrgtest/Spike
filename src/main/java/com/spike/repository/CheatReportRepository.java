@@ -23,4 +23,9 @@ public interface CheatReportRepository extends JpaRepository<CheatReportDTO, Lon
 	@Query("update CheatReportDTO c set c.status=?1 where c.reportId=?2")
 	void updateStatus(String status, Long reportId);
 
+	@Modifying
+	@Transactional
+	@Query("delete from CheatReportDTO c where c.accountId.accountId=?1")
+	void CheatDelete(Long accountId);
+
 }
