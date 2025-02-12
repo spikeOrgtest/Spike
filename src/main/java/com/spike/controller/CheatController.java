@@ -56,7 +56,7 @@ public class CheatController {
 		if(!list.isEmpty()) {
 			for(AccountDTO account : list) {
 				owner = account.getOwner();
-				if(User == owner) {
+				if(User.getUserId() != owner.getUserId()) {
 				cr.setAccountId(account);
 				cr.setReportValue(detailValue);
 				cr.setContent(content);
