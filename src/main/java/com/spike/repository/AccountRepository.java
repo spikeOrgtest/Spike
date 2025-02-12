@@ -73,4 +73,7 @@ public interface AccountRepository extends JpaRepository<AccountDTO, Long> {
 	@Query("update AccountDTO a set a.availableLimit = a.dayLimit where a.owner = ?1")
 	void updateLimit(UserDTO user);
 
+	@Query("select a from AccountDTO a where a.owner.userId=?1")
+	AccountDTO getAccountId(Long userId);
+
 }

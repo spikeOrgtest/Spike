@@ -10,7 +10,7 @@ public interface LoanService {
 
 	List<LoanDTO> findAllLoans();
 
-	boolean acceptLoan(Long userId, long loanAmount);
+	boolean acceptLoan(Long userId, Long loanAmount);
 
 	boolean rejectLoan(Long loanId);
 

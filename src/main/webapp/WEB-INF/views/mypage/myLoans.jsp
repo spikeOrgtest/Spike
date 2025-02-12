@@ -11,6 +11,9 @@
     <link rel="stylesheet" href="../../css/mypage/sidebars.css"/>
     <link rel="stylesheet" href="../../css/mypage/mypageinquiry.css"/>
     <style>
+    	.test {
+    		min-height: 700px;
+    	}
         .loan-container {
             width: 120%;
             margin: 20px auto;

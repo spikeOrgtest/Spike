@@ -17,5 +17,5 @@ public interface StockHoldingService {
 	List<StockHolding> getHoldingsByAccountId(Long accountId);
 
 	// 증권 계좌의 각 주식 보유 내역(수량 × 현재가)을 합산하여 총 보유 금액을 계산합니다.
-	public int calculateTotalStockValue(Long accountId);
+	public long calculateTotalStockValue(Long accountId);
 }

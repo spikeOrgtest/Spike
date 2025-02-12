@@ -139,7 +139,7 @@ public class LoanController {
 	// 대출 수락 처리
 	@PostMapping("/admin/acceptLoan")
     public void acceptLoan(@RequestParam("userId") Long userId,
-                          @RequestParam("loanAmount") long loanAmount,
+                          @RequestParam("loanAmount") Long loanAmount,
                           @RequestParam("loanId") Long loanId,
                           HttpServletResponse response) throws IOException {
         response.setContentType("text/html; charset=UTF-8");
