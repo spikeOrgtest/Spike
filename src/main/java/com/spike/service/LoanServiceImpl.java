@@ -16,7 +16,6 @@ import com.spike.repository.UserRepository;
 
 
 @Service
-
 public class LoanServiceImpl implements LoanService {
 
 	@Autowired
@@ -91,12 +90,14 @@ public class LoanServiceImpl implements LoanService {
                              ", 번호: " + targetAccount.getAccountNumber() + 
                              ", 현재 잔액: " + targetAccount.getBalance());
 
-            // 대출 계좌의 이자율 설정
+            // 대출 계좌 설정
             targetAccount.setAccountType("대출");
             targetAccount.setInterestRate(5.0); // 대출 기본금리 5%
             targetAccount.setBonusRate(2.0);    // 우대금리 2%
             targetAccount.setStartDate(java.sql.Date.valueOf(LocalDate.now()));
             targetAccount.calculateTotalRate(); // 총 이자율 계산
+            targetAccount.setLoanPrincipal(loanAmount); // 대출 원금 설정
+            targetAccount.setInterestAmount(0L);        // 초기 이자액 0으로 설정
             accountService.updateAccount(targetAccount);
 
             // 계좌 잔액 업데이트
@@ -109,9 +110,7 @@ public class LoanServiceImpl implements LoanService {
             // 대출 상태 업데이트 시 정확한 문자열 사용
             loan.setLoanState("완료");  // 이 부분이 정확히 "완료"로 설정되는지 확인
             loan.setLoanAmount(loanAmount);
-            if (loan.getRemainingAmount() == null) {
-                loan.setRemainingAmount(loanAmount);
-            }
+            loan.setRemainingAmount(loanAmount); // 남은 상환금액을 대출금액으로 설정
             loanRepository.save(loan);
 
             // 디버깅용 로그 추가
@@ -156,28 +155,34 @@ public class LoanServiceImpl implements LoanService {
             AccountDTO targetAccount = loan.getTargetAccount();
             AccountDTO repaymentAccount = loan.getRepaymentAccount();
 
-            // 이자 계산 먼저 실행
+            // 이자 계산 실행
             accountService.calculateDailyLoanInterest(targetAccount);
             
-            // 이자 계산 후의 총 상환 금액을 대출 잔액에 반영
-            loan.setRemainingAmount(targetAccount.getBalance());
-
+            // 현재 이자 금액 계산
+            Long currentInterest = targetAccount.getInterestAmount();
+            
             if (repaymentAccount.getBalance() < amount) {
                 throw new RuntimeException("상환계좌의 잔액이 부족합니다.");
             }
+
+            // 상환금액을 이자와 원금에 배분
+            Long interestPayment = Math.min(currentInterest, amount);
+            Long principalPayment = amount - interestPayment;
 
             // 상환계좌에서 금액 차감
             repaymentAccount.setBalance(repaymentAccount.getBalance() - amount);
             accountService.updateAccount(repaymentAccount);
 
-            // 대출계좌 잔액 업데이트
-            targetAccount.setBalance(targetAccount.getBalance() - amount);
+            // 대출 계좌 업데이트
+            targetAccount.setInterestAmount(currentInterest - interestPayment);
+            targetAccount.setLoanPrincipal(targetAccount.getLoanPrincipal() - principalPayment);
             accountService.updateAccount(targetAccount);
 
-            // 남은 상환금액 업데이트
-            loan.setRemainingAmount(loan.getRemainingAmount() - amount);
+            // 남은 상환금액 업데이트 (원금 + 이자)
+            loan.setRemainingAmount(targetAccount.getLoanPrincipal());
+            loan.setRemainingInterest(targetAccount.getInterestAmount());
             
-            if (loan.getRemainingAmount() <= 0) {
+            if (targetAccount.getLoanPrincipal() <= 0 && targetAccount.getInterestAmount() <= 0) {
                 loan.setLoanState("상환완료");
                 targetAccount.setAccountType("일반");
                 accountService.updateAccount(targetAccount);
@@ -186,9 +191,13 @@ public class LoanServiceImpl implements LoanService {
             loanRepository.save(loan);
             
             System.out.println("상환 처리 완료:");
-            System.out.println("이자 포함 총 잔액: " + targetAccount.getBalance());
+            System.out.println("원금: " + targetAccount.getLoanPrincipal());
+            System.out.println("현재 이자: " + targetAccount.getInterestAmount());
             System.out.println("상환 금액: " + amount);
-            System.out.println("남은 상환금액: " + loan.getRemainingAmount());
+            System.out.println("이자 상환액: " + interestPayment);
+            System.out.println("원금 상환액: " + principalPayment);
+            System.out.println("남은 원금: " + loan.getRemainingAmount());
+            System.out.println("남은 이자: " + loan.getRemainingInterest());
             
             return true;
         } catch (Exception e) {

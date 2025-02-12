@@ -189,27 +189,7 @@ public class ManagerController {
 			out.println("</script>");
 		}
 	}
-	/* 2/12 매핑주소 충돌 -> 임시 주석처리.
-	@GetMapping("/loanManagement")
-	public ModelAndView loanManagement() {
-		List<LoanDTO> loanList = this.loanService.findAllLoans();
-		ModelAndView um = new ModelAndView("manager/loanManagement");
-		um.addObject("loanList", loanList);
-		return um;
-	}
 	
-	@GetMapping("/loanState")
-	public ModelAndView loanState(@RequestParam("userId") Long UserId) {
-
-		List<UserDTO> list = this.userService.findByUserIdEdit(UserId);
-
-
-		ModelAndView em = new ModelAndView("manager/loanState");
-		em.addObject("list", list);
-
-		return em;
-	}
-	*/
 	@GetMapping("/accountManagement")
 	public ModelAndView accountmanagement(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "5") int size) {
 		

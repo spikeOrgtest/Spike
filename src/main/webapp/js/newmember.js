@@ -65,15 +65,9 @@ document.getElementById('account_type').addEventListener('change', function() {
 
 	if (selectedType === '입출금계좌') {
 		options = [
-			{ value: 'spike_savings', text: 'SPIKE 입출금계좌' },
+			{ value: 'SPIKE 입출금계좌', text: 'SPIKE 입출금계좌' },
 		];
 		titleElement.textContent = 'SPIKE 입출금계좌';
-	} else if (selectedType === '투자계좌') {
-		options = [
-			{ value: 'spike_installment', text: '주식' },
-			{ value: 'regular_installment', text: '가상화폐' }
-		];
-		titleElement.textContent = '투자계좌';
 	}
 
 	// 옵션 추가

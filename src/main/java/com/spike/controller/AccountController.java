@@ -2,7 +2,7 @@ package com.spike.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.time.LocalDateTime;
+import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -11,7 +11,6 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -120,29 +119,72 @@ public class AccountController {
 	}
 
 	@PostMapping("/account_ok")
-	public ModelAndView account_ok(AccountDTO s, HttpServletRequest request, BindingResult result,
-			HttpSession session) {
-		UserDTO sessionUser = (UserDTO) session.getAttribute("User");
-		s.setOwner(sessionUser);
-		s.setBalance(1000000L);
-		s.setDayLimit(1000000L);
-		s.setOneLimit(100000L);
-		s.setAvailableLimit(1000000L);
-		s.setAccountPassword(passwordEncoder.encode(s.getAccountPassword()));
+	public void account_ok(AccountDTO s, HttpSession session, HttpServletResponse response) throws IOException {
+	    response.setContentType("text/html; charset=UTF-8");
+	    PrintWriter out = response.getWriter();
+	    
+	    try {
+	        // 세션 체크
+	        UserDTO sessionUser = (UserDTO) session.getAttribute("User");
+	        if (sessionUser == null) {
+	            out.println("<script>");
+	            out.println("alert('로그인이 필요한 서비스입니다.');");
+	            out.println("location.href='/spike.com/login';");
+	            out.println("</script>");
+	            return;
+	        }
 
-		// 이자 관련 정보 추가
-		s.setStartDate(LocalDateTime.now());
-		s.setLastInterestDate(LocalDateTime.now());
+	        // 비밀번호 유효성 검사
+	        String rawPassword = s.getAccountPassword();
+	        if (rawPassword == null || rawPassword.trim().isEmpty()) {
+	            out.println("<script>");
+	            out.println("alert('비밀번호를 입력해주세요.');");
+	            out.println("history.back();");
+	            out.println("</script>");
+	            return;
+	        }
 
-		// 계좌 유형에 따른 이자율 설정
-		if ("예금".equals(s.getAccountType())) {
-			s.setInterestRate(3.5); // 예금 기본 이자율
-		} else if ("적금".equals(s.getAccountType())) {
-			s.setInterestRate(4.0); // 적금 기본 이자율
-		}
+	        if (!rawPassword.matches("\\d{6}")) {
+	            out.println("<script>");
+	            out.println("alert('비밀번호는 6자리 숫자여야 합니다.');");
+	            out.println("history.back();");
+	            out.println("</script>");
+	            return;
+	        }
 
-		this.accountService.createAccount(s);
-		return new ModelAndView("redirect:/spike.com/mypage/inquiry");
+	        // 계좌 정보 설정
+	        s.setOwner(sessionUser);
+	        s.setBalance(1000000L);
+	        s.setDayLimit(1000000L);
+	        s.setOneLimit(100000L);
+	        s.setAvailableLimit(1000000L);
+	        s.setAccountPassword(passwordEncoder.encode(rawPassword));
+
+	        // 이자 관련 정보 추가
+	        Date now = new Date();
+	        s.setStartDate(now);
+	        s.setLastInterestDate(now);
+
+	        // 계좌 유형에 따른 이자율 설정
+	        if ("예금".equals(s.getAccountType())) {
+	            s.setInterestRate(3.5);
+	        } else if ("적금".equals(s.getAccountType())) {
+	            s.setInterestRate(4.0);
+	        }
+
+	        this.accountService.createAccount(s);
+	        
+	        out.println("<script>");
+	        out.println("alert('계좌가 성공적으로 개설되었습니다.');");
+	        out.println("location.href='/spike.com/mypage/inquiry';");
+	        out.println("</script>");
+	        
+	    } catch (Exception e) {
+	        out.println("<script>");
+	        out.println("alert('계좌 개설 중 오류가 발생했습니다: " + e.getMessage() + "');");
+	        out.println("history.back();");
+	        out.println("</script>");
+	    }
 	}
 
 	@PostMapping("/createAccount")
@@ -156,8 +198,9 @@ public class AccountController {
 			s.setAccountPassword(passwordEncoder.encode(s.getAccountPassword()));
 
 			// 이자 관련 정보 추가
-			s.setStartDate(LocalDateTime.now());  // 계좌 생성시 시작일 설정
-			s.setLastInterestDate(LocalDateTime.now());  // 마지막 이자 계산일 설정
+			Date now = new Date();
+			s.setStartDate(now);
+			s.setLastInterestDate(now);
 
 			// 계좌 유형에 따른 이자율 설정
 			if ("예금".equals(s.getAccountType())) {

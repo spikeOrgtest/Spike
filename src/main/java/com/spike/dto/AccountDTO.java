@@ -1,9 +1,6 @@
 package com.spike.dto;
 
 import java.util.Date;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -23,6 +20,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Data
+@Getter
+@Setter
 @Entity
 @SequenceGenerator(name = "account_seq_generator", sequenceName = "account_no_seq", initialValue = 1, allocationSize = 1)
 
@@ -55,7 +54,7 @@ public class AccountDTO {
 	private Long balance; // 잔액 필드
 
 	@CreationTimestamp
-	@Column(columnDefinition = "TIMESTAMP DEFAULT SYSDATE")
+	@Column(name = "created_date")
 	private Date createdDate;
 
 	@Column(name = "interest_rate")
@@ -67,14 +66,18 @@ public class AccountDTO {
 	@Column(name = "total_rate")
 	private Double totalRate; // 총 금리 (기본금리 + 우대금리)
 
-	@Column(name = "last_interest_date", columnDefinition = "TIMESTAMP")
+	@Column(name = "last_interest_date")
 	private Date lastInterestDate; // 마지막 이자 계산일
 
-	@Column(name = "start_date", columnDefinition = "TIMESTAMP")
+	@Column(name = "start_date")
 	private Date startDate;
 
 	@Column(name = "account_state")
 	private String accountState = "ACTIVE"; // 기본값 설정
+
+	private Long interestAmount; // 발생한 이자 금액
+
+	private Long loanPrincipal; // 대출 원금 (대출 계좌인 경우)
 
 	@PrePersist // DB 저장 전
 	public void prePersist() {
