@@ -194,4 +194,8 @@ public class TransactionServiceImpl implements TransactionService {
 		return this.transactionRepo.getTransactionsByUserId(userId);
 	}
 
+	@Override
+	public void interTypeTransfer() {
+	}
+
 }

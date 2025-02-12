@@ -20,7 +20,7 @@ public class InterestScheduler {
 
     private static final Logger log = LoggerFactory.getLogger(InterestScheduler.class);
 
-    @Scheduled(cron = "0 * * * * *")
+    @Scheduled(cron = "0 0 * * * *")
     public void calculateInterest() {
         log.info("이자 계산 시작: " + new Date());
 
