@@ -19,6 +19,7 @@
 	<div class="button-container">
 		<!-- 증권 계좌 관리 버튼 -->
 		<a href="/spike.com/securities-account/manage" class="open-account-button">증권 계좌 관리하기</a>
+		<a href="/spike.com/securities-account/withdraw" class="open-account-button">내 계좌로 출금하기</a>
 	</div>
 	<div class="button-container">
 		<!-- 내 자산 확인하기 버튼 -->

@@ -1,10 +1,12 @@
 package com.spike.controller;
 
 import com.spike.repository.UserRepository;
+import com.spike.dto.AccountDTO;
 import com.spike.dto.SecuritiesAccountDTO;
 import com.spike.dto.StockHolding;
 import com.spike.dto.StockTransaction;
 import com.spike.dto.UserDTO;
+import com.spike.service.AccountService;
 import com.spike.service.SecuritiesAccountService;
 import com.spike.service.StockHoldingService;
 import com.spike.service.StockTransactionService;
@@ -14,10 +16,13 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.security.Principal;
 import java.util.List;
+
+import javax.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/spike.com/securities-account")
@@ -25,6 +30,9 @@ public class SecuritiesAccountController {
 
 	@Autowired
 	private SecuritiesAccountService accountService;
+	//컨트롤러->서비스->리포지토리 구조가 정석임. userRepo 대신 userService 의존성 주입했어야 함
+	@Autowired
+	private AccountService accService;
 
 	@Autowired
 	private UserRepository userRepo;
@@ -40,13 +48,20 @@ public class SecuritiesAccountController {
 
 
 	@GetMapping("/open")
-	public String showOpenAccountPage(Principal principal, Model model) {
+	public String showOpenAccountPage(Principal principal, Model model, HttpSession session) {
 
 		if (principal == null) {
 			model.addAttribute("errorMessage", "로그인이 필요합니다."); // 오류 메시지 추가
 			return "redirect:/spike.com/login"; //로그인 페이지로 리다이렉트
 		}
 
+		//세션에서 유저 정보 가져옴(이게 우리가 시큐리티 대신 사용하는 방식), 세션에서 getAttribute로 가져온 객체는 Object 타입이므로 UserDTO로 다운캐스팅
+		UserDTO user = (UserDTO)session.getAttribute("User");
+		//UserDTO를 매개변수로 모든 계좌 목록을 가져오는 메서드, 계좌 없으면 빈 리스트 반환(null 아님)
+		List<AccountDTO> accList = this.accService.getActiveAccountsForUser(user);
+		//모델에 계좌 목록을 담아서 뷰페이지로 전달할것
+		model.addAttribute("accList", accList);
+		
 		return "investment/open_securitiesaccount"; // 정상적으로 폼을 포함한 페이지 반환!!!!
 	}
 
@@ -56,7 +71,8 @@ public class SecuritiesAccountController {
 			@RequestParam("currency") String currency,
 			@RequestParam("accountPassword") String accountPassword,
 			Principal principal,
-			Model model
+			Model model,
+			String selectedAccountNumber //폼에서 전달된 출금계좌번호
 			) {
 		try {
 			//로그인 여부 확인!!!!
@@ -74,7 +90,14 @@ public class SecuritiesAccountController {
 			accountDTO.setUser(user);
 			accountDTO.setCurrency(currency);
 			accountDTO.setBalance(initialDeposit);
+			
+			System.out.println("\n========================\n" + selectedAccountNumber);
 
+			//출금 계좌에서 금액 차감 (계좌 타입이 달라서 transfer 불가능, 원래 이런 식으로 하면 안 됨)
+			AccountDTO fromAccount = this.accService.findByAccount(selectedAccountNumber);
+			fromAccount.setBalance(fromAccount.getBalance() - initialDeposit);
+			this.accService.saveAccount(fromAccount);
+			
 			// 비밀번호 검증 + 암호화 후 설정!!!!
 			accountDTO.validateAndSetAccountPassword(accountPassword, passwordEncoder);
 
@@ -226,7 +249,20 @@ public class SecuritiesAccountController {
         return "investment/my_assets"; // 뷰 이름 (예: /WEB-INF/views/investment/my_assets.jsp)
     }
 
-
+    //내 계좌로 출금
+    @GetMapping("/withdraw")
+    public ModelAndView withdraw(HttpSession session) {
+    	
+    	ModelAndView mv = new ModelAndView("investment/withdraw");
+    	UserDTO user = (UserDTO)session.getAttribute("User");
+        SecuritiesAccountDTO securitiesAccount = accountService.getAccountByUser(user);
+    	List<AccountDTO> accList = this.accService.getActiveAccountsForUser(user);
+    	
+    	mv.addObject("accList", accList);
+    	mv.addObject("securitiesAccount", securitiesAccount);
+    	
+    	return mv;
+    }
 
 
 

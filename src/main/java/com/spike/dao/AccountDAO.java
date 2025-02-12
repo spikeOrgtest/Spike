@@ -35,4 +35,6 @@ public interface AccountDAO {
 
 	void updateLimit(UserDTO user);
 
+	void saveAccount(AccountDTO fromAccount);
+
 }

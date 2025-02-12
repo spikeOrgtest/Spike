@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -9,6 +10,19 @@
     <title>증권 계좌 생성</title>
     <link href="/css/investment/open_securitiesaccount.css" rel="stylesheet">
     <script>
+ // 계좌 선택 시 잔액 표시
+    	function updateBalance() {
+        	const selectedAccount = document.getElementById("accountSelect");
+        	const balanceDisplay = document.getElementById("balanceDisplay");
+        	const accountNumberInput = document.getElementById("selectedAccountNumber");
+
+        	const selectedOption = selectedAccount.options[selectedAccount.selectedIndex];
+        	const balance = parseInt(selectedOption.getAttribute("data-balance"), 10);
+        	const accountNumber = selectedOption.value;
+        	
+        	balanceDisplay.textContent = "잔액: "+balance+" 원";
+        	accountNumberInput.value = accountNumber;
+   		 }    
         // 비밀번호와 확인 비밀번호 검증
         function validatePassword() {
             const password = document.getElementById("accountPassword").value;
@@ -43,6 +57,20 @@
             <!-- 로그인된 사용자 ID는 숨겨진 필드로 전송 -->
             <input type="hidden" id="userId" name="userId" value="${loggedInUserId}">
 
+			<!-- 기존 계좌 선택 -->
+            <label for="accountSelect">이체할 계좌 선택:</label>
+            <select id="accountSelect" name="sourceAccountId" onchange="updateBalance()" required>
+                <option value="">계좌를 선택하세요</option>
+                <c:forEach var="account" items="${accList}">
+                    <option value="${account.accountNumber}" data-balance="${account.balance}">
+                        ${account.accountNumber} (잔액: <fmt:formatNumber value="${account.balance}" type="number"/> 원) <%--  --%>
+                    </option>
+                </c:forEach>
+            </select>
+
+            <!-- 계좌 잔액 표시 -->
+            <div id="balanceDisplay">잔액: - 원</div>
+
             <!-- 초기 입금액 -->
             <label for="initialDeposit">초기 입금액:</label>
             <input type="number" id="initialDeposit" name="initialDeposit" step="0.01" required>
@@ -60,7 +88,8 @@
             <!-- 비밀번호 확인 -->
             <label for="confirmAccountPassword">비밀번호 확인:</label>
             <input type="password" id="confirmAccountPassword" maxlength="6" required>
-
+			<%-- 선택한 계좌의 계좌번호 hidden input으로 전송(컨트롤러 메서드의 매개변수로 전달됨, name= "" 이 이름으로 매개변수를 지정해야 바인딩 됨, 노션 참고) --%>
+			<input type="hidden" id="selectedAccountNumber" name="selectedAccountNumber">
             <!-- 제출 버튼 -->
             <button type="submit">계좌 생성</button>
             

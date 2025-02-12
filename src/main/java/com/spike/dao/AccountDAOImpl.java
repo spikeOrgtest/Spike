@@ -102,5 +102,10 @@ public class AccountDAOImpl implements AccountDAO {
 		this.accountrepo.updateAccountState(accountId, accountState);
 	}
 
+	@Override
+	public void saveAccount(AccountDTO fromAccount) {
+		this.accountrepo.save(fromAccount);
+	}
+
 }
 
