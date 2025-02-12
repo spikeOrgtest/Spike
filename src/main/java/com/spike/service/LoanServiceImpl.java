@@ -58,7 +58,7 @@ public class LoanServiceImpl implements LoanService {
 	// 대출 수락 처리
     @Transactional
     @Override
-    public boolean acceptLoan(Long userId, long loanAmount) {
+    public boolean acceptLoan(Long userId, Long loanAmount) {
         try {
             System.out.println("대출 승인 시작 - 사용자 ID: " + userId);
             
@@ -69,7 +69,6 @@ public class LoanServiceImpl implements LoanService {
             // 대기 중인 대출 찾기
             Optional<LoanDTO> waitingLoan = loans.stream()
                 .filter(loan -> {
-                    System.out.println("대출 ID: " + loan.getLoanId() + ", 상태: " + loan.getLoanState());
                     return "대기 중".equals(loan.getLoanState());
                 })
                 .findFirst();
@@ -82,7 +81,6 @@ public class LoanServiceImpl implements LoanService {
             AccountDTO targetAccount = loan.getTargetAccount();
             
             if (targetAccount == null) {
-                System.out.println("대출 ID: " + loan.getLoanId() + "의 계좌 정보가 null입니다.");
                 throw new RuntimeException("대출금을 입금할 계좌 정보를 찾을 수 없습니다.");
             }
 
@@ -98,12 +96,12 @@ public class LoanServiceImpl implements LoanService {
             targetAccount.calculateTotalRate(); // 총 이자율 계산
             targetAccount.setLoanPrincipal(loanAmount); // 대출 원금 설정
             targetAccount.setInterestAmount(0L);        // 초기 이자액 0으로 설정
-            accountService.updateAccount(targetAccount);
+            
 
             // 계좌 잔액 업데이트
             Long newBalance = targetAccount.getBalance() + loanAmount;
             targetAccount.setBalance(newBalance);
-            accountService.updateAccount(targetAccount);
+            
 
             System.out.println("계좌 잔액 업데이트 완료 - 새로운 잔액: " + newBalance);
 
@@ -111,7 +109,7 @@ public class LoanServiceImpl implements LoanService {
             loan.setLoanState("완료");  // 이 부분이 정확히 "완료"로 설정되는지 확인
             loan.setLoanAmount(loanAmount);
             loan.setRemainingAmount(loanAmount); // 남은 상환금액을 대출금액으로 설정
-            loanRepository.save(loan);
+            
 
             // 디버깅용 로그 추가
             System.out.println("대출 승인 완료 - 상태: " + loan.getLoanState());
