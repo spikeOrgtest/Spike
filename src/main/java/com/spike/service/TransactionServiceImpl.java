@@ -185,7 +185,6 @@ public class TransactionServiceImpl implements TransactionService {
 					.toAccount(transaction.getToAccount().getAccountNumber())
 					.build();
 			histories.add(history);
-			// if(histories.size() == 5) break; 페이징으로 db에서 5개만 가져와서 필요없어짐. 효율 good
 		}
 
 		return histories;
