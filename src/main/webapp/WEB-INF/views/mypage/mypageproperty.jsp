@@ -41,10 +41,15 @@
 								<li><a
 									href="javascript:location='/spike.com/mypage/main';"
 									class="link-dark rounded">메인</a></li>
-								<li><a href="javascript:location='/spike.com/mypage/inquiry';" class="link-dark rounded">나의
-										계좌</a></li>
-								<li><a href="javascript:location='/spike.com/mypage/property';" class="link-dark rounded">자산조회</a></li>
-								<li><a href="#" class="link-dark rounded">목표 금액 설정</a></li>
+								<li><a
+									href="javascript:location='/spike.com/mypage/inquiry';"
+									class="link-dark rounded">나의 계좌</a></li>
+								<li><a
+									href="javascript:location='/spike.com/mypage/property';"
+									class="link-dark rounded">자산조회</a></li>
+								<li><a
+									href="javascript:location='/spike.com/mypage/myloans';"
+									class="link-dark rounded">대출조회</a></li>
 							</ul>
 						</div>
 					</li>
