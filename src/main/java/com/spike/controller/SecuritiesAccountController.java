@@ -10,6 +10,7 @@ import com.spike.service.AccountService;
 import com.spike.service.SecuritiesAccountService;
 import com.spike.service.StockHoldingService;
 import com.spike.service.StockTransactionService;
+import com.spike.service.TransactionService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -50,6 +51,9 @@ public class SecuritiesAccountController {
 
 	@Autowired
 	private PasswordEncoder passwordEncoder;
+	
+	@Autowired
+	private TransactionService transactionService;
 
 
 	@GetMapping("/open")
@@ -274,6 +278,26 @@ public class SecuritiesAccountController {
     	mv.addObject("securitiesAccount", securitiesAccount);
     	
     	return mv;
+    }
+    
+    @PostMapping("/withdraw")
+    public String withdrawFromSecuritiesAccount(
+            @RequestParam String securitiesAccountNumber,
+            @RequestParam String destinationAccountNumber,
+            @RequestParam long withdrawAmount,
+            @RequestParam String accountPassword,
+            RedirectAttributes redirectAttributes) {
+
+        try {
+            // 이체 실행 (증권 계좌 → 일반 계좌)
+            this.transactionService.interTypeTransfer(securitiesAccountNumber, destinationAccountNumber, withdrawAmount);
+
+            redirectAttributes.addFlashAttribute("successMessage", "출금이 성공적으로 완료되었습니다.");
+        } catch (IllegalArgumentException e) {
+            redirectAttributes.addFlashAttribute("errorMessage", e.getMessage());
+        }
+
+        return "redirect:/spike.com/securities-account/withdraw";
     }
 
 

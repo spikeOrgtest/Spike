@@ -14,6 +14,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.spike.dto.AccountDTO;
+import com.spike.dto.SecuritiesAccountDTO;
 import com.spike.dto.TransactionDTO;
 import com.spike.dto.TransferDTO;
 import com.spike.dto.TransferHistoryDTO;
@@ -30,7 +31,7 @@ public class TransactionServiceImpl implements TransactionService {
 	private AccountRepository accountRepo;
 	
 	@Autowired
-	private SecuritiesAccountRepository security;
+	private SecuritiesAccountRepository secAccountRepo;
 
 	@Autowired
 	private TransactionRepository transactionRepo;
@@ -185,7 +186,6 @@ public class TransactionServiceImpl implements TransactionService {
 					.toAccount(transaction.getToAccount().getAccountNumber())
 					.build();
 			histories.add(history);
-			// if(histories.size() == 5) break; 페이징으로 db에서 5개만 가져와서 필요없어짐. 효율 good
 		}
 
 		return histories;
@@ -198,9 +198,39 @@ public class TransactionServiceImpl implements TransactionService {
 		return this.transactionRepo.getTransactionsByUserId(userId);
 	}
 
+	//증권계좌, 일반계좌 타입간 이체
 	@Override
-	public void interTypeTransfer(String fromAccNum, String toAccNum) {
-		
+	public void interTypeTransfer(String fromAccNum, String toAccNum, long amount) {
+		AccountDTO fromAccount = accountRepo.findByAccountNumber(fromAccNum).orElse(null);
+	    SecuritiesAccountDTO fromSecuritiesAccount = secAccountRepo.findByAccountNumber(fromAccNum).orElse(null);
+
+	    AccountDTO toAccount = accountRepo.findByAccountNumber(toAccNum).orElse(null);
+	    SecuritiesAccountDTO toSecuritiesAccount = secAccountRepo.findByAccountNumber(toAccNum).orElse(null);
+	    
+	    //출금 계좌가 일반계좌일 때, 증권계좌일 때로 나눠서 이체처리
+	    if (fromAccount != null) {
+	        if (fromAccount.getBalance() < amount) {
+	            throw new IllegalArgumentException("잔액이 부족합니다.");
+	        }
+	        fromAccount.setBalance(fromAccount.getBalance() - amount);
+	        accountRepo.save(fromAccount);
+	    } else {
+	        if (fromSecuritiesAccount.getBalance() < amount) {
+	            throw new IllegalArgumentException("잔액이 부족합니다.");
+	        }
+	        fromSecuritiesAccount.setBalance(fromSecuritiesAccount.getBalance() - amount);
+	        secAccountRepo.save(fromSecuritiesAccount);
+	    }
+
+	    //입금 계좌가 일반계좌일 때, 증권계좌일 때로 나눠서 이체처리
+	    if (toAccount != null) {
+	        toAccount.setBalance(toAccount.getBalance() + amount);
+	        accountRepo.save(toAccount);
+	    } else {
+	        toSecuritiesAccount.setBalance(toSecuritiesAccount.getBalance() + amount);
+	        secAccountRepo.save(toSecuritiesAccount);
+	    }
+	    
 	}
 
 }
