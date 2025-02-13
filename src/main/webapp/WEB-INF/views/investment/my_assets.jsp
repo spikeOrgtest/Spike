@@ -100,7 +100,7 @@
 					<a href="?page=${currentPage - 1}&size=10">이전</a>
 				</c:if>
 
-				<c:forEach var="i" begin="0" end="${totalPages - 1}">
+				<c:forEach var="i" begin="0" end="${(totalPages - 1) < 0 ? 0 : totalPages - 1}">
 					<a href="?page=${i}&size=10"
 						class="${currentPage == i ? 'active' : ''}">${i + 1}</a>
 				</c:forEach>
