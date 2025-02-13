@@ -226,7 +226,8 @@
 												name="account_number" value="" />
 											<button type="reset" class="btn btn-secondary"
 												data-bs-dismiss="modal">취소</button>
-											<button type="submit" class="btn btn-secondary" id="saveLimitBtn" onclick="changeLimit(event)">저장</button>
+											<button type="submit" class="btn btn-secondary"
+												id="saveLimitBtn" onclick="removeCommas()">저장</button>
 										</form>
 									</div>
 								</div>
