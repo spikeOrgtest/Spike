@@ -13,7 +13,7 @@ import java.util.Optional;
 public interface ListingRepository extends JpaRepository<Listing, Integer> {
 
     // 특정 주식 ID에 대한 매물 조회 (JOIN)
-    @Query("SELECT l FROM Listing l JOIN l.stock s WHERE s.stockId = :stockId")
+    @Query("SELECT l FROM Listing l JOIN l.stock s WHERE s.stockId = :stockId order by l.price asc")
     List<Listing> findByStock_StockId(@Param("stockId") int stockId);
 
     // 매물 ID로 조회

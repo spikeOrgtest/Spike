@@ -65,7 +65,6 @@
 									<li><a href="/spike.com/products/deposit">예금</a></li>
 									<li><a href="/spike.com/products/savings">적금</a></li>
 									<li><a href="/spike.com/products/loan">대출</a></li>
-									<li><a href="/spike.com/products/card">카드</a></li>
 									<li><a href="/spike.com/stock/home">투자</a></li>
 								</ul></li>
 							

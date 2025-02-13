@@ -107,7 +107,7 @@ public class CheatController {
 		}
 		
 		out.println("<script>");
-		out.println("alert('존재하지 않는 계좌번호입니다.');");
+		out.println("alert('신고내역이 존재하지 않는 계좌입니다.');");
 		out.println("window.location.href='/spike.com/support/cheat'");
 		out.println("</script>");
 

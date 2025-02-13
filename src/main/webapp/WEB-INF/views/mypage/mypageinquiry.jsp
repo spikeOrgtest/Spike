@@ -147,7 +147,7 @@
         <c:forEach var="transaction" items="${transactionList}">
             <li class="list-group-item d-flex justify-content-between align-items-center">
                 <span>
-                    ${transaction.transactionDate} - 
+<fmt:formatDate value="${transaction.transactionDate}" pattern="yyyy-MM-dd HH:mm" />
                     <c:choose>
                         <c:when test="${transaction.fromAccount.accountNumber == selectedAccount}">
                             출금

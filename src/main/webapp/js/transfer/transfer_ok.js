@@ -21,6 +21,8 @@ function shield() {
 function validate() {
     const storedPassword = document.getElementById("accountPassword").value;
     const inputPassword = document.getElementById("inputPassword").value;
+	const status = document.getElementById("shieldWrapper").dataset.status;
+
 
     if (inputPassword === "") {
         alert("비밀번호를 입력하세요.");
@@ -31,6 +33,12 @@ function validate() {
         alert("비밀번호가 일치하지 않습니다. 다시 확인해주세요.");
         return false; 
     }
+	
+	if (status === "ACTIVE") {
+		return true;
+	}else{
+		alert("사기의심계좌로 등록된 계좌입니다! 송금이 제한됩니다.")
+	}
 	
     return true;
 }
