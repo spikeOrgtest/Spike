@@ -35,6 +35,11 @@
     </script>
 </head>
 <body>
+	<c:if test="${not empty successMessage}">
+	<script>
+		alert("${successMessage}");
+	</script>
+	</c:if>
     <div class="container">
         <h1>증권 계좌 출금</h1>
         <form id="withdrawForm" action="/spike.com/securities-account/withdraw" method="post" onsubmit="return validateWithdraw();">
