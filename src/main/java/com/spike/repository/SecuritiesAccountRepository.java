@@ -19,5 +19,7 @@ public interface SecuritiesAccountRepository extends JpaRepository<SecuritiesAcc
     @Query("SELECT s FROM SecuritiesAccountDTO s JOIN FETCH s.user u WHERE u.userId = :userId")
     Optional<SecuritiesAccountDTO> findByUser_UserId(@Param("userId") Long userId);
     
+    //계좌번호로 조회
+    Optional<SecuritiesAccountDTO> findByAccountNumber(String accountNumber);
 }
 

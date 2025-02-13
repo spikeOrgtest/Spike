@@ -156,6 +156,16 @@ function limitChange(event) {
 	var dayLimit = document.getElementById('dayLimitInput').value;
 	var oneLimit = document.getElementById('oneLimitInput').value;
 	
+	setTimeout(function() {
+	    console.log(dayLimit);
+	}, 20000); // 2000 밀리초 (2초) 후에 실행
+
+	
+	if(!dayLimit || !oneLimit) {
+		alert('모든 필드를 입력하세여');
+		return false;
+	}
+	
 	var form = document.getElementById('limit');
 	form.querySelector('[name="day_limit"]').value = dayLimit;
 	form.querySelector('[name="one_limit"]').value = oneLimit;
@@ -165,6 +175,7 @@ function limitChange(event) {
 };
 
 document.getElementById('saveLimitBtn').addEventListener('click', function(event) {
+	console.log("test");
 	limitChange(event);
 });
 

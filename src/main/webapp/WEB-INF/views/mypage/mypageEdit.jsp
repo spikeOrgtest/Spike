@@ -41,15 +41,16 @@
 						<div class="collapse show" id="home-collapse">
 							<ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
 								<li><a
-									href="javascript:location='/spike.com/mypage/mypageEdit';"
-									class="link-dark rounded">회원정보수정</a></li>
+									href="javascript:location='/spike.com/mypage/main';"
+									class="link-dark rounded">메인</a></li>
 								<li><a
 									href="javascript:location='/spike.com/mypage/inquiry';"
 									class="link-dark rounded">나의 계좌</a></li>
 								<li><a
 									href="javascript:location='/spike.com/mypage/property';"
 									class="link-dark rounded">자산조회</a></li>
-								<li><a href="javascript:location='/spike.com/mypage/myloans';"
+								<li><a
+									href="javascript:location='/spike.com/mypage/myloans';"
 									class="link-dark rounded">대출조회</a></li>
 							</ul>
 						</div>

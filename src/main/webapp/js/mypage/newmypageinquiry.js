@@ -124,10 +124,17 @@ function limitChange(event) {
     event.preventDefault();
     const dayLimit = document.getElementById('dayLimitInput').value;
     const oneLimit = document.getElementById('oneLimitInput').value;
+	
+	if(!dayLimit || !oneLimit) {
+		alert('일일한도나 1회한도를 입력해주세요');
+		return;
+	}
+	
     const form = document.getElementById('limit');
 
     form.querySelector('[name="day_limit"]').value = dayLimit;
     form.querySelector('[name="one_limit"]').value = oneLimit;
+	alert('출금 한도가 변경되었습니다.');
     form.submit();
 }
 

@@ -1,8 +1,6 @@
 package com.spike.service;
 
-import java.math.BigDecimal;
 import java.util.List;
-
 import com.spike.dto.AccountDTO;
 import com.spike.dto.TransactionDTO;
 import com.spike.dto.TransferDTO;
@@ -17,7 +15,7 @@ public interface TransactionService {
 
 	void transfer(TransferDTO tData);
 	
-	void interTypeTransfer();
+	void interTypeTransfer(String fromAccNum, String toAccNum, long amount);
 
 	String getOwnerStatus(String toAccount);
 
