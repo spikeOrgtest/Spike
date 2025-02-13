@@ -134,6 +134,7 @@ function limitChange(event) {
 
     form.querySelector('[name="day_limit"]').value = dayLimit;
     form.querySelector('[name="one_limit"]').value = oneLimit;
+	alert('출금 한도가 변경되었습니다.');
     form.submit();
 }
 

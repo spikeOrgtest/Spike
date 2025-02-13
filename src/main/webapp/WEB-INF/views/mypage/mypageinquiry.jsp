@@ -48,6 +48,9 @@
 								<li><a
 									href="javascript:location='/spike.com/mypage/property';"
 									class="link-dark rounded">자산조회</a></li>
+								<li><a
+									href="javascript:location='/spike.com/mypage/myloans';"
+									class="link-dark rounded">대출조회</a></li>
 							</ul>
 						</div>
 					</li>

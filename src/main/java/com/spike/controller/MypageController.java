@@ -177,7 +177,6 @@ public class MypageController {
 	@PostMapping("inquiryLimit")
 	public String inquiryLimit(Long one_limit, Long day_limit, String account_number) {
 
-		System.out.println("====================\n"+one_limit+"---"+day_limit+"---"+account_number);
 		if (one_limit != null) {
 			this.accountService.Oneupdateaccount(one_limit, account_number);
 		}
