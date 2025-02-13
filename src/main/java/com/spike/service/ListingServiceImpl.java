@@ -18,8 +18,8 @@ import java.util.Optional;
 
 @Service
 public class ListingServiceImpl implements ListingService {
-	
-	
+
+
 	@Autowired
 	private StockService stockService; 
 
@@ -61,13 +61,13 @@ public class ListingServiceImpl implements ListingService {
 	// 🔹 보유 수량 초과 여부 확인 (누적 검증)
 	@Override
 	public boolean isListingQuantityExceedingLimit(SecuritiesAccountDTO seller, StockDTO stock, int newListingQuantity) {
-		// 1️⃣ 판매자의 보유 주식 수량 조회
+		// 1️ 판매자의 보유 주식 수량 조회
 		int ownedQuantity = stockHoldingRepository.getStockQuantity(seller.getAccountId(), stock.getStockId());
 
-		// 2️⃣ 현재 등록된 매물 총합 조회
+		// 2️ 현재 등록된 매물 총합 조회
 		int totalListedQuantity = listingRepository.getTotalListedQuantity(seller.getAccountId(), stock.getStockId());
 
-		// 3️⃣ 새로운 매물 수량 추가 후 보유량 초과 여부 확인
+		// 3️ 새로운 매물 수량 추가 후 보유량 초과 여부 확인
 		return (totalListedQuantity + newListingQuantity) > ownedQuantity;
 	}
 
@@ -77,25 +77,25 @@ public class ListingServiceImpl implements ListingService {
 		return listingRepository.findByStock_StockId(stockId);
 	}
 
-	// 🔹 전체 매물 조회
+	//  전체 매물 조회
 	@Override
 	public List<Listing> getAllListings() {
 		return listingRepository.findAll();
 	}
 
-	// 🔹 특정 매물 조회
+	//  특정 매물 조회
 	@Override
 	public Optional<Listing> getListingById(int listingId) {
 		return listingRepository.findById(listingId);
 	}
 
-	// 🔹 매물 삭제
+	//  매물 삭제
 	@Override
 	public void deleteListing(int listingId) {
 		listingRepository.deleteById(listingId);
 	}
 
-	// 🔹 매물 구매 처리
+	//  매물 구매 처리
 	@Override
 	@Transactional
 	public boolean processPurchase(SecuritiesAccountDTO buyer, Listing listing, int quantity) {
@@ -141,17 +141,16 @@ public class ListingServiceImpl implements ListingService {
 		transaction.setPrice(listing.getPrice());
 		stockTransactionRepository.save(transaction);
 
-		// 최신 가격 반영 (StockDTO.currentPrice 업데이트)
-		stockService.updateStockCurrentPrice(listing.getStock()); 
-
-
-		//  매물 업데이트
+		// 매물 업데이트 (잔여 수량 차감 혹은 삭제)
 		if (listing.getQuantity() == quantity) {
 			listingRepository.deleteById(listing.getId());
 		} else {
 			listing.setQuantity(listing.getQuantity() - quantity);
 			listingRepository.save(listing);
 		}
+
+		// 현재가 갱신 호출 제거!
+		// stockService.updateStockCurrentPrice(listing.getStock());
 
 		return true;
 	}

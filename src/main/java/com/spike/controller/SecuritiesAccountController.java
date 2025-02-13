@@ -12,12 +12,17 @@ import com.spike.service.StockHoldingService;
 import com.spike.service.StockTransactionService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 
 import java.security.Principal;
 import java.util.List;
@@ -184,7 +189,7 @@ public class SecuritiesAccountController {
 	@PostMapping("/manage/delete")
 	public String deleteAccount(
 	        @RequestParam("accountId") Long accountId,
-	        @RequestParam("currentPassword") String currentPassword, // 🔥 비밀번호 추가
+	        @RequestParam("currentPassword") String currentPassword, //  비밀번호 추가
 	        Principal principal,
 	        RedirectAttributes redirectAttributes
 	) {
@@ -207,9 +212,14 @@ public class SecuritiesAccountController {
 	    return "redirect:/spike.com/securities-account/manage";
 	}
 	
-	// 내 자산 확인하기 페이지
+	//  내 자산 확인하기 (페이징 적용)
     @GetMapping("/my-assets")
-    public String showMyAssets(Model model, Principal principal) {
+    public String showMyAssets(
+            Model model, 
+            Principal principal,
+            @RequestParam(defaultValue = "0") int page,  //  기본 0페이지부터
+            @RequestParam(defaultValue = "10") int size //  한 페이지당 10개 표시
+    ) {
         // 로그인 여부 확인
         if (principal == null) {
             model.addAttribute("errorMessage", "로그인이 필요합니다.");
@@ -235,18 +245,20 @@ public class SecuritiesAccountController {
         List<StockHolding> stockHoldings = stockHoldingService.getHoldingsByAccountId(account.getAccountId());
         model.addAttribute("stockHoldings", stockHoldings);
         
-        // 총 보유 주식 금액 계산 (각 보유수량 × 주식 현재가 합)
+        // 총 보유 주식 금액 계산
         long totalStockValue = stockHoldingService.calculateTotalStockValue(account.getAccountId());
         model.addAttribute("totalStockValue", totalStockValue);
         
-        // 거래 내역 조회 (해당 증권 계좌 관련 거래 내역)
-        List<StockTransaction> transactionList = stockTransactionService.getTransactionsByAccountId(account.getAccountId());
-        model.addAttribute("transactionList", transactionList);
+        //  거래 내역 조회 (페이징 적용)
+        Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "transactionTime"));
+        Page<StockTransaction> transactionPage = stockTransactionService.getTransactionsByAccountId(account.getAccountId(), pageable);
+
+        model.addAttribute("transactionList", transactionPage.getContent()); //  거래 내역 리스트
+        model.addAttribute("currentPage", transactionPage.getNumber()); //  현재 페이지
+        model.addAttribute("totalPages", transactionPage.getTotalPages()); //  전체 페이지 수
+        model.addAttribute("currentAccountId", account.getAccountId()); //  계좌 ID 전달
         
-        // 현재 증권 계좌 ID (거래 내역에서 구매/판매 구분용)
-        model.addAttribute("currentAccountId", account.getAccountId());
-        
-        return "investment/my_assets"; // 뷰 이름 (예: /WEB-INF/views/investment/my_assets.jsp)
+        return "investment/my_assets"; //  JSP 페이지 반환
     }
 
     //내 계좌로 출금
